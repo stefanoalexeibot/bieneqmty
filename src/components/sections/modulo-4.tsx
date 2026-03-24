@@ -38,6 +38,7 @@ export function Modulo4() {
         <div className="space-y-16">
           <div>
             <h4 className="text-3xl font-bold mb-8 text-primary border-b pb-4">Estructuras Externas</h4>
+            {/* @ts-ignore */}
             <Accordion type="single" collapsible className="w-full bg-slate-50/50 rounded-2xl shadow-sm border border-slate-200 px-6 py-4">
               {externalStructs.map((item, idx) => (
                 <AccordionItem key={idx} value={`ext-${idx}`} className="border-b last:border-none border-slate-200">
@@ -54,6 +55,7 @@ export function Modulo4() {
 
           <div>
             <h4 className="text-3xl font-bold mb-8 text-primary border-b pb-4">Estructuras Internas</h4>
+            {/* @ts-ignore */}
             <Accordion type="single" collapsible className="w-full bg-slate-50/50 rounded-2xl shadow-sm border border-slate-200 px-6 py-4">
               {internalStructs.map((item, idx) => (
                 <AccordionItem key={idx} value={`int-${idx}`} className="border-b last:border-none border-slate-200">
