@@ -1,49 +1,57 @@
 "use client"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
+import { ArrowDownToLine, ArrowUpFromLine, Activity } from "lucide-react"
 
 export function Modulo5() {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"])
+  
   const steps = [
-    { title: "1. Aterrizaje Talón-Primero", desc: "La ranilla contacta el suelo primero, luego los bulbos y talones, y finalmente la pinza." },
-    { title: "2. Expansión Lateral", desc: "El impacto desencadena la expansión lateral de los talones (entre 3 y 5 mm en una pisada normal)." },
-    { title: "3. Compresión", desc: "Se comprime la almohadilla digital, absorbiendo el impacto y protegiendo los huesos internos." },
-    { title: "4. Bombeo de Sangre", desc: "Esta compresión empuja la sangre hacia arriba, estimulando la circulación en todo el miembro. ¡El corazón periférico!" }
+    { icon: <ArrowDownToLine className="w-16 h-16" />, title: "IMPACTO", desc: "El casco se expande hacia afuera.", color: "from-blue-500/20", delay: 0 },
+    { icon: <Activity className="w-16 h-16" />, title: "ABSORCIÓN", desc: "La almohadilla plantar absorbe y bombea sangre.", color: "from-purple-500/20", delay: 0.2 },
+    { icon: <ArrowUpFromLine className="w-16 h-16" />, title: "REBOTE", desc: "El pie se levanta, formando un vacío.", color: "from-blue-400/20", delay: 0.4 }
   ]
 
   return (
-    <section id="modulo-5" className="min-h-screen py-20 px-6 lg:px-16 bg-card flex flex-col justify-center border-t border-border">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="max-w-5xl mx-auto">
-        <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3 text-center">Módulo 5</h2>
-        <h3 className="text-4xl lg:text-5xl font-bold mb-12 text-foreground text-center">Fisiología: Cómo Funciona el Pie</h3>
-        
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="prose prose-lg text-muted-foreground text-lg leading-relaxed">
-            <h4 className="text-2xl font-bold text-foreground mb-4">El Mecanismo de Expansión</h4>
-            <p className="mb-6">
-              Cada vez que el casco toca el suelo, ocurre una secuencia perfectamente coordinada. La herradura convencional interfiere con este proceso al impedir la expansión lateral y elevar la ranilla del suelo.
-            </p>
-            <div className="bg-primary/10 p-6 rounded-xl border-l-4 border-primary">
-              <strong className="text-primary">La ranilla como sensor nervioso:</strong> Tiene alta densidad de receptores propioceptivos. Un caballo barefoot "siente" el terreno con precisión milimétrica, ajustando su paso en tiempo real.
-            </div>
-          </div>
+    <section id="modulo-5" ref={ref} className="min-h-screen py-32 bg-black relative flex items-center overflow-hidden border-t border-white/5">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] rounded-full pointer-events-none" />
 
-          <div className="space-y-6">
-            {steps.map((step, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="bg-background p-6 rounded-2xl shadow-sm border border-border relative overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 w-2 h-full bg-primary/40"></div>
-                <h5 className="font-bold text-xl text-foreground mb-2">{step.title}</h5>
-                <p className="text-muted-foreground">{step.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+      <div className="max-w-7xl mx-auto w-full px-6 relative z-10 flex flex-col justify-center">
+        <motion.div style={{ y }} className="mb-32 text-center pointer-events-none select-none relative h-[20vh]">
+          <h2 className="text-[12vw] leading-none font-black text-white/[0.03] tracking-tighter w-full text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            FISIOLOGÍA
+          </h2>
+          <h3 className="text-5xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pb-4">
+            LA BOMBA <br/>DE SANGRE
+          </h3>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-3 gap-12 relative mt-10">
+          <div className="hidden lg:block absolute top-[10%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          
+          {steps.map((s, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, scale: 0.9, y: 50 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: s.delay }}
+              viewport={{ once: true, margin: "-50px" }}
+              className={`relative bg-white/[0.02] border border-white/10 rounded-[2rem] p-10 hover:bg-white/[0.05] hover:border-white/20 transition-all duration-500 backdrop-blur-xl group flex flex-col items-center mt-12 lg:mt-0`}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-b ${s.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2rem] pointer-events-none`} />
+              
+              <div className="bg-black border border-white/10 w-28 h-28 rounded-full flex items-center justify-center mx-auto -mt-[5.5rem] mb-10 text-white/30 group-hover:text-white group-hover:scale-110 transition-all duration-500 shadow-[0_0_50px_rgba(0,0,0,0.5)] z-10 relative">
+                {s.icon}
+              </div>
+              
+              <h4 className="text-4xl font-black text-white text-center tracking-widest mb-6">{s.title}</h4>
+              <p className="text-white/40 text-center font-light leading-relaxed text-xl">{s.desc}</p>
+            </motion.div>
+          ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }

@@ -6,15 +6,16 @@ export function Modulo3() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"])
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3])
 
   return (
-    <section id="modulo-3" ref={ref} className="min-h-screen py-32 bg-black relative flex items-center justify-center overflow-hidden">
+    <section id="modulo-3" ref={ref} className="min-h-screen py-32 bg-black relative flex items-center justify-center overflow-hidden border-t border-white/5">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 via-black to-black" />
       
       <div className="max-w-7xl mx-auto w-full px-6 relative z-10 text-center">
         <motion.h2 
-          style={{ y }}
-          className="text-[20vw] font-black text-white/[0.03] tracking-tighter absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{ y, opacity }}
+          className="text-[20vw] font-black text-white/[0.03] tracking-tighter absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
         >
           MUSTANG
         </motion.h2>
@@ -29,11 +30,11 @@ export function Modulo3() {
           <div className="inline-block border border-white/20 bg-white/5 backdrop-blur-md px-10 py-4 rounded-full mb-12 text-white/50 tracking-[0.3em] font-bold uppercase text-xl">
             EL MODELO DE REFERENCIA
           </div>
-          <h3 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-10 leading-[1.1]">
+          <h3 className="text-5xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40 tracking-tighter mb-10 leading-[1.1]">
             LA NATURALEZA<br/> NO NECESITA METAL.
           </h3>
-          <p className="text-3xl text-white/40 font-light tracking-wide max-w-4xl mx-auto leading-relaxed">
-            El caballo salvaje vive unos 30 años sin desgaste anormal. Nuestro objetivo no es volverlos salvajes, sino <strong className="text-white">imitar su salud</strong>.
+          <p className="text-2xl md:text-4xl text-white/40 font-light tracking-wide max-w-4xl mx-auto leading-relaxed">
+            El caballo salvaje recorre 30 km diarios sin herraduras. Nuestro objetivo no es volverlos salvajes, sino <strong className="text-white">imitar su salud</strong> en cautiverio.
           </p>
         </motion.div>
       </div>
