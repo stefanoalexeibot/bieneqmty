@@ -1,6 +1,8 @@
 "use client"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
+import Link from "next/link"
+import { cn } from "@/lib/utils"
 
 export function HeroSection() {
   return (
@@ -19,9 +21,12 @@ export function HeroSection() {
         <p className="text-xl lg:text-2xl text-muted-foreground font-medium mb-10 max-w-2xl">
           De la Teoría a la Práctica — Todo lo que Necesitas Saber
         </p>
-        <Button size="lg" className="rounded-full px-8 text-lg shadow-lg hover:shadow-xl transition-all" asChild>
-          <a href="#modulo-1">Comenzar el recorrido</a>
-        </Button>
+        <Link 
+          href="#modulo-1" 
+          className={cn(buttonVariants({ size: "lg" }), "rounded-full px-8 text-lg shadow-lg hover:shadow-xl transition-all")}
+        >
+          Comenzar el recorrido
+        </Link>
       </motion.div>
     </section>
   )
