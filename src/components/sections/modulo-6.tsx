@@ -17,7 +17,7 @@ export function Modulo6() {
   ]
 
   return (
-    <section id="modulo-6" className="min-h-screen py-20 px-6 lg:px-16 bg-slate-50 flex flex-col justify-center border-t border-slate-100">
+    <section id="modulo-6" className="min-h-screen py-20 px-6 lg:px-16 bg-background flex flex-col justify-center border-t border-border">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="max-w-6xl mx-auto w-full">
         <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3 text-center">Módulo 6</h2>
         <h3 className="text-4xl lg:text-5xl font-bold mb-8 text-foreground text-center">Nutrición: El Verdadero Cimiento</h3>
@@ -34,9 +34,9 @@ export function Modulo6() {
             </div>
             <ul className="space-y-6">
               {allowed.map((item, idx) => (
-                <li key={idx} className="bg-white p-5 rounded-xl shadow-sm">
+                <li key={idx} className="bg-card p-5 rounded-xl shadow-sm">
                   <h5 className="font-bold text-lg text-green-800 mb-1">{item.title}</h5>
-                  <p className="text-slate-600 leading-relaxed">{item.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
                 </li>
               ))}
             </ul>
@@ -49,9 +49,9 @@ export function Modulo6() {
             </div>
             <ul className="space-y-6">
               {forbidden.map((item, idx) => (
-                <li key={idx} className="bg-white p-5 rounded-xl shadow-sm">
+                <li key={idx} className="bg-card p-5 rounded-xl shadow-sm">
                   <h5 className="font-bold text-lg text-red-800 mb-1">{item.title}</h5>
-                  <p className="text-slate-600 leading-relaxed">{item.desc}</p>
+                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
                 </li>
               ))}
             </ul>

@@ -11,7 +11,7 @@ export function Modulo7() {
   ]
 
   return (
-    <section id="modulo-7" className="min-h-screen py-20 px-6 lg:px-16 bg-white flex flex-col justify-center border-t border-slate-100">
+    <section id="modulo-7" className="min-h-screen py-20 px-6 lg:px-16 bg-card flex flex-col justify-center border-t border-border">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="max-w-6xl mx-auto">
         <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3 text-center">Módulo 7</h2>
         <h3 className="text-4xl lg:text-5xl font-bold mb-16 text-foreground text-center">Entorno: Paddock Paradise</h3>
@@ -28,12 +28,12 @@ export function Modulo7() {
             </p>
           </div>
           
-          <div className="bg-primary/5 rounded-[2rem] p-10 border border-primary/10 shadow-sm">
+          <div className="bg-primary/10 rounded-[2rem] p-10 border border-primary/10 shadow-sm">
             <h4 className="text-2xl font-bold text-primary mb-8">Elementos Clave del Diseño</h4>
             <div className="space-y-8">
               {elements.map((el, idx) => (
                 <div key={idx} className="flex gap-5">
-                  <div className="mt-1 bg-white p-3 rounded-full shadow-sm flex items-center justify-center shrink-0">
+                  <div className="mt-1 bg-card p-3 rounded-full shadow-sm flex items-center justify-center shrink-0">
                     {el.icon}
                   </div>
                   <div>
@@ -46,7 +46,7 @@ export function Modulo7() {
           </div>
         </div>
 
-        <div className="bg-slate-50 p-10 rounded-3xl text-center shadow-sm border border-slate-200">
+        <div className="bg-background p-10 rounded-3xl text-center shadow-sm border border-border/50">
           <h4 className="font-bold text-3xl text-foreground mb-4">¿Cuánto movimiento es suficiente?</h4>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Idealmente entre <strong className="text-primary text-2xl px-2">15 y 25 km diarios</strong>. <br/>En sistemas de estabulación convencional, un caballo puede moverse apenas 1–3 km, explicando gran parte de los cascos débiles o enfermos.

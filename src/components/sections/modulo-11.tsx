@@ -4,7 +4,7 @@ import { CheckCircle2, AlertCircle } from "lucide-react"
 
 export function Modulo11() {
   return (
-    <section id="modulo-11" className="min-h-screen py-20 px-6 lg:px-16 bg-white flex flex-col justify-center border-t border-slate-100">
+    <section id="modulo-11" className="min-h-screen py-20 px-6 lg:px-16 bg-card flex flex-col justify-center border-t border-border">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="max-w-6xl mx-auto w-full">
         <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3 text-center">Módulo 11 & Conclusión</h2>
         <h3 className="text-4xl lg:text-5xl font-bold mb-12 text-foreground text-center">Transición y Mensaje Final</h3>
@@ -44,7 +44,7 @@ export function Modulo11() {
           <p className="text-xl lg:text-2xl opacity-90 leading-relaxed max-w-4xl mx-auto mb-10 font-medium relative z-10">
             Un caballo que vive en movimiento, come lo que su fisiología puede procesar y tiene cascos mantenidos correctamente, tiene todas las condiciones para ser sano y longevo.
           </p>
-          <div className="bg-white/10 p-6 rounded-2xl border border-white/20 inline-block relative z-10">
+          <div className="bg-card/10 p-6 rounded-2xl border border-white/20 inline-block relative z-10">
             <p className="text-xl font-bold">
               Sé el mejor observador de tu caballo y forma equipo con tu veterinario y tu recortador.
             </p>

@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} h-full antialiased scroll-smooth`}
+      className={`${inter.variable} dark h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex font-sans">
         <ProgressSidebar />

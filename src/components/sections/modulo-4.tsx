@@ -26,7 +26,7 @@ export function Modulo4() {
   ]
 
   return (
-    <section id="modulo-4" className="min-h-screen py-20 px-6 lg:px-16 bg-white flex flex-col justify-center border-t border-slate-100">
+    <section id="modulo-4" className="min-h-screen py-20 px-6 lg:px-16 bg-card flex flex-col justify-center border-t border-border">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="max-w-4xl mx-auto w-full">
         <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3 text-center">Módulo 4</h2>
         <h3 className="text-4xl lg:text-5xl font-bold mb-8 text-foreground text-center">Anatomía Completa del Casco</h3>
@@ -39,9 +39,9 @@ export function Modulo4() {
           <div>
             <h4 className="text-3xl font-bold mb-8 text-primary border-b pb-4">Estructuras Externas</h4>
             {/* @ts-ignore */}
-            <Accordion type="single" collapsible className="w-full bg-slate-50/50 rounded-2xl shadow-sm border border-slate-200 px-6 py-4">
+            <Accordion type="single" collapsible className="w-full bg-background/50 rounded-2xl shadow-sm border border-border/50 px-6 py-4">
               {externalStructs.map((item, idx) => (
-                <AccordionItem key={idx} value={`ext-${idx}`} className="border-b last:border-none border-slate-200">
+                <AccordionItem key={idx} value={`ext-${idx}`} className="border-b last:border-none border-border/50">
                   <AccordionTrigger className="text-xl font-semibold hover:text-primary transition-colors text-left py-6">
                     {item.title}
                   </AccordionTrigger>
@@ -56,9 +56,9 @@ export function Modulo4() {
           <div>
             <h4 className="text-3xl font-bold mb-8 text-primary border-b pb-4">Estructuras Internas</h4>
             {/* @ts-ignore */}
-            <Accordion type="single" collapsible className="w-full bg-slate-50/50 rounded-2xl shadow-sm border border-slate-200 px-6 py-4">
+            <Accordion type="single" collapsible className="w-full bg-background/50 rounded-2xl shadow-sm border border-border/50 px-6 py-4">
               {internalStructs.map((item, idx) => (
-                <AccordionItem key={idx} value={`int-${idx}`} className="border-b last:border-none border-slate-200">
+                <AccordionItem key={idx} value={`int-${idx}`} className="border-b last:border-none border-border/50">
                   <AccordionTrigger className="text-xl font-semibold hover:text-primary transition-colors text-left py-6">
                     {item.title}
                   </AccordionTrigger>

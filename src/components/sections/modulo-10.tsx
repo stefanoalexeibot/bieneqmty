@@ -19,7 +19,7 @@ export function Modulo10() {
   ]
 
   return (
-    <section id="modulo-10" className="min-h-screen py-20 px-6 lg:px-16 bg-slate-50 flex flex-col justify-center border-t border-slate-100">
+    <section id="modulo-10" className="min-h-screen py-20 px-6 lg:px-16 bg-background flex flex-col justify-center border-t border-border">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="max-w-6xl mx-auto w-full">
         <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3 text-center">Módulo 10</h2>
         <h3 className="text-4xl lg:text-5xl font-bold mb-12 text-foreground text-center">Laminitis: Prevención y Manejo</h3>
@@ -32,7 +32,7 @@ export function Modulo10() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-10">
-          <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+          <div className="bg-card p-10 rounded-3xl shadow-sm border border-border/50">
             <h4 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
               <Info className="text-primary w-6 h-6" /> Causas Principales
             </h4>
@@ -46,7 +46,7 @@ export function Modulo10() {
             </ul>
           </div>
           
-          <div className="bg-white p-10 rounded-3xl shadow-sm border border-slate-200">
+          <div className="bg-card p-10 rounded-3xl shadow-sm border border-border/50">
             <h4 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
               <AlertTriangle className="text-red-500 w-6 h-6" /> Señales de Alerta Temprana
             </h4>
@@ -61,7 +61,7 @@ export function Modulo10() {
           </div>
         </div>
 
-        <div className="bg-white p-10 rounded-3xl shadow-sm mt-10 border border-slate-200 text-center">
+        <div className="bg-card p-10 rounded-3xl shadow-sm mt-10 border border-border/50 text-center">
           <h4 className="text-2xl font-bold text-foreground mb-4">Manejo en caso de crisis aguda:</h4>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-4xl mx-auto">
             Contacta urgentemente al veterinario. Retira TODO acceso a pasto/granos, proporciona cama profunda de viruta o arena fina para reducir el dolor. No fuerces su movimiento y aplica hielo durante 72 hrs.

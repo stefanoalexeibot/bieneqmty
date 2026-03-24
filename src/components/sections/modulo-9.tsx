@@ -13,12 +13,12 @@ export function Modulo9() {
   ]
 
   return (
-    <section id="modulo-9" className="min-h-screen py-20 px-6 lg:px-16 bg-white flex flex-col justify-center border-t border-slate-100">
+    <section id="modulo-9" className="min-h-screen py-20 px-6 lg:px-16 bg-card flex flex-col justify-center border-t border-border">
       <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="max-w-5xl mx-auto w-full">
         <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3 text-center">Módulo 9</h2>
         <h3 className="text-4xl lg:text-5xl font-bold mb-12 text-foreground text-center">Técnica de Recorte Paso a Paso</h3>
         
-        <div className="bg-primary/5 p-8 lg:p-10 rounded-3xl mb-16 border-l-4 border-l-primary shadow-sm">
+        <div className="bg-primary/10 p-8 lg:p-10 rounded-3xl mb-16 border-l-4 border-l-primary shadow-sm">
           <strong className="text-primary text-xl block mb-4">REGLAS DE ORO:</strong>
           <ul className="list-none space-y-3 text-muted-foreground text-lg">
             <li className="flex gap-3"><span className="text-primary font-bold">✓</span>El caballo debe estar relajado y cooperativo.</li>
@@ -28,7 +28,7 @@ export function Modulo9() {
           </ul>
         </div>
 
-        <div className="relative border-l-2 border-slate-200 ml-4 md:ml-12 space-y-12 pb-8">
+        <div className="relative border-l-2 border-border/50 ml-4 md:ml-12 space-y-12 pb-8">
           {steps.map((step, idx) => (
             <motion.div 
               key={idx} 

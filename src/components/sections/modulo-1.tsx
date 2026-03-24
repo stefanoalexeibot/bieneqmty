@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 
 export function Modulo1() {
   return (
-    <section id="modulo-1" className="min-h-screen flex flex-col justify-center px-6 lg:px-16 py-20 bg-white">
+    <section id="modulo-1" className="min-h-screen flex flex-col justify-center px-6 lg:px-16 py-20 bg-card">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -20,7 +20,7 @@ export function Modulo1() {
         </blockquote>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <Card className="border-none shadow-md bg-slate-50">
+          <Card className="border-none shadow-md bg-background">
             <CardContent className="p-8">
               <h4 className="text-xl font-bold mb-4 text-foreground">Sobre el instructor</h4>
               <p className="text-muted-foreground leading-relaxed">
@@ -29,7 +29,7 @@ export function Modulo1() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-md bg-primary/5">
+          <Card className="border-none shadow-md bg-primary/10">
             <CardContent className="p-8">
               <h4 className="text-xl font-bold mb-4 text-primary">¿Qué vas a aprender?</h4>
               <p className="text-muted-foreground leading-relaxed mb-4">
