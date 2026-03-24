@@ -1,62 +1,40 @@
 "use client"
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
 
 export function Modulo1() {
   return (
-    <section id="modulo-1" className="min-h-screen flex flex-col justify-center px-6 lg:px-16 py-20 bg-card">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-        className="max-w-5xl"
-      >
-        <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3">Módulo 1</h2>
-        <h3 className="text-4xl lg:text-5xl font-bold mb-12 text-foreground">Bienvenida e Introducción</h3>
-        
-        <blockquote className="border-l-4 border-primary pl-6 text-xl lg:text-3xl font-medium text-slate-700 italic mb-16 leading-relaxed">
-          "El casco de un caballo no es solo una estructura de queratina — es un corazón periférico, un amortiguador biomecánico y el reflejo más fiel de la salud interna del animal."
-        </blockquote>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          <Card className="border-none shadow-md bg-background">
-            <CardContent className="p-8">
-              <h4 className="text-xl font-bold mb-4 text-foreground">Sobre el instructor</h4>
-              <p className="text-muted-foreground leading-relaxed">
-                Soy un profesional certificado en cuidado natural del casco con años de experiencia trabajando con caballos de todas las razas y disciplinas. He acompañado la transición de múltiples caballos de herraduras convencionales a pie descalzo, viendo de primera mano cómo mejora su calidad de vida. Este curso nació de esa experiencia práctica.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-none shadow-md bg-primary/10">
-            <CardContent className="p-8">
-              <h4 className="text-xl font-bold mb-4 text-primary">¿Qué vas a aprender?</h4>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Al finalizar este curso serás capaz de:
-              </p>
-              <ul className="space-y-3">
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">✓</span>
-                  <span className="text-muted-foreground">Evaluar el estado del casco de tu caballo.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">✓</span>
-                  <span className="text-muted-foreground">Entender la importancia del entorno y nutrición (70% del éxito).</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">✓</span>
-                  <span className="text-muted-foreground">Identificar señales tempranas de problemas.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">✓</span>
-                  <span className="text-muted-foreground">Tomar decisiones informadas junto a tu veterinario y herrador.</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </motion.div>
+    <section id="modulo-1" className="min-h-screen py-32 bg-black relative flex items-center overflow-hidden">
+      <div className="absolute left-0 top-0 w-[800px] h-[800px] bg-purple-600/10 blur-[200px] rounded-full pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto w-full px-6 relative z-10 flex flex-col justify-center items-center text-center">
+        <motion.p 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="text-2xl md:text-3xl text-white/50 font-light tracking-[0.3em] uppercase mb-10"
+        >
+          El casco no es solo queratina
+        </motion.p>
+        <motion.h3 
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-[12vw] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white/80 to-white/10 leading-none mb-16"
+        >
+          ES UN CORAZÓN
+        </motion.h3>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1.5, delay: 0.8 }}
+          viewport={{ once: true }}
+          className="text-3xl md:text-4xl text-white/40 max-w-5xl font-light tracking-wide leading-relaxed"
+        >
+          Un amortiguador biomecánico. El reflejo más fiel de la salud de tu caballo.
+        </motion.p>
+      </div>
     </section>
   )
 }
