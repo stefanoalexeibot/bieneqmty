@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ProgressSidebar } from "@/components/layout/progress-sidebar";
 
-const inter = Inter({
-  variable: "--font-inter",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} dark h-full antialiased scroll-smooth`}
+      className={`${cormorant.variable} ${dmSans.variable} dark h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex font-sans">
         <ProgressSidebar />
