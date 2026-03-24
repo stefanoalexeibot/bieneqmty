@@ -6,19 +6,43 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 
-const sections = [
-  { id: "hero",      label: "Inicio",                  num: "·" },
-  { id: "modulo-1",  label: "Introducción",             num: "01" },
-  { id: "modulo-2",  label: "Filosofía y Pilares",      num: "02" },
-  { id: "modulo-3",  label: "El Caballo Salvaje",       num: "03" },
-  { id: "modulo-4",  label: "Anatomía del Casco",       num: "04" },
-  { id: "modulo-5",  label: "Fisiología y Función",     num: "05" },
-  { id: "modulo-6",  label: "Nutrición",                num: "06" },
-  { id: "modulo-7",  label: "Entorno",                  num: "07" },
-  { id: "modulo-8",  label: "Herramientas",             num: "08" },
-  { id: "modulo-9",  label: "Técnica de Recorte",       num: "09" },
-  { id: "modulo-10", label: "Laminitis",                num: "10" },
-  { id: "modulo-11", label: "Transición",               num: "11" },
+type Section = {
+  id: string
+  label: string
+  num: string
+  group?: string
+}
+
+const sections: Section[] = [
+  { id: "hero",             label: "Inicio",             num: "·" },
+
+  // APERTURA
+  { id: "presentacion",     label: "Presentación",       num: "00", group: "Apertura" },
+
+  // PARTE 1
+  { id: "etologia",         label: "Etología",           num: "01", group: "Parte 1 · Etología" },
+  { id: "habitat-presa",    label: "Hábitat & Presa",    num: "02", group: "Parte 1 · Etología" },
+  { id: "vida-manada",      label: "Vida en Manada",     num: "03", group: "Parte 1 · Etología" },
+  { id: "sentidos",         label: "Los Sentidos",       num: "04", group: "Parte 1 · Etología" },
+  { id: "necesidades",      label: "Necesidades Básicas",num: "05", group: "Parte 1 · Etología" },
+  { id: "bienestar",        label: "Feral vs Doméstico", num: "06", group: "Parte 1 · Etología" },
+  { id: "comportamientos",  label: "Comportamientos",    num: "07", group: "Parte 1 · Etología" },
+
+  // PAUSA
+  { id: "pausa-1",          label: "Pausa",              num: "⏸",  group: "Pausa" },
+
+  // PARTE 2
+  { id: "modulo-1",  label: "Introducción",  num: "01", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-2",  label: "Pilares",       num: "02", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-3",  label: "Caballo Salvaje",num: "03", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-4",  label: "Anatomía",      num: "04", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-5",  label: "Fisiología",    num: "05", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-6",  label: "Nutrición",     num: "06", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-7",  label: "Entorno",       num: "07", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-8",  label: "Herramientas",  num: "08", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-9",  label: "Recorte",       num: "09", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-10", label: "Laminitis",     num: "10", group: "Parte 2 · Pie Descalzo" },
+  { id: "modulo-11", label: "Transición",    num: "11", group: "Parte 2 · Pie Descalzo" },
 ]
 
 function HorseshoeIcon() {
@@ -36,12 +60,39 @@ function HorseshoeIcon() {
   )
 }
 
+function GroupDivider({ label }: { label: string }) {
+  return (
+    <div className="px-3 pt-4 pb-1.5">
+      <div className="h-px bg-border/50 mb-1.5" />
+      <span className="text-[8px] tracking-[0.35em] uppercase text-muted-foreground/30 font-semibold">
+        {label}
+      </span>
+    </div>
+  )
+}
+
 export function ProgressSidebar() {
   const targetIds = sections.map((s) => s.id)
   const activeSection = useActiveSection(targetIds, "hero")
 
   const activeIndex = sections.findIndex(s => s.id === activeSection)
   const progress = activeIndex <= 0 ? 0 : activeIndex / (sections.length - 1)
+
+  // Build render list with group dividers
+  type RenderItem =
+    | { type: "divider"; label: string; key: string }
+    | { type: "section"; section: Section; index: number }
+
+  const renderItems: RenderItem[] = []
+  let lastGroup: string | undefined = undefined
+
+  sections.forEach((section, index) => {
+    if (section.group && section.group !== lastGroup) {
+      renderItems.push({ type: "divider", label: section.group, key: `divider-${section.group}` })
+      lastGroup = section.group
+    }
+    renderItems.push({ type: "section", section, index })
+  })
 
   return (
     <aside className="sticky top-0 h-screen w-[260px] shrink-0 border-r border-border hidden lg:flex flex-col z-50 overflow-hidden bg-sidebar">
@@ -87,19 +138,24 @@ export function ProgressSidebar() {
       </div>
 
       {/* Nav items */}
-      <ScrollArea className="flex-1 py-3">
-        <nav className="flex flex-col px-3 gap-0.5">
-          {sections.map((section, index) => {
+      <ScrollArea className="flex-1 py-2">
+        <nav className="flex flex-col px-3">
+          {renderItems.map(item => {
+            if (item.type === "divider") {
+              return <GroupDivider key={item.key} label={item.label} />
+            }
+
+            const { section, index } = item
             const isActive = activeSection === section.id
-            const isPast  = index < activeIndex
-            const isHero  = section.id === "hero"
+            const isPast   = index < activeIndex
+            const isHero   = section.id === "hero"
 
             return (
               <Link
                 key={section.id}
                 href={`#${section.id}`}
                 className={cn(
-                  "group relative flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-all duration-300",
+                  "group relative flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all duration-300",
                   isActive
                     ? "text-primary-foreground"
                     : isPast
@@ -139,7 +195,7 @@ export function ProgressSidebar() {
                 </span>
 
                 {/* Label */}
-                <span className="relative z-10 font-medium leading-none truncate">
+                <span className="relative z-10 font-medium leading-none truncate text-[12px]">
                   {section.label}
                 </span>
 

@@ -163,3 +163,13 @@ body::after {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
 }
+
+/* Focus mode */
+.focus-mode aside {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.focus-mode .focus-vignette {
+  opacity: 1 !important;
+}
