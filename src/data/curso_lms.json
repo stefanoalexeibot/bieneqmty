@@ -1,0 +1,262 @@
+{
+  "curso_config": {
+    "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
+    "autor": "José Manuel Luna",
+    "organizacion": "BieneQ MTY",
+    "total_modulos": 11
+  },
+  "modulos": [
+    {
+      "id": "modulo-1",
+      "numero": 1,
+      "titulo": "Bienvenida e introducción",
+      "parte": "Parte 1 — Fundamentos",
+      "tipo_vista": "hero-split",
+      "media": {
+        "video_url": "/assets/curso/bienvenida.mp4",
+        "imagen_fondo": "/assets/curso/bg-modulo-1.webp"
+      },
+      "texto_instructor": "Soy José Manuel Luna, profesional certificado en cuidado natural del casco...",
+      "cita_destacada": "El casco de un caballo no es solo una estructura de queratina — es un corazón periférico...",
+      "interacciones": [
+        {
+          "tipo": "highlight-cards",
+          "titulo": "¿Qué vas a aprender?",
+          "items": [
+            { "texto": "Evaluar el estado del casco de tu caballo", "icono": "🔍" },
+            { "texto": "Entender por qué el entorno y la nutrición son el 70% del éxito", "icono": "🌿" },
+            { "texto": "Identificar señales tempranas de problemas", "icono": "⚠️" },
+            { "texto": "Tomar decisiones informadas", "icono": "🧠" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modulo-2",
+      "numero": 2,
+      "titulo": "¿Qué es el pie descalzo? Historia y filosofía",
+      "parte": "Parte 1 — Fundamentos",
+      "tipo_vista": "flip-cards-gallery",
+      "bloques_lectura": [
+        {
+          "titulo": "El retorno al estado natural",
+          "texto": "El barefoot o pie descalzo no es una moda reciente ni una corriente radical. Es, en realidad, el retorno al estado natural del casco del caballo.",
+          "imagen_lateral": "/assets/curso/historia/evolucion-casco.webp"
+        }
+      ],
+      "principio_fundamental": "El barefoot no es quitar herraduras y esperar. Es crear las condiciones para que el casco funcione como fue diseñado por la naturaleza.",
+      "interacciones": [
+        {
+          "tipo": "flip-cards",
+          "titulo": "Los Tres Pilares",
+          "items": [
+            {
+              "frente_titulo": "Nutrición",
+              "dorso_texto": "Dieta baja en azúcares, rica en fibra y minerales",
+              "imagen_fondo": "/assets/curso/pilares/nutricion.webp"
+            },
+            {
+              "frente_titulo": "Movimiento",
+              "dorso_texto": "Mínimo 20 km/día en terrenos variados",
+              "imagen_fondo": "/assets/curso/pilares/movimiento.webp"
+            },
+            {
+              "frente_titulo": "Recorte correcto",
+              "dorso_texto": "Imitando el desgaste natural del caballo salvaje",
+              "imagen_fondo": "/assets/curso/pilares/recorte.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modulo-3",
+      "numero": 3,
+      "titulo": "El caballo salvaje como modelo de referencia",
+      "parte": "Parte 1 — Fundamentos",
+      "tipo_vista": "bento-grid",
+      "media": {
+        "video_fondo": "/assets/curso/mustang-running.mp4"
+      },
+      "texto_principal": "¿Por qué estudiar al caballo salvaje? Porque es el único que tiene cascos sin intervención humana y, sin embargo, en perfectas condiciones.",
+      "interacciones": [
+        {
+          "tipo": "bento-items",
+          "titulo": "Lecciones del Mustang",
+          "items": [
+            { "titulo": "Autoregulación", "descripcion": "El casco se autoregula con el desgaste si el entorno es el correcto." },
+            { "titulo": "Bomba de sangre", "descripcion": "La ranilla siempre toca el suelo." },
+            { "titulo": "Suela Cóncava", "descripcion": "La suela nunca es plana." },
+            { "titulo": "Paredes perpendiculares", "descripcion": "Sin flares." },
+            { "titulo": "Ángulo perfecto", "descripcion": "El ángulo de la pinza coincide con la 3ª falange." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modulo-4",
+      "numero": 4,
+      "titulo": "Anatomía completa del casco",
+      "parte": "Parte 1 — Fundamentos",
+      "tipo_vista": "interactive-image-hotspots",
+      "descripcion": "Haz clic en los puntos interactivos para explorar cada parte del casco de forma visual.",
+      "media": {
+        "imagen_principal": "/assets/curso/anatomia/casco-planta-sano.webp"
+      },
+      "hotspots_externos": [
+        {
+          "id": "banda-coronaria",
+          "coordenadas": { "x": "50%", "y": "10%" },
+          "titulo": "Banda coronaria",
+          "texto": "Produce la pared del casco. Ritmo de ~1 cm/mes."
+        },
+        {
+          "id": "pared",
+          "coordenadas": { "x": "20%", "y": "40%" },
+          "titulo": "Pared del casco",
+          "texto": "Protege estructuras internas. Capa de queratina tubular."
+        },
+        {
+          "id": "ranilla",
+          "coordenadas": { "x": "50%", "y": "65%" },
+          "titulo": "Ranilla",
+          "texto": "Bomba auxiliar de sangre y sensor propioceptivo."
+        },
+        {
+          "id": "suela",
+          "coordenadas": { "x": "35%", "y": "30%" },
+          "titulo": "Suela",
+          "texto": "Debe ser cóncava para distribuir la presión."
+        },
+        {
+          "id": "linea-blanca",
+          "coordenadas": { "x": "80%", "y": "40%" },
+          "titulo": "Línea blanca",
+          "texto": "Unión entre pared y suela."
+        }
+      ]
+    },
+    {
+      "id": "modulo-5",
+      "numero": 5,
+      "titulo": "Fisiología: cómo funciona el pie",
+      "tipo_vista": "animated-diagram",
+      "media": {
+        "animacion_svg": "heartbeat-expansion"
+      },
+      "interacciones": [
+        {
+          "tipo": "steps",
+          "titulo": "El mecanismo de expansión y contracción",
+          "items": [
+            { "paso": 1, "texto": "La ranilla contacta el suelo primero." },
+            { "paso": 2, "texto": "Aterrizaje del talón expande los bulbos." },
+            { "paso": 3, "texto": "Compresión de la almohadilla digital bombea sangre." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modulo-6",
+      "numero": 6,
+      "titulo": "Nutrición: el cimiento del barefoot",
+      "tipo_vista": "comparison-table",
+      "texto_introduccion": "El casco crece a partir de células vivas nutridas por la sangre...",
+      "interacciones": [
+        {
+          "tipo": "good-vs-bad",
+          "recomendados": [
+            { "alimento": "Heno de pasto", "desc": "1.5 al 2% del peso corporal" },
+            { "alimento": "Sal y minerales", "desc": "Cobre y zinc críticos" }
+          ],
+          "evitar": [
+            { "alimento": "Granos", "desc": "Almidones rápidos causan laminitis" },
+            { "alimento": "Concentrados con melaza", "desc": "Azúcar eleva insulina" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modulo-7",
+      "numero": 7,
+      "titulo": "Paddock Paradise",
+      "tipo_vista": "interactive-map",
+      "media": {
+        "imagen_mapa": "/assets/curso/paddock/diagrama.webp"
+      },
+      "descripcion": "Diseñado por Jaime Jackson para movimiento continuo. Haz clic en las zonas para ver su función.",
+      "zonas": [
+        { "id": "track", "titulo": "El Track", "texto": "Fuerza el movimiento diario de 15 a 25 km." },
+        { "id": "gravel", "titulo": "Zona de Grava", "texto": "Estimula la planta del casco." },
+        { "id": "water", "titulo": "Puntos de Agua", "texto": "Separados del heno para obligar a caminar." }
+      ]
+    },
+    {
+      "id": "modulo-8",
+      "numero": 8,
+      "titulo": "Herramientas del recortador",
+      "tipo_vista": "tool-grid",
+      "interacciones": [
+        {
+          "tipo": "image-cards",
+          "items": [
+            { "nombre": "Casco de pezuñero", "imagen": "/assets/curso/tools/jack.webp" },
+            { "nombre": "Raspa", "imagen": "/assets/curso/tools/rasp.webp" },
+            { "nombre": "Pinzas (Nippers)", "imagen": "/assets/curso/tools/nippers.webp" },
+            { "nombre": "Cuchilla", "imagen": "/assets/curso/tools/knife.webp" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modulo-9",
+      "numero": 9,
+      "titulo": "Técnica de recorte paso a paso",
+      "tipo_vista": "step-slider",
+      "reglas_oro": [
+        "El caballo debe estar relajado.",
+        "Evalúa siempre en movimiento.",
+        "Nunca recortes más de 5mm por sesión."
+      ],
+      "pasos": [
+        { "numero": 1, "nombre": "Limpieza", "imagen": "/assets/curso/pasos/step1.webp" },
+        { "numero": 2, "nombre": "Evaluación visual", "imagen": "/assets/curso/pasos/step2.webp" },
+        { "numero": 3, "nombre": "Nivelación", "imagen": "/assets/curso/pasos/step3.webp" },
+        { "numero": 4, "nombre": "Ajuste talones", "imagen": "/assets/curso/pasos/step4.webp" },
+        { "numero": 5, "nombre": "Mustang roll", "imagen": "/assets/curso/pasos/step5.webp" },
+        { "numero": 6, "nombre": "Ranilla", "imagen": "/assets/curso/pasos/step6.webp" }
+      ]
+    },
+    {
+      "id": "modulo-10",
+      "numero": 10,
+      "titulo": "Laminitis: prevención y manejo",
+      "tipo_vista": "alert-cards",
+      "definicion": "Inflamación de las láminas sensitivas del casco.",
+      "interacciones": [
+        {
+          "tipo": "warning-list",
+          "titulo": "Señales de alerta temprana",
+          "items": [
+            "Anillos (rings) divergentes hacia los talones",
+            "Línea blanca ensanchada",
+            "Pulso digital fuerte",
+            "Postura hacia atrás (sawhorse)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modulo-11",
+      "numero": 11,
+      "titulo": "Transición y Q&A",
+      "tipo_vista": "timeline-view",
+      "descripcion": "El proceso de herraduras a barefoot.",
+      "timeline": [
+        { "mes": "Mes 1-3", "texto": "Posible sensibilidad. Uso de botas de protección." },
+        { "mes": "Mes 3-6", "texto": "Desarrollo de ranilla. Almohadilla digital firme." },
+        { "mes": "Mes 6-12+", "texto": "Casco completamente funcional." }
+      ]
+    }
+  ]
+}
