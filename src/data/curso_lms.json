@@ -3,7 +3,7 @@
     "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
     "autor": "José Manuel Luna",
     "organizacion": "BieneQ MTY",
-    "total_modulos": 20
+    "total_modulos": 15
   },
   "modulos": [
     {
@@ -20,7 +20,30 @@
       "titulo": "Presentación",
       "parte": "Apertura",
       "tipo_vista": "presentacion",
-      "media": {}
+      "interacciones": [
+        {
+          "tipo": "video-questions",
+          "items": [
+            { "id": 1, "pregunta": "¿Cuál es el mayor desafío que has enfrentado con los cascos de tu caballo?" },
+            { "id": 2, "pregunta": "¿Qué te motivó a buscar una alternativa al herrado tradicional?" },
+            { "id": 3, "pregunta": "¿Cómo ha cambiado tu percepción del bienestar equino desde el Barefoot?" },
+            { "id": 4, "pregunta": "¿Cuál es la duda más frecuente que tienen otros personas sobre tu caballo descalzo?" },
+            { "id": 5, "pregunta": "¿Qué consejo le darías a alguien que teme quitarle las herraduras a su caballo?" },
+            { "id": 6, "pregunta": "¿Cuál ha sido el cambio más notable en el movimiento o actitud de tu caballo?" }
+          ]
+        },
+        {
+          "tipo": "curriculum-preview",
+          "items": [
+            { "id": 1, "titulo": "Anatomía y biomecánica del casco", "imagen": "/assets/curso/hoof-anatomy-3d.png" },
+            { "id": 2, "titulo": "¿Qué es el BAREFOOT?", "imagen": "/assets/curso/barefoot-philosophy.png" },
+            { "id": 3, "titulo": "Diferencias entre Barefoot y herraje tradicional", "imagen": "/assets/curso/barefoot-vs-shoeing.png" },
+            { "id": 4, "titulo": "Conexión con tu CABALLO", "imagen": "/assets/curso/horse-herd-social.png" },
+            { "id": 5, "titulo": "Guía de alimentación sana para el caballo.", "imagen": "/assets/curso/nutrition-comparison.png" },
+            { "id": 6, "titulo": "¿Por qué NO PONER HERRADURAS?", "imagen": "/assets/curso/laminitis-warning.png" }
+          ]
+        }
+      ]
     },
     {
       "id": "etologia",
@@ -39,7 +62,10 @@
       "titulo": "Hábitat & Animal de Presa",
       "parte": "Parte 1 · Etología",
       "tipo_vista": "intro-module",
-      "descripcion": "Cómo el entorno semiárido moldea la psicología de huida y supervivencia."
+      "descripcion": "Cómo el entorno semiárido moldea la psicología de huida y supervivencia.",
+      "media": {
+        "imagen_fondo": "/assets/curso/habitat/wild-habitat.png"
+      }
     },
     {
       "id": "vida-manada",
@@ -47,7 +73,10 @@
       "titulo": "Vida en Manada",
       "parte": "Parte 1 · Etología",
       "tipo_vista": "intro-module",
-      "descripcion": "La importancia de la socialización y las normas grupales en el bienestar equino."
+      "descripcion": "La importancia de la socialización y las normas grupales en el bienestar equino.",
+      "media": {
+        "imagen_fondo": "/assets/curso/social/herd-dynamics.png"
+      }
     },
     {
       "id": "modulo-1",
@@ -183,7 +212,8 @@
       "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "animated-diagram",
       "media": {
-        "animacion_svg": "heartbeat-expansion"
+        "animacion_svg": "heartbeat-expansion",
+        "imagen_fondo": "/assets/curso/anatomia/hoof-pump.png"
       },
       "interacciones": [
         {
@@ -204,6 +234,9 @@
       "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "comparison-table",
       "texto_introduccion": "El casco crece a partir de células vivas nutridas por la sangre...",
+      "media": {
+        "imagen_fondo": "/assets/curso/pilares/natural-forage.png"
+      },
       "interacciones": [
         {
           "tipo": "good-vs-bad",
@@ -270,6 +303,9 @@
       "titulo": "Laminitis",
       "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "alert-cards",
+      "media": {
+        "imagen_fondo": "/assets/curso/patologia/laminitis-warning.png"
+      },
       "interacciones": [
         {
           "tipo": "warning-list",
@@ -289,10 +325,44 @@
       "titulo": "Transición Final",
       "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "timeline-view",
+      "media": {
+        "imagen_fondo": "/assets/curso/patologia/transition-rehab.png"
+      },
       "timeline": [
         { "mes": "Mes 1-3", "texto": "Posible sensibilidad. Uso de botas de protección." },
         { "mes": "Mes 3-6", "texto": "Desarrollo de ranilla. Almohadilla digital firme." },
         { "mes": "Mes 6-12+", "texto": "Casco completamente funcional." }
+      ]
+    },
+    {
+      "id": "modulo-12",
+      "numero": 12,
+      "titulo": "Casos de Éxito",
+      "parte": "Finalización",
+      "tipo_vista": "case-studies",
+      "media": {
+        "imagen_fondo": "/assets/curso/final/success-story.png"
+      },
+      "descripcion": "Caballos que han recuperado su salud integral a través del manejo natural.",
+      "items": [
+        { "id": "caso1", "titulo": "Rehabilitación Crónica", "texto": "Un caballo que no podía caminar y ahora compite descalzo." },
+        { "id": "caso2", "titulo": "Transición Deportiva", "texto": "De herraje ortopédico a rendimiento natural en 6 meses." }
+      ]
+    },
+    {
+      "id": "modulo-13",
+      "numero": 13,
+      "titulo": "Certificación",
+      "parte": "Finalización",
+      "tipo_vista": "completion",
+      "media": {
+        "imagen_fondo": "/assets/curso/final/certification-badge.png"
+      },
+      "mensaje": "¡Felicidades! Has completado el recorrido teórico del Pie Descalzo.",
+      "siguientes_pasos": [
+        "Revisa el material descargable",
+        "Únete a nuestra comunidad en BieneQ MTY",
+        "Inicia tu práctica con supervisión"
       ]
     }
   ]

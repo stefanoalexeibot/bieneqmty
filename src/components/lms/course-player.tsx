@@ -13,6 +13,8 @@ import { InteractiveHotspots } from "./modules/interactive-hotspots"
 import { FlipCardGallery } from "./modules/flip-card-gallery"
 import { BentoGridLMS } from "./modules/bento-grid-lms"
 import { StepSlider } from "./modules/step-slider"
+import { CaseStudies } from "./modules/case-studies"
+import { Completion } from "./modules/completion"
 import { HeroSection } from "@/components/sections/hero"
 import { Presentacion } from "@/components/sections/presentacion"
 
@@ -65,10 +67,13 @@ export function CoursePlayer() {
       case "hero":
         return <HeroSection />
       case "presentacion":
-        return <Presentacion />
+        return <Presentacion data={currentModule} />
       case "hero-split":
         return (
-          <div className="flex flex-col lg:flex-row gap-12 items-center min-h-screen p-12 lg:p-24">
+          <div className="flex flex-col lg:flex-row gap-12 items-center min-h-screen p-12 lg:p-24 relative overflow-hidden">
+             {/* Background glow for depth */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.04)_0%,transparent_70%)]" />
+             
              <div className="flex-1 space-y-8 relative z-10">
                 <motion.span 
                   initial={{ opacity: 0, x: -20 }}
@@ -151,12 +156,27 @@ export function CoursePlayer() {
         return <BentoGridLMS data={currentModule} />
       case "step-slider":
         return <StepSlider data={currentModule} />
+      case "case-studies":
+        return <CaseStudies data={currentModule} />
+      case "completion":
+        return <Completion data={currentModule} />
       default:
         return (
-          <div className="min-h-screen flex items-center justify-center p-12">
-            <div className="text-center space-y-4">
-              <h2 className="text-4xl font-display font-bold text-white">{currentModule.titulo}</h2>
-              <p className="text-white/40 max-w-md">Esta sección está siendo pulida para ofrecerte la mejor experiencia visual.</p>
+          <div className="min-h-screen flex items-center justify-center p-12 relative overflow-hidden">
+            {currentModule.media?.imagen_fondo && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.2 }}
+                className="absolute inset-0 z-0"
+              >
+                <img src={currentModule.media.imagen_fondo} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/60" />
+              </motion.div>
+            )}
+            <div className="text-center space-y-6 relative z-10">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-amber-500 font-black">Módulo en Desarrollo</span>
+              <h2 className="text-6xl md:text-8xl font-display font-bold text-white tracking-tighter">{currentModule.titulo}</h2>
+              <p className="text-white/40 max-w-md mx-auto italic font-light">Estamos puliendo esta escena para ofrecerte una experiencia visual premium.</p>
             </div>
           </div>
         )
