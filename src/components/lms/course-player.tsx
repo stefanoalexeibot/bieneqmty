@@ -13,6 +13,9 @@ import { InteractiveHotspots } from "./modules/interactive-hotspots"
 import { FlipCardGallery } from "./modules/flip-card-gallery"
 import { BentoGridLMS } from "./modules/bento-grid-lms"
 import { StepSlider } from "./modules/step-slider"
+import { ComparisonTable } from "./modules/comparison-table"
+import { AlertCards } from "./modules/alert-cards"
+import { TimelineView } from "./modules/timeline-view"
 import { CaseStudies } from "./modules/case-studies"
 import { Completion } from "./modules/completion"
 import { HeroSection } from "@/components/sections/hero"
@@ -150,14 +153,12 @@ export function CoursePlayer() {
         )
       case "interactive-image-hotspots":
         return <InteractiveHotspots data={currentModule} />
-      case "flip-cards-gallery":
-        return <FlipCardGallery data={currentModule} />
-      case "bento-grid":
-        return <BentoGridLMS data={currentModule} />
-      case "step-slider":
-        return <StepSlider data={currentModule} />
-      case "case-studies":
-        return <CaseStudies data={currentModule} />
+      case "comparison-table":
+        return <ComparisonTable data={currentModule} />
+      case "alert-cards":
+        return <AlertCards data={currentModule} />
+      case "timeline-view":
+        return <TimelineView data={currentModule} />
       case "completion":
         return <Completion data={currentModule} />
       default:
@@ -340,7 +341,7 @@ export function CoursePlayer() {
       {/* Background ambient glow (subtle) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-amber-600/5 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/3 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-amber-600/3 blur-[120px] rounded-full" />
       </div>
     </div>
   )

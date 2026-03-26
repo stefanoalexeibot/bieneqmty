@@ -1,127 +1,149 @@
 "use client"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
-import { Zap, Target } from "lucide-react"
-import { TiltCard } from "@/components/ui/tilt-card"
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { useRef, useState } from "react"
+import { Calendar, ChevronRight, CheckCircle2, Zap, Target } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-function HorseshoeSVG({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 300 310" fill="none" className={className} aria-hidden>
-      <path d="M 45 20 L 45 165 A 105 105 0 0 1 255 165 L 255 20"
-        stroke="currentColor" strokeWidth="44" strokeLinecap="butt" fill="none"/>
-      {[65,125,218,258,258,218,125,65].map((cy, i) => (
-        <circle key={i} cx={i < 4 ? [45,45,62,100][i] : [200,238,255,255][i-4]}
-          cy={cy} r="5.5" fill="currentColor" opacity="0.3"/>
-      ))}
-    </svg>
-  )
-}
-
-function TimelineBarSVG({ className }: { className?: string }) {
-  const months = [0, 1, 2, 3, 4, 5, 6, 9, 12]
-  return (
-    <svg viewBox="0 0 400 60" fill="none" className={className} aria-hidden>
-      <line x1="0" y1="30" x2="400" y2="30" stroke="currentColor" strokeWidth="1.5" opacity="0.15"/>
-      {months.map((m, i) => {
-        const x = (i / (months.length - 1)) * 400
-        const big = m === 12
-        return (
-          <g key={m}>
-            <motion.circle cx={x} cy={30} r={big ? 7 : 3}
-              fill="currentColor" opacity={big ? 0.8 : 0.25}
-              animate={big ? { r: [7, 10, 7], opacity: [0.8, 0.4, 0.8] } : {}}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-            <text x={x} y={50} fill="currentColor" fontSize="7" textAnchor="middle"
-              opacity="0.25" fontFamily="sans-serif">{m}m</text>
-          </g>
-        )
-      })}
-    </svg>
-  )
-}
+const milestones = [
+  { mes: "0m", titulo: "Día Cero", desc: "Retirada de herraduras. Inicio de la inflamación reparadora y desintoxicación.", color: "text-amber-500" },
+  { mes: "1-3m", titulo: "Sensibilidad", desc: "El casco se adapta al suelo. Uso de botas necesario. El pie comienza a expandirse.", color: "text-amber-400" },
+  { mes: "4-8m", titulo: "Reconstrucción", desc: "Crecimiento de una nueva muralla más densa y conexión laminar fuerte.", color: "text-amber-300" },
+  { mes: "12m", titulo: "Consolidación", desc: "Casco 100% renovado. Callosidad en la suela y total funcionalidad.", color: "text-amber-200" }
+]
 
 export function Modulo11() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-  const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3])
+  const [activeStep, setActiveStep] = useState(0)
 
   return (
-    <section id="modulo-11" ref={ref}
-      className="min-h-screen py-32 bg-background relative flex flex-col justify-center overflow-hidden border-t border-white/5">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-amber-700/6 blur-[220px] rounded-full pointer-events-none" />
+    <section id="modulo-11" ref={ref} className="min-h-screen py-32 bg-background relative flex flex-col justify-center overflow-hidden border-t border-white/5">
+      {/* Background ambient */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_oklch(0.72_0.14_68_/_0.03)_0%,_transparent_50%)]" />
 
-      <motion.div style={{ y }}
-        className="absolute right-[-5%] top-1/2 -translate-y-1/2 text-amber-400/[0.04] pointer-events-none w-[500px] h-[500px] hidden xl:block">
-        <HorseshoeSVG className="w-full h-full" />
-      </motion.div>
-
-      <div className="max-w-7xl mx-auto w-full px-6 relative z-10 flex flex-col items-center">
-        <motion.div style={{ y, opacity }} className="text-center mb-20 w-full">
-          <div className="flex items-center gap-4 justify-center mb-6">
-            <div className="h-px w-10 bg-amber-500/40" />
-            <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 11 · El Punto de Inflexión</span>
-            <div className="h-px w-10 bg-amber-500/40" />
-          </div>
-          <h2 className="font-display font-bold text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/10 tracking-tighter leading-none"
-            style={{ fontSize: "clamp(4rem, 14vw, 12rem)" }}>
-            TRANSICIÓN
-          </h2>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-8 w-full max-w-5xl mb-16">
-          <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9 }} viewport={{ once: true }}>
-            <TiltCard intensity={10}
-              className="p-10 lg:p-12 rounded-[2.5rem] bg-gradient-to-br from-white/[0.04] to-transparent border border-white/[0.06] flex flex-col justify-center backdrop-blur-3xl group hover:border-amber-500/20 transition-all duration-500 relative overflow-hidden h-full">
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-700/6 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2.5rem]" />
-              <Zap className="w-14 h-14 text-yellow-400 mb-7 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_20px_rgba(234,179,8,0.6)] relative z-10" />
-              <h3 className="font-display text-3xl lg:text-4xl font-bold text-white tracking-widest mb-5 relative z-10">LO DIFÍCIL</h3>
-              <p className="text-white/45 text-base lg:text-lg font-light leading-relaxed relative z-10">
-                Quitar las herraduras destapa daños ocultos por años. El dolor inicial no es del "pie descalzo",
-                sino de la <strong className="text-foreground font-semibold">rehabilitación</strong> anatómica forzada.
-                Requiere botas, paciencia y fe.
-              </p>
-            </TiltCard>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.2 }} viewport={{ once: true }}>
-            <TiltCard intensity={10}
-              className="p-10 lg:p-12 rounded-[2.5rem] bg-gradient-to-bl from-amber-500/10 to-transparent border border-amber-500/25 flex flex-col justify-center backdrop-blur-3xl group hover:border-amber-500/50 transition-all duration-500 relative overflow-hidden h-full">
-              <div className="absolute inset-0 bg-gradient-to-bl from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[2.5rem]" />
-              <Target className="w-14 h-14 text-amber-400 mb-7 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_20px_rgba(196,144,58,0.6)] relative z-10" />
-              <h3 className="font-display text-3xl lg:text-4xl font-bold text-white tracking-widest mb-5 relative z-10">LA VICTORIA</h3>
-              <p className="text-white/45 text-base lg:text-lg font-light leading-relaxed relative z-10">
-                En 6–12 meses, verás nacer un casco denso, ancho y con una concavidad perfecta.
-                Un caballo revitalizado, <strong className="text-amber-400 font-semibold">seguro de cada paso</strong> sobre cualquier terreno.
-              </p>
-            </TiltCard>
+      <div className="max-w-7xl mx-auto w-full px-6 relative z-10">
+        
+        <div className="text-center mb-24 max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-flex items-center gap-4 mb-6">
+              <div className="h-px w-10 bg-amber-500/40" />
+              <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 11 · Meta</span>
+              <div className="h-px w-10 bg-amber-500/40" />
+            </div>
+            <h2 className="font-display text-5xl md:text-8xl font-bold text-white tracking-tighter leading-none mb-6">
+               Calendario de <br /> <span className="text-amber-400 italic">Transición</span>
+            </h2>
+            <p className="text-xl text-white/40 font-light leading-relaxed">
+              La transición es una maratón, no un sprint. Entender los tiempos biológicos es clave para el éxito.
+            </p>
           </motion.div>
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }} viewport={{ once: true }}
-          className="w-full max-w-3xl text-amber-400/40 px-6">
-          <p className="text-[9px] tracking-[0.4em] uppercase text-center text-muted-foreground/30 mb-3">Línea de tiempo de rehabilitación</p>
-          <TimelineBarSVG className="w-full h-14" />
+        {/* Timeline Interaction */}
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-12 items-start">
+          
+          {/* Steps list */}
+          <div className="space-y-4">
+            {milestones.map((step, i) => (
+              <motion.button
+                key={i}
+                onClick={() => setActiveStep(i)}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className={cn(
+                  "w-full p-6 rounded-2xl border flex items-center justify-between transition-all duration-500 group",
+                  activeStep === i 
+                    ? "bg-amber-500/10 border-amber-500/50" 
+                    : "bg-white/[0.02] border-white/5 hover:border-white/20"
+                )}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={cn(
+                    "text-xs font-black tracking-widest uppercase transition-colors",
+                    activeStep === i ? "text-amber-400" : "text-white/20"
+                  )}>
+                    {step.mes}
+                  </div>
+                  <div className={cn(
+                    "font-display text-xl font-medium transition-colors",
+                    activeStep === i ? "text-white" : "text-white/40 group-hover:text-white/60"
+                  )}>
+                    {step.titulo}
+                  </div>
+                </div>
+                <ChevronRight className={cn(
+                  "w-4 h-4 transition-transform duration-500",
+                  activeStep === i ? "rotate-90 text-amber-500" : "text-white/10"
+                )} />
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Active Step Content */}
+          <div className="min-h-[400px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="p-12 md:p-16 rounded-[3rem] bg-amber-500/5 border border-amber-500/20 backdrop-blur-3xl relative overflow-hidden h-full flex flex-col justify-center"
+              >
+                <Calendar className="w-16 h-16 text-amber-500/20 absolute top-12 right-12" />
+                
+                <div className="space-y-8 relative z-10">
+                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20">
+                      <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                      <span className="text-xs font-black text-amber-400 uppercase tracking-widest">Hito de {milestones[activeStep].mes}</span>
+                   </div>
+
+                   <h3 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter leading-none">
+                      {milestones[activeStep].titulo}
+                   </h3>
+
+                   <p className="text-2xl text-white/50 font-light leading-relaxed max-w-2xl">
+                      {milestones[activeStep].desc}
+                   </p>
+
+                   <div className="flex items-center gap-4 pt-6">
+                      <div className="flex -space-x-3">
+                         {[1,2,3].map(i => (
+                           <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-amber-500/20 flex items-center justify-center">
+                              <CheckCircle2 className="w-4 h-4 text-amber-500" />
+                           </div>
+                         ))}
+                      </div>
+                      <span className="text-sm text-amber-500/40 uppercase tracking-widest font-bold">Progreso biológico verificado</span>
+                   </div>
+                </div>
+
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none" />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+        </div>
+
+        {/* Footer info */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-24 text-center space-y-4"
+        >
+           <div className="inline-flex items-center gap-4 rounded-full border border-white/5 bg-white/[0.02] px-8 py-4 px-10">
+              <span className="text-[10px] tracking-[0.5em] text-white/20 uppercase font-black uppercase font-black">Bieneq Mty · Metodología Barefoot</span>
+           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }} viewport={{ once: true }}
-          className="mt-16 text-center">
-          <div className="inline-flex items-center gap-4 rounded-full border border-amber-500/25 bg-amber-500/6 px-8 py-4 backdrop-blur-md">
-            <span className="flex h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-xs tracking-[0.35em] uppercase font-semibold text-amber-400/80">
-              Fin del Curso · Pie Descalzo
-            </span>
-          </div>
-          <p className="mt-4 text-muted-foreground/35 text-sm tracking-widest">
-            Bieneq Mty · El Arte del Casco Natural
-          </p>
-        </motion.div>
       </div>
     </section>
   )
 }
+

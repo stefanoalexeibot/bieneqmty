@@ -1,127 +1,197 @@
 "use client"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { useRef, useState } from "react"
+import { Plus, X, Target } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-function HoofTrailSVG({ className }: { className?: string }) {
-  // Alternating left/right hoof prints in a trail pattern
-  const prints = [
-    { x: 30,  y: 60,  rot: -5  },
-    { x: 80,  y: 35,  rot: 8   },
-    { x: 130, y: 55,  rot: -4  },
-    { x: 180, y: 32,  rot: 10  },
-    { x: 230, y: 52,  rot: -6  },
-    { x: 280, y: 30,  rot: 7   },
-    { x: 330, y: 50,  rot: -3  },
-    { x: 380, y: 28,  rot: 9   },
-  ]
-  return (
-    <svg viewBox="0 0 420 100" fill="currentColor" className={className} aria-hidden>
-      {prints.map((p, i) => (
-        <g key={i} transform={`translate(${p.x}, ${p.y}) rotate(${p.rot})`}>
-          {/* Simple hoof print: two toe ovals + main pad */}
-          <ellipse cx="-6" cy="-10" rx="5" ry="7" opacity={0.6 - i * 0.04}/>
-          <ellipse cx="6"  cy="-10" rx="5" ry="7" opacity={0.6 - i * 0.04}/>
-          <path d="M -12 0 Q -12 20 0 22 Q 12 20 12 0 Q 12 -5 0 -7 Q -12 -5 -12 0 Z"
-            opacity={0.6 - i * 0.04}/>
-        </g>
-      ))}
-    </svg>
-  )
-}
-
-function TerrainLineSVG({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 800 60" fill="none" className={className} aria-hidden preserveAspectRatio="none">
-      <path d="M 0 40 Q 100 20 200 35 Q 300 50 400 25 Q 500 5 600 30 Q 700 55 800 35 L 800 60 L 0 60 Z"
-        fill="currentColor" opacity="0.08"/>
-      <path d="M 0 40 Q 100 20 200 35 Q 300 50 400 25 Q 500 5 600 30 Q 700 55 800 35"
-        stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.25"/>
-    </svg>
-  )
-}
+const hotspots = [
+  { 
+    id: "autoregulacion", 
+    coordenadas: { x: "20%", y: "30%" }, 
+    titulo: "Autoregulación", 
+    texto: "Casco salvaje desgastándose en terreno duro al ritmo de crecimiento.",
+    imagen_dinamica: "/assets/curso/mustang/autoregulacion.png"
+  },
+  { 
+    id: "bomba-sangre", 
+    coordenadas: { x: "50%", y: "40%" }, 
+    titulo: "Bomba de Sangre", 
+    texto: "Visualización del retorno venoso: la ranilla toca el suelo y bombea sangre.",
+    imagen_dinamica: "/assets/curso/mustang/hoof-pump-blood.png"
+  },
+  { 
+    id: "suela-concava", 
+    coordenadas: { x: "80%", y: "30%" }, 
+    titulo: "Suela Cóncava", 
+    texto: "Vista desde abajo que muestra la protección natural para las estructuras internas.",
+    imagen_dinamica: "/assets/curso/mustang/concave-sole.png"
+  },
+  { 
+    id: "paredes-perpendiculares", 
+    coordenadas: { x: "35%", y: "70%" }, 
+    titulo: "Paredes Perpendiculares", 
+    texto: "El ángulo de crecimiento sin distorsiones ni ensanchamientos laterales.",
+    imagen_dinamica: "/assets/curso/mustang/walls.png"
+  },
+  { 
+    id: "angulo-perfecto", 
+    coordenadas: { x: "65%", y: "70%" }, 
+    titulo: "Ángulo Perfecto", 
+    texto: "Corte transversal 3D de la alineación interna perfecta con el eje del dedo.",
+    imagen_dinamica: "/assets/curso/mustang/3d-alignment.png"
+  }
+]
 
 export function Modulo3() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3])
-  const trailX = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"])
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const baseImage = "/assets/curso/pilares/mustang-model.png"
+  const [currentImage, setCurrentImage] = useState(baseImage)
+
+  const handleSpotClick = (spot: any) => {
+    if (activeId === spot.id) {
+      setActiveId(null)
+      setCurrentImage(baseImage)
+    } else {
+      setActiveId(spot.id)
+      setCurrentImage(spot.imagen_dinamica || baseImage)
+    }
+  }
 
   return (
     <section id="modulo-3" ref={ref} className="min-h-screen py-32 bg-background relative flex items-center justify-center overflow-hidden border-t border-white/5">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_oklch(0.15_0.02_62)_0%,_transparent_70%)]" />
-      {/* Amber glow */}
+      {/* Background ambient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_oklch(0.15_0.02_62)_0%,_transparent_70%)] opacity-40" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.72_0.14_68_/_0.05)_0%,_transparent_60%)]" />
-
-      {/* Terrain line bottom */}
-      <div className="absolute bottom-0 left-0 right-0 text-amber-500/30 pointer-events-none">
-        <TerrainLineSVG className="w-full h-20" />
-      </div>
-
-      {/* Hoof trail - parallax */}
-      <motion.div
-        style={{ x: trailX }}
-        className="absolute bottom-14 left-0 right-0 text-amber-500/[0.08] pointer-events-none select-none"
-      >
-        <HoofTrailSVG className="w-full max-w-3xl mx-auto" />
-      </motion.div>
 
       {/* Large watermark */}
       <motion.h2
-        style={{ y, opacity }}
-        className="font-display text-[20vw] font-bold text-white/[0.025] tracking-tighter absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none whitespace-nowrap"
+        style={{ y }}
+        className="font-display text-[20vw] font-bold text-white/[0.02] tracking-tighter absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none whitespace-nowrap z-0"
       >
-        MUSTANG
+        MUSTANG MODEL
       </motion.h2>
 
-      <div className="max-w-7xl mx-auto w-full px-6 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="relative z-10"
-        >
-          {/* Label */}
-          <div className="inline-flex items-center gap-4 mb-10">
-            <div className="h-px w-10 bg-amber-500/40" />
-            <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 03 · El Modelo de Referencia</span>
-            <div className="h-px w-10 bg-amber-500/40" />
-          </div>
-
-          <h3 className="font-display text-5xl md:text-7xl lg:text-[7vw] font-bold text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/40 tracking-tighter mb-8 leading-[1.05]">
-            La Naturaleza<br />No Necesita Metal.
-          </h3>
-
-          <p className="text-xl md:text-3xl text-white/40 font-light tracking-wide max-w-4xl mx-auto leading-relaxed">
-            El caballo salvaje recorre 30 km diarios sin herraduras. Nuestro objetivo no es volverlos salvajes,
-            sino <strong className="text-amber-400 font-semibold">imitar su salud</strong> en cautiverio.
-          </p>
-
-          {/* Stat counter */}
+      <div className="max-w-7xl mx-auto w-full px-6 relative z-10 flex flex-col lg:flex-row items-center gap-16">
+        
+        {/* Text Content */}
+        <div className="flex-1 text-left space-y-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="mt-14 inline-flex items-center gap-10"
           >
-            {[
-              { val: "30", unit: "km/día", label: "Distancia" },
-              { val: "0", unit: "herraduras", label: "Equipo" },
-              { val: "∞", unit: "generaciones", label: "Evolución" },
-            ].map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="font-display text-4xl md:text-5xl font-bold text-amber-400">{s.val}
-                  <span className="text-base text-amber-400/60 ml-1 font-sans font-normal">{s.unit}</span>
-                </div>
-                <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground/50 mt-1">{s.label}</div>
-              </div>
-            ))}
+            <div className="inline-flex items-center gap-4 mb-6">
+              <div className="h-px w-10 bg-amber-500/40" />
+              <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 03</span>
+            </div>
+            <h3 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter mb-6 leading-none">
+              El Modelo <br /> <span className="text-amber-400 italic">Salvaje</span>
+            </h3>
+            <p className="text-xl text-white/40 font-light leading-relaxed max-w-xl">
+              El casco mustang es la referencia de salud. Su estructura se autoregula para soportar el movimiento extremo en terrenos áridos.
+            </p>
           </motion.div>
-        </motion.div>
+
+          <AnimatePresence mode="wait">
+            {activeId && (
+              <motion.div
+                key={activeId}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="p-8 bg-amber-500/5 border border-amber-500/20 rounded-[2rem] backdrop-blur-xl relative overflow-hidden group"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-[40px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                <h4 className="text-2xl font-display font-bold text-amber-400 mb-3">
+                  {hotspots.find(s => s.id === activeId)?.titulo}
+                </h4>
+                <p className="text-white/60 leading-relaxed text-lg">
+                  {hotspots.find(s => s.id === activeId)?.texto}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {!activeId && (
+             <motion.div 
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               className="flex items-center gap-4 text-amber-500/40"
+             >
+                <Target className="w-5 h-5 animate-pulse" />
+                <span className="text-xs uppercase tracking-[0.3em] font-black">Haz clic en los puntos para explorar</span>
+             </motion.div>
+          )}
+        </div>
+
+        {/* Interactive Image Container */}
+        <div className="flex-[1.5] w-full aspect-square md:aspect-video lg:aspect-square relative">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="relative w-full h-full rounded-[3rem] overflow-hidden border border-white/10 bg-zinc-900/40 shadow-2xl group"
+          >
+            <AnimatePresence mode="wait">
+              <motion.img 
+                key={currentImage}
+                initial={{ opacity: 0, filter: "blur(10px)" }}
+                animate={{ opacity: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, filter: "blur(10px)" }}
+                transition={{ duration: 0.6 }}
+                src={currentImage} 
+                alt="Modelo Mustang"
+                className="w-full h-full object-contain"
+              />
+            </AnimatePresence>
+            
+            {/* Hotspots layer */}
+            <div className="absolute inset-0">
+              {hotspots.map((spot) => (
+                <button
+                  key={spot.id}
+                  onClick={() => handleSpotClick(spot)}
+                  style={{ left: spot.coordenadas.x, top: spot.coordenadas.y }}
+                  className={cn(
+                    "absolute -translate-x-1/2 -translate-y-1/2 z-20 group outline-none",
+                    activeId === spot.id ? "z-30" : "z-20"
+                  )}
+                >
+                  <div className="relative flex items-center justify-center">
+                    {activeId === spot.id && (
+                      <motion.div 
+                        layoutId="hotspot-ring-landing"
+                        className="absolute w-12 h-12 border-2 border-amber-500 rounded-full"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                      />
+                    )}
+                    
+                    <motion.div 
+                      animate={{ scale: [1, 1.8, 1], opacity: [0.4, 0, 0.4] }}
+                      transition={{ duration: 2.5, repeat: Infinity }}
+                      className="absolute w-8 h-8 bg-amber-400 rounded-full blur-sm"
+                    />
+                    
+                    <div className={cn(
+                      "w-5 h-5 rounded-full flex items-center justify-center transition-all duration-500",
+                      activeId === spot.id 
+                        ? "bg-white text-black scale-125 rotate-45" 
+                        : "bg-amber-500 text-black hover:scale-110"
+                    )}>
+                      {activeId === spot.id ? <X className="w-3" /> : <Plus className="w-3.5" />}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   )
 }
+

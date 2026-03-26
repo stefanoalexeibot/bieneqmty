@@ -1,136 +1,109 @@
 "use client"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { Check, X } from "lucide-react"
 import { useRef } from "react"
+import { CheckCircle2, XCircle, Info } from "lucide-react"
 
-const yesItems = [
-  { title: "FORRAJE 24/7", desc: "Heno de pasto de baja energía" },
-  { title: "MINERALES", desc: "Balanceadores sin melaza" },
-  { title: "PADDOCK", desc: "Movimiento continuo para forrajear" }
-]
-const noItems = [
-  { title: "GRANOS DULCES", desc: "Avena y melazas inflamatorias" },
-  { title: "PASTO RICO", desc: "Fructanos de primavera = ácidos" },
-  { title: "DOS COMIDAS", desc: "Ayunar causa úlceras severas" }
+const verde = [
+  { alimento: "Fibra larga (Heno)", desc: "Base de la dieta, libre de melaza y azúcares." },
+  { alimento: "Minerales quelatados", desc: "Cobre, Zinc y Selenio para fortalecer la queratina." },
+  { alimento: "Agua fresca", desc: "Hidratación constante y limpia 24/7." }
 ]
 
-function LeafSVG({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 120 160" fill="currentColor" className={className} aria-hidden>
-      <path d="M 60 155 Q 20 120 15 75 Q 12 40 60 8 Q 108 40 105 75 Q 100 120 60 155 Z" opacity="0.12"/>
-      <path d="M 60 155 L 60 30" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.2"/>
-      <path d="M 60 80 Q 30 60 20 40" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.15"/>
-      <path d="M 60 100 Q 90 80 100 60" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.15"/>
-      <path d="M 60 120 Q 35 105 25 85" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.12"/>
-    </svg>
-  )
-}
+const rojo = [
+  { alimento: "Alfalfa y Granos", desc: "Exceso de NSC (Carbohidratos No Estructurales)." },
+  { alimento: "Frutas Dulces", desc: "Picos de insulina que inflaman la lámina." },
+  { alimento: "Pastos Tiernos", desc: "Nitrógeno y fructanos peligrosos en primavera." }
+]
 
 export function Modulo6() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 0.85])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3])
-  const leafY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"])
+  const y = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"])
 
   return (
-    <section id="modulo-6" ref={ref} className="min-h-screen py-32 bg-background relative flex items-center overflow-hidden border-t border-white/5">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[500px] bg-gradient-to-b from-amber-900/5 to-transparent pointer-events-none" />
+    <section id="modulo-6" ref={ref} className="min-h-screen py-32 bg-background relative flex items-center justify-center overflow-hidden border-t border-white/5">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_oklch(0.72_0.14_68_/_0.03)_0%,_transparent_70%)]" />
 
-      {/* Decorative leaves */}
-      <motion.div style={{ y: leafY }}
-        className="absolute left-4 bottom-0 text-emerald-400/[0.08] pointer-events-none hidden lg:block">
-        <LeafSVG className="w-24 h-32" />
-      </motion.div>
-      <motion.div style={{ y: leafY }}
-        className="absolute right-6 top-12 text-emerald-400/[0.06] pointer-events-none rotate-[140deg] hidden xl:block">
-        <LeafSVG className="w-16 h-24" />
-      </motion.div>
+      <div className="max-w-7xl mx-auto w-full px-6 relative z-10 flex flex-col gap-16">
+        
+        <div className="text-center space-y-6 max-w-3xl mx-auto">
+          <motion.div style={{ y }}>
+            <span className="text-xs tracking-[0.6em] text-amber-500 font-black uppercase mb-4 block">Módulo 06</span>
+            <h2 className="font-display text-5xl md:text-8xl font-bold text-white tracking-tighter leading-none mb-6">
+              Nutrición <br /> <span className="text-amber-400 italic">Crítica</span>
+            </h2>
+            <p className="text-xl text-white/40 font-light leading-relaxed">
+              El casco se construye desde adentro. El "Semáforo Nutricional" es tu guía para evitar la inflamación laminar.
+            </p>
+          </motion.div>
+        </div>
 
-      <div className="max-w-7xl mx-auto w-full px-6 relative z-10">
-        {/* Heading */}
-        <motion.div style={{ scale, opacity }} className="text-center mb-16 select-none pointer-events-none">
-          <h2 className="font-display text-[13vw] leading-none font-bold text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/15 tracking-tighter">
-            COMBUSTIBLE
-          </h2>
-          <p className="text-xl tracking-[0.4em] font-light text-white/30 -mt-3">Nutrición de alto flujo</p>
+        <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+          {/* Green Column */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="group p-10 bg-emerald-500/[0.03] border border-emerald-500/20 rounded-[3rem] backdrop-blur-3xl space-y-10"
+          >
+            <div className="flex items-center gap-4 border-b border-emerald-500/10 pb-6">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center">
+                 <CheckCircle2 className="w-6 h-6 text-emerald-400" />
+              </div>
+              <h3 className="text-2xl font-display font-bold text-emerald-400 tracking-widest uppercase">Altamente Recomendado</h3>
+            </div>
+            
+            <div className="space-y-6">
+              {verde.map((item, i) => (
+                <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-all">
+                  <h4 className="text-white font-bold mb-1">{item.alimento}</h4>
+                  <p className="text-white/40 text-sm">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Red Column */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="group p-10 bg-red-500/[0.03] border border-red-500/20 rounded-[3rem] backdrop-blur-3xl space-y-10"
+          >
+            <div className="flex items-center gap-4 border-b border-red-500/10 pb-6">
+              <div className="w-12 h-12 rounded-2xl bg-red-500/20 flex items-center justify-center">
+                 <XCircle className="w-6 h-6 text-red-400" />
+              </div>
+              <h3 className="text-2xl font-display font-bold text-red-400 tracking-widest uppercase">Peligro - Evitar</h3>
+            </div>
+            
+            <div className="space-y-6">
+              {rojo.map((item, i) => (
+                <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-red-500/30 transition-all">
+                  <h4 className="text-white font-bold mb-1">{item.alimento}</h4>
+                  <p className="text-white/40 text-sm">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Pro Tip */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-amber-500/5 border border-amber-500/20 rounded-3xl p-8 flex items-start gap-6 max-w-4xl mx-auto"
+        >
+          <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center shrink-0">
+             <Info className="w-6 h-6 text-amber-500" />
+          </div>
+          <p className="text-amber-200/50 italic text-lg leading-relaxed">
+            "La resistencia a la insulina es la causa número 1 de patologías en el casco. Controlar el NSC (Carbohidratos No Estructurales) es salvarle la vida a tu caballo."
+          </p>
         </motion.div>
-
-        {/* Module label */}
-        <div className="flex items-center gap-4 mb-12">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-amber-500/25" />
-          <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 06</span>
-          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-amber-500/25" />
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-20">
-          {/* YES column */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="flex flex-col gap-6"
-          >
-            <div className="flex items-center gap-5 border-b border-white/8 pb-6">
-              <div className="w-14 h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/25 shrink-0">
-                <Check className="w-7 h-7 text-amber-400" />
-              </div>
-              <div>
-                <h3 className="font-display text-4xl md:text-5xl font-bold text-white tracking-tight leading-none">Base</h3>
-                <span className="text-amber-400/60 text-sm tracking-[0.3em] uppercase font-semibold">Vital</span>
-              </div>
-            </div>
-            <div className="space-y-4">
-              {yesItems.map((item, i) => (
-                <motion.div key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ x: 4 }}
-                  className="group p-6 rounded-[1.5rem] bg-white/[0.025] border border-white/[0.05] hover:bg-amber-500/[0.05] hover:border-amber-500/20 transition-all duration-500 flex flex-col justify-center min-h-[120px]">
-                  <h4 className="font-display text-2xl font-bold text-white mb-1 tracking-widest">{item.title}</h4>
-                  <p className="text-amber-200/40 font-light text-base">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* NO column */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="flex flex-col gap-6"
-          >
-            <div className="flex items-center gap-5 border-b border-white/8 pb-6">
-              <div className="w-14 h-14 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/25 shrink-0">
-                <X className="w-7 h-7 text-red-400" />
-              </div>
-              <div>
-                <h3 className="font-display text-4xl md:text-5xl font-bold text-white/50 tracking-tight leading-none">Peligro</h3>
-                <span className="text-red-400/60 text-sm tracking-[0.3em] uppercase font-semibold">Fatal</span>
-              </div>
-            </div>
-            <div className="space-y-4">
-              {noItems.map((item, i) => (
-                <motion.div key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ x: -4 }}
-                  className="group p-6 rounded-[1.5rem] bg-white/[0.01] border border-white/[0.04] hover:bg-red-500/[0.05] hover:border-red-500/20 transition-all duration-500 flex flex-col justify-center min-h-[120px]">
-                  <h4 className="font-display text-2xl font-bold text-white/45 mb-1 tracking-widest group-hover:text-red-400/70 transition-colors">{item.title}</h4>
-                  <p className="text-white/25 font-light text-base">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
       </div>
     </section>
   )
 }
+

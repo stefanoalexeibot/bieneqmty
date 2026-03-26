@@ -1,67 +1,91 @@
 "use client"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { Leaf, Activity, Scissors } from "lucide-react"
 import { useRef } from "react"
-import { TiltCard } from "@/components/ui/tilt-card"
-
-const pillars = [
-  { icon: <Leaf className="w-14 h-14"/>, title: "DIETA", val: "FIBRA", desc: "Baja en azúcares y melazas", accent: "from-emerald-500/15" },
-  { icon: <Activity className="w-14 h-14"/>, title: "RITMO", val: "20KM", desc: "Movimiento diario constante", accent: "from-amber-500/15" },
-  { icon: <Scissors className="w-14 h-14"/>, title: "CORTE", val: "MUSTANG", desc: "Desgaste natural imitado", accent: "from-amber-600/15" }
-]
+import { CheckCircle2, ShieldCheck, Sparkles, Target } from "lucide-react"
 
 export function Modulo2() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
-  const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"])
-  const xDecor = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"])
+  const yImage = useTransform(scrollYProgress, [0, 1], ["0%", "20%"])
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
 
   return (
-    <section id="modulo-2" ref={ref}
-      className="min-h-screen py-32 bg-background relative flex items-center overflow-hidden border-t border-white/5">
-      <div className="absolute right-0 bottom-0 w-[700px] h-[700px] bg-amber-600/7 blur-[180px] rounded-full pointer-events-none" />
-
-      <motion.div style={{ x: xDecor }}
-        className="whitespace-nowrap opacity-[0.022] absolute top-6 left-0 pointer-events-none select-none">
-        <h2 className="font-display font-bold text-[18vw] leading-none text-foreground tracking-tighter">
-          PILARES PILARES
-        </h2>
+    <section id="modulo-2" ref={ref} className="min-h-[120vh] bg-black relative flex items-center overflow-hidden border-t border-white/5">
+      {/* Background Cinematic Image */}
+      <motion.div 
+        style={{ y: yImage, opacity }}
+        className="absolute inset-0 z-0"
+      >
+        <img 
+          src="/assets/curso/historia/recorte-perfecto.webp" 
+          className="w-full h-full object-cover grayscale brightness-50"
+          alt="Recorte Perfecto Detail"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
       </motion.div>
 
-      <div className="max-w-7xl mx-auto w-full px-6 relative z-10">
-        <motion.div style={{ y }} className="mb-20 flex items-end gap-6">
-          <div>
-            <p className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold mb-2">Módulo 02</p>
-            <h3 className="font-display font-bold text-5xl md:text-7xl text-foreground tracking-tight leading-none">
-              Los Tres<br /><span className="text-amber-400 italic">Pilares</span>
-            </h3>
+      <div className="max-w-7xl mx-auto w-full px-6 relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="space-y-10"
+        >
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-4">
+              <span className="text-xs tracking-[0.5em] text-amber-500 font-black uppercase">Módulo 02</span>
+              <div className="h-px w-10 bg-amber-500/50" />
+            </div>
+            <h2 className="font-display text-6xl md:text-8xl font-bold text-white tracking-tighter leading-[0.9]">
+              Retorno al <br /> <span className="text-amber-400 italic">Estado Natural</span>
+            </h2>
           </div>
-          <div className="h-px flex-1 bg-gradient-to-r from-amber-500/30 to-transparent mb-3 hidden md:block" />
+
+          <p className="text-2xl text-white/50 font-light leading-relaxed max-w-xl">
+            El recorte fisiológico no es solo estética; es permitir que el casco recupere su función biológica original. Respetando los ángulos de la P3 y estimulando el crecimiento sano.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {[
+              { icon: <ShieldCheck className="w-5 h-5" />, text: "Protección Interna" },
+              { icon: <Sparkles className="w-5 h-5" />, text: "Crecimiento Óptimo" },
+              { icon: <CheckCircle2 className="w-5 h-5" />, text: "Equilibrio Fisiológico" },
+              { icon: <Target className="w-5 h-5" />, text: "Precisión de Corte" }
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-4 text-amber-400/60 font-medium tracking-wide">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+                   {item.icon}
+                </div>
+                <span className="text-sm uppercase tracking-widest">{item.text}</span>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-5 relative z-20">
-          {pillars.map((p, i) => (
-            <motion.div key={i}
-              initial={{ opacity: 0, scale: 0.9, y: 50 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: i * 0.15 }}
-              viewport={{ once: true, margin: "-100px" }}>
-              <TiltCard intensity={12}
-                className="group relative p-10 lg:p-12 rounded-[2.5rem] bg-white/[0.025] border border-white/[0.06] hover:bg-white/[0.05] hover:border-amber-500/20 transition-all duration-700 backdrop-blur-2xl flex flex-col items-center justify-center text-center overflow-hidden h-full min-h-[320px]">
-                <div className={`absolute inset-0 bg-gradient-to-b ${p.accent} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
-                <div className="text-white/15 group-hover:text-amber-400 transition-colors duration-700 mb-8 transform group-hover:scale-110 group-hover:-translate-y-1 relative z-10">
-                  {p.icon}
-                </div>
-                <p className="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/30 tracking-tighter leading-none mb-4 relative z-10 group-hover:scale-105 transition-transform duration-700">
-                  {p.val}
-                </p>
-                <h3 className="text-sm font-bold tracking-[0.5em] text-white/40 mb-3 uppercase relative z-10">{p.title}</h3>
-                <p className="text-amber-400/80 font-medium tracking-wide text-xs uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-700 relative z-10">{p.desc}</p>
-              </TiltCard>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5 }}
+          className="relative hidden lg:block"
+        >
+          <div className="absolute inset-0 bg-amber-500/10 blur-[120px] rounded-full" />
+          <div className="relative aspect-square rounded-[4rem] overflow-hidden border border-white/10 shadow-3xl">
+             <img 
+               src="/assets/curso/historia/recorte-perfecto-zoom.png" 
+               className="w-full h-full object-cover" 
+               alt="Zoom al recorte" 
+             />
+             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+             <div className="absolute bottom-10 left-10">
+                <p className="text-xs uppercase tracking-[0.4em] text-white/40 font-black mb-2">Detalle Técnico</p>
+                <p className="text-2xl font-display font-medium text-white italic">"Simetría y Balance"</p>
+             </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
 }
+
