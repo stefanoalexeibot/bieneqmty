@@ -35,11 +35,11 @@ export default function RootLayout({
       lang="es"
       className={`${cormorant.variable} ${dmSans.variable} dark h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex font-sans overflow-hidden">
+      <body className="min-h-screen font-sans overflow-hidden bg-black">
         <CourseProvider>
           <SpotlightCursor />
-          <ProgressSidebar />
-          <main className="flex-1 min-w-0 bg-background overflow-y-auto">
+          {/* ProgressSidebar moved to CoursePlayer as a drawer */}
+          <main className="w-full h-full relative overflow-y-auto overflow-x-hidden">
             {children}
           </main>
         </CourseProvider>
