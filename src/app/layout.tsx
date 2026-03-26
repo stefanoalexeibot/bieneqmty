@@ -3,6 +3,7 @@ import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ProgressSidebar } from "@/components/layout/progress-sidebar";
 import { SpotlightCursor } from "@/components/ui/spotlight-cursor";
+import { CourseProvider } from "@/hooks/use-course";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-display",
@@ -34,12 +35,14 @@ export default function RootLayout({
       lang="es"
       className={`${cormorant.variable} ${dmSans.variable} dark h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex font-sans">
-        <SpotlightCursor />
-        <ProgressSidebar />
-        <main className="flex-1 min-w-0 bg-background">
-          {children}
-        </main>
+      <body className="min-h-full flex font-sans overflow-hidden">
+        <CourseProvider>
+          <SpotlightCursor />
+          <ProgressSidebar />
+          <main className="flex-1 min-w-0 bg-background overflow-y-auto">
+            {children}
+          </main>
+        </CourseProvider>
       </body>
     </html>
   );

@@ -3,21 +3,62 @@
     "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
     "autor": "José Manuel Luna",
     "organizacion": "BieneQ MTY",
-    "total_modulos": 11
+    "total_modulos": 20
   },
   "modulos": [
     {
+      "id": "hero",
+      "numero": 0,
+      "titulo": "Inicio",
+      "parte": "Apertura",
+      "tipo_vista": "hero",
+      "media": {}
+    },
+    {
+      "id": "presentacion",
+      "numero": 0,
+      "titulo": "Presentación",
+      "parte": "Apertura",
+      "tipo_vista": "presentacion",
+      "media": {}
+    },
+    {
+      "id": "etologia",
+      "numero": 1,
+      "titulo": "Etología Equina",
+      "parte": "Parte 1 · Etología",
+      "tipo_vista": "intro-module",
+      "descripcion": "El estudio del comportamiento en hábitat natural para entender la verdadera naturaleza del caballo.",
+      "media": {
+        "imagen_fondo": "/assets/curso/etologia-bg.webp"
+      }
+    },
+    {
+      "id": "habitat-presa",
+      "numero": 2,
+      "titulo": "Hábitat & Animal de Presa",
+      "parte": "Parte 1 · Etología",
+      "tipo_vista": "intro-module",
+      "descripcion": "Cómo el entorno semiárido moldea la psicología de huida y supervivencia."
+    },
+    {
+      "id": "vida-manada",
+      "numero": 3,
+      "titulo": "Vida en Manada",
+      "parte": "Parte 1 · Etología",
+      "tipo_vista": "intro-module",
+      "descripcion": "La importancia de la socialización y las normas grupales en el bienestar equino."
+    },
+    {
       "id": "modulo-1",
       "numero": 1,
-      "titulo": "Bienvenida e introducción",
-      "parte": "Parte 1 — Fundamentos",
+      "titulo": "Bienvenida al Barefoot",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "hero-split",
       "media": {
         "video_url": "/assets/curso/bienvenida.mp4",
         "imagen_fondo": "/assets/curso/bg-modulo-1.webp"
       },
-      "texto_instructor": "Soy José Manuel Luna, profesional certificado en cuidado natural del casco...",
-      "cita_destacada": "El casco de un caballo no es solo una estructura de queratina — es un corazón periférico...",
       "interacciones": [
         {
           "tipo": "highlight-cards",
@@ -34,8 +75,8 @@
     {
       "id": "modulo-2",
       "numero": 2,
-      "titulo": "¿Qué es el pie descalzo? Historia y filosofía",
-      "parte": "Parte 1 — Fundamentos",
+      "titulo": "Los Tres Pilares",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "flip-cards-gallery",
       "bloques_lectura": [
         {
@@ -44,7 +85,6 @@
           "imagen_lateral": "/assets/curso/historia/evolucion-casco.webp"
         }
       ],
-      "principio_fundamental": "El barefoot no es quitar herraduras y esperar. Es crear las condiciones para que el casco funcione como fue diseñado por la naturaleza.",
       "interacciones": [
         {
           "tipo": "flip-cards",
@@ -53,12 +93,12 @@
             {
               "frente_titulo": "Nutrición",
               "dorso_texto": "Dieta baja en azúcares, rica en fibra y minerales",
-              "imagen_fondo": "/assets/curso/pilares/nutricion.webp"
+              "imagen_fondo": "/assets/curso/pilares/nutricion.png"
             },
             {
               "frente_titulo": "Movimiento",
               "dorso_texto": "Mínimo 20 km/día en terrenos variados",
-              "imagen_fondo": "/assets/curso/pilares/movimiento.webp"
+              "imagen_fondo": "/assets/curso/pilares/movimiento.png"
             },
             {
               "frente_titulo": "Recorte correcto",
@@ -72,8 +112,8 @@
     {
       "id": "modulo-3",
       "numero": 3,
-      "titulo": "El caballo salvaje como modelo de referencia",
-      "parte": "Parte 1 — Fundamentos",
+      "titulo": "Modelo Mustang",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "bento-grid",
       "media": {
         "video_fondo": "/assets/curso/mustang-running.mp4"
@@ -96,12 +136,12 @@
     {
       "id": "modulo-4",
       "numero": 4,
-      "titulo": "Anatomía completa del casco",
-      "parte": "Parte 1 — Fundamentos",
+      "titulo": "Anatomía Visual",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "interactive-image-hotspots",
-      "descripcion": "Haz clic en los puntos interactivos para explorar cada parte del casco de forma visual.",
+      "descripcion": "Explora las estructuras del casco de forma interactiva.",
       "media": {
-        "imagen_principal": "/assets/curso/anatomia/casco-planta-sano.webp"
+        "imagen_principal": "/assets/curso/anatomia/casco-planta-sano.png"
       },
       "hotspots_externos": [
         {
@@ -139,7 +179,8 @@
     {
       "id": "modulo-5",
       "numero": 5,
-      "titulo": "Fisiología: cómo funciona el pie",
+      "titulo": "La Bomba del Casco",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "animated-diagram",
       "media": {
         "animacion_svg": "heartbeat-expansion"
@@ -147,7 +188,7 @@
       "interacciones": [
         {
           "tipo": "steps",
-          "titulo": "El mecanismo de expansión y contracción",
+          "titulo": "Expansión y contracción",
           "items": [
             { "paso": 1, "texto": "La ranilla contacta el suelo primero." },
             { "paso": 2, "texto": "Aterrizaje del talón expande los bulbos." },
@@ -159,7 +200,8 @@
     {
       "id": "modulo-6",
       "numero": 6,
-      "titulo": "Nutrición: el cimiento del barefoot",
+      "titulo": "Nutrición Crítica",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "comparison-table",
       "texto_introduccion": "El casco crece a partir de células vivas nutridas por la sangre...",
       "interacciones": [
@@ -180,6 +222,7 @@
       "id": "modulo-7",
       "numero": 7,
       "titulo": "Paddock Paradise",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "interactive-map",
       "media": {
         "imagen_mapa": "/assets/curso/paddock/diagrama.webp"
@@ -194,16 +237,14 @@
     {
       "id": "modulo-8",
       "numero": 8,
-      "titulo": "Herramientas del recortador",
+      "titulo": "Herramientas",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "tool-grid",
       "interacciones": [
         {
           "tipo": "image-cards",
           "items": [
-            { "nombre": "Casco de pezuñero", "imagen": "/assets/curso/tools/jack.webp" },
-            { "nombre": "Raspa", "imagen": "/assets/curso/tools/rasp.webp" },
-            { "nombre": "Pinzas (Nippers)", "imagen": "/assets/curso/tools/nippers.webp" },
-            { "nombre": "Cuchilla", "imagen": "/assets/curso/tools/knife.webp" }
+            { "nombre": "Kit Profesional de Recorte", "imagen": "/assets/curso/tools/herramientas.png" }
           ]
         }
       ]
@@ -211,13 +252,9 @@
     {
       "id": "modulo-9",
       "numero": 9,
-      "titulo": "Técnica de recorte paso a paso",
+      "titulo": "Técnica de Recorte",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "step-slider",
-      "reglas_oro": [
-        "El caballo debe estar relajado.",
-        "Evalúa siempre en movimiento.",
-        "Nunca recortes más de 5mm por sesión."
-      ],
       "pasos": [
         { "numero": 1, "nombre": "Limpieza", "imagen": "/assets/curso/pasos/step1.webp" },
         { "numero": 2, "nombre": "Evaluación visual", "imagen": "/assets/curso/pasos/step2.webp" },
@@ -230,9 +267,9 @@
     {
       "id": "modulo-10",
       "numero": 10,
-      "titulo": "Laminitis: prevención y manejo",
+      "titulo": "Laminitis",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "alert-cards",
-      "definicion": "Inflamación de las láminas sensitivas del casco.",
       "interacciones": [
         {
           "tipo": "warning-list",
@@ -249,9 +286,9 @@
     {
       "id": "modulo-11",
       "numero": 11,
-      "titulo": "Transición y Q&A",
+      "titulo": "Transición Final",
+      "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "timeline-view",
-      "descripcion": "El proceso de herraduras a barefoot.",
       "timeline": [
         { "mes": "Mes 1-3", "texto": "Posible sensibilidad. Uso de botas de protección." },
         { "mes": "Mes 3-6", "texto": "Desarrollo de ranilla. Almohadilla digital firme." },

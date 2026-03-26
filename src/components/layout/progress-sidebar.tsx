@@ -1,49 +1,10 @@
 "use client"
 
-import { useActiveSection } from "@/hooks/use-active-section"
+import { useCourse } from "@/hooks/use-course"
 import { motion } from "framer-motion"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
-import Link from "next/link"
-
-type Section = {
-  id: string
-  label: string
-  num: string
-  group?: string
-}
-
-const sections: Section[] = [
-  { id: "hero",             label: "Inicio",             num: "·" },
-
-  // APERTURA
-  { id: "presentacion",     label: "Presentación",       num: "00", group: "Apertura" },
-
-  // PARTE 1
-  { id: "etologia",         label: "Etología",           num: "01", group: "Parte 1 · Etología" },
-  { id: "habitat-presa",    label: "Hábitat & Presa",    num: "02", group: "Parte 1 · Etología" },
-  { id: "vida-manada",      label: "Vida en Manada",     num: "03", group: "Parte 1 · Etología" },
-  { id: "sentidos",         label: "Los Sentidos",       num: "04", group: "Parte 1 · Etología" },
-  { id: "necesidades",      label: "Necesidades Básicas",num: "05", group: "Parte 1 · Etología" },
-  { id: "bienestar",        label: "Feral vs Doméstico", num: "06", group: "Parte 1 · Etología" },
-  { id: "comportamientos",  label: "Comportamientos",    num: "07", group: "Parte 1 · Etología" },
-
-  // PAUSA
-  { id: "pausa-1",          label: "Pausa",              num: "⏸",  group: "Pausa" },
-
-  // PARTE 2
-  { id: "modulo-1",  label: "Introducción",  num: "01", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-2",  label: "Pilares",       num: "02", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-3",  label: "Caballo Salvaje",num: "03", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-4",  label: "Anatomía",      num: "04", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-5",  label: "Fisiología",    num: "05", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-6",  label: "Nutrición",     num: "06", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-7",  label: "Entorno",       num: "07", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-8",  label: "Herramientas",  num: "08", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-9",  label: "Recorte",       num: "09", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-10", label: "Laminitis",     num: "10", group: "Parte 2 · Pie Descalzo" },
-  { id: "modulo-11", label: "Transición",    num: "11", group: "Parte 2 · Pie Descalzo" },
-]
+import { CheckCircle2, PlayCircle } from "lucide-react"
 
 function HorseshoeIcon() {
   return (
@@ -72,30 +33,27 @@ function GroupDivider({ label }: { label: string }) {
 }
 
 export function ProgressSidebar() {
-  const targetIds = sections.map((s) => s.id)
-  const activeSection = useActiveSection(targetIds, "hero")
-
-  const activeIndex = sections.findIndex(s => s.id === activeSection)
-  const progress = activeIndex <= 0 ? 0 : activeIndex / (sections.length - 1)
+  const { currentModuleIndex, setCurrentModuleIndex, modules } = useCourse()
+  const progress = currentModuleIndex / (modules.length - 1)
 
   // Build render list with group dividers
   type RenderItem =
     | { type: "divider"; label: string; key: string }
-    | { type: "section"; section: Section; index: number }
+    | { type: "section"; section: any; index: number }
 
   const renderItems: RenderItem[] = []
   let lastGroup: string | undefined = undefined
 
-  sections.forEach((section, index) => {
-    if (section.group && section.group !== lastGroup) {
-      renderItems.push({ type: "divider", label: section.group, key: `divider-${section.group}` })
-      lastGroup = section.group
+  modules.forEach((section, index) => {
+    if (section.parte && section.parte !== lastGroup) {
+      renderItems.push({ type: "divider", label: section.parte, key: `divider-${section.parte}` })
+      lastGroup = section.parte
     }
     renderItems.push({ type: "section", section, index })
   })
 
   return (
-    <aside className="sticky top-0 h-screen w-[260px] shrink-0 border-r border-border hidden lg:flex flex-col z-50 overflow-hidden bg-sidebar">
+    <aside className="sticky top-0 h-screen w-[280px] shrink-0 border-r border-border hidden lg:flex flex-col z-50 overflow-hidden bg-sidebar">
       {/* Subtle grain overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
@@ -109,7 +67,7 @@ export function ProgressSidebar() {
       <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-amber-500/30 to-transparent" />
 
       {/* Header */}
-      <div className="p-5 pb-4 border-b border-border relative">
+      <div className="p-6 pb-4 border-b border-border relative">
         <div className="flex items-center gap-3 mb-1">
           <HorseshoeIcon />
           <h2 className="font-display font-semibold text-xl text-foreground tracking-tight leading-none">
@@ -117,11 +75,11 @@ export function ProgressSidebar() {
           </h2>
         </div>
         <p className="text-[10px] text-muted-foreground/60 tracking-[0.25em] uppercase ml-10">
-          El Arte del Casco Natural
+          Plataforma de Curso
         </p>
 
         {/* Progress bar */}
-        <div className="mt-4 h-[2px] bg-border rounded-full overflow-hidden">
+        <div className="mt-6 h-[2px] bg-border rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full"
             animate={{ width: `${Math.round(progress * 100)}%` }}
@@ -138,28 +96,27 @@ export function ProgressSidebar() {
       </div>
 
       {/* Nav items */}
-      <ScrollArea className="flex-1 py-2">
-        <nav className="flex flex-col px-3">
+      <ScrollArea className="flex-1 py-4">
+        <nav className="flex flex-col px-3 gap-1">
           {renderItems.map(item => {
             if (item.type === "divider") {
               return <GroupDivider key={item.key} label={item.label} />
             }
 
             const { section, index } = item
-            const isActive = activeSection === section.id
-            const isPast   = index < activeIndex
-            const isHero   = section.id === "hero"
+            const isActive = currentModuleIndex === index
+            const isPast   = index < currentModuleIndex
 
             return (
-              <Link
+              <button
                 key={section.id}
-                href={`#${section.id}`}
+                onClick={() => setCurrentModuleIndex(index)}
                 className={cn(
-                  "group relative flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-all duration-300",
+                  "group relative flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm transition-all duration-300 text-left",
                   isActive
                     ? "text-primary-foreground"
                     : isPast
-                    ? "text-muted-foreground/50 hover:text-muted-foreground"
+                    ? "text-amber-500/60 hover:text-amber-500"
                     : "text-sidebar-foreground hover:text-foreground hover:bg-sidebar-accent"
                 )}
               >
@@ -167,7 +124,7 @@ export function ProgressSidebar() {
                 {isActive && (
                   <motion.div
                     layoutId="active-sidebar-bg"
-                    className="absolute inset-0 rounded-md bg-primary shadow-[0_0_20px_rgba(196,144,58,0.35)]"
+                    className="absolute inset-0 rounded-xl bg-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.25)]"
                     initial={false}
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
@@ -175,45 +132,54 @@ export function ProgressSidebar() {
 
                 {/* Number */}
                 <span className={cn(
-                  "relative z-10 font-mono text-[10px] w-7 shrink-0 font-bold transition-colors duration-300",
-                  isActive  ? "text-primary-foreground/70"
+                  "relative z-10 font-mono text-[10px] w-6 shrink-0 font-bold transition-colors duration-300",
+                  isActive  ? "text-black"
                   : isPast   ? "text-amber-500/40"
                   : "text-muted-foreground/30 group-hover:text-amber-500/50"
                 )}>
-                  {section.num}
+                  {String(section.numero).padStart(2, '0')}
                 </span>
 
-                {/* Status dot */}
+                {/* Status Icon */}
                 <span className="relative z-10 shrink-0">
                   {isActive ? (
-                    <span className="flex h-1.5 w-1.5 rounded-full bg-primary-foreground/80 animate-pulse" />
-                  ) : isPast && !isHero ? (
-                    <span className="flex h-1.5 w-1.5 rounded-full bg-amber-500/40" />
+                    <PlayCircle className="w-3.5 h-3.5 text-black" />
+                  ) : isPast ? (
+                    <CheckCircle2 className="w-3.5 h-3.5 text-amber-500/60" />
                   ) : (
-                    <span className="flex h-1.5 w-1.5 rounded-full border border-muted-foreground/20 group-hover:border-amber-500/40 transition-colors" />
+                    <div className="w-1.5 h-1.5 rounded-full border border-muted-foreground/20 group-hover:border-amber-500/40 transition-colors" />
                   )}
                 </span>
 
                 {/* Label */}
-                <span className="relative z-10 font-medium leading-none truncate text-[12px]">
-                  {section.label}
+                <span className={cn(
+                  "relative z-10 font-medium leading-tight truncate text-[11px] tracking-tight",
+                  isActive ? "text-black" : ""
+                )}>
+                  {section.titulo}
                 </span>
 
                 {/* Hover shimmer */}
                 {!isActive && (
-                  <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-transparent via-amber-500/5 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-transparent via-amber-500/5 to-transparent pointer-events-none" />
                 )}
-              </Link>
+              </button>
             )
           })}
         </nav>
       </ScrollArea>
 
       {/* Footer */}
-      <div className="p-4 border-t border-border">
-        <p className="text-[9px] text-muted-foreground/30 tracking-[0.3em] uppercase text-center">
-          Bieneq · Monterrey
-        </p>
+      <div className="p-6 border-t border-border bg-sidebar-accent/50">
+        <div className="flex items-center gap-3 opacity-40">
+           <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center">
+              <span className="text-[10px] font-bold text-amber-500">JL</span>
+           </div>
+           <div>
+              <p className="text-[10px] font-bold text-white leading-none">José Manuel Luna</p>
+              <p className="text-[8px] text-white/50 uppercase tracking-widest mt-1">Instructor</p>
+           </div>
+        </div>
       </div>
     </aside>
   )
