@@ -140,7 +140,7 @@ export function CoursePlayer() {
              >
                <img
                  src={currentModule.media?.imagen_fondo || INTRO_BG_FALLBACKS[currentModule.id] || "/assets/curso/backgrounds/technical-grid.png"}
-                 className="w-full h-full object-cover grayscale"
+                 className="w-full h-full object-cover grayscale opacity-20"
                  alt=""
                  onError={(e) => {
                    (e.currentTarget as HTMLImageElement).src = INTRO_BG_FALLBACKS[currentModule.id] || "/assets/curso/backgrounds/technical-grid.png"
@@ -156,12 +156,12 @@ export function CoursePlayer() {
                 >
                     {currentModule.parte}
                 </motion.span>
-                <motion.h2 
-                  initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-                  className="text-8xl md:text-[14rem] font-display font-bold text-white tracking-tighter leading-[0.7] mb-8"
-                >
-                    {currentModule.titulo}
-                </motion.h2>
+                 <motion.h2 
+                   initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 1.2 }}
+                   className="text-6xl md:text-8xl lg:text-[7rem] font-display font-black text-white leading-[0.9] tracking-tighter text-balance px-4"
+                 >
+                   {currentModule.titulo}
+                 </motion.h2>
                 <motion.div 
                   initial={{ width: 0 }} animate={{ width: 120 }}
                   className="h-px bg-amber-500/50 mx-auto" 
@@ -256,9 +256,9 @@ export function CoursePlayer() {
                 <Magnetic>
                   <button 
                     onClick={() => setIsSidebarOpen(false)}
-                    className="absolute right-8 top-8 z-[80] w-24 h-24 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:scale-110 transition-all shadow-2xl backdrop-blur-3xl active:scale-95"
+                    className="absolute right-8 top-8 z-[80] w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:scale-110 transition-all shadow-2xl backdrop-blur-3xl active:scale-95"
                   >
-                    <X className="w-12 h-12" />
+                    <X className="w-8 h-8" />
                   </button>
                 </Magnetic>
                 <ProgressSidebar />
@@ -279,11 +279,11 @@ export function CoursePlayer() {
           >
             <div className="flex items-center gap-6 pointer-events-auto">
               <Magnetic strength={0.3}>
-                <button
+                <button 
               onClick={() => setIsSidebarOpen(true)}
-              className="group p-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-amber-500 hover:border-amber-400 transition-all duration-500 hover:scale-110 active:scale-95"
+              className="p-6 rounded-3xl bg-black/40 backdrop-blur-3xl border border-white/10 text-white hover:bg-amber-500 hover:text-black transition-all group active:scale-90"
             >
-              <Menu className="w-16 h-16 text-white group-hover:text-black" />
+              <Menu className="w-8 h-8 group-hover:scale-110 transition-transform" />
             </button>
               </Magnetic>
               
@@ -376,14 +376,13 @@ export function CoursePlayer() {
           >
             <div className="flex items-center gap-2 p-2 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full pointer-events-auto">
               <Magnetic strength={0.5}>
-                <Button
-                  variant="ghost"
-                  onClick={handlePrev}
-                  disabled={currentModuleIndex === 0}
-                  className="h-14 w-14 rounded-full border-none hover:bg-white/10 disabled:opacity-20"
-                >
-                  <ChevronLeft className="w-6 h-6 text-white" />
-                </Button>
+                <button 
+            onClick={handlePrev} 
+            className="p-6 rounded-2xl bg-zinc-900/80 text-white/40 hover:text-white hover:bg-zinc-800 transition-all active:scale-90" 
+            title="Anterior"
+          >
+            <ChevronLeft className="w-8 h-8" />
+          </button>
               </Magnetic>
 
               <div className="h-4 w-px bg-white/10 mx-2" />
@@ -398,15 +397,14 @@ export function CoursePlayer() {
               <div className="h-4 w-px bg-white/10 mx-2" />
 
               <Magnetic strength={0.4}>
-                <Button
-                  variant="ghost"
-                  onClick={handleNext}
-                  disabled={currentModuleIndex === modules.length - 1}
-                  className="h-14 w-28 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-bold flex items-center justify-between px-6 shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all group"
-                >
-                  <span>Siguiente</span>
-                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <button 
+            onClick={handleNext} 
+            className="p-6 pr-8 rounded-2xl bg-amber-500 text-black hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 active:scale-90 flex items-center gap-4 group"
+            title="Siguiente"
+          >
+            <span className="text-xs font-black uppercase tracking-widest">Siguiente</span>
+            <ChevronRight className="w-8 h-8 group-hover:translate-x-1 transition-transform" />
+          </button>
               </Magnetic>
             </div>
           </motion.footer>

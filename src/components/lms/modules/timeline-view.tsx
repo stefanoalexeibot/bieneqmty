@@ -62,7 +62,7 @@ export function TimelineView({ data }: TimelineViewProps) {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-7xl md:text-[10rem] font-display font-bold text-white tracking-tighter leading-none"
+            className="text-7xl md:text-9xl font-display font-black text-white leading-none tracking-tighter mb-4 text-balance"
           >
             {data.titulo}
           </motion.h2>

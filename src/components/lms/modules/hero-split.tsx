@@ -21,7 +21,7 @@ export function HeroSplit({ data }: HeroSplitProps) {
         >
           {data.parte}
         </motion.span>
-        <h1 className="text-6xl md:text-9xl font-display font-bold text-white leading-[0.85] tracking-tighter">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white leading-tight tracking-tighter text-balance">
           {data.titulo}
         </h1>
         <p className="text-xl md:text-2xl text-white/50 font-light leading-relaxed max-w-xl">

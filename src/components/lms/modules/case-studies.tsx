@@ -33,11 +33,10 @@ export function CaseStudies({ data }: { data: any }) {
           </motion.div>
           
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-7xl md:text-[10rem] font-display font-bold text-white tracking-tighter"
+            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+            className="text-7xl md:text-9xl font-display font-black text-white tracking-tighter leading-none mb-4 text-balance px-4"
           >
-            Casos de <span className="text-amber-500 italic">Éxito</span>
+            {data.titulo}
           </motion.h2>
           
           <motion.p 

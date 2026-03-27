@@ -230,9 +230,9 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                 )}
                 <button
                   onClick={() => { setActiveId(null); setCurrentImage(mainImage) }}
-                  className="group flex items-center gap-6 text-sm font-black text-white/60 hover:text-white uppercase tracking-[0.3em]"
+                  className="group flex items-center gap-6 text-sm font-black text-white/60 hover:text-white uppercase tracking-[0.3em] mt-8"
                 >
-                  <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-amber-500 group-hover:bg-amber-500/20 transition-all">
+                  <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-amber-500 group-hover:bg-amber-500/20 transition-all shadow-2xl">
                     <X className="w-6 h-6" />
                   </div>
                   Regresar

@@ -28,6 +28,18 @@ function TopicCard({ id, title, image, delay, onSelect }: { id: number; title: s
             <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-80 transition-opacity duration-700 grayscale group-hover:grayscale-0">
                <img src={image} className="w-full h-full object-cover scale-110 group-hover:scale-125 transition-transform duration-1000 ease-out" alt={title} />
                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent" />
+                {/* This button seems to be misplaced based on the original context, but added as per instruction */}
+                {/* Assuming setActiveId and setCurrentImage are available in a parent context or this component's props if this button is meant to be functional here */}
+                {/* For now, it's added as a static element within the image div */}
+                {/* <button
+                  onClick={() => { setActiveId(null); setCurrentImage(mainImage) }}
+                  className="group flex items-center gap-6 text-sm font-black text-white/60 hover:text-white uppercase tracking-[0.3em] mt-8"
+                >
+                  <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-amber-500 group-hover:bg-amber-500/20 transition-all shadow-2xl">
+                    <X className="w-6 h-6" />
+                  </div>
+                  Regresar
+                </button> */}
             </div>
             
             <div className="flex items-start justify-between relative z-10">
@@ -40,7 +52,7 @@ function TopicCard({ id, title, image, delay, onSelect }: { id: number; title: s
             </div>
             
             <div className="flex-1 flex flex-col gap-3 relative z-10 justify-end">
-              <h3 className="text-3xl md:text-4xl text-white/90 font-display font-black leading-tight group-hover:text-white transition-colors duration-500">
+              <h3 className="text-2xl md:text-3xl text-white/90 font-display font-black leading-tight group-hover:text-white transition-colors duration-500 text-balance">
                 {title}
               </h3>
               <div className="h-1.5 w-12 bg-amber-500/30 group-hover:w-full transition-all duration-700 rounded-full" />
@@ -234,9 +246,9 @@ export function Presentacion({ data }: { data?: any }) {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}
               onClick={() => { setSelectedTopic(null); setSelectedQuestion(null) }}
-              className="absolute top-12 right-12 w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:scale-110 transition-all z-[110]"
+              className="absolute top-8 right-8 w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:scale-110 transition-all z-[110]"
             >
-              <X className="w-8 h-8" />
+              <X className="w-6 h-6" />
             </motion.button>
 
             {/* Content Container */}
@@ -276,7 +288,7 @@ export function Presentacion({ data }: { data?: any }) {
                        </span>
                     </motion.div>
                     
-                    <h3 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-white tracking-tighter leading-[0.95] text-balance">
+                    <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white tracking-tighter leading-[0.95] text-balance">
                       {selectedTopic?.titulo || selectedQuestion?.pregunta}
                     </h3>
                     <motion.div 
