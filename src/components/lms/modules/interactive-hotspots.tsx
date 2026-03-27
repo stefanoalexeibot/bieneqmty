@@ -47,28 +47,30 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
   const hotspots = data.hotspots_externos || []
 
   const moduleFallback = getModuleFallback(data)
-  const [currentImage, setCurrentImage] = useState(moduleFallback)
+  // Use a stable key for the current module's main image
+  const mainImage = data.media?.imagen_principal || moduleFallback
+  const [currentImage, setCurrentImage] = useState(mainImage)
+  const [lastDataId, setLastDataId] = useState(data.id)
 
-  useEffect(() => {
-    const localPath = data.media?.imagen_principal
-    if (localPath) {
-      const img = new Image()
-      img.onload = () => setCurrentImage(localPath)
-      img.src = localPath
-    }
-  }, [data])
+  // Sync currentImage IF the module ID actually changed
+  if (data.id !== lastDataId) {
+    setLastDataId(data.id)
+    setCurrentImage(mainImage)
+    setActiveId(null)
+  }
 
   const handleSpotClick = (spot: Hotspot) => {
     if (activeId === spot.id) {
       setActiveId(null)
-      setCurrentImage(moduleFallback)
+      setCurrentImage(mainImage)
     } else {
       setActiveId(spot.id)
+      
+      // If we have a specific image, try to load it
       if (spot.imagen_dinamica) {
-        const img = new Image()
-        img.onload = () => setCurrentImage(spot.imagen_dinamica!)
-        img.onerror = () => setCurrentImage(getHotspotFallback(spot.titulo, data))
-        img.src = spot.imagen_dinamica
+        setCurrentImage(spot.imagen_dinamica)
+      } else {
+        // Fallback to a keyword-based search or module main image
         setCurrentImage(getHotspotFallback(spot.titulo, data))
       }
     }
@@ -216,7 +218,7 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                 )}
 
                 <button
-                  onClick={() => { setActiveId(null); setCurrentImage(moduleFallback) }}
+                  onClick={() => { setActiveId(null); setCurrentImage(mainImage) }}
                   className="group flex items-center gap-6 text-sm font-black text-white/60 hover:text-white uppercase tracking-[0.3em]"
                 >
                   <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-amber-500 group-hover:bg-amber-500/20 transition-all">

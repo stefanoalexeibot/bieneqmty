@@ -116,7 +116,7 @@
       "titulo": "Modelo Mustang",
       "parte": "02 · El Ideal",
       "tipo_vista": "interactive-image-hotspots",
-      "media": { "imagen_principal": "/assets/curso/anatomy/anatomy-bg.png" },
+      "media": { "imagen_principal": "/assets/curso/mustang/mustang-bg.png" },
       "hotspots_externos": [
         { "id": "autoregulacion", "coordenadas": { "x": "20%", "y": "30%" }, "titulo": "Autoregulación", "texto": "Casco salvaje desgastándose en terreno duro.", "imagen_dinamica": "/assets/curso/mustang/autoregulación.png" },
         { "id": "bomba-sangre", "coordenadas": { "x": "50%", "y": "40%" }, "titulo": "Bomba de Sangre", "texto": "La ranilla toca el suelo y bombea sangre.", "imagen_dinamica": "/assets/curso/mustang/hoof-pump-blood.png" },
@@ -147,11 +147,11 @@
       "tipo_vista": "interactive-image-hotspots",
       "media": { "imagen_principal": "/assets/curso/anatomia/casco-planta-sano.png" },
       "hotspots_externos": [
-        { "id": "ranilla", "coordenadas": { "x": "50%", "y": "60%" }, "titulo": "Ranilla (Frog)", "texto": "Corazón periférico del caballo. Bombea sangre." },
-        { "id": "surco-central", "coordenadas": { "x": "50%", "y": "75%" }, "titulo": "Surco central", "texto": "Hendidura de salud e higiene." },
-        { "id": "barra", "coordenadas": { "x": "35%", "y": "70%" }, "titulo": "Barra", "texto": "El refuerzo interno de la pared." },
-        { "id": "muralla", "coordenadas": { "x": "85%", "y": "50%" }, "titulo": "Muralla", "texto": "El escudo de queratina protector." },
-        { "id": "suela", "coordenadas": { "x": "35%", "y": "50%" }, "titulo": "Suela", "texto": "La base protectora cóncava." }
+        { "id": "ranilla", "coordenadas": { "x": "50%", "y": "60%" }, "titulo": "Ranilla (Frog)", "texto": "Corazón periférico del caballo. Bombea sangre.", "imagen_dinamica": "/assets/curso/mustang/hoof-pump-blood.png" },
+        { "id": "surco-central", "coordenadas": { "x": "50%", "y": "75%" }, "titulo": "Surco central", "texto": "Hendidura de salud e higiene.", "imagen_dinamica": "/assets/curso/mustang/concave-sole.png" },
+        { "id": "barra", "coordenadas": { "x": "35%", "y": "70%" }, "titulo": "Barra", "texto": "El refuerzo interno de la pared.", "imagen_dinamica": "/assets/curso/mustang/walls.png" },
+        { "id": "muralla", "coordenadas": { "x": "85%", "y": "50%" }, "titulo": "Muralla", "texto": "El escudo de queratina protector.", "imagen_dinamica": "/assets/curso/mustang/walls.png" },
+        { "id": "suela", "coordenadas": { "x": "35%", "y": "50%" }, "titulo": "Suela", "texto": "La base protectora cóncava.", "imagen_dinamica": "/assets/curso/mustang/concave-sole.png" }
       ]
     },
     {
@@ -162,9 +162,9 @@
       "tipo_vista": "interactive-image-hotspots",
       "media": { "imagen_principal": "/assets/curso/nuevos/hoof_external.png" },
       "hotspots_externos": [
-        { "id": "corona", "coordenadas": { "x": "45%", "y": "20%" }, "titulo": "Banda Coronaria", "texto": "Donde nace la muralla (1cm/mes)." },
-        { "id": "pinza", "coordenadas": { "x": "75%", "y": "60%" }, "titulo": "Pinza (Toe)", "texto": "Área de despegue (breakover)." },
-        { "id": "talon", "coordenadas": { "x": "25%", "y": "70%" }, "titulo": "Talón", "texto": "Área de impacto inicial primario." }
+        { "id": "corona", "coordenadas": { "x": "45%", "y": "20%" }, "titulo": "Banda Coronaria", "texto": "Donde nace la muralla (1cm/mes).", "imagen_dinamica": "/assets/curso/mustang/walls.png" },
+        { "id": "pinza", "coordenadas": { "x": "75%", "y": "60%" }, "titulo": "Pinza (Toe)", "texto": "Área de despegue (breakover).", "imagen_dinamica": "/assets/curso/mustang/3d-alignment.png" },
+        { "id": "talon", "coordenadas": { "x": "25%", "y": "70%" }, "titulo": "Talón", "texto": "Área de impacto inicial primario.", "imagen_dinamica": "/assets/curso/mustang/hoof-pump-blood.png" }
       ]
     },
     {
@@ -228,11 +228,11 @@
       "titulo": "Paddock Paradise",
       "parte": "05 · La Solución",
       "tipo_vista": "interactive-image-hotspots",
-      "media": { "imagen_principal": "/assets/curso/paddock-paradise-3d.png" },
+      "media": { "imagen_principal": "/assets/curso/paddock/paddock_paradise_3d.png" },
       "hotspots_externos": [
-        { "id": "track", "coordenadas": { "x": "30%", "y": "40%" }, "titulo": "El Track", "texto": "Pasillo que obliga a caminar 15-25km." },
-        { "id": "heno", "coordenadas": { "x": "60%", "y": "50%" }, "titulo": "Puntos de Heno", "texto": "Incentiva el forrajeo." },
-        { "id": "suelo", "coordenadas": { "x": "45%", "y": "80%" }, "titulo": "Suelo Variado", "texto": "Grava y agua para endurecer la suela." }
+        { "id": "track", "coordenadas": { "x": "30%", "y": "40%" }, "titulo": "El Track", "texto": "Pasillo que obliga a caminar 15-25km.", "imagen_dinamica": "/assets/curso/mustang/mustang-bg.png" },
+        { "id": "heno", "coordenadas": { "x": "60%", "y": "50%" }, "titulo": "Puntos de Heno", "texto": "Incentiva el forrajeo.", "imagen_dinamica": "/assets/curso/anatomia/pasto en slowfeeder para padock paradise.png" },
+        { "id": "suelo", "coordenadas": { "x": "45%", "y": "80%" }, "titulo": "Suelo Variado", "texto": "Grava y agua para endurecer la suela.", "imagen_dinamica": "/assets/curso/terrenos duros y arena.png96c-9e0c-d6258f18e92" }
       ]
     },
     {
