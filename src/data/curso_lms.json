@@ -3,7 +3,7 @@
     "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
     "autor": "José Manuel Luna",
     "organizacion": "BieneQ MTY",
-    "total_modulos": 15
+    "total_modulos": 24
   },
   "modulos": [
     {
@@ -64,8 +64,26 @@
       "media": { "imagen_fondo": "/assets/curso/etologia-bg.png" }
     },
     {
-      "id": "habitat-presa",
+      "id": "etologia-detalles",
       "numero": 3,
+      "titulo": "Fundamentos Biológicos",
+      "parte": "01 · El Origen",
+      "tipo_vista": "highlight-cards",
+      "texto_introduccion": "Para que un casco sane, primero debemos respetar las necesidades biológicas del animal.",
+      "interacciones": [
+        {
+          "tipo": "highlight-items",
+          "items": [
+            { "texto": "Movimiento constante en manada.", "icono": "🌱", "titulo": "Libertad" },
+            { "texto": "Interacción con otros caballos.", "icono": "🐎", "titulo": "Compañía" },
+            { "texto": "Forrajeo de fibra larga 24/7.", "icono": "🌾", "titulo": "Nutrición" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "habitat-presa",
+      "numero": 4,
       "titulo": "Hábitat & Supervivencia",
       "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
@@ -73,8 +91,19 @@
       "media": { "imagen_fondo": "/assets/curso/habitat/wild-habitat.png" }
     },
     {
+      "id": "habitat-detalles",
+      "numero": 5,
+      "titulo": "El Desierto como Forjador",
+      "parte": "01 · El Origen",
+      "tipo_vista": "split-comparison",
+      "media": { 
+        "imagen_mala": "/assets/curso/nuevos/horseshoe_damage.png",
+        "imagen_buena": "/assets/curso/terrenos duros y arena.png96c-9e0c-d6258f18e92"
+      }
+    },
+    {
       "id": "vida-manada",
-      "numero": 4,
+      "numero": 6,
       "titulo": "Vida en Manada",
       "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
@@ -82,8 +111,26 @@
       "media": { "imagen_fondo": "/assets/curso/social/herd-dynamics.png" }
     },
     {
+      "id": "manada-detalles",
+      "numero": 7,
+      "titulo": "Seguridad Colectiva",
+      "parte": "01 · El Origen",
+      "tipo_vista": "highlight-cards",
+      "texto_introduccion": "El aislamiento genera cortisol, lo cual debilita la calidad de la muralla.",
+      "interacciones": [
+        {
+          "tipo": "highlight-items",
+          "items": [
+            { "texto": "Vigilancia compartida.", "icono": "🛡️", "titulo": "Protección" },
+            { "texto": "Juego y jerarquía.", "icono": "🎾", "titulo": "Psicología" },
+            { "texto": "Movimiento por imitación.", "icono": "👣", "titulo": "Estímulo" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "modulo-1",
-      "numero": 5,
+      "numero": 8,
       "titulo": "Bienvenida al Barefoot",
       "parte": "02 · El Ideal",
       "tipo_vista": "intro-module",
@@ -91,8 +138,26 @@
       "media": { "imagen_fondo": "/assets/curso/bg-modulo-1.webp" }
     },
     {
+      "id": "bienvenida-detalles",
+      "numero": 9,
+      "titulo": "Los 4 Jinetes del Sanación",
+      "parte": "02 · El Ideal",
+      "tipo_vista": "bento-grid",
+      "media": { "imagen_fondo": "/assets/curso/backgrounds/technical-grid.png" },
+      "interacciones": [
+        {
+          "tipo": "bento-items",
+          "items": [
+            { "titulo": "Recorte Fisiológico", "descripcion": "Respetar la anatomía única de cada casco.", "imagen": "/assets/curso/pasos/step1.png" },
+            { "titulo": "Dieta Correcta", "descripcion": "Baja en azúcares, alta en fibra.", "imagen": "/assets/curso/nutrition/nutrition-bg.png" },
+            { "titulo": "Movimiento", "descripcion": "Caminar 20km diarios en terrenos variados.", "imagen": "/assets/curso/mustang/mustang-bg.png" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "modulo-2",
-      "numero": 6,
+      "numero": 10,
       "titulo": "Retorno al Estado Natural",
       "parte": "02 · El Ideal",
       "tipo_vista": "hero-split",
@@ -112,7 +177,7 @@
     },
     {
       "id": "modulo-3",
-      "numero": 7,
+      "numero": 11,
       "titulo": "Modelo Mustang",
       "parte": "02 · El Ideal",
       "tipo_vista": "interactive-image-hotspots",
@@ -127,7 +192,7 @@
     },
     {
       "id": "modulo-6",
-      "numero": 8,
+      "numero": 12,
       "titulo": "La Bomba del Casco",
       "parte": "03 · El Motor",
       "tipo_vista": "hoof-pump",
@@ -141,7 +206,7 @@
     },
     {
       "id": "modulo-4",
-      "numero": 9,
+      "numero": 13,
       "titulo": "Anatomía: Planta",
       "parte": "03 · El Motor",
       "tipo_vista": "interactive-image-hotspots",
@@ -156,7 +221,7 @@
     },
     {
       "id": "modulo-5",
-      "numero": 10,
+      "numero": 14,
       "titulo": "Anatomía Exterior",
       "parte": "03 · El Motor",
       "tipo_vista": "interactive-image-hotspots",
@@ -169,7 +234,7 @@
     },
     {
       "id": "modulo-7",
-      "numero": 11,
+      "numero": 15,
       "titulo": "Biomecánica de Impacto",
       "parte": "03 · El Motor",
       "tipo_vista": "split-comparison",
@@ -180,7 +245,7 @@
     },
     {
       "id": "modulo-8",
-      "numero": 12,
+      "numero": 16,
       "titulo": "El Problema del Hierro",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
@@ -196,7 +261,7 @@
     },
     {
       "id": "modulo-13",
-      "numero": 13,
+      "numero": 17,
       "titulo": "La Laminitis",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
@@ -216,7 +281,7 @@
     },
     {
       "id": "modulo-9",
-      "numero": 14,
+      "numero": 18,
       "titulo": "Nutrición Crítica",
       "parte": "05 · La Solución",
       "tipo_vista": "nutrition-formula",
@@ -224,7 +289,7 @@
     },
     {
       "id": "modulo-10",
-      "numero": 15,
+      "numero": 19,
       "titulo": "Paddock Paradise",
       "parte": "05 · La Solución",
       "tipo_vista": "interactive-image-hotspots",
@@ -237,7 +302,7 @@
     },
     {
       "id": "modulo-11",
-      "numero": 16,
+      "numero": 20,
       "titulo": "Kit de Herramientas",
       "parte": "05 · La Solución",
       "tipo_vista": "bento-grid",
@@ -255,7 +320,7 @@
     },
     {
       "id": "modulo-12",
-      "numero": 17,
+      "numero": 21,
       "titulo": "Técnica de Recorte",
       "parte": "05 · La Solución",
       "tipo_vista": "step-slider",
@@ -268,7 +333,7 @@
     },
     {
       "id": "modulo-14",
-      "numero": 18,
+      "numero": 22,
       "titulo": "Transición",
       "parte": "06 · El Resultado",
       "tipo_vista": "timeline-view",
@@ -280,7 +345,7 @@
     },
     {
       "id": "modulo-15",
-      "numero": 19,
+      "numero": 23,
       "titulo": "Certificación",
       "parte": "06 · El Resultado",
       "tipo_vista": "completion"
