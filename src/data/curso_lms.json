@@ -10,15 +10,15 @@
       "id": "hero",
       "numero": 0,
       "titulo": "Inicio",
-      "parte": "Apertura",
+      "parte": "00 · Apertura",
       "tipo_vista": "hero",
       "media": {}
     },
     {
       "id": "presentacion",
-      "numero": 0,
+      "numero": 1,
       "titulo": "Presentación",
-      "parte": "Apertura",
+      "parte": "00 · Apertura",
       "tipo_vista": "presentacion",
       "interacciones": [
         {
@@ -47,57 +47,47 @@
     },
     {
       "id": "etologia",
-      "numero": 1,
+      "numero": 2,
       "titulo": "Etología Equina",
-      "parte": "Parte 1 · Etología",
+      "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
-      "descripcion": "El estudio del comportamiento en hábitat natural para entender la verdadera naturaleza del caballo.",
-      "media": {
-        "imagen_fondo": "/assets/curso/etologia-bg.webp"
-      }
+      "descripcion": "El estudio del comportamiento para entender la verdadera naturaleza del caballo.",
+      "media": { "imagen_fondo": "/assets/curso/etologia-bg.webp" }
     },
     {
       "id": "habitat-presa",
-      "numero": 2,
-      "titulo": "Hábitat & Animal de Presa",
-      "parte": "Parte 1 · Etología",
+      "numero": 3,
+      "titulo": "Hábitat & Supervivencia",
+      "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
       "descripcion": "Cómo el entorno semiárido moldea la psicología de huida y supervivencia.",
-      "media": {
-        "imagen_fondo": "/assets/curso/habitat/wild-habitat.png"
-      }
+      "media": { "imagen_fondo": "/assets/curso/habitat/wild-habitat.png" }
     },
     {
       "id": "vida-manada",
-      "numero": 3,
+      "numero": 4,
       "titulo": "Vida en Manada",
-      "parte": "Parte 1 · Etología",
+      "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
       "descripcion": "La importancia de la socialización y las normas grupales en el bienestar equino.",
-      "media": {
-        "imagen_fondo": "/assets/curso/social/herd-dynamics.png"
-      }
+      "media": { "imagen_fondo": "/assets/curso/social/herd-dynamics.png" }
     },
     {
       "id": "modulo-1",
-      "numero": 1,
+      "numero": 5,
       "titulo": "Bienvenida al Barefoot",
-      "parte": "Parte 2 · Pie Descalzo",
+      "parte": "02 · El Ideal",
       "tipo_vista": "intro-module",
-      "descripcion": "El inicio de tu viaje hacia la recuperación natural. Prepárate para desaprender lo convencional.",
-      "media": {
-        "imagen_fondo": "/assets/curso/bg-modulo-1.webp"
-      }
+      "descripcion": "El inicio de tu viaje hacia la recuperación natural. Prepárate para desaprender.",
+      "media": { "imagen_fondo": "/assets/curso/bg-modulo-1.webp" }
     },
     {
       "id": "modulo-2",
-      "numero": 2,
+      "numero": 6,
       "titulo": "Retorno al Estado Natural",
-      "parte": "Parte 2 · Pie Descalzo",
+      "parte": "02 · El Ideal",
       "tipo_vista": "hero-split",
-      "media": {
-        "imagen_fondo": "/assets/curso/historia/recorte-perfecto.webp"
-      },
+      "media": { "imagen_fondo": "/assets/curso/historia/recorte-perfecto.webp" },
       "texto_principal": "El recorte fisiológico respeta el equilibrio natural y la salud de la estructura.",
       "interacciones": [
         {
@@ -113,107 +103,66 @@
     },
     {
       "id": "modulo-3",
-      "numero": 3,
+      "numero": 7,
       "titulo": "Modelo Mustang",
-      "parte": "Parte 2 · Pie Descalzo",
+      "parte": "02 · El Ideal",
       "tipo_vista": "interactive-image-hotspots",
-      "media": {
-        "imagen_principal": "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1400"
-      },
+      "media": { "imagen_principal": "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1400" },
       "hotspots_externos": [
-        { 
-          "id": "autoregulacion", 
-          "coordenadas": { "x": "20%", "y": "30%" }, 
-          "titulo": "Autoregulación", 
-          "texto": "Casco salvaje desgastándose en terreno duro al ritmo de crecimiento.",
-          "imagen_dinamica": "/assets/curso/mustang/autoregulación.png"
-        },
-        { 
-          "id": "bomba-sangre", 
-          "coordenadas": { "x": "50%", "y": "40%" }, 
-          "titulo": "Bomba de Sangre", 
-          "texto": "Visualización del retorno venoso: la ranilla toca el suelo y bombea sangre.",
-          "imagen_dinamica": "/assets/curso/mustang/hoof-pump-blood.png"
-        },
-        { 
-          "id": "suela-concava", 
-          "coordenadas": { "x": "80%", "y": "30%" }, 
-          "titulo": "Suela Cóncava", 
-          "texto": "Vista desde abajo que muestra la protección natural para las estructuras internas.",
-          "imagen_dinamica": "/assets/curso/mustang/concave-sole.png"
-        },
-        { 
-          "id": "paredes-perpendiculares", 
-          "coordenadas": { "x": "35%", "y": "70%" }, 
-          "titulo": "Paredes Perpendiculares", 
-          "texto": "El ángulo de crecimiento sin distorsiones ni ensanchamientos laterales.",
-          "imagen_dinamica": "/assets/curso/mustang/walls.png"
-        },
-        { 
-          "id": "angulo-perfecto", 
-          "coordenadas": { "x": "65%", "y": "70%" }, 
-          "titulo": "Ángulo Perfecto", 
-          "texto": "Corte transversal 3D de la alineación interna perfecta con el eje del dedo.",
-          "imagen_dinamica": "/assets/curso/mustang/3d-alignment.png"
-        }
-      ]
-    },
-    {
-      "id": "modulo-4",
-      "numero": 4,
-      "titulo": "Anatomía: Planta",
-      "parte": "Parte 2 · Pie Descalzo",
-      "tipo_vista": "interactive-image-hotspots",
-      "media": {
-        "imagen_principal": "/assets/curso/anatomia/casco-planta-sano.png"
-      },
-      "hotspots_externos": [
-        { "id": "ranilla", "coordenadas": { "x": "50%", "y": "60%" }, "titulo": "Ranilla (Frog)", "texto": "Corazón periférico del caballo. Bombea sangre en cada paso." },
-        { "id": "surco-central", "coordenadas": { "x": "50%", "y": "75%" }, "titulo": "Surco central", "texto": "Hendidura de salud e higiene. Debe estar libre de infecciones." },
-        { "id": "angulo-muralla", "coordenadas": { "x": "25%", "y": "85%" }, "titulo": "Ángulo de la muralla", "texto": "Punto de inflexión del talón hacia las barras." },
-        { "id": "barra", "coordenadas": { "x": "35%", "y": "70%" }, "titulo": "Barra", "texto": "El refuerzo interno de la pared que ayuda al soporte." },
-        { "id": "muralla", "coordenadas": { "x": "85%", "y": "50%" }, "titulo": "Muralla", "texto": "El escudo de queratina protector externo." },
-        { "id": "linea-blanca", "coordenadas": { "x": "75%", "y": "30%" }, "titulo": "Línea blanca", "texto": "El pegamento elástico del casco (Lámina)." },
-        { "id": "suela", "coordenadas": { "x": "35%", "y": "50%" }, "titulo": "Suela", "texto": "La base protectora cóncava que resguarda la P3. " },
-        { "id": "surco-colateral", "coordenadas": { "x": "63%", "y": "70%" }, "titulo": "Surco colateral", "texto": "Canal de expansión para el movimiento y amortiguación." }
-      ]
-    },
-    {
-      "id": "modulo-5",
-      "numero": 5,
-      "titulo": "Anatomía Exterior",
-      "parte": "Parte 2 · Pie Descalzo",
-      "tipo_vista": "interactive-image-hotspots",
-      "media": {
-        "imagen_principal": "/assets/curso/nuevos/hoof_external.png"
-      },
-      "hotspots_externos": [
-        { "id": "corona", "coordenadas": { "x": "45%", "y": "20%" }, "titulo": "Banda Coronaria", "texto": "Donde nace la muralla, a un ritmo de 1cm por mes. Cualquier inflamación aquí dejará cicatriz anatómica." },
-        { "id": "pinza", "coordenadas": { "x": "75%", "y": "60%" }, "titulo": "Pinza (Toe)", "texto": "Área de despegue (breakover). El exceso de pinza genera tensión destructiva en tendones." },
-        { "id": "cuartos", "coordenadas": { "x": "40%", "y": "50%" }, "titulo": "Cuartos", "texto": "Pared lateral, responsable de flexionar y absorber impacto asimétrico." },
-        { "id": "talon", "coordenadas": { "x": "25%", "y": "70%" }, "titulo": "Talón", "texto": "Área de impacto inicial primario. Debe ser bajo y robusto, no contraído." },
-        { "id": "bulbos", "coordenadas": { "x": "10%", "y": "50%" }, "titulo": "Bulbos", "texto": "Cojines carnosos posteriores, clave en la propiocepción y flujo sanguíneo." }
+        { "id": "autoregulacion", "coordenadas": { "x": "20%", "y": "30%" }, "titulo": "Autoregulación", "texto": "Casco salvaje desgastándose en terreno duro.", "imagen_dinamica": "/assets/curso/mustang/autoregulación.png" },
+        { "id": "bomba-sangre", "coordenadas": { "x": "50%", "y": "40%" }, "titulo": "Bomba de Sangre", "texto": "La ranilla toca el suelo y bombea sangre.", "imagen_dinamica": "/assets/curso/mustang/hoof-pump-blood.png" },
+        { "id": "suela-concava", "coordenadas": { "x": "80%", "y": "30%" }, "titulo": "Suela Cóncava", "texto": "Protección natural para las estructuras internas.", "imagen_dinamica": "/assets/curso/mustang/concave-sole.png" },
+        { "id": "paredes-perpendiculares", "coordenadas": { "x": "35%", "y": "70%" }, "titulo": "Paredes Perpendiculares", "texto": "Ángulo de crecimiento sin distorsiones.", "imagen_dinamica": "/assets/curso/mustang/walls.png" },
+        { "id": "angulo-perfecto", "coordenadas": { "x": "65%", "y": "70%" }, "titulo": "Ángulo Perfecto", "texto": "Alineación interna perfecta con el eje del dedo.", "imagen_dinamica": "/assets/curso/mustang/3d-alignment.png" }
       ]
     },
     {
       "id": "modulo-6",
-      "numero": 6,
+      "numero": 8,
       "titulo": "La Bomba del Casco",
-      "parte": "Parte 2 · Pie Descalzo",
-      "tipo_vista": "step-slider",
+      "parte": "03 · El Motor",
+      "tipo_vista": "hoof-pump",
       "media": { "imagen_fondo": "/assets/curso/anatomia/hoof-pump.png" },
-      "descripcion": "La 'Válvula Hidráulica Equina' permite bombear hasta 1 litro de sangre por minuto.",
+      "descripcion": "La 'Válvula Hidráulica Equina' permite bombear sangre en cada paso.",
       "pasos": [
-        { "numero": 1, "nombre": "Impacto", "texto": "El aterrizaje de talón activa los sensores de presión.", "imagen": "/assets/curso/anatomia/impact.png" },
-        { "numero": 2, "nombre": "Expansión", "texto": "Los bulbos se expanden y la almohadilla digital se comprime.", "imagen": "/assets/curso/anatomia/expansion.png" },
-        { "numero": 3, "nombre": "Bombeo", "texto": "La sangre es expulsada violentamente hacia arriba hacia el corazón.", "imagen": "/assets/curso/anatomia/pumping.png" }
+        { "numero": 1, "nombre": "Impacto", "texto": "El aterrizaje de talón activa la presión.", "imagen": "/assets/curso/anatomia/impact.png" },
+        { "numero": 2, "nombre": "Expansión", "texto": "Los bulbos se expanden y la almohadilla se comprime.", "imagen": "/assets/curso/anatomia/expansion.png" },
+        { "numero": 3, "nombre": "Bombeo", "texto": "La sangre es expulsada hacia arriba.", "imagen": "/assets/curso/anatomia/pumping.png" }
+      ]
+    },
+    {
+      "id": "modulo-4",
+      "numero": 9,
+      "titulo": "Anatomía: Planta",
+      "parte": "03 · El Motor",
+      "tipo_vista": "interactive-image-hotspots",
+      "media": { "imagen_principal": "/assets/curso/anatomia/casco-planta-sano.png" },
+      "hotspots_externos": [
+        { "id": "ranilla", "coordenadas": { "x": "50%", "y": "60%" }, "titulo": "Ranilla (Frog)", "texto": "Corazón periférico del caballo. Bombea sangre." },
+        { "id": "surco-central", "coordenadas": { "x": "50%", "y": "75%" }, "titulo": "Surco central", "texto": "Hendidura de salud e higiene." },
+        { "id": "barra", "coordenadas": { "x": "35%", "y": "70%" }, "titulo": "Barra", "texto": "El refuerzo interno de la pared." },
+        { "id": "muralla", "coordenadas": { "x": "85%", "y": "50%" }, "titulo": "Muralla", "texto": "El escudo de queratina protector." },
+        { "id": "suela", "coordenadas": { "x": "35%", "y": "50%" }, "titulo": "Suela", "texto": "La base protectora cóncava." }
+      ]
+    },
+    {
+      "id": "modulo-5",
+      "numero": 10,
+      "titulo": "Anatomía Exterior",
+      "parte": "03 · El Motor",
+      "tipo_vista": "interactive-image-hotspots",
+      "media": { "imagen_principal": "/assets/curso/nuevos/hoof_external.png" },
+      "hotspots_externos": [
+        { "id": "corona", "coordenadas": { "x": "45%", "y": "20%" }, "titulo": "Banda Coronaria", "texto": "Donde nace la muralla (1cm/mes)." },
+        { "id": "pinza", "coordenadas": { "x": "75%", "y": "60%" }, "titulo": "Pinza (Toe)", "texto": "Área de despegue (breakover)." },
+        { "id": "talon", "coordenadas": { "x": "25%", "y": "70%" }, "titulo": "Talón", "texto": "Área de impacto inicial primario." }
       ]
     },
     {
       "id": "modulo-7",
-      "numero": 7,
+      "numero": 11,
       "titulo": "Biomecánica de Impacto",
-      "parte": "Parte 2 · Pie Descalzo",
+      "parte": "03 · El Motor",
       "tipo_vista": "split-comparison",
       "media": { 
         "imagen_mala": "/assets/curso/nuevos/horseshoe_damage.png",
@@ -222,152 +171,105 @@
     },
     {
       "id": "modulo-8",
-      "numero": 8,
-      "titulo": "El Problema Convencional",
-      "parte": "Parte 2 · Pie Descalzo",
+      "numero": 12,
+      "titulo": "El Problema del Hierro",
+      "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
       "titulo_alerta": "Hierro <br /> <span class='text-red-500 italic'>Dañino</span>",
-      "texto_introduccion": "Las herraduras comerciales anulan las funciones biomecánicas vitales, ocultando el dolor mientras destruyen la arquitectura interna a largo plazo.",
-      "titulo_procedimiento": "Evitar el Hierro",
-      "procedimiento_sos": [
-         "Transición a Botas de Hule terapéuticas.",
-         "Mejorar el entorno (pads y paddocks).",
-         "Dejar asentar la almohadilla digital."
-      ],
-      "media": { "imagen_fondo": "/assets/curso/nuevos/horseshoe_damage.png" },
+      "texto_introduccion": "Las herraduras comerciales anulan las funciones vitales, ocultando el dolor.",
       "checklist_emergencia": [
-        "Inhibición de la Bomba Hidráulica (Bloquea expansión)",
-        "Atrofia Severa de Ranilla (Al elevarla del suelo)",
-        "Daño Estructural por Clavos (Infecciones en línea blanca)",
-        "Vibración Articular (El hierro transmite 3x más shock)"
-      ],
-      "interacciones": [
-        {
-          "tipo": "warning-list",
-          "titulo": "¿Por qué no Herraduras?",
-          "items": [
-            "Ocultan el síntoma (dolor) pero agravan la enfermedad.",
-            "Detienen el desarrollo de la almohadilla digital gruesa.",
-            "Distorsionan el breakover (despegue) de la pinza."
-          ]
-        }
-      ]
-    },
-    {
-      "id": "modulo-9",
-      "numero": 9,
-      "titulo": "Nutrición Crítica",
-      "parte": "Parte 2 · Nutrición",
-      "tipo_vista": "nutrition-formula"
-    },
-    {
-      "id": "modulo-10",
-      "numero": 10,
-      "titulo": "Paddock Paradise",
-      "parte": "Parte 2 · Entorno",
-      "tipo_vista": "interactive-image-hotspots",
-      "media": { "imagen_principal": "/assets/curso/paddock-paradise-3d.png" },
-      "texto_principal": "Concepto de Jaime Jackson: Forzar el movimiento natural.",
-      "hotspots_externos": [
-        { "id": "track", "coordenadas": { "x": "30%", "y": "40%" }, "titulo": "El Track", "texto": "Pasillo perimetral que obliga a caminar 15-25km diarios." },
-        { "id": "heno", "coordenadas": { "x": "60%", "y": "50%" }, "titulo": "Puntos de Heno", "texto": "Distribución estratégica para incentivar el forrajeo." },
-        { "id": "suelo", "coordenadas": { "x": "45%", "y": "80%" }, "titulo": "Suelo Variado", "texto": "Grava, arena y agua para endurecer la suela naturalmente." }
-      ]
-    },
-    {
-      "id": "modulo-11",
-      "numero": 11,
-      "titulo": "Tu Kit de Herramientas",
-      "parte": "Parte 3 · Práctica",
-      "tipo_vista": "bento-grid",
-      "interacciones": [
-        {
-          "tipo": "bento-items",
-          "titulo": "Especificaciones Técnicas",
-          "items": [
-            { "titulo": "Escofina (Rasp)", "descripcion": "Acabado final y el famoso Mustang Roll.", "imagen": "/assets/curso/tools/rasp.png" },
-            { "titulo": "Pujavante", "descripcion": "Retirada de suela exfoliante y Barras excedentes.", "imagen": "/assets/curso/tools/knife.png" },
-            { "titulo": "Tenazas (Nippers)", "descripcion": "Recorte preciso de la pared excedente.", "imagen": "/assets/curso/tools/nippers.png" },
-            { "titulo": "Cuchilla", "descripcion": "Limpieza profunda de ranilla y lagunas.", "imagen": "/assets/curso/tools/loop-knife.png" }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "modulo-12",
-      "numero": 12,
-      "titulo": "Técnica de Recorte",
-      "parte": "Parte 3 · Práctica",
-      "tipo_vista": "step-slider",
-      "descripcion": "El protocolo BieneQ MTY paso a paso.",
-      "pasos": [
-        { "numero": 1, "nombre": "Limpieza y Evaluación", "texto": "Identificar el punto más ancho de la ranilla.", "imagen": "/assets/curso/pasos/step1.png" },
-        { "numero": 2, "nombre": "Nivelación de Talones", "texto": "Llevándolos al nivel de la unión ranilla-barras.", "imagen": "/assets/curso/pasos/step2.png" },
-        { "numero": 3, "nombre": "El Mustang Roll", "texto": "Redondeo del ángulo para tracción perfecta.", "imagen": "/assets/curso/pasos/step3.png" },
-        { "numero": 4, "nombre": "Control de Suela", "texto": "Respetar la suela de transición sin sobre-recortar.", "imagen": "/assets/curso/pasos/step4.png" }
+        "Inhibición de la Bomba Hidráulica",
+        "Atrofia Severa de Ranilla",
+        "Daño Estructural por Clavos",
+        "Vibración Articular"
       ]
     },
     {
       "id": "modulo-13",
       "numero": 13,
       "titulo": "La Laminitis",
-      "parte": "Parte 3 · Patologías",
+      "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
       "titulo_alerta": "Alerta <br /> <span class='text-red-600 italic'>Roja</span>",
-      "texto_introduccion": "Emergencia metabólica aguda y dolorosa sistemática por hiperinsulinemia.",
-      "titulo_procedimiento": "Procedimiento SOS",
+      "texto_introduccion": "Emergencia metabólica aguda por hiperinsulinemia.",
       "procedimiento_sos": [
-         "Retirar grano de inmediato (Solo Pasto).",
-         "Contacto al Especialista Podólogo urgente.",
-         "Hielo en los cascos para desinflamación rápida."
+         "Retirar grano (Solo Pasto)",
+         "Podólogo urgente",
+         "Hielo en los cascos"
       ],
-      "media": { "imagen_fondo": "/assets/curso/laminitis-bg.png" },
       "checklist_emergencia": [
-        "¿Se inclina hacia atrás (postura del fundador)?",
-        "¿Sientes calor excesivo en las cápsulas?",
-        "¿El pulso digital es fuerte y saltón?",
-        "¿Hay hemorragias en la línea blanca?"
-      ],
+        "¿Postura del fundador?",
+        "¿Calor excesivo?",
+        "¿Pulso digital resaltado?"
+      ]
+    },
+    {
+      "id": "modulo-9",
+      "numero": 14,
+      "titulo": "Nutrición Crítica",
+      "parte": "05 · La Solución",
+      "tipo_vista": "nutrition-formula"
+    },
+    {
+      "id": "modulo-10",
+      "numero": 15,
+      "titulo": "Paddock Paradise",
+      "parte": "05 · La Solución",
+      "tipo_vista": "interactive-image-hotspots",
+      "media": { "imagen_principal": "/assets/curso/paddock-paradise-3d.png" },
+      "hotspots_externos": [
+        { "id": "track", "coordenadas": { "x": "30%", "y": "40%" }, "titulo": "El Track", "texto": "Pasillo que obliga a caminar 15-25km." },
+        { "id": "heno", "coordenadas": { "x": "60%", "y": "50%" }, "titulo": "Puntos de Heno", "texto": "Incentiva el forrajeo." },
+        { "id": "suelo", "coordenadas": { "x": "45%", "y": "80%" }, "titulo": "Suelo Variado", "texto": "Grava y agua para endurecer la suela." }
+      ]
+    },
+    {
+      "id": "modulo-11",
+      "numero": 16,
+      "titulo": "Kit de Herramientas",
+      "parte": "05 · La Solución",
+      "tipo_vista": "bento-grid",
       "interacciones": [
         {
-          "tipo": "warning-list",
-          "titulo": "Alerta Roja Metabólica",
+          "tipo": "bento-items",
           "items": [
-            "Detectar crisis metabólica a tiempo.",
-            "Postura de alivio característica.",
-            "Señales claras en la anatomía externa."
+            { "titulo": "Escofina", "descripcion": "Mustang Roll.", "imagen": "/assets/curso/tools/rasp.png" },
+            { "titulo": "Pujavante", "descripcion": "Suela exfoliante.", "imagen": "/assets/curso/tools/knife.png" },
+            { "titulo": "Tenazas", "descripcion": "Pared excedente.", "imagen": "/assets/curso/tools/nippers.png" }
           ]
         }
       ]
     },
     {
+      "id": "modulo-12",
+      "numero": 17,
+      "titulo": "Técnica de Recorte",
+      "parte": "05 · La Solución",
+      "tipo_vista": "step-slider",
+      "pasos": [
+        { "numero": 1, "nombre": "Limpieza", "texto": "Evaluación del punto más ancho.", "imagen": "/assets/curso/pasos/step1.png" },
+        { "numero": 2, "nombre": "Nivelación", "texto": "Talones al nivel ranilla-barras.", "imagen": "/assets/curso/pasos/step2.png" },
+        { "numero": 3, "nombre": "Mustang Roll", "texto": "Redondeo para tracción.", "imagen": "/assets/curso/pasos/step3.png" }
+      ]
+    },
+    {
       "id": "modulo-14",
-      "numero": 14,
-      "titulo": "Transición al Barefoot",
-      "parte": "Parte 3 · Patologías",
+      "numero": 18,
+      "titulo": "Transición",
+      "parte": "06 · El Resultado",
       "tipo_vista": "timeline-view",
-      "media": { "imagen_fondo": "/assets/curso/transition-bg.png" },
       "timeline": [
-        { "periodo": "Mes 1", "evento": "Desinflamación y adaptación inicial.", "texto": "Sensibilidad normal, el casco comienza a repararse." },
-        { "periodo": "Mes 6", "evento": "Conexión laminar fortalecida.", "texto": "Media cápsula renovada con nueva queratina sólida." },
-        { "periodo": "Año 1", "evento": "Renovación Total.", "texto": "Cápsula córnea renovada al 100%, lista para cualquier terreno." }
+        { "periodo": "Mes 1", "evento": "Desinflamación.", "texto": "Adaptación inicial." },
+        { "periodo": "Mes 6", "evento": "Conexión laminar.", "texto": "Queratina sólida." },
+        { "periodo": "Año 1", "evento": "Renovación Total.", "texto": "Cápsula 100% nueva." }
       ]
     },
     {
       "id": "modulo-15",
-      "numero": 15,
+      "numero": 19,
       "titulo": "Certificación",
-      "parte": "Finalización",
-      "tipo_vista": "completion",
-      "media": {
-        "imagen_fondo": "/assets/curso/final/certification-badge.png"
-      },
-      "mensaje": "¡Felicidades! Has completado el recorrido teórico del Pie Descalzo.",
-      "siguientes_pasos": [
-        "Revisa el material descargable",
-        "Únete a nuestra comunidad en BieneQ MTY",
-        "Inicia tu práctica con supervisión"
-      ]
+      "parte": "06 · El Resultado",
+      "tipo_vista": "completion"
     }
   ]
 }

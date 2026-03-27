@@ -162,9 +162,9 @@ export function CoursePlayer() {
         )
       case "interactive-image-hotspots":
         return <InteractiveHotspots data={currentModule} />
+      case "hoof-pump":
+        return <HoofPumpView data={currentModule} />
       case "step-slider":
-        // modulo-5 (La Bomba del Casco) gets a dedicated premium view
-        if (currentModule.id === "modulo-5") return <HoofPumpView data={currentModule} />
         return <StepSlider data={currentModule} />
       case "comparison-table":
         return <ComparisonTable data={currentModule} />
@@ -259,10 +259,10 @@ export function CoursePlayer() {
                 <Menu className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
               </Button>
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-[0.4em] text-amber-500 font-black leading-none mb-1">
+                <span className="text-xs uppercase tracking-[0.4em] text-amber-500 font-black leading-none mb-1.5">
                   {currentModule.parte || "Módulo"}
                 </span>
-                <span className="text-sm font-semibold text-white/80 tracking-tight">
+                <span className="text-base font-bold text-white tracking-tight">
                   {currentModule.titulo}
                 </span>
               </div>
@@ -271,8 +271,8 @@ export function CoursePlayer() {
             <div className="flex items-center gap-10 pointer-events-auto">
               <div className="hidden md:flex flex-col items-end">
                 <div className="flex items-center gap-4 mb-2">
-                  <span className="text-[9px] text-white/40 uppercase tracking-[0.3em] font-bold">Progreso del curso</span>
-                  <span className="text-xs font-mono text-amber-500 font-bold">
+                  <span className="text-xs text-white/60 uppercase tracking-[0.3em] font-bold">Progreso del curso</span>
+                  <span className="text-base font-mono text-amber-500 font-black">
                     {Math.round(((currentModuleIndex + 1) / modules.length) * 100)}%
                   </span>
                 </div>
@@ -334,9 +334,9 @@ export function CoursePlayer() {
 
               <div className="h-4 w-px bg-white/10 mx-2" />
 
-              <div className="px-6 flex flex-col items-center">
-                <span className="text-[9px] uppercase tracking-[0.3em] text-white/40 font-bold mb-1">Escena</span>
-                <span className="text-sm font-mono text-white/80 font-bold">
+              <div className="px-8 flex flex-col items-center">
+                <span className="text-xs uppercase tracking-[0.3em] text-white/60 font-black mb-1.5">Escena</span>
+                <span className="text-base font-mono text-white font-black">
                   {String(currentModuleIndex + 1).padStart(2, '0')} / {String(modules.length).padStart(2, '0')}
                 </span>
               </div>

@@ -61,21 +61,21 @@ export function NutritionFormula({ data }: any) {
              <button
                onClick={() => setActiveTab("enemigo")}
                className={cn(
-                 "px-8 py-3 rounded-full text-sm font-bold tracking-widest uppercase transition-all flex items-center gap-2",
-                 activeTab === "enemigo" ? "bg-red-500/20 text-red-500 shadow-[0_0_20px_rgba(239,68,68,0.2)]" : "text-white/40 hover:text-white"
+                 "px-10 py-4 rounded-full text-base font-black tracking-widest uppercase transition-all flex items-center gap-3",
+                 activeTab === "enemigo" ? "bg-red-500 text-white shadow-[0_0_30px_rgba(239,68,68,0.4)]" : "text-white/40 hover:text-white"
                )}
              >
-               <Ban className="w-4 h-4" />
+               <Ban className="w-5 h-5" />
                El Enemigo (Grano)
              </button>
              <button
                onClick={() => setActiveTab("formula")}
                className={cn(
-                 "px-8 py-3 rounded-full text-sm font-bold tracking-widest uppercase transition-all flex items-center gap-2",
-                 activeTab === "formula" ? "bg-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.4)]" : "text-white/40 hover:text-white"
+                 "px-10 py-4 rounded-full text-base font-black tracking-widest uppercase transition-all flex items-center gap-3",
+                 activeTab === "formula" ? "bg-amber-500 text-black shadow-[0_0_30px_rgba(245,158,11,0.4)]" : "text-white/40 hover:text-white"
                )}
              >
-               <Sparkles className="w-4 h-4" />
+               <Sparkles className="w-5 h-5" />
                La Fórmula Exacta
              </button>
            </div>
@@ -122,7 +122,7 @@ export function NutritionFormula({ data }: any) {
                          </div>
                          <div>
                            <h4 className="text-2xl font-display font-bold text-white mb-2">Picos de Insulina</h4>
-                           <p className="text-white/40 font-light leading-relaxed">
+                           <p className="text-zinc-300 text-lg font-light leading-relaxed">
                              Los carbohidratos no estructurales (NSC) alteran el metabolismo hormonal, debilitando instantáneamente la unión de las láminas en el casco.
                            </p>
                          </div>
@@ -133,8 +133,8 @@ export function NutritionFormula({ data }: any) {
                          </div>
                          <div>
                            <h4 className="text-2xl font-display font-bold text-white mb-2">Acidosis Cecal</h4>
-                           <p className="text-white/40 font-light leading-relaxed">
-                             Falta de enzimas pancreáticas hace que el grano fermente en el intestino grueso, liberando endotoxinas que viajan directo al casco y devienen en laminitis química.
+                           <p className="text-zinc-300 text-lg font-light leading-relaxed">
+                             Falta de enzimas pancreáticas hace que el grano fermente en el intestino grueso, liberando endotoxinas que viajan directo al casco.
                            </p>
                          </div>
                       </div>

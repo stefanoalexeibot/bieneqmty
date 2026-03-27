@@ -170,7 +170,7 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                       {activeId === spot.id ? <X className="w-4 h-4" /> : <Plus className="w-5 h-5" />}
                     </div>
                     {/* Hotspot label — always visible for projector use */}
-                    <span className="absolute top-10 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] uppercase tracking-widest text-white font-black bg-black/70 backdrop-blur px-3 py-1 rounded-full border border-white/10 pointer-events-none">
+                    <span className="absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm uppercase tracking-[0.2em] text-white font-black bg-black/80 backdrop-blur-xl px-4 py-2 rounded-full border border-amber-500/30 shadow-2xl pointer-events-none">
                       {spot.titulo}
                     </span>
                   </div>
@@ -185,8 +185,8 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
               className="absolute bottom-12 left-12 bg-black/40 backdrop-blur-2xl px-8 py-4 rounded-3xl border border-white/10 flex items-center gap-4 shadow-2xl overflow-hidden group"
             >
               <div className="absolute inset-0 bg-amber-500/5 transition-opacity opacity-0 group-hover:opacity-100" />
-              <Target className="w-4 h-4 text-amber-500 animate-pulse relative z-10" />
-              <span className="text-[11px] uppercase tracking-[0.4em] text-white/80 font-black relative z-10">
+              <Target className="w-5 h-5 text-amber-500 animate-pulse relative z-10" />
+              <span className="text-sm uppercase tracking-[0.4em] text-white font-black relative z-10">
                 Exploración Anatómica
               </span>
             </motion.div>
@@ -241,10 +241,10 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
 
                 <button
                   onClick={() => { setActiveId(null); setCurrentImage(moduleFallback) }}
-                  className="group flex items-center gap-4 text-xs font-black text-white/40 hover:text-white uppercase tracking-[0.3em] transition-all"
+                  className="group flex items-center gap-6 text-sm font-black text-white/60 hover:text-white uppercase tracking-[0.3em] transition-all"
                 >
-                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-amber-500/50 group-hover:bg-amber-500/10 transition-all">
-                    <X className="w-4 h-4" />
+                  <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-amber-500 group-hover:bg-amber-500/20 transition-all bg-white/5">
+                    <X className="w-6 h-6" />
                   </div>
                   Regresar a la vista general
                 </button>
@@ -266,12 +266,12 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                     <>Anatomía <br /> <span className="text-amber-400 italic">Interactiva</span></>
                   )}
                 </h2>
-                <p className="text-2xl text-white/30 font-light leading-relaxed max-w-lg">
+                <p className="text-2xl md:text-3xl text-zinc-400 font-light leading-relaxed max-w-xl">
                   {data.texto_principal || "Interactúa con los marcadores para explorar la fisiología en detalle."}
                 </p>
                 <div className="flex items-center gap-4 pt-8">
-                  <div className="w-12 h-px bg-white/10" />
-                  <span className="text-[10px] uppercase font-black tracking-[0.5em] text-white/20 italic">
+                  <div className="w-16 h-px bg-amber-500/30" />
+                  <span className="text-sm uppercase font-black tracking-[0.5em] text-amber-500/60 italic text-center">
                     Selecciona un marcador para comenzar
                   </span>
                 </div>

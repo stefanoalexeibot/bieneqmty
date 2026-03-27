@@ -191,12 +191,12 @@ export function HoofPumpView({ data }: HoofPumpViewProps) {
       <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col gap-10">
 
         {/* Module header */}
-        <div className="space-y-3">
-          <span className="text-[10px] uppercase tracking-[0.6em] text-amber-500 font-black">{data.parte}</span>
-          <h2 className="text-5xl md:text-7xl font-display font-bold text-white tracking-tighter leading-none">
+        <div className="space-y-4">
+          <span className="text-sm uppercase tracking-[0.6em] text-amber-500 font-black">{data.parte}</span>
+          <h2 className="text-5xl md:text-8xl font-display font-bold text-white tracking-tighter leading-none">
             {data.titulo}
           </h2>
-          <p className="text-white/30 text-lg font-light max-w-xl">{data.texto || "Descubre cómo el movimiento del casco impulsa el sistema circulatorio del caballo."}</p>
+          <p className="text-white/60 text-xl font-light max-w-2xl leading-relaxed">{data.texto || "Descubre cómo el movimiento del casco impulsa el sistema circulatorio del caballo."}</p>
         </div>
 
         {/* Step cards row */}
@@ -220,8 +220,8 @@ export function HoofPumpView({ data }: HoofPumpViewProps) {
               >
                 {/* Step number */}
                 <span className={cn(
-                  "text-[9px] uppercase tracking-[0.6em] font-black mb-6 block transition-all",
-                  isActive ? c.text : "text-white/20"
+                  "text-xs uppercase tracking-[0.6em] font-black mb-6 block transition-all",
+                  isActive ? c.text : "text-white/40"
                 )}>
                   Fase {String(i + 1).padStart(2, "0")}
                 </span>
@@ -275,9 +275,9 @@ export function HoofPumpView({ data }: HoofPumpViewProps) {
                 <motion.div
                   animate={{ scale: [1, 1.3, 1] }}
                   transition={{ duration: 0.8, repeat: Infinity }}
-                  className={cn("w-3 h-3 rounded-full", activeStep === 2 ? "bg-red-500" : "bg-amber-500")}
+                  className={cn("w-3.5 h-3.5 rounded-full", activeStep === 2 ? "bg-red-500" : "bg-amber-500")}
                 />
-                <span className={cn("text-[10px] uppercase tracking-[0.5em] font-black", color.text)}>
+                <span className={cn("text-xs uppercase tracking-[0.5em] font-black", color.text)}>
                   Fase {activeStep + 1} de {steps.length} · Mecánica Vascular
                 </span>
               </div>
@@ -286,7 +286,7 @@ export function HoofPumpView({ data }: HoofPumpViewProps) {
                 {step?.nombre}
               </h3>
 
-              <p className="text-xl md:text-2xl text-white/40 font-light leading-relaxed italic">
+              <p className="text-2xl md:text-4xl text-zinc-300 font-light leading-relaxed italic pr-12">
                 &ldquo;{step?.texto}&rdquo;
               </p>
 

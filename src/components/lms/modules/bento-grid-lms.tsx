@@ -54,8 +54,8 @@ export function BentoGridLMS({ data }: BentoGridLMSProps) {
              animate={{ opacity: 1, x: 0 }}
              className="flex items-center gap-4"
            >
-             <div className="h-px w-8 bg-amber-500/50" />
-             <span className="text-amber-500 font-mono text-[10px] font-black tracking-[0.5em] uppercase">
+             <div className="h-px w-12 bg-amber-500/50" />
+             <span className="text-amber-500 font-mono text-base font-black tracking-[0.5em] uppercase">
                Módulo {data.numero} · Herramientas
              </span>
            </motion.div>
@@ -104,8 +104,8 @@ export function BentoGridLMS({ data }: BentoGridLMSProps) {
               </div>
 
               <div className="relative z-10 flex flex-col justify-end h-full">
-                 <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 border border-amber-500/20">
-                    <span className="font-mono text-[10px] font-black text-amber-500">
+                 <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 border border-amber-500/20">
+                    <span className="font-mono text-base font-black text-amber-500">
                       0{i + 1}
                     </span>
                  </div>
@@ -117,8 +117,8 @@ export function BentoGridLMS({ data }: BentoGridLMSProps) {
                    {item.titulo}
                  </h3>
                  <p className={cn(
-                   "text-sm leading-relaxed font-light",
-                   i === 0 ? "text-white/60 max-w-xs" : "text-white/40"
+                   "text-base md:text-lg leading-relaxed font-light",
+                   i === 0 ? "text-white/80 max-w-sm" : "text-zinc-300"
                  )}>
                    {item.descripcion}
                  </p>

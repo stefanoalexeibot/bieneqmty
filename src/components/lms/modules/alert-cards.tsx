@@ -54,8 +54,8 @@ export function AlertCards({ data }: AlertCardsProps) {
               animate={{ x: 0, opacity: 1 }}
               className="inline-flex items-center gap-4 px-5 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 font-black uppercase tracking-[0.4em] text-[10px]"
             >
-              <HeartPulse className={cn("w-4 h-4", isCritical ? "animate-[ping_1s_infinite]" : "animate-pulse")} />
-              <span>Diagnóstico de Emergencia</span>
+              <HeartPulse className={cn("w-5 h-5", isCritical ? "animate-[ping_1s_infinite]" : "animate-pulse")} />
+              <span className="text-sm">Diagnóstico de Emergencia</span>
             </motion.div>
 
             <motion.h2 
@@ -72,7 +72,7 @@ export function AlertCards({ data }: AlertCardsProps) {
 
             <div className="h-px w-24 bg-red-600/30" />
             
-            <p className="text-2xl text-white/40 font-light leading-relaxed max-w-xl">
+            <p className="text-2xl text-white/70 font-light leading-relaxed max-w-xl">
                {data.texto_introduccion || "Protocolo de respuesta inmediata ante sospecha de laminitis o infosura."}
             </p>
           </div>
@@ -91,8 +91,8 @@ export function AlertCards({ data }: AlertCardsProps) {
                    "Llamar al veterinario / podólogo de urgencia.",
                    "Crioterapia (hielo en cascos) durante 15-20 min."
                 ]).map((step: string, idx: number) => (
-                  <li key={idx} className="flex items-center gap-4 text-white/50 text-lg font-light italic">
-                     <span className="w-1.5 h-1.5 rounded-full bg-red-600/40" />
+                  <li key={idx} className="flex items-center gap-4 text-white/80 text-xl font-light italic leading-relaxed">
+                     <span className="w-2 h-2 rounded-full bg-red-600" />
                      {step}
                   </li>
                 ))}
