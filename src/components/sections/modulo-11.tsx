@@ -5,10 +5,10 @@ import { Calendar, ChevronRight, CheckCircle2, Zap, Target } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const milestones = [
-  { mes: "0m", titulo: "Día Cero", desc: "Retirada de herraduras. Inicio de la inflamación reparadora y desintoxicación.", color: "text-amber-500" },
-  { mes: "1-3m", titulo: "Sensibilidad", desc: "El casco se adapta al suelo. Uso de botas necesario. El pie comienza a expandirse.", color: "text-amber-400" },
-  { mes: "4-8m", titulo: "Reconstrucción", desc: "Crecimiento de una nueva muralla más densa y conexión laminar fuerte.", color: "text-amber-300" },
-  { mes: "12m", titulo: "Consolidación", desc: "Casco 100% renovado. Callosidad en la suela y total funcionalidad.", color: "text-amber-200" }
+  { mes: "0m", titulo: "Día Cero", desc: "Retirada de herraduras. Inicio de la inflamación reparadora y desintoxicación.", color: "text-blue-500" },
+  { mes: "1-3m", titulo: "Sensibilidad", desc: "El casco se adapta al suelo. Uso de botas necesario. El pie comienza a expandirse.", color: "text-blue-400" },
+  { mes: "4-8m", titulo: "Reconstrucción", desc: "Crecimiento de una nueva muralla más densa y conexión laminar fuerte.", color: "text-blue-300" },
+  { mes: "12m", titulo: "Consolidación", desc: "Casco 100% renovado. Callosidad en la suela y total funcionalidad.", color: "text-blue-200" }
 ]
 
 export function Modulo11() {
@@ -18,8 +18,13 @@ export function Modulo11() {
 
   return (
     <section id="modulo-11" ref={ref} className="min-h-screen py-32 bg-background relative flex flex-col justify-center overflow-hidden border-t border-white/5">
+      {/* Premium Background Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+         <img src="/assets/curso/backgrounds/hoof-texture.png" className="w-full h-full object-cover grayscale" alt="" />
+      </div>
+      
       {/* Background ambient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_oklch(0.72_0.14_68_/_0.03)_0%,_transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_oklch(0.7_0.15_240_/_0.03)_0%,_transparent_50%)]" />
 
       <div className="max-w-7xl mx-auto w-full px-6 relative z-10">
         
@@ -30,12 +35,12 @@ export function Modulo11() {
             viewport={{ once: true }}
           >
             <div className="inline-flex items-center gap-4 mb-6">
-              <div className="h-px w-10 bg-amber-500/40" />
-              <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 11 · Meta</span>
-              <div className="h-px w-10 bg-amber-500/40" />
+              <div className="h-px w-10 bg-blue-500/40" />
+              <span className="text-xs tracking-[0.45em] text-blue-400/70 uppercase font-semibold">Módulo 11 · Meta</span>
+              <div className="h-px w-10 bg-blue-500/40" />
             </div>
             <h2 className="font-display text-5xl md:text-8xl font-bold text-white tracking-tighter leading-none mb-6">
-               Calendario de <br /> <span className="text-amber-400 italic">Transición</span>
+               Calendario de <br /> <span className="text-blue-400 italic">Transición</span>
             </h2>
             <p className="text-xl text-white/40 font-light leading-relaxed">
               La transición es una maratón, no un sprint. Entender los tiempos biológicos es clave para el éxito.
@@ -59,14 +64,14 @@ export function Modulo11() {
                 className={cn(
                   "w-full p-6 rounded-2xl border flex items-center justify-between transition-all duration-500 group",
                   activeStep === i 
-                    ? "bg-amber-500/10 border-amber-500/50" 
+                    ? "bg-blue-500/10 border-blue-500/50" 
                     : "bg-white/[0.02] border-white/5 hover:border-white/20"
                 )}
               >
                 <div className="flex items-center gap-4">
                   <div className={cn(
                     "text-xs font-black tracking-widest uppercase transition-colors",
-                    activeStep === i ? "text-amber-400" : "text-white/20"
+                    activeStep === i ? "text-blue-400" : "text-white/20"
                   )}>
                     {step.mes}
                   </div>
@@ -79,7 +84,7 @@ export function Modulo11() {
                 </div>
                 <ChevronRight className={cn(
                   "w-4 h-4 transition-transform duration-500",
-                  activeStep === i ? "rotate-90 text-amber-500" : "text-white/10"
+                  activeStep === i ? "rotate-90 text-blue-500" : "text-white/10"
                 )} />
               </motion.button>
             ))}
@@ -93,14 +98,14 @@ export function Modulo11() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="p-12 md:p-16 rounded-[3rem] bg-amber-500/5 border border-amber-500/20 backdrop-blur-3xl relative overflow-hidden h-full flex flex-col justify-center"
+                className="p-12 md:p-16 rounded-[3rem] bg-blue-500/5 border border-blue-500/20 backdrop-blur-3xl relative overflow-hidden h-full flex flex-col justify-center"
               >
-                <Calendar className="w-16 h-16 text-amber-500/20 absolute top-12 right-12" />
+                <Calendar className="w-16 h-16 text-blue-500/20 absolute top-12 right-12" />
                 
                 <div className="space-y-8 relative z-10">
-                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20">
-                      <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                      <span className="text-xs font-black text-amber-400 uppercase tracking-widest">Hito de {milestones[activeStep].mes}</span>
+                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                      <span className="text-xs font-black text-blue-400 uppercase tracking-widest">Hito de {milestones[activeStep].mes}</span>
                    </div>
 
                    <h3 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter leading-none">
@@ -114,12 +119,12 @@ export function Modulo11() {
                    <div className="flex items-center gap-4 pt-6">
                       <div className="flex -space-x-3">
                          {[1,2,3].map(i => (
-                           <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-amber-500/20 flex items-center justify-center">
-                              <CheckCircle2 className="w-4 h-4 text-amber-500" />
+                           <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-blue-500/20 flex items-center justify-center">
+                              <CheckCircle2 className="w-4 h-4 text-blue-500" />
                            </div>
                          ))}
                       </div>
-                      <span className="text-sm text-amber-500/40 uppercase tracking-widest font-bold">Progreso biológico verificado</span>
+                      <span className="text-sm text-blue-500/40 uppercase tracking-widest font-bold">Progreso biológico verificado</span>
                    </div>
                 </div>
 
@@ -129,6 +134,7 @@ export function Modulo11() {
           </div>
 
         </div>
+
 
         {/* Footer info */}
         <motion.div

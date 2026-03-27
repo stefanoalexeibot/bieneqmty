@@ -53,10 +53,14 @@ export function Modulo5() {
 
   return (
     <section id="modulo-5" ref={ref} className="min-h-screen py-32 bg-background relative flex items-center overflow-hidden border-t border-white/5">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-700/8 blur-[180px] rounded-full pointer-events-none" />
+      {/* Premium Background Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+         <img src="/assets/curso/backgrounds/hoof-texture.png" className="w-full h-full object-cover grayscale" alt="" />
+      </div>
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-700/8 blur-[180px] rounded-full pointer-events-none" />
 
       {/* Blood flow SVG */}
-      <div className="absolute bottom-10 left-0 right-0 text-amber-500/20 pointer-events-none">
+      <div className="absolute bottom-10 left-0 right-0 text-blue-500/20 pointer-events-none">
         <BloodFlowSVG className="w-full h-14" />
       </div>
 
@@ -70,7 +74,7 @@ export function Modulo5() {
             </p>
           </motion.div>
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
-            <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 05</span>
+            <span className="text-xs tracking-[0.45em] text-blue-400/70 uppercase font-semibold">Módulo 05</span>
             <h3 className="font-display font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/40 pb-2"
               style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
               La Bomba de Sangre
@@ -78,7 +82,7 @@ export function Modulo5() {
           </div>
 
           {/* Pulse animation center */}
-          <div className="absolute right-[12%] top-1/2 -translate-y-1/2 text-amber-500/15 pointer-events-none hidden lg:block">
+          <div className="absolute right-[12%] top-1/2 -translate-y-1/2 text-blue-500/15 pointer-events-none hidden lg:block">
             <PulseSVG className="w-40 h-20" />
           </div>
         </div>
@@ -86,7 +90,7 @@ export function Modulo5() {
         {/* Cards */}
         <div className="grid lg:grid-cols-3 gap-8 relative mt-6">
           {/* Connecting line */}
-          <div className="hidden lg:block absolute top-[10%] left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-500/15 to-transparent" />
+          <div className="hidden lg:block absolute top-[10%] left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/15 to-transparent" />
 
           {steps.map((s, i) => (
             <motion.div
@@ -96,17 +100,17 @@ export function Modulo5() {
               transition={{ duration: 0.8, delay: s.delay }}
               viewport={{ once: true, margin: "-50px" }}
               whileHover={{ y: -6 }}
-              className="relative bg-white/[0.025] border border-white/[0.06] rounded-[2rem] p-10 hover:bg-amber-500/[0.05] hover:border-amber-500/20 transition-all duration-500 backdrop-blur-xl group flex flex-col items-center mt-12 lg:mt-0"
+              className="relative bg-white/[0.025] border border-white/[0.06] rounded-[2rem] p-10 hover:bg-blue-500/[0.05] hover:border-blue-500/20 transition-all duration-500 backdrop-blur-xl group flex flex-col items-center mt-12 lg:mt-0"
             >
-              <div className={`absolute inset-0 bg-gradient-to-b ${s.accent} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2rem] pointer-events-none`} />
+              <div className={`absolute inset-0 bg-gradient-to-b ${s.accent.replace("amber", "blue")} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-[2rem] pointer-events-none`} />
 
               {/* Icon circle */}
-              <div className="bg-background border border-white/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto -mt-[5rem] mb-8 text-white/25 group-hover:text-amber-400 group-hover:scale-110 transition-all duration-500 shadow-[0_0_50px_rgba(0,0,0,0.5)] z-10 relative group-hover:border-amber-500/30 group-hover:shadow-[0_0_50px_rgba(196,144,58,0.2)]">
+              <div className="bg-background border border-white/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto -mt-[5rem] mb-8 text-white/25 group-hover:text-blue-400 group-hover:scale-110 transition-all duration-500 shadow-[0_0_50px_rgba(0,0,0,0.5)] z-10 relative group-hover:border-blue-500/30 group-hover:shadow-[0_0_50px_rgba(59,130,246,0.2)]">
                 {s.icon}
               </div>
 
               {/* Step number */}
-              <span className="text-[10px] tracking-[0.4em] text-amber-500/40 uppercase font-semibold mb-3 relative z-10">
+              <span className="text-[10px] tracking-[0.4em] text-blue-500/40 uppercase font-semibold mb-3 relative z-10">
                 0{i + 1}
               </span>
 

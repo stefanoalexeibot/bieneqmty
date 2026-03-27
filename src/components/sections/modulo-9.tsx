@@ -1,131 +1,105 @@
 "use client"
-import { motion, AnimatePresence } from "framer-motion"
-import { useState, useRef } from "react"
-import { ChevronLeft, ChevronRight, Info, CheckCircle2 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
 const steps = [
-  { id: 1, tag: "Paso 01", title: "Limpieza Profunda", desc: "Uso riguroso de la cuchilla para encontrar el tejido sano y la suela funcional.", icon: "🧹" },
-  { id: 2, tag: "Paso 02", title: "Tratamiento de Ranilla", desc: "Recortar solo el tejido muerto que interfiere con el mecanismo de bombeo.", icon: "🐸" },
-  { id: 3, tag: "Paso 03", title: "Ajuste de Barras", desc: "Rebajar las barras para que no soporten peso directamente y evitar hematomas.", icon: "⚖️" },
-  { id: 4, tag: "Paso 04", title: "Nivelado de Muralla", desc: "Nivelar desde el talón hasta las lumbres buscando el equilibrio látero-medial.", icon: "📏" },
-  { id: 5, tag: "Paso 05", title: "Mustang Roll", desc: "El acabado final: un borde ovalado que previene grietas y fomenta el grosor.", icon: "🐴" }
+  { num: "01", title: "LIMPIEZA", desc: "Uso riguroso de la cuchilla para encontrar el tejido sano y funcional.", tag: "Inicio", image: "/assets/curso/pasos/step1.png" },
+  { num: "02", title: "RANILLA", desc: "Recortar solo el tejido muerto que interfiere con el rebote y la salud.", tag: "Frog", image: "/assets/curso/pasos/step2.png" },
+  { num: "03", title: "BARRAS", desc: "Rebajar para que no soporten peso directamente y permitan la expansión.", tag: "Barra", image: "/assets/curso/pasos/step3.png" },
+  { num: "04", title: "PARED", desc: "Nivelar desde el talón hasta las lumbres para un balance perfecto.", tag: "Wall", image: "/assets/curso/pasos/step4.png" },
+  { num: "05", title: "MUSTANG ROLL", desc: "El borde ovalado que previene grietas y fomenta un crecimiento grueso.", tag: "Finish", image: "/assets/curso/pasos/step5.png" }
 ]
 
 export function Modulo9() {
-  const [current, setCurrent] = useState(0)
-  const [direction, setDirection] = useState(0)
-
-  const paginate = (newDirection: number) => {
-    if (current + newDirection >= 0 && current + newDirection < steps.length) {
-      setDirection(newDirection)
-      setCurrent(current + newDirection)
-    }
-  }
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
+  const x = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"])
 
   return (
-    <section id="modulo-9" className="min-h-screen py-32 bg-background relative flex flex-col justify-center overflow-hidden border-t border-white/5">
-      
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_oklch(0.72_0.14_68_/_0.05)_0%,_transparent_70%)] pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto w-full px-6 relative z-10 flex flex-col gap-12">
-        
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8">
-          <div className="max-w-2xl">
-            <span className="text-xs tracking-[0.6em] text-amber-500 font-black uppercase mb-4 block">Módulo 09 · El Arte del Recorte</span>
-            <h2 className="font-display text-5xl md:text-[7rem] font-bold text-white tracking-tighter leading-none">
-               Técnica <br /> <span className="text-amber-400 italic">Paso a Paso</span>
-            </h2>
-          </div>
+    <section id="modulo-9" ref={ref} className="min-h-screen py-32 bg-background relative flex flex-col justify-center overflow-hidden border-t border-white/5">
+      {/* Premium Background Texture */}
+      <div className="absolute inset-0 opacity-10">
+         <img src="/assets/curso/backgrounds/hoof-texture.png" className="w-full h-full object-cover grayscale" alt="" />
+         <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background" />
+      </div>
 
-          {/* Navigation Controls */}
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => paginate(-1)}
-              disabled={current === 0}
-              className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 disabled:opacity-20 transition-all group"
-            >
-              <ChevronLeft className="w-6 h-6 text-white group-hover:-translate-x-1 transition-transform" />
-            </button>
-            <button 
-              onClick={() => paginate(1)}
-              disabled={current === steps.length - 1}
-              className="w-16 h-16 rounded-full border border-amber-500/50 bg-amber-500/10 flex items-center justify-center hover:bg-amber-500/20 disabled:opacity-20 transition-all group"
-            >
-              <ChevronRight className="w-6 h-6 text-amber-400 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
-        </div>
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-blue-500/5 blur-[250px] rounded-full pointer-events-none" />
 
-        {/* Slider Area */}
-        <div className="relative min-h-[500px] flex items-center">
-          <AnimatePresence mode="wait" custom={direction}>
+      {/* Marquee */}
+      <div className="w-full overflow-hidden mb-20 relative z-10">
+        <motion.div style={{ x }} className="whitespace-nowrap opacity-[0.05] select-none">
+          <h2 className="font-display text-[12vw] leading-none font-bold text-foreground tracking-tighter">
+            RECORTE · TÉCNICA · RECORTE · TÉCNICA · 
+          </h2>
+        </motion.div>
+      </div>
+
+      {/* Module header */}
+      <div className="max-w-6xl mx-auto px-6 w-full mb-16 relative z-10 text-center">
+        <span className="text-xs tracking-[0.45em] text-blue-500 font-black uppercase block mb-4">Módulo 09 · El Arte del Recorte</span>
+        <h2 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter leading-none">
+           Técnica <br /> <span className="text-blue-400 italic">Paso a Paso</span>
+        </h2>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 w-full relative">
+        <div className="flex flex-col gap-12 lg:gap-24 relative z-10">
+          {steps.map((p, i) => (
             <motion.div
-              key={current}
-              custom={direction}
-              initial={{ opacity: 0, x: direction > 0 ? 100 : -100, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: direction > 0 ? -100 : 100, scale: 0.95 }}
-              transition={{ duration: 0.5, ease: "circOut" }}
-              className="w-full grid lg:grid-cols-2 gap-16 items-center"
+              key={i}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="group flex flex-col lg:flex-row items-center gap-8 lg:gap-16 relative"
             >
-              {/* Left: Content */}
-              <div className="space-y-8">
-                 <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/5">
-                    <span className="text-amber-500 text-lg">{steps[current].icon}</span>
-                    <span className="text-xs font-black text-amber-500 uppercase tracking-[0.3em]">{steps[current].tag}</span>
-                 </div>
-                 
-                 <h3 className="font-display text-5xl md:text-[5rem] font-bold text-white tracking-tighter leading-tight">
-                    {steps[current].title}
-                 </h3>
+              
+              {/* Text Card Left Side */}
+              <div className="flex-1 flex items-start gap-6 md:gap-10 w-full relative">
+                {/* Timeline connection line (hidden on mobile) */}
+                {i !== steps.length - 1 && (
+                  <div className="absolute left-6 md:left-8 top-16 bottom-[-6rem] w-px bg-gradient-to-b from-blue-500/50 to-transparent hidden lg:block" />
+                )}
 
-                 <p className="text-2xl text-white/40 font-light leading-relaxed">
-                    {steps[current].desc}
-                 </p>
+                {/* Timeline node */}
+                <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-background border-[3px] border-blue-500/60 shadow-[0_0_25px_rgba(59,130,246,0.3)] flex items-center justify-center shrink-0 z-10 group-hover:bg-blue-500 group-hover:border-blue-400 transition-all duration-500">
+                  <span className="text-blue-500 group-hover:text-black transition-colors duration-500 text-sm md:text-lg font-bold font-mono">
+                    {p.num}
+                  </span>
+                </div>
 
-                 <div className="flex items-center gap-6 pt-8">
-                    <div className="flex items-center gap-2">
-                       <CheckCircle2 className="w-5 h-5 text-amber-500" />
-                       <span className="text-xs uppercase tracking-widest text-white/60 font-medium">Técnica Aprobada</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                       <Info className="w-5 h-5 text-white/20" />
-                       <span className="text-xs uppercase tracking-widest text-white/30 font-medium">Requiere práctica</span>
+                <div className="bg-white/[0.02] border border-white/[0.05] rounded-[2rem] p-8 md:p-10 hover:bg-blue-500/[0.05] hover:border-blue-500/20 transition-all duration-500 backdrop-blur-xl w-full relative overflow-hidden">
+                  <span className="absolute top-8 right-8 font-display text-4xl md:text-6xl font-bold text-white/[0.03] group-hover:text-blue-500/20 transition-colors duration-500 select-none">
+                    {p.num}
+                  </span>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-[10px] tracking-[0.3em] text-blue-500/60 uppercase font-black border border-blue-500/20 px-3 py-1.5 rounded-full bg-blue-500/5">{p.tag}</span>
+                  </div>
+                  <h3 className="font-display text-3xl md:text-4xl font-bold text-white tracking-tighter mb-4 relative z-10">{p.title}</h3>
+                  <p className="text-white/40 text-lg md:text-xl font-light leading-relaxed relative z-10">{p.desc}</p>
+                </div>
+              </div>
+
+              {/* Visual Right Side */}
+              <div className="flex-1 w-full aspect-video md:aspect-[4/3] lg:aspect-square relative rounded-[3rem] overflow-hidden border border-white/10 group-hover:border-blue-500/30 transition-colors duration-500">
+                 <img 
+                    src={p.image} 
+                    alt={`Paso ${p.num} - ${p.title}`}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[10s]"
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                 <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8">
+                    <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-6">
+                       <p className="text-white/80 font-medium text-sm md:text-base border-l-2 border-blue-500 pl-4">Registro visual del proceso Barefoot.</p>
+                       <p className="text-white/40 text-xs mt-2 pl-4">Técnica avanzada sin instrumentos invasivos.</p>
                     </div>
                  </div>
               </div>
 
-              {/* Right: Visual Placeholder (Must be Premium) */}
-              <div className="relative group aspect-square lg:aspect-video rounded-[3rem] overflow-hidden border border-white/5 bg-white/[0.02]">
-                 <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent" />
-                 <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-display text-[15rem] font-black text-white/[0.03] select-none group-hover:scale-110 transition-transform duration-[2s]">
-                       0{steps[current].id}
-                    </span>
-                 </div>
-                 {/* This would be the actual video/image of the step */}
-                 <div className="absolute bottom-12 left-12 right-12 p-8 rounded-[2rem] bg-black/40 backdrop-blur-md border border-white/10">
-                    <p className="text-sm text-white/60 italic font-light">"El recorte debe ser conservador, escuchando siempre la sensibilidad del caballo."</p>
-                 </div>
-              </div>
             </motion.div>
-          </AnimatePresence>
+          ))}
         </div>
-
-        {/* Progress Bar */}
-        <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden mt-8">
-           <motion.div 
-             className="h-full bg-amber-500"
-             initial={{ width: 0 }}
-             animate={{ width: `${((current + 1) / steps.length) * 100}%` }}
-             transition={{ duration: 0.5 }}
-           />
-        </div>
-
       </div>
     </section>
   )
 }
-

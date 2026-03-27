@@ -10,35 +10,35 @@ const hotspots = [
     coordenadas: { x: "20%", y: "30%" }, 
     titulo: "Autoregulación", 
     texto: "Casco salvaje desgastándose en terreno duro al ritmo de crecimiento.",
-    imagen_dinamica: "/assets/curso/mustang/autoregulacion.png"
+    imagen_dinamica: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=800"
   },
   { 
     id: "bomba-sangre", 
     coordenadas: { x: "50%", y: "40%" }, 
     titulo: "Bomba de Sangre", 
     texto: "Visualización del retorno venoso: la ranilla toca el suelo y bombea sangre.",
-    imagen_dinamica: "/assets/curso/mustang/hoof-pump-blood.png"
+    imagen_dinamica: "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=800"
   },
   { 
     id: "suela-concava", 
     coordenadas: { x: "80%", y: "30%" }, 
     titulo: "Suela Cóncava", 
     texto: "Vista desde abajo que muestra la protección natural para las estructuras internas.",
-    imagen_dinamica: "/assets/curso/mustang/concave-sole.png"
+    imagen_dinamica: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&q=80&w=800"
   },
   { 
     id: "paredes-perpendiculares", 
     coordenadas: { x: "35%", y: "70%" }, 
     titulo: "Paredes Perpendiculares", 
     texto: "El ángulo de crecimiento sin distorsiones ni ensanchamientos laterales.",
-    imagen_dinamica: "/assets/curso/mustang/walls.png"
+    imagen_dinamica: "https://images.unsplash.com/photo-1590422750058-2fb0c058eb7b?auto=format&fit=crop&q=80&w=800"
   },
   { 
     id: "angulo-perfecto", 
     coordenadas: { x: "65%", y: "70%" }, 
     titulo: "Ángulo Perfecto", 
     texto: "Corte transversal 3D de la alineación interna perfecta con el eje del dedo.",
-    imagen_dinamica: "/assets/curso/mustang/3d-alignment.png"
+    imagen_dinamica: "/assets/curso/hoof-anatomy-3d.png" // Since this one exists
   }
 ]
 
@@ -47,7 +47,7 @@ export function Modulo3() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] })
   const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"])
   const [activeId, setActiveId] = useState<string | null>(null)
-  const baseImage = "/assets/curso/pilares/mustang-model.png"
+  const baseImage = "https://images.unsplash.com/photo-1620021625895-3047de71ee60?auto=format&fit=crop&q=80&w=1200"
   const [currentImage, setCurrentImage] = useState(baseImage)
 
   const handleSpotClick = (spot: any) => {
@@ -62,9 +62,14 @@ export function Modulo3() {
 
   return (
     <section id="modulo-3" ref={ref} className="min-h-screen py-32 bg-background relative flex items-center justify-center overflow-hidden border-t border-white/5">
+      {/* Premium Background Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+         <img src="/assets/curso/backgrounds/hoof-texture.png" className="w-full h-full object-cover grayscale" alt="" />
+      </div>
+
       {/* Background ambient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_oklch(0.15_0.02_62)_0%,_transparent_70%)] opacity-40" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.72_0.14_68_/_0.05)_0%,_transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_oklch(0.15_0.02_240)_0%,_transparent_70%)] opacity-40" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.72_0.14_240_/_0.05)_0%,_transparent_60%)]" />
 
       {/* Large watermark */}
       <motion.h2
@@ -84,11 +89,11 @@ export function Modulo3() {
             viewport={{ once: true }}
           >
             <div className="inline-flex items-center gap-4 mb-6">
-              <div className="h-px w-10 bg-amber-500/40" />
-              <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 03</span>
+              <div className="h-px w-10 bg-blue-500/40" />
+              <span className="text-xs tracking-[0.45em] text-blue-400/70 uppercase font-semibold">Módulo 03</span>
             </div>
             <h3 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter mb-6 leading-none">
-              El Modelo <br /> <span className="text-amber-400 italic">Salvaje</span>
+              El Modelo <br /> <span className="text-blue-400 italic">Salvaje</span>
             </h3>
             <p className="text-xl text-white/40 font-light leading-relaxed max-w-xl">
               El casco mustang es la referencia de salud. Su estructura se autoregula para soportar el movimiento extremo en terrenos áridos.
@@ -102,10 +107,10 @@ export function Modulo3() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="p-8 bg-amber-500/5 border border-amber-500/20 rounded-[2rem] backdrop-blur-xl relative overflow-hidden group"
+                className="p-8 bg-blue-500/5 border border-blue-500/20 rounded-[2rem] backdrop-blur-xl relative overflow-hidden group"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-[40px] rounded-full translate-x-1/2 -translate-y-1/2" />
-                <h4 className="text-2xl font-display font-bold text-amber-400 mb-3">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-[40px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                <h4 className="text-2xl font-display font-bold text-blue-400 mb-3">
                   {hotspots.find(s => s.id === activeId)?.titulo}
                 </h4>
                 <p className="text-white/60 leading-relaxed text-lg">
@@ -119,7 +124,7 @@ export function Modulo3() {
              <motion.div 
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
-               className="flex items-center gap-4 text-amber-500/40"
+               className="flex items-center gap-4 text-blue-500/40"
              >
                 <Target className="w-5 h-5 animate-pulse" />
                 <span className="text-xs uppercase tracking-[0.3em] font-black">Haz clic en los puntos para explorar</span>
@@ -164,7 +169,7 @@ export function Modulo3() {
                     {activeId === spot.id && (
                       <motion.div 
                         layoutId="hotspot-ring-landing"
-                        className="absolute w-12 h-12 border-2 border-amber-500 rounded-full"
+                        className="absolute w-12 h-12 border-2 border-blue-500 rounded-full"
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                       />
@@ -173,14 +178,14 @@ export function Modulo3() {
                     <motion.div 
                       animate={{ scale: [1, 1.8, 1], opacity: [0.4, 0, 0.4] }}
                       transition={{ duration: 2.5, repeat: Infinity }}
-                      className="absolute w-8 h-8 bg-amber-400 rounded-full blur-sm"
+                      className="absolute w-8 h-8 bg-blue-400 rounded-full blur-sm"
                     />
                     
                     <div className={cn(
                       "w-5 h-5 rounded-full flex items-center justify-center transition-all duration-500",
                       activeId === spot.id 
                         ? "bg-white text-black scale-125 rotate-45" 
-                        : "bg-amber-500 text-black hover:scale-110"
+                        : "bg-blue-500 text-white hover:scale-110"
                     )}>
                       {activeId === spot.id ? <X className="w-3" /> : <Plus className="w-3.5" />}
                     </div>
@@ -194,4 +199,5 @@ export function Modulo3() {
     </section>
   )
 }
+
 

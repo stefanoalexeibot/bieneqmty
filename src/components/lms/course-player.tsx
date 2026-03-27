@@ -13,6 +13,7 @@ import { InteractiveHotspots } from "./modules/interactive-hotspots"
 import { FlipCardGallery } from "./modules/flip-card-gallery"
 import { BentoGridLMS } from "./modules/bento-grid-lms"
 import { StepSlider } from "./modules/step-slider"
+import { HoofPumpView } from "./modules/hoof-pump-view"
 import { ComparisonTable } from "./modules/comparison-table"
 import { AlertCards } from "./modules/alert-cards"
 import { TimelineView } from "./modules/timeline-view"
@@ -20,6 +21,13 @@ import { CaseStudies } from "./modules/case-studies"
 import { Completion } from "./modules/completion"
 import { HeroSection } from "@/components/sections/hero"
 import { Presentacion } from "@/components/sections/presentacion"
+
+// Unsplash fallback backgrounds per intro-module id
+const INTRO_BG_FALLBACKS: Record<string, string> = {
+  "etologia": "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1800",
+  "habitat-presa": "https://images.unsplash.com/photo-1500595046743-cec271a393dc?auto=format&fit=crop&q=80&w=1800",
+  "vida-manada": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=1800",
+}
 
 export function CoursePlayer() {
   const { currentModuleIndex, setCurrentModuleIndex, modules, nextModule, prevModule } = useCourse()
@@ -39,31 +47,25 @@ export function CoursePlayer() {
     prevModule()
   }
 
-  // Handle keyboard navigation
+  // Handle keyboard navigation — Space + ArrowRight advance, ArrowLeft goes back
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") handleNext()
-      if (e.key === "ArrowLeft") handlePrev()
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+        e.preventDefault()
+        handleNext()
+      }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        e.preventDefault()
+        handlePrev()
+      }
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [currentModuleIndex])
 
-  // Hide HUD after inactivity (optional, but cinematic)
-  useEffect(() => {
-    let timeout: NodeJS.Timeout
-    const resetTimer = () => {
-      setIsHudVisible(true)
-      clearTimeout(timeout)
-      timeout = setTimeout(() => setIsHudVisible(false), 4000)
-    }
-    window.addEventListener("mousemove", resetTimer)
-    resetTimer()
-    return () => {
-      window.removeEventListener("mousemove", resetTimer)
-      clearTimeout(timeout)
-    }
-  }, [])
+  // Projector mode: HUD is always visible — instructor controls from keyboard
+  // (auto-hide removed to prevent controls disappearing when instructor steps away)
+
 
   const renderModuleContent = () => {
     switch (currentModule.tipo_vista) {
@@ -112,18 +114,23 @@ export function CoursePlayer() {
       case "intro-module":
         return (
           <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
-             {/* Large background image if available */}
-             {currentModule.media?.imagen_fondo && (
-                <motion.div 
-                  initial={{ scale: 1.1, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 0.4 }}
-                  transition={{ duration: 2 }}
-                  className="absolute inset-0 z-0"
-                >
-                   <img src={currentModule.media.imagen_fondo} className="w-full h-full object-cover grayscale" />
-                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                </motion.div>
-             )}
+             {/* Background image — local or Unsplash fallback */}
+             <motion.div
+               initial={{ scale: 1.1, opacity: 0 }}
+               animate={{ scale: 1, opacity: 0.35 }}
+               transition={{ duration: 2.5 }}
+               className="absolute inset-0 z-0"
+             >
+               <img
+                 src={currentModule.media?.imagen_fondo || INTRO_BG_FALLBACKS[currentModule.id] || "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&q=80&w=1800"}
+                 className="w-full h-full object-cover grayscale"
+                 alt=""
+                 onError={(e) => {
+                   (e.currentTarget as HTMLImageElement).src = INTRO_BG_FALLBACKS[currentModule.id] || "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&q=80&w=1800"
+                 }}
+               />
+               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
+             </motion.div>
              
              <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10 p-6">
                 <motion.span 
@@ -153,8 +160,14 @@ export function CoursePlayer() {
         )
       case "interactive-image-hotspots":
         return <InteractiveHotspots data={currentModule} />
+      case "step-slider":
+        // modulo-5 (La Bomba del Casco) gets a dedicated premium view
+        if (currentModule.id === "modulo-5") return <HoofPumpView data={currentModule} />
+        return <StepSlider data={currentModule} />
       case "comparison-table":
         return <ComparisonTable data={currentModule} />
+      case "bento-grid":
+        return <BentoGridLMS data={currentModule} />
       case "alert-cards":
         return <AlertCards data={currentModule} />
       case "timeline-view":

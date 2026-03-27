@@ -5,10 +5,10 @@ import { Wrench, Ruler, Brush, Info, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const tools = [
-  { id: 1, name: "Escofina", desc: "Nivelado y Mustang Roll", icon: <Brush className="w-8 h-8" />, detail: "Herramienta principal para el acabado y balance. Permite crear el 'Mustang Roll' que evita astillamientos.", img: "/assets/curso/herramientas/escofina.png" },
-  { id: 2, name: "Nippers", desc: "Corte de pared excedente", icon: <Wrench className="w-8 h-8" />, detail: "Tenazas de corte de alta precisión para retirar el exceso de muralla sin fracturar la queratina.", img: "/assets/curso/herramientas/nippers.png" },
-  { id: 3, name: "Cuchilla", desc: "Limpieza de ranilla", icon: <Ruler className="w-8 h-8" />, detail: "Cuchilla curva o recta para la limpieza de surcos colaterales y remoción de suela desprendible.", img: "/assets/curso/herramientas/cuchilla.png" },
-  { id: 4, name: "Hoof Stand", desc: "Soporte de descanso", icon: <Wrench className="w-8 h-8" />, detail: "Soporte ergonómico que garantiza la seguridad del recortador y el confort del caballo.", img: "/assets/curso/herramientas/stand.png" }
+  { id: 1, name: "Escofina (Rasp)", desc: "Nivelado y Mustang Roll", icon: <Brush className="w-8 h-8" />, detail: "Herramienta principal para el acabado y balance. Permite crear el 'Mustang Roll' que evita astillamientos.", img: "/assets/curso/tools/rasp.png" },
+  { id: 2, name: "Tenazas (Nippers)", desc: "Corte de pared excedente", icon: <Wrench className="w-8 h-8" />, detail: "Tenazas de corte de alta precisión para retirar el exceso de muralla sin fracturar la queratina.", img: "/assets/curso/tools/nippers.png" },
+  { id: 3, name: "Pujavante", desc: "Suela y barras excedentes", icon: <Ruler className="w-8 h-8" />, detail: "Cuchilla curva especializada para la retirada de suela exfoliante y las barras excedentes sin dañar tejido vivo.", img: "/assets/curso/tools/knife.png" },
+  { id: 4, name: "Cuchilla Loop", desc: "Limpieza de ranilla", icon: <Wrench className="w-8 h-8" />, detail: "Cuchilla de lazo para la limpieza de surcos colaterales y remoción precisa de tejido muerto de la ranilla.", img: "/assets/curso/tools/loop-knife.png" }
 ]
 
 export function Modulo8() {
@@ -18,7 +18,11 @@ export function Modulo8() {
 
   return (
     <section id="modulo-8" ref={ref} className="min-h-screen py-32 bg-background relative flex items-center justify-center overflow-hidden border-t border-white/5">
-      <div className="absolute right-0 top-0 w-[700px] h-[700px] bg-amber-600/5 blur-[180px] rounded-full pointer-events-none" />
+      {/* Premium Background */}
+      <div className="absolute inset-0 opacity-40">
+         <img src="/assets/curso/backgrounds/technical-grid.png" className="w-full h-full object-cover mix-blend-overlay" alt="" />
+         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+      </div>
 
       <div className="max-w-7xl mx-auto w-full px-6 relative z-10">
         
@@ -28,9 +32,9 @@ export function Modulo8() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-xs tracking-[0.45em] text-amber-500 font-black uppercase mb-4 block">Módulo 08</span>
+            <span className="text-xs tracking-[0.45em] text-blue-500 font-black uppercase mb-4 block">Módulo 08</span>
             <h2 className="font-display text-5xl md:text-8xl font-bold text-white tracking-tighter leading-none mb-6">
-               El Arsenal <br /> <span className="text-amber-400 italic">Técnico</span>
+               El Arsenal <br /> <span className="text-blue-400 italic">Técnico</span>
             </h2>
             <p className="text-xl text-white/40 font-light leading-relaxed">
               La calidad del trabajo depende de tus herramientas. Conoce el equipo profesional para un recorte Barefoot.
@@ -45,14 +49,19 @@ export function Modulo8() {
               onClick={() => setSelected(t.id)}
               layoutId={`tool-container-${t.id}`}
               className={cn(
-                "group p-10 rounded-[2.5rem] border bg-white/[0.02] border-white/5 cursor-pointer transition-all duration-500 relative overflow-hidden",
-                selected === t.id ? "bg-amber-500/10 border-amber-500/50" : "hover:border-amber-500/20"
+                "group rounded-[2.5rem] border bg-white/[0.02] border-white/5 cursor-pointer transition-all duration-500 relative overflow-hidden flex flex-col",
+                selected === t.id ? "bg-blue-500/10 border-blue-500/50" : "hover:border-blue-500/20"
               )}
             >
-              <div className="relative z-10 flex flex-col items-center text-center">
+              <div className="aspect-square relative overflow-hidden">
+                <img src={t.img} alt={t.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+              </div>
+
+              <div className="p-8 relative z-10 flex flex-col items-center text-center -mt-12">
                 <div className={cn(
-                  "w-20 h-20 rounded-2xl flex items-center justify-center mb-8 transition-all group-hover:scale-110",
-                  selected === t.id ? "bg-amber-500/20 text-white" : "bg-white/5 text-white/30"
+                  "w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all group-hover:scale-110 backdrop-blur-md border",
+                  selected === t.id ? "bg-blue-500/20 text-white border-blue-500/50" : "bg-white/5 text-white/30 border-white/10"
                 )}>
                   {t.icon}
                 </div>
@@ -67,14 +76,14 @@ export function Modulo8() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="mt-8 pt-6 border-t border-amber-500/20"
+                    className="px-8 pb-8 pt-6 border-t border-blue-500/20"
                   >
                     <p className="text-sm text-white/60 leading-relaxed font-light">
                       {t.detail}
                     </p>
                     <button 
                        onClick={(e) => { e.stopPropagation(); setSelected(null); }}
-                       className="mt-6 flex items-center gap-2 text-[10px] uppercase tracking-widest text-amber-500 font-black"
+                       className="mt-6 flex items-center gap-2 text-[10px] uppercase tracking-widest text-blue-500 font-black"
                     >
                        <X className="w-3 h-3" /> Cerrar
                     </button>
@@ -84,12 +93,13 @@ export function Modulo8() {
 
               {!selected && (
                 <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Info className="w-4 h-4 text-amber-500/40" />
+                  <Info className="w-4 h-4 text-blue-500/40" />
                 </div>
               )}
             </motion.div>
           ))}
         </div>
+
 
         {/* Global info */}
         <div className="mt-20 flex justify-center">

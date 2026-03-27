@@ -24,7 +24,10 @@ export function Modulo4() {
   return (
     <section id="modulo-4" ref={ref} className="min-h-screen py-32 bg-background relative flex items-center justify-center overflow-hidden border-t border-white/5">
       {/* Background ambient */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_oklch(0.72_0.14_68_/_0.03)_0%,_transparent_50%)]" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+         <img src="/assets/curso/backgrounds/hoof-texture.png" className="w-full h-full object-cover grayscale" alt="" />
+      </div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_oklch(0.7_0.15_240_/_0.03)_0%,_transparent_50%)]" />
 
       {/* Large watermark */}
       <motion.div style={{ x: xTitle }} className="absolute top-10 left-0 right-0 opacity-[0.015] pointer-events-none select-none overflow-hidden">
@@ -43,11 +46,11 @@ export function Modulo4() {
             viewport={{ once: true }}
           >
             <div className="inline-flex items-center gap-4 mb-6">
-              <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 04</span>
-              <div className="h-px w-10 bg-amber-500/40" />
+              <span className="text-xs tracking-[0.45em] text-blue-400/70 uppercase font-semibold">Módulo 04</span>
+              <div className="h-px w-10 bg-blue-500/40" />
             </div>
             <h3 className="font-display text-5xl md:text-7xl font-bold text-white tracking-tighter mb-6 leading-none">
-              Anatomía <br /> <span className="text-amber-400 italic">Interna</span>
+              Anatomía <br /> <span className="text-blue-400 italic">Interna</span>
             </h3>
             <p className="text-xl text-white/40 font-light leading-relaxed ml-auto max-w-xl">
               Dominar la anatomía del casco es fundamental para un recorte seguro. Cada estructura tiene una función biomecánica vital.
@@ -65,8 +68,8 @@ export function Modulo4() {
                   exit={{ opacity: 0, scale: 1.05 }}
                   className="p-10 bg-gradient-to-br from-white/[0.03] to-transparent border border-white/10 rounded-[2.5rem] backdrop-blur-3xl text-right max-w-lg relative group"
                 >
-                  <div className="absolute -top-6 -right-6 w-20 h-20 bg-amber-500/10 blur-[30px] rounded-full" />
-                  <Info className="w-8 h-8 text-amber-500/30 mb-6 ml-auto" />
+                  <div className="absolute -top-6 -right-6 w-20 h-20 bg-blue-500/10 blur-[30px] rounded-full" />
+                  <Info className="w-8 h-8 text-blue-500/30 mb-6 ml-auto" />
                   <h4 className="text-3xl font-display font-medium text-white mb-4">
                     {hotspots.find(s => s.id === activeId)?.titulo}
                   </h4>
@@ -76,9 +79,9 @@ export function Modulo4() {
                 </motion.div>
               ) : (
                 <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex items-center gap-4 text-amber-500/30"
+                   initial={{ opacity: 0 }}
+                   animate={{ opacity: 1 }}
+                   className="flex items-center gap-4 text-blue-500/30"
                 >
                    <span className="text-sm uppercase tracking-[0.3em] font-medium italic">Selecciona un punto anatómico</span>
                    <Target className="w-5 h-5 animate-pulse" />
@@ -96,7 +99,7 @@ export function Modulo4() {
             className="relative w-full aspect-square md:aspect-[4/3] rounded-[3.5rem] overflow-hidden border border-white/5 shadow-3xl bg-black/20 group"
           >
             <img 
-              src="/assets/curso/anatomia/hoof-anatomy-3d.png" 
+              src="/assets/curso/hoof-anatomy-3d.png" 
               alt="Anatomía del Casco"
               className="w-full h-full object-contain grayscale hover:grayscale-0 transition-all duration-1000 opacity-60 group-hover:opacity-100"
             />
@@ -117,7 +120,7 @@ export function Modulo4() {
                     {activeId === spot.id && (
                       <motion.div 
                         layoutId="anatomy-ring"
-                        className="absolute w-14 h-14 border border-amber-500/50 rounded-full"
+                        className="absolute w-14 h-14 border border-blue-500/50 rounded-full"
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
                       />
@@ -126,8 +129,8 @@ export function Modulo4() {
                     <div className={cn(
                       "w-4 h-4 rounded-full border-2 transition-all duration-500 shadow-xl",
                       activeId === spot.id 
-                        ? "bg-white border-white scale-150 rotate-45 shadow-amber-500/50" 
-                        : "bg-transparent border-white/40 hover:border-amber-500 hover:scale-125"
+                        ? "bg-white border-white scale-150 rotate-45 shadow-blue-500/50" 
+                        : "bg-transparent border-white/40 hover:border-blue-500 hover:scale-125"
                     )}>
                       {activeId === spot.id && <X className="w-2 h-2 text-black" />}
                     </div>
@@ -144,4 +147,5 @@ export function Modulo4() {
     </section>
   )
 }
+
 

@@ -22,10 +22,16 @@ export function Modulo10() {
 
   return (
     <section id="modulo-10" ref={ref} className="min-h-screen py-32 bg-background relative flex items-center justify-center overflow-hidden border-t border-red-500/10">
+      {/* Premium Background Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+         <img src="/assets/curso/backgrounds/hoof-texture.png" className="w-full h-full object-cover grayscale" alt="" />
+      </div>
+      
       {/* Emergency Overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_oklch(0.55_0.20_27_/_0.05)_0%,_transparent_60%)] pointer-events-none" />
       
       <div className="max-w-7xl mx-auto w-full px-6 relative z-10 flex flex-col gap-16">
+
         
         <div className="text-center space-y-8 max-w-4xl mx-auto">
           <motion.div
@@ -42,6 +48,20 @@ export function Modulo10() {
              </p>
           </motion.div>
         </div>
+
+        {/* Infografía SOS */}
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="w-full max-w-6xl mx-auto rounded-[3rem] overflow-hidden border border-red-500/20 shadow-[0_0_50px_rgba(239,68,68,0.1)] relative"
+        >
+           <img 
+              src="/assets/curso/laminitis que hacer.png"
+              alt="Infografía Protocolo SOS Laminitis"
+              className="w-full h-auto object-cover"
+           />
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {alerts.map((alert) => (

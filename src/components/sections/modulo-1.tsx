@@ -48,18 +48,23 @@ export function Modulo1() {
   return (
     <section id="modulo-1" ref={ref}
       className="min-h-screen py-32 bg-background relative flex items-center justify-center overflow-hidden border-t border-white/5">
-      <div className="absolute left-0 top-0 w-[700px] h-[700px] bg-amber-600/8 blur-[180px] rounded-full pointer-events-none" />
+      {/* Premium Background Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+         <img src="/assets/curso/backgrounds/hoof-texture.png" className="w-full h-full object-cover grayscale" alt="" />
+      </div>
+      
+      <div className="absolute left-0 top-0 w-[700px] h-[700px] bg-blue-600/8 blur-[180px] rounded-full pointer-events-none" />
       <div className="absolute inset-0 pointer-events-none opacity-25"
         style={{ backgroundImage: "radial-gradient(oklch(1 0 0 / 3%) 1px, transparent 1px)", backgroundSize: "40px 40px" }}/>
 
       {/* Heartbeat line */}
-      <div className="absolute bottom-16 left-0 right-0 flex justify-center text-amber-500/18 pointer-events-none">
+      <div className="absolute bottom-16 left-0 right-0 flex justify-center text-blue-500/18 pointer-events-none">
         <HeartbeatSVG className="w-[600px] h-14" />
       </div>
 
       {/* Expansion diagram */}
       <motion.div style={{ y }}
-        className="absolute right-8 bottom-12 text-amber-400/[0.08] pointer-events-none w-44 h-56 hidden lg:block">
+        className="absolute right-8 bottom-12 text-blue-400/[0.08] pointer-events-none w-44 h-56 hidden lg:block">
         <ExpansionSVG className="w-full h-full" />
       </motion.div>
 
@@ -67,9 +72,9 @@ export function Modulo1() {
         <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }} viewport={{ once: true }}
           className="flex items-center gap-4 mb-10">
-          <div className="h-px w-12 bg-amber-500/40" />
-          <span className="text-xs tracking-[0.45em] text-amber-400/70 uppercase font-semibold">Módulo 01 · Más que queratina</span>
-          <div className="h-px w-12 bg-amber-500/40" />
+          <div className="h-px w-12 bg-blue-500/40" />
+          <span className="text-xs tracking-[0.45em] text-blue-400/70 uppercase font-semibold">Módulo 01 · Más que queratina</span>
+          <div className="h-px w-12 bg-blue-500/40" />
         </motion.div>
 
         <motion.h2 style={{ y }}
@@ -98,10 +103,10 @@ export function Modulo1() {
               transition={{ duration: 0.8, delay: i * 0.15 }}
               viewport={{ once: true }}>
               <TiltCard intensity={10}
-                className="group p-8 md:p-10 rounded-[2rem] bg-white/[0.025] border border-white/[0.06] backdrop-blur-lg hover:bg-amber-500/[0.05] hover:border-amber-500/20 transition-all duration-500 text-left relative overflow-hidden h-full">
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/6 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem]" />
+                className="group p-8 md:p-10 rounded-[2rem] bg-white/[0.025] border border-white/[0.06] backdrop-blur-lg hover:bg-blue-500/[0.05] hover:border-blue-500/20 transition-all duration-500 text-left relative overflow-hidden h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/6 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem]" />
                 <div className="absolute top-5 right-6 font-display text-5xl font-bold text-white/[0.04] select-none">{card.num}</div>
-                <span className="text-amber-400/50 text-2xl mb-5 block">{card.icon}</span>
+                <span className="text-blue-400/50 text-2xl mb-5 block">{card.icon}</span>
                 <h4 className="font-display text-2xl md:text-3xl font-semibold text-white mb-3 tracking-tight relative z-10">{card.title}</h4>
                 <p className="text-white/50 text-base md:text-lg font-light leading-relaxed relative z-10">{card.body}</p>
               </TiltCard>
@@ -112,3 +117,4 @@ export function Modulo1() {
     </section>
   )
 }
+
