@@ -52,7 +52,7 @@
       "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
       "descripcion": "El estudio del comportamiento para entender la verdadera naturaleza del caballo.",
-      "media": { "imagen_fondo": "/assets/curso/etologia-bg.webp" }
+      "media": { "imagen_fondo": "/assets/curso/etologia-bg.png" }
     },
     {
       "id": "habitat-presa",
@@ -107,7 +107,7 @@
       "titulo": "Modelo Mustang",
       "parte": "02 · El Ideal",
       "tipo_vista": "interactive-image-hotspots",
-      "media": { "imagen_principal": "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1400" },
+      "media": { "imagen_principal": "/assets/curso/anatomy/anatomy-bg.png" },
       "hotspots_externos": [
         { "id": "autoregulacion", "coordenadas": { "x": "20%", "y": "30%" }, "titulo": "Autoregulación", "texto": "Casco salvaje desgastándose en terreno duro.", "imagen_dinamica": "/assets/curso/mustang/autoregulación.png" },
         { "id": "bomba-sangre", "coordenadas": { "x": "50%", "y": "40%" }, "titulo": "Bomba de Sangre", "texto": "La ranilla toca el suelo y bombea sangre.", "imagen_dinamica": "/assets/curso/mustang/hoof-pump-blood.png" },
@@ -122,7 +122,7 @@
       "titulo": "La Bomba del Casco",
       "parte": "03 · El Motor",
       "tipo_vista": "hoof-pump",
-      "media": { "imagen_fondo": "/assets/curso/anatomia/hoof-pump.png" },
+      "media": { "imagen_fondo": "/assets/curso/anatomy/anatomy-bg.png" },
       "descripcion": "La 'Válvula Hidráulica Equina' permite bombear sangre en cada paso.",
       "pasos": [
         { "numero": 1, "nombre": "Impacto", "texto": "El aterrizaje de talón activa la presión.", "imagen": "/assets/curso/anatomia/impact.png" },
@@ -175,6 +175,7 @@
       "titulo": "El Problema del Hierro",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
+      "media": { "imagen_fondo": "/assets/curso/laminitis-bg.png" },
       "titulo_alerta": "Hierro <br /> <span class='text-red-500 italic'>Dañino</span>",
       "texto_introduccion": "Las herraduras comerciales anulan las funciones vitales, ocultando el dolor.",
       "checklist_emergencia": [
@@ -190,6 +191,7 @@
       "titulo": "La Laminitis",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
+      "media": { "imagen_fondo": "/assets/curso/laminitis-bg.png" },
       "titulo_alerta": "Alerta <br /> <span class='text-red-600 italic'>Roja</span>",
       "texto_introduccion": "Emergencia metabólica aguda por hiperinsulinemia.",
       "procedimiento_sos": [
@@ -208,7 +210,8 @@
       "numero": 14,
       "titulo": "Nutrición Crítica",
       "parte": "05 · La Solución",
-      "tipo_vista": "nutrition-formula"
+      "tipo_vista": "nutrition-formula",
+      "media": { "imagen_fondo": "/assets/curso/nutrition/nutrition-bg.png" }
     },
     {
       "id": "modulo-10",
@@ -229,6 +232,7 @@
       "titulo": "Kit de Herramientas",
       "parte": "05 · La Solución",
       "tipo_vista": "bento-grid",
+      "media": { "imagen_fondo": "/assets/curso/tools/tools-bg.png" },
       "interacciones": [
         {
           "tipo": "bento-items",
@@ -246,6 +250,7 @@
       "titulo": "Técnica de Recorte",
       "parte": "05 · La Solución",
       "tipo_vista": "step-slider",
+      "media": { "imagen_fondo": "/assets/curso/tools/tools-bg.png" },
       "pasos": [
         { "numero": 1, "nombre": "Limpieza", "texto": "Evaluación del punto más ancho.", "imagen": "/assets/curso/pasos/step1.png" },
         { "numero": 2, "nombre": "Nivelación", "texto": "Talones al nivel ranilla-barras.", "imagen": "/assets/curso/pasos/step2.png" },

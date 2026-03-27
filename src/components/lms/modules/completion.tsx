@@ -38,36 +38,40 @@ export function Completion({ data }: { data: any }) {
         </motion.div>
 
         {/* Message */}
-        <div className="space-y-6">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-5xl md:text-7xl font-display font-medium text-white tracking-tighter leading-[0.9]"
-          >
-             {data.mensaje.split('!')[0]}<span className="text-amber-500 italic">!</span>
-          </motion.h2>
-          
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="h-px w-24 bg-amber-500/50 mx-auto"
-          />
-          
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="text-2xl text-white/40 font-light max-w-xl mx-auto italic font-display"
-          >
-            "Has completado el recorrido teórico del Pie Descalzo con maestría."
-          </motion.p>
-        </div>
+         <div className="space-y-6">
+           <motion.h2 
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ delay: 0.4 }}
+             className="text-5xl md:text-7xl font-display font-medium text-white tracking-tighter leading-[0.9]"
+           >
+              {(data.mensaje || "¡Felicidades!").split('!')[0]}<span className="text-amber-500 italic">!</span>
+           </motion.h2>
+           
+           <motion.div 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ delay: 0.6 }}
+             className="h-px w-24 bg-amber-500/50 mx-auto"
+           />
+           
+           <motion.p 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ delay: 0.8 }}
+             className="text-2xl text-white/40 font-light max-w-xl mx-auto italic font-display"
+           >
+             {data.texto_secundario || "Has completado el recorrido teórico del Pie Descalzo con maestría."}
+           </motion.p>
+         </div>
 
-        {/* Next Steps List */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12 relative">
-           {data.siguientes_pasos.map((step: string, i: number) => (
+         {/* Next Steps List */}
+         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 pt-12 relative">
+            {(data.siguientes_pasos || [
+              "Implementación del Paddock Paradise.",
+              "Primer recorte fisiológico supervisado.",
+              "Seguimiento de la transición metabólica."
+            ]).map((step: string, i: number) => (
              <motion.div
                key={i}
                initial={{ opacity: 0, y: 20 }}

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion"
 import { ChevronLeft, ChevronRight, Play, Info, CheckCircle2, Menu, X, Layers } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -37,6 +37,12 @@ export function CoursePlayer() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isHudVisible, setIsHudVisible] = useState(true)
 
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springConfig = { damping: 20, stiffness: 100 }
+  const bgX = useSpring(mouseX, springConfig)
+  const bgY = useSpring(mouseY, springConfig)
+
   const currentModule = modules[currentModuleIndex]
 
   const handleNext = () => {
@@ -65,9 +71,18 @@ export function CoursePlayer() {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [currentModuleIndex])
 
-  // Projector mode: HUD is always visible — instructor controls from keyboard
-  // (auto-hide removed to prevent controls disappearing when instructor steps away)
-
+  // Handle mouse move for parallax
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e
+      const x = (clientX - window.innerWidth / 2) / 50
+      const y = (clientY - window.innerHeight / 2) / 50
+      mouseX.set(x)
+      mouseY.set(y)
+    }
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
 
   const renderModuleContent = () => {
     switch (currentModule.tipo_vista) {
@@ -85,7 +100,7 @@ export function CoursePlayer() {
                 <motion.span 
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="text-amber-500 font-mono text-sm font-bold tracking-[0.4em] uppercase"
+                  className="text-amber-500 font-mono text-xs font-bold tracking-[0.4em] uppercase"
                 >
                   {currentModule.parte}
                 </motion.span>
@@ -121,7 +136,8 @@ export function CoursePlayer() {
                initial={{ scale: 1.1, opacity: 0 }}
                animate={{ scale: 1, opacity: 0.35 }}
                transition={{ duration: 2.5 }}
-               className="absolute inset-0 z-0"
+               style={{ x: bgX, y: bgY }}
+               className="absolute inset-[-5%] z-0"
              >
                <img
                  src={currentModule.media?.imagen_fondo || INTRO_BG_FALLBACKS[currentModule.id] || "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&q=80&w=1800"}
@@ -187,7 +203,8 @@ export function CoursePlayer() {
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.2 }}
-                className="absolute inset-0 z-0"
+                style={{ x: bgX, y: bgY }}
+                className="absolute inset-[-5%] z-0"
               >
                 <img src={currentModule.media.imagen_fondo} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/60" />
@@ -302,10 +319,28 @@ export function CoursePlayer() {
           <motion.div
             key={currentModule.id}
             custom={direction}
-            initial={{ opacity: 0, scale: 0.95, filter: "blur(20px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 1.05, filter: "blur(20px)" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ 
+              opacity: 0, 
+              x: direction > 0 ? 100 : -100,
+              scale: 0.95, 
+              filter: "blur(20px)" 
+            }}
+            animate={{ 
+              opacity: 1, 
+              x: 0,
+              scale: 1, 
+              filter: "blur(0px)" 
+            }}
+            exit={{ 
+              opacity: 0, 
+              x: direction > 0 ? -100 : 100,
+              scale: 1.05, 
+              filter: "blur(20px)" 
+            }}
+            transition={{ 
+              duration: 1.1, 
+              ease: [0.16, 1, 0.3, 1] 
+            }}
             className="w-full h-full"
           >
             {renderModuleContent()}

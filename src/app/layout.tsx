@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ProgressSidebar } from "@/components/layout/progress-sidebar";
-import { SpotlightCursor } from "@/components/ui/spotlight-cursor";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 import { CourseProvider } from "@/hooks/use-course";
 
 const cormorant = Cormorant_Garamond({
@@ -37,7 +37,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen font-sans overflow-hidden bg-black">
         <CourseProvider>
-          <SpotlightCursor />
+          <CustomCursor />
           {/* ProgressSidebar moved to CoursePlayer as a drawer */}
           <main className="w-full h-full relative overflow-y-auto overflow-x-hidden">
             {children}
