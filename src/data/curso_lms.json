@@ -35,12 +35,21 @@
         {
           "tipo": "curriculum-preview",
           "items": [
-            { "id": 1, "titulo": "Anatomía y biomecánica del casco", "imagen": "/assets/curso/hoof-anatomy-3d.png" },
-            { "id": 2, "titulo": "¿Qué es el BAREFOOT?", "imagen": "/assets/curso/barefoot-philosophy.png" },
-            { "id": 3, "titulo": "Diferencias entre Barefoot y herraje tradicional", "imagen": "/assets/curso/barefoot-vs-shoeing.png" },
-            { "id": 4, "titulo": "Conexión con tu CABALLO", "imagen": "/assets/curso/horse-herd-social.png" },
-            { "id": 5, "titulo": "Guía de alimentación sana para el caballo.", "imagen": "/assets/curso/nutrition-comparison.png" },
-            { "id": 6, "titulo": "¿Por qué NO PONER HERRADURAS?", "imagen": "/assets/curso/laminitis-warning.png" }
+            { "id": 1, "titulo": "Etología Equina", "imagen": "/assets/curso/etologia-bg.png" },
+            { "id": 2, "titulo": "Hábitat & Supervivencia", "imagen": "/assets/curso/habitat/wild-habitat.png" },
+            { "id": 3, "titulo": "Retorno al Estado Natural", "imagen": "/assets/curso/historia/recorte-perfecto.webp" },
+            { "id": 4, "titulo": "Modelo Mustang", "imagen": "/assets/curso/mustang/autoregulación.png" },
+            { "id": 5, "titulo": "La Bomba del Casco", "imagen": "/assets/curso/hoof-pump-blood.png" },
+            { "id": 6, "titulo": "Anatomía Planta/Exterior", "imagen": "/assets/curso/nuevos/hoof_external.png" },
+            { "id": 7, "titulo": "Biomecánica de Impacto", "imagen": "/assets/curso/nuevos/landing_healthy.png" },
+            { "id": 8, "titulo": "El Problema del Hierro", "imagen": "/assets/curso/laminitis-bg.png" },
+            { "id": 9, "titulo": "La Laminitis", "imagen": "/assets/curso/laminitis-bg.png" },
+            { "id": 10, "titulo": "Nutrición Crítica", "imagen": "/assets/curso/nutrition/nutrition-bg.png" },
+            { "id": 11, "titulo": "Paddock Paradise", "imagen": "/assets/curso/paddock-paradise-3d.png" },
+            { "id": 12, "titulo": "Kit de Herramientas", "imagen": "/assets/curso/tools/rasp.png" },
+            { "id": 13, "titulo": "Técnica de Recorte", "imagen": "/assets/curso/pasos/step1.png" },
+            { "id": 14, "titulo": "Transición", "imagen": "/assets/curso/mustang/walls.png" },
+            { "id": 15, "titulo": "Certificación", "imagen": "/assets/curso/landing_card_01.png" }
           ]
         }
       ]

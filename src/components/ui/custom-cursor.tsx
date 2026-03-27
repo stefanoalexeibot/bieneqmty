@@ -18,6 +18,12 @@ export function CustomCursor() {
 
   const outerX = useSpring(mouseX, { damping: 25, stiffness: 150 })
   const outerY = useSpring(mouseY, { damping: 25, stiffness: 150 })
+  
+  const trailingX1 = useSpring(mouseX, { damping: 30, stiffness: 200 })
+  const trailingY1 = useSpring(mouseY, { damping: 30, stiffness: 200 })
+  
+  const trailingX2 = useSpring(mouseX, { damping: 35, stiffness: 100 })
+  const trailingY2 = useSpring(mouseY, { damping: 35, stiffness: 100 })
 
   useEffect(() => {
     const moveMouse = (e: MouseEvent) => {
@@ -66,9 +72,33 @@ export function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden mix-blend-difference">
+      {/* Trailing Blur 2 */}
+      <motion.div
+        className="fixed w-8 h-8 bg-white/5 rounded-full blur-xl"
+        style={{
+          x: trailingX2,
+          y: trailingY2,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{ opacity: isVisible ? 1 : 0 }}
+      />
+
+      {/* Trailing Blur 1 */}
+      <motion.div
+        className="fixed w-6 h-6 bg-white/10 rounded-full blur-lg"
+        style={{
+          x: trailingX1,
+          y: trailingY1,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{ opacity: isVisible ? 1 : 0 }}
+      />
+
       {/* Inner Dot */}
       <motion.div
-        className="fixed w-3 h-3 bg-white rounded-full"
+        className="fixed w-3 h-3 bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.8)]"
         style={{
           x: cursorX,
           y: cursorY,
@@ -93,7 +123,6 @@ export function CustomCursor() {
         animate={{
           scale: isClicking ? 1.2 : isHovering ? 2.5 : 1,
           opacity: isVisible ? 1 : 0,
-          borderWidth: isHovering ? "1px" : "1px"
         }}
         transition={{
           type: "spring",

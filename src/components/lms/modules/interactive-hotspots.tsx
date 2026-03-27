@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Plus, X, Target, ShieldCheck, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Magnetic } from "@/components/ui/magnetic"
 
 interface Hotspot {
   id: string
@@ -18,7 +19,7 @@ interface InteractiveHotspotsProps {
   data: any
 }
 
-// Module-level fallback images — always visible immediately
+// Module-level fallback images
 function getModuleFallback(data: any): string {
   const title = (data.titulo || "").toLowerCase()
   if (title.includes("paddock")) return "/assets/curso/paddockparadise.png"
@@ -26,21 +27,18 @@ function getModuleFallback(data: any): string {
   return "https://images.unsplash.com/photo-1590422750058-2fb0c058eb7b?auto=format&fit=crop&q=80&w=1400"
 }
 
-// Per-hotspot fallbacks based on the hotspot title — covers both Paddock & Mustang modules
+// Per-hotspot fallbacks
 function getHotspotFallback(titulo: string, data: any): string {
   const t = titulo.toLowerCase()
-  // Paddock Paradise hotspots
   if (t.includes("track") || t.includes("pista")) return "/assets/curso/paddockparadise.png"
   if (t.includes("heno") || t.includes("slowfeeder")) return "/assets/curso/pasto en slowfeeder para padock paradise.png"
   if (t.includes("suelo") || t.includes("grava") || t.includes("tierra")) return "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&q=80&w=1400"
   if (t.includes("agua") || t.includes("bebedero")) return "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1400"
-  // Mustang / anatomy hotspots
   if (t.includes("autoregul")) return "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1400"
   if (t.includes("bomba") || t.includes("sangre")) return "https://images.unsplash.com/photo-1590422750058-2fb0c058eb7b?auto=format&fit=crop&q=80&w=1400"
   if (t.includes("suela") || t.includes("cóncava") || t.includes("concava")) return "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&q=80&w=1400"
   if (t.includes("pared") || t.includes("perpendicular")) return "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=1400"
   if (t.includes("ángulo") || t.includes("angulo") || t.includes("perfecto")) return "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&q=80&w=1400"
-  // Generic
   return getModuleFallback(data)
 }
 
@@ -48,11 +46,9 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
   const [activeId, setActiveId] = useState<string | null>(null)
   const hotspots = data.hotspots_externos || []
 
-  // Always start with a visible fallback — upgrade to local image if it loads
   const moduleFallback = getModuleFallback(data)
   const [currentImage, setCurrentImage] = useState(moduleFallback)
 
-  // Try to preload the local primary image — upgrade if it succeeds
   useEffect(() => {
     const localPath = data.media?.imagen_principal
     if (localPath) {
@@ -69,12 +65,10 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
     } else {
       setActiveId(spot.id)
       if (spot.imagen_dinamica) {
-        // Preload hotspot image — use per-hotspot fallback if it fails
         const img = new Image()
         img.onload = () => setCurrentImage(spot.imagen_dinamica!)
         img.onerror = () => setCurrentImage(getHotspotFallback(spot.titulo, data))
         img.src = spot.imagen_dinamica
-        // Show a per-hotspot fallback immediately while preloading
         setCurrentImage(getHotspotFallback(spot.titulo, data))
       }
     }
@@ -85,14 +79,12 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center p-8 md:p-12 lg:p-24">
 
-      {/* Background Ambient Glow */}
       <div className="absolute inset-0 z-0">
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.05, 0.09, 0.05] }}
           transition={{ duration: 10, repeat: Infinity }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-amber-500 blur-[200px] rounded-full"
         />
-        {/* Very subtle BG from module image if available */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.06 }}
@@ -106,11 +98,10 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
 
       <div className="w-full h-full max-w-[1920px] mx-auto grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24 relative z-10 items-center">
 
-        {/* Left: Main Interactive Image Container */}
         <div className="relative w-full h-full flex items-center justify-center min-h-[500px]">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 1, scale: activeId ? 1.05 : 1 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full aspect-square md:aspect-[4/3] rounded-[4rem] overflow-hidden border border-white/5 shadow-[0_0_100px_rgba(0,0,0,0.8)] group bg-zinc-900/40"
           >
@@ -130,70 +121,61 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
               />
             </AnimatePresence>
 
-            {/* Cinematic vignette */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent pointer-events-none" />
-
-            {/* Hotspots layer */}
+            
             <div className={cn("absolute inset-0 transition-opacity duration-700", activeId ? "opacity-0 pointer-events-none delay-500" : "opacity-100 delay-100")}>
               {hotspots.map((spot: Hotspot) => (
-                <button
+                <div
                   key={spot.id}
-                  onClick={() => handleSpotClick(spot)}
                   style={{ left: spot.coordenadas.x, top: spot.coordenadas.y }}
                   className={cn(
-                    "absolute -translate-x-1/2 -translate-y-1/2 z-20 group outline-none",
+                    "absolute -translate-x-1/2 -translate-y-1/2 z-20",
                     activeId === spot.id ? "z-30" : "z-20"
                   )}
                 >
-                  <div className="relative flex items-center justify-center">
-                    {activeId === spot.id && (
-                      <motion.div
-                        layoutId="hotspot-ring-lms"
-                        className="absolute w-20 h-20 border-2 border-amber-500 rounded-full"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                      />
-                    )}
-                    <motion.div
-                      animate={{ scale: [1, 2, 1], opacity: [0.4, 0, 0.4] }}
-                      transition={{ duration: 2.5, repeat: Infinity }}
-                      className="absolute w-12 h-12 bg-amber-400 rounded-full blur-md"
-                    />
-                    <div className={cn(
-                      "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl",
-                      activeId === spot.id
-                        ? "bg-white text-black scale-125 rotate-45"
-                        : "bg-amber-500 text-white hover:scale-110 hover:bg-amber-400"
-                    )}>
-                      {activeId === spot.id ? <X className="w-4 h-4" /> : <Plus className="w-5 h-5" />}
-                    </div>
-                    {/* Hotspot label — always visible for projector use */}
-                    <span className="absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm uppercase tracking-[0.2em] text-white font-black bg-black/80 backdrop-blur-xl px-4 py-2 rounded-full border border-amber-500/30 shadow-2xl pointer-events-none">
-                      {spot.titulo}
-                    </span>
-                  </div>
-                </button>
+                  <Magnetic strength={0.2}>
+                    <button
+                      onClick={() => handleSpotClick(spot)}
+                      className="group outline-none p-4"
+                    >
+                      <div className="relative flex items-center justify-center">
+                        {activeId === spot.id && (
+                          <motion.div
+                            layoutId="hotspot-ring-lms"
+                            className="absolute w-20 h-20 border-2 border-amber-500 rounded-full"
+                          />
+                        )}
+                        <motion.div
+                          animate={{ scale: [1, 2, 1], opacity: [0.4, 0, 0.4] }}
+                          transition={{ duration: 2.5, repeat: Infinity }}
+                          className="absolute w-12 h-12 bg-amber-400 rounded-full blur-md"
+                        />
+                        <div className={cn(
+                          "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl",
+                          activeId === spot.id ? "bg-white text-black scale-125" : "bg-amber-500 text-white"
+                        )}>
+                          {activeId === spot.id ? <X className="w-4 h-4" /> : <Plus className="w-5 h-5" />}
+                        </div>
+                      </div>
+                    </button>
+                  </Magnetic>
+                </div>
               ))}
             </div>
 
-            {/* Floating Label */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="absolute bottom-12 left-12 bg-black/40 backdrop-blur-2xl px-8 py-4 rounded-3xl border border-white/10 flex items-center gap-4 shadow-2xl overflow-hidden group"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="absolute bottom-12 left-12 bg-black/40 backdrop-blur-2xl px-8 py-4 rounded-3xl border border-white/10 flex items-center gap-4"
             >
-              <div className="absolute inset-0 bg-amber-500/5 transition-opacity opacity-0 group-hover:opacity-100" />
-              <Target className="w-5 h-5 text-amber-500 animate-pulse relative z-10" />
-              <span className="text-sm uppercase tracking-[0.4em] text-white font-black relative z-10">
+              <Target className="w-5 h-5 text-amber-500 animate-pulse" />
+              <span className="text-sm uppercase tracking-[0.4em] text-white font-black">
                 Exploración Anatómica
               </span>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Right: Info Area */}
         <div className="flex flex-col justify-center gap-12 h-full">
           <AnimatePresence mode="wait">
             {activeSpot ? (
@@ -202,7 +184,6 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                 initial={{ opacity: 0, x: 50, filter: "blur(10px)" }}
                 animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, x: -50, filter: "blur(10px)" }}
-                transition={{ duration: 0.6, ease: "circOut" }}
                 className="space-y-12"
               >
                 <div className="space-y-6">
@@ -210,13 +191,9 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                     <ShieldCheck className="w-4 h-4 text-amber-500" />
                     <span className="text-xs font-black text-amber-500 uppercase tracking-[0.3em]">Hito Clínico</span>
                   </div>
-
                   <h3 className="text-6xl md:text-8xl font-display font-bold text-white tracking-tighter leading-none mb-6">
                     {activeSpot.titulo}
                   </h3>
-
-                  <div className="h-px w-20 bg-amber-500/40" />
-
                   <p className="text-2xl md:text-3xl text-white/40 font-light leading-relaxed max-w-xl">
                     {activeSpot.texto}
                   </p>
@@ -226,11 +203,10 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="p-8 bg-red-500/5 border border-red-500/20 rounded-[2.5rem] flex items-start gap-6 backdrop-blur-xl relative overflow-hidden"
+                    className="p-8 bg-red-500/5 border border-red-500/20 rounded-[2.5rem] flex items-start gap-6 backdrop-blur-xl"
                   >
-                    <div className="absolute inset-0 bg-red-500/[0.02] animate-pulse" />
-                    <AlertCircle className="w-8 h-8 text-red-500 mt-1 relative z-10" />
-                    <div className="relative z-10">
+                    <AlertCircle className="w-8 h-8 text-red-500 mt-1" />
+                    <div>
                       <span className="text-[10px] uppercase tracking-[0.4em] text-red-500 font-black mb-2 block">Alerta de Riesgo</span>
                       <p className="text-lg text-red-400/80 font-medium leading-relaxed">
                         {activeSpot.estado_peligro}
@@ -241,12 +217,12 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
 
                 <button
                   onClick={() => { setActiveId(null); setCurrentImage(moduleFallback) }}
-                  className="group flex items-center gap-6 text-sm font-black text-white/60 hover:text-white uppercase tracking-[0.3em] transition-all"
+                  className="group flex items-center gap-6 text-sm font-black text-white/60 hover:text-white uppercase tracking-[0.3em]"
                 >
-                  <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-amber-500 group-hover:bg-amber-500/20 transition-all bg-white/5">
+                  <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-amber-500 group-hover:bg-amber-500/20 transition-all">
                     <X className="w-6 h-6" />
                   </div>
-                  Regresar a la vista general
+                  Regresar
                 </button>
               </motion.div>
             ) : (
@@ -259,22 +235,12 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                 <span className="text-xs tracking-[0.6em] text-amber-500/60 font-black uppercase mb-4 block">
                   {data.parte || "Módulo Interactivo"}
                 </span>
-                <h2 className="text-6xl md:text-[7rem] font-display font-bold text-white tracking-tighter leading-none mb-6">
-                  {data.titulo ? (
-                    <>{data.titulo.split(' ')[0]} <br /> <span className="text-amber-400 italic">{data.titulo.substring(data.titulo.indexOf(' ') + 1)}</span></>
-                  ) : (
-                    <>Anatomía <br /> <span className="text-amber-400 italic">Interactiva</span></>
-                  )}
+                <h2 className="text-6xl md:text-[7rem] font-display font-bold text-white tracking-tighter leading-none">
+                   {data.titulo}
                 </h2>
                 <p className="text-2xl md:text-3xl text-zinc-400 font-light leading-relaxed max-w-xl">
-                  {data.texto_principal || "Interactúa con los marcadores para explorar la fisiología en detalle."}
+                  {data.texto_principal || "Selecciona un marcador para explorar."}
                 </p>
-                <div className="flex items-center gap-4 pt-8">
-                  <div className="w-16 h-px bg-amber-500/30" />
-                  <span className="text-sm uppercase font-black tracking-[0.5em] text-amber-500/60 italic text-center">
-                    Selecciona un marcador para comenzar
-                  </span>
-                </div>
               </motion.div>
             )}
           </AnimatePresence>

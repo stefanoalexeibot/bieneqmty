@@ -23,8 +23,29 @@ import { HeroSection } from "@/components/sections/hero"
 import { Presentacion } from "@/components/sections/presentacion"
 import { NutritionFormula } from "./modules/nutrition-formula"
 import { SplitComparison } from "./modules/split-comparison"
+import { AmbientParticles } from "@/components/ui/ambient-particles"
+import { Magnetic } from "@/components/ui/magnetic"
 
-// Unsplash fallback backgrounds per intro-module id
+// ... (existing code)
+
+const TextReveal = ({ text }: { text: string }) => {
+  const words = text.split(" ")
+  return (
+    <motion.div className="flex flex-wrap gap-x-[0.2em]">
+      {words.map((word, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-block"
+        >
+          {word}
+        </motion.span>
+      ))}
+    </motion.div>
+  )
+}
 const INTRO_BG_FALLBACKS: Record<string, string> = {
   "etologia": "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1800",
   "habitat-presa": "https://images.unsplash.com/photo-1500595046743-cec271a393dc?auto=format&fit=crop&q=80&w=1800",
@@ -222,6 +243,10 @@ export function CoursePlayer() {
 
   return (
     <div className="relative w-full h-screen bg-black text-foreground flex flex-col overflow-hidden">
+      <AmbientParticles 
+        count={50} 
+        color={currentModule.tipo_vista === "hero" ? "rgba(255,255,255,0.3)" : "rgba(245,158,11,0.3)"} 
+      />
       
       {/* Sidebar Drawer Overlay */}
       <AnimatePresence>
@@ -242,14 +267,16 @@ export function CoursePlayer() {
               className="absolute left-0 top-0 bottom-0 z-[70] w-[320px] shadow-2xl"
             >
               <div className="relative h-full">
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={() => setIsSidebarOpen(false)}
-                  className="absolute right-4 top-4 z-[80] rounded-full hover:bg-white/10"
-                >
-                  <X className="w-5 h-5 text-white" />
-                </Button>
+                <Magnetic>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="absolute right-4 top-4 z-[80] rounded-full hover:bg-white/10"
+                  >
+                    <X className="w-5 h-5 text-white" />
+                  </Button>
+                </Magnetic>
                 <ProgressSidebar />
               </div>
             </motion.div>
@@ -267,20 +294,22 @@ export function CoursePlayer() {
             className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 pointer-events-none"
           >
             <div className="flex items-center gap-6 pointer-events-auto">
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => setIsSidebarOpen(true)}
-                className="w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10 group"
-              >
-                <Menu className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
-              </Button>
+              <Magnetic strength={0.3}>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => setIsSidebarOpen(true)}
+                  className="w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10 group"
+                >
+                  <Menu className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+                </Button>
+              </Magnetic>
               <div className="flex flex-col">
                 <span className="text-xs uppercase tracking-[0.4em] text-amber-500 font-black leading-none mb-1.5">
                   {currentModule.parte || "Módulo"}
                 </span>
                 <span className="text-base font-bold text-white tracking-tight">
-                  {currentModule.titulo}
+                  <TextReveal text={currentModule.titulo} />
                 </span>
               </div>
             </div>
@@ -301,13 +330,15 @@ export function CoursePlayer() {
                   />
                 </div>
               </div>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl border border-white/10"
-              >
-                <Layers className="w-4 h-4 text-white/60" />
-              </Button>
+              <Magnetic strength={0.2}>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl border border-white/10"
+                >
+                  <Layers className="w-4 h-4 text-white/60" />
+                </Button>
+              </Magnetic>
             </div>
           </motion.header>
         )}
@@ -358,14 +389,16 @@ export function CoursePlayer() {
             className="fixed bottom-0 left-0 right-0 z-50 p-10 pointer-events-none flex justify-center"
           >
             <div className="flex items-center gap-2 p-2 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-full pointer-events-auto">
-              <Button
-                variant="ghost"
-                onClick={handlePrev}
-                disabled={currentModuleIndex === 0}
-                className="h-14 w-14 rounded-full border-none hover:bg-white/10 disabled:opacity-20"
-              >
-                <ChevronLeft className="w-6 h-6 text-white" />
-              </Button>
+              <Magnetic strength={0.5}>
+                <Button
+                  variant="ghost"
+                  onClick={handlePrev}
+                  disabled={currentModuleIndex === 0}
+                  className="h-14 w-14 rounded-full border-none hover:bg-white/10 disabled:opacity-20"
+                >
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </Button>
+              </Magnetic>
 
               <div className="h-4 w-px bg-white/10 mx-2" />
 
@@ -378,15 +411,17 @@ export function CoursePlayer() {
 
               <div className="h-4 w-px bg-white/10 mx-2" />
 
-              <Button
-                variant="ghost"
-                onClick={handleNext}
-                disabled={currentModuleIndex === modules.length - 1}
-                className="h-14 w-28 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-bold flex items-center justify-between px-6 shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all group"
-              >
-                <span>Siguiente</span>
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <Magnetic strength={0.4}>
+                <Button
+                  variant="ghost"
+                  onClick={handleNext}
+                  disabled={currentModuleIndex === modules.length - 1}
+                  className="h-14 w-28 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-bold flex items-center justify-between px-6 shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all group"
+                >
+                  <span>Siguiente</span>
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Magnetic>
             </div>
           </motion.footer>
         )}

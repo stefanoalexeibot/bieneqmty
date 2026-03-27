@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { Magnetic } from "@/components/ui/magnetic"
 
 interface BentoItem {
   titulo: string
@@ -31,19 +32,13 @@ export function BentoGridLMS({ data }: BentoGridLMSProps) {
             autoPlay loop muted playsInline 
             className="w-full h-full object-cover opacity-30 grayscale"
           >
-            <source src={videoBg} type="video/mp4" />
+            <source src={videoBg} type="video/p4" />
           </video>
         ) : (
           <div className="w-full h-full bg-zinc-950" />
         )}
         
-        {/* Premium Background Texture */}
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay">
-           <img src="/assets/curso/backgrounds/technical-grid.png" className="w-full h-full object-cover grayscale" alt="" />
-        </div>
-
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_oklch(0.2_0.05_62)_0%,_transparent_70%)] opacity-40" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto space-y-12">
@@ -68,69 +63,67 @@ export function BentoGridLMS({ data }: BentoGridLMSProps) {
            </motion.h2>
         </div>
 
-        {/* Premium Bento Grid */}
+        {/* Premium Bento Grid with Magnetic Interaction */}
         <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 auto-rows-[240px]">
           {items.map((item: BentoItem, i: number) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 * i, ease: [0.16, 1, 0.3, 1] }}
-              className={cn(
-                "relative rounded-[2rem] p-8 overflow-hidden group border border-white/10 flex flex-col justify-between transition-all duration-500 shadow-2xl",
-                i === 0 
-                  ? "md:col-span-2 md:row-span-2 bg-zinc-900/50" 
-                  : "bg-zinc-900/30 hover:bg-zinc-900/60 hover:border-amber-500/30"
-              )}
-            >
-              {/* Background Product Image */}
-              {item.imagen && (
-                <div className="absolute inset-0 z-0">
-                  <img 
-                    src={item.imagen} 
-                    className={cn(
-                      "w-full h-full object-cover transition-all duration-700 opacity-40 group-hover:scale-110 group-hover:opacity-60",
-                      i === 0 ? "opacity-60 grayscale-[0.5] group-hover:grayscale-0" : "grayscale group-hover:grayscale-0"
-                    )} 
-                    alt={item.titulo} 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+            <Magnetic key={i} strength={0.1} className={cn(
+              i === 0 ? "md:col-span-2 md:row-span-2" : ""
+            )}>
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 * i, ease: [0.16, 1, 0.3, 1] }}
+                className={cn(
+                  "relative h-full w-full rounded-[2.5rem] p-8 overflow-hidden group border border-white/5 flex flex-col justify-between transition-all duration-500 shadow-2xl",
+                  i === 0 
+                    ? "bg-zinc-900/50" 
+                    : "bg-zinc-900/30 hover:bg-zinc-900/60 hover:border-amber-500/30"
+                )}
+              >
+                {/* Background Product Image */}
+                {item.imagen && (
+                  <div className="absolute inset-0 z-0">
+                    <img 
+                      src={item.imagen} 
+                      className={cn(
+                        "w-full h-full object-cover transition-all duration-700 opacity-30 group-hover:scale-110 group-hover:opacity-50",
+                        i === 0 ? "opacity-50 grayscale-[0.5] group-hover:grayscale-0" : "grayscale group-hover:grayscale-0"
+                      )} 
+                      alt={item.titulo} 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                  </div>
+                )}
+
+                <div className="relative z-10 flex flex-col justify-end h-full">
+                   <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center mb-4 border border-amber-500/20 shadow-inner">
+                      <span className="font-mono text-base font-black text-amber-500">
+                        0{i + 1}
+                      </span>
+                   </div>
+
+                   <h3 className={cn(
+                     "font-display font-bold tracking-tight mb-2",
+                     i === 0 ? "text-4xl leading-none text-white" : "text-xl text-white/90"
+                   )}>
+                     {item.titulo}
+                   </h3>
+                   <p className={cn(
+                     "text-base md:text-lg leading-relaxed font-light",
+                     i === 0 ? "text-white/80 max-w-sm" : "text-zinc-300"
+                   )}>
+                     {item.descripcion}
+                   </p>
                 </div>
-              )}
 
-              {/* Decorative accent */}
-              <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                 <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.8)]" />
-              </div>
-
-              <div className="relative z-10 flex flex-col justify-end h-full">
-                 <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 border border-amber-500/20">
-                    <span className="font-mono text-base font-black text-amber-500">
-                      0{i + 1}
-                    </span>
-                 </div>
-
-                 <h3 className={cn(
-                   "font-display font-bold tracking-tight mb-2",
-                   i === 0 ? "text-4xl leading-none text-white" : "text-xl text-white/90"
-                 )}>
-                   {item.titulo}
-                 </h3>
-                 <p className={cn(
-                   "text-base md:text-lg leading-relaxed font-light",
-                   i === 0 ? "text-white/80 max-w-sm" : "text-zinc-300"
-                 )}>
-                   {item.descripcion}
-                 </p>
-              </div>
-
-              {/* Hover Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-amber-500/0 to-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-            </motion.div>
+                {/* Tracking Glow effect (Mobile focus) */}
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-amber-500/0 to-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              </motion.div>
+            </Magnetic>
           ))}
         </div>
       </div>
     </div>
   )
 }
-
