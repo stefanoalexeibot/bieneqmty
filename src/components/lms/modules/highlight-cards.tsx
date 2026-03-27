@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { LucideIcon, Zap, Shield, Heart, Info, Star } from "lucide-react"
+import { Magnetic } from "@/components/ui/magnetic"
 
 interface HighlightItem {
   titulo: string
@@ -77,27 +78,36 @@ export function HighlightCards({ data }: any) {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 * idx, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative h-full min-h-[320px] rounded-[2.5rem] bg-white/[0.03] border border-white/10 p-10 flex flex-col justify-between hover:bg-white/[0.06] hover:border-amber-500/30 transition-all duration-500 overflow-hidden"
+                className="group relative h-full min-h-[380px] rounded-[3rem] bg-white/[0.03] border border-white/10 p-12 lg:p-14 flex flex-col justify-between hover:bg-white/[0.06] hover:border-amber-500/30 transition-all duration-700 overflow-hidden"
               >
-                {/* Background Glow */}
-                <div className="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/5 blur-[80px] rounded-full group-hover:bg-amber-500/10 transition-colors" />
+                {/* Background Number Decal */}
+                <div className="absolute -bottom-10 -right-10 text-[18rem] font-display font-black text-white/[0.02] select-none pointer-events-none group-hover:text-amber-500/[0.03] transition-colors duration-1000">
+                  {idx + 1}
+                </div>
                 
-                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:border-amber-500/20 transition-all">
-                    <IconComp className="w-6 h-6 text-amber-500/80" />
-                  </div>
+                {/* Background Glow */}
+                <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-500/[0.03] blur-[100px] rounded-full group-hover:bg-amber-500/10 transition-colors duration-1000" />
+                
+                <div className="relative z-10 space-y-8">
+                  <Magnetic strength={0.2}>
+                    <div className="w-20 h-20 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-amber-500/30 group-hover:bg-amber-500/10 transition-all duration-500 cursor-pointer shadow-2xl">
+                      <IconComp className="w-8 h-8 text-amber-500/80 group-hover:text-amber-500" />
+                    </div>
+                  </Magnetic>
                   
-                  <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 tracking-tight leading-tight">
-                    {item.titulo}
-                  </h3>
-                  <p className="text-white/40 font-light leading-relaxed group-hover:text-white/60 transition-colors">
-                    {item.descripcion}
-                  </p>
+                  <div className="space-y-4">
+                    <h3 className="text-3xl lg:text-4xl font-display font-black text-white tracking-tighter leading-none text-balance">
+                      {item.titulo}
+                    </h3>
+                    <p className="text-xl lg:text-2xl text-white/40 font-light leading-snug group-hover:text-white/60 transition-all duration-500 max-w-[90%]">
+                      {item.descripcion}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="relative z-10 flex items-center gap-4 pt-6">
-                  <div className="h-px flex-1 bg-white/10" />
-                  <span className="font-mono text-[10px] font-black text-white/20 uppercase tracking-widest">{String(idx + 1).padStart(2, '0')}</span>
+                <div className="relative z-10 flex items-center gap-6 pt-10">
+                  <div className="h-px w-12 bg-amber-500/30 group-hover:w-full transition-all duration-700" />
+                  <span className="font-mono text-xs font-black text-white/20 uppercase tracking-[0.4em] mb-1">{String(idx + 1).padStart(2, '0')}</span>
                 </div>
               </motion.div>
             )

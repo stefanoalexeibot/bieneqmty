@@ -60,9 +60,9 @@ export function SplitComparison({ data }: any) {
            </div>
            
            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-red-500 block">{left.label}</span>
-           <h3 className="text-5xl md:text-7xl font-display font-bold text-white tracking-tighter leading-[0.85]">
-             {left.title}
-           </h3>
+            <h3 className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-white tracking-tighter leading-[0.85] text-balance">
+              {left.title}
+            </h3>
            
            <div className="space-y-4 pt-4">
              {left.items.map((item: string, idx: number) => (
@@ -122,9 +122,9 @@ export function SplitComparison({ data }: any) {
            </div>
            
            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-amber-500 block">{right.label}</span>
-           <h3 className="text-5xl md:text-7xl font-display font-bold text-white tracking-tighter leading-[0.85]">
-             {right.title}
-           </h3>
+            <h3 className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-white tracking-tighter leading-[0.85] text-balance">
+              {right.title}
+            </h3>
            
            <div className="space-y-4 pt-4">
              {right.items.map((item: string, idx: number) => (

@@ -107,23 +107,23 @@
             "label": "Hábitat Doméstico",
             "title": "Terreno Blando",
             "items": [
-              "Humedad excesiva que debilita el tejido córneo.",
-              "Falta de desgaste natural y sobre-crecimiento.",
-              "Movimiento limitado en espacios reducidos (Pesebrera)."
+              "Debilidad por humedad.",
+              "Sobre-crecimiento patológico.",
+              "Atrofia por confinamiento."
             ],
             "highlight": "Atrofia Estructural",
-            "quote": "El confort excesivo es el enemigo de la salud del casco."
+            "quote": "El confort excesivo es el enemigo de la salud."
           },
           "right": {
             "label": "Hábitat Desértico",
             "title": "Terreno Abrasivo",
             "items": [
-              "Suelo duro y seco que estimula la producción de queratina.",
-              "Autoregulación constante por desgaste mecánico.",
-              "Kilómetros de búsqueda de alimento y agua."
+              "Estimulación de queratina.",
+              "Desgaste mecánico perfecto.",
+              "Movimiento vital constante."
             ],
             "highlight": "Fortaleza Mustang",
-            "quote": "El desierto no perdona la debilidad, forja herramientas perfectas."
+            "quote": "El desierto no perdona, forja herramientas perfectas."
           }
         }
       ]
@@ -148,9 +148,9 @@
         {
           "tipo": "highlights",
           "items": [
-            { "titulo": "Protección", "descripcion": "La vigilancia compartida permite el descanso REM profundo.", "iconText": "shield" },
-            { "titulo": "Psicología", "descripcion": "El juego y la jerarquía mantienen el cerebro sano y alerta.", "iconText": "star" },
-            { "titulo": "Estímulo", "descripcion": "El movimiento por imitación garantiza kilómetros recorridos.", "iconText": "zap" }
+            { "titulo": "Vigilancia", "descripcion": "Descanso REM profundo en manada.", "iconText": "shield" },
+            { "titulo": "Jerarquía", "descripcion": "Cerebro alerta y psicológicamente sano.", "iconText": "star" },
+            { "titulo": "Imitación", "descripcion": "Movimiento vital garantizado por el grupo.", "iconText": "zap" }
           ]
         }
       ]
@@ -184,18 +184,18 @@
           "tipo": "flip-cards",
           "items": [
             { 
-              "frente_titulo": "Recorte Fisiológico", 
-              "dorso_texto": "Recrear el patrón de desgaste del Mustang para liberar la mecánica interna.", 
+              "frente_titulo": "Recorte", 
+              "dorso_texto": "Recrear el patrón del Mustang para liberar la mecánica.", 
               "imagen_fondo": "/assets/curso/recorte-natural.png" 
             },
             { 
               "frente_titulo": "Movimiento", 
-              "dorso_texto": "Mínimo 15km diarios para activar la bomba de sangre y el metabolismo del casco.", 
+              "dorso_texto": "Mínimo 15km diarios para activar la bomba de sangre.", 
               "imagen_fondo": "/assets/curso/mustang/mustang-bg.png" 
             },
             { 
               "frente_titulo": "Nutrición", 
-              "dorso_texto": "Heno 24/7 de fibra larga. Cero granos y melazas que inflamen las láminas.", 
+              "dorso_texto": "Heno 24/7. Cero granos que inflamen las láminas.", 
               "imagen_fondo": "/assets/curso/pasto en slowfeeder para padock paradise.png" 
             }
           ]
@@ -276,30 +276,30 @@
       "tipo_vista": "split-comparison",
       "media": { 
         "imagen_mala": "/assets/curso/nuevos/horseshoe_damage.png",
-        "imagen_buena": "/assets/curso/nuevos/landing_healthy.png"
+        "imagen_buena": "/assets/curso/ai/landing-comparison.png"
       },
       "interacciones": [
         {
           "tipo": "comparison",
           "left": {
             "label": "Patológico",
-            "title": "Aterrizaje en Pinza",
+            "title": "En Pinza",
             "items": [
-              "Fuerza el impacto directamente contra el hueso.",
-              "Vibración de alta frecuencia dañina."
+              "Impacto óseo directo.",
+              "Vibración destructiva."
             ],
             "highlight": "Impacto Óseo",
             "quote": "El hueso sufre lo que el talón no amortiza."
           },
           "right": {
             "label": "Correcto",
-            "title": "Aterrizaje en Talón",
+            "title": "En Talón",
             "items": [
-              "Ranilla y bulbos disipan el 70% de la fuerza inicial.",
-              "Estímulo positivo para el retorno venoso."
+              "Disipación del 70% del impacto.",
+              "Bombeo venoso activo."
             ],
             "highlight": "Amortiguación Natural",
-            "quote": "Cada aterrizaje en talón es una carga de vida."
+            "quote": "Cada impacto en talón es una carga de vida."
           }
         }
       ]
