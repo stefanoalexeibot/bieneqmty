@@ -22,7 +22,7 @@ export function BentoGridLMS({ data }: BentoGridLMSProps) {
   const imageBg = data.media?.imagen_fondo
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col items-center justify-center p-8 lg:p-24 overflow-hidden">
+    <div className="relative w-full min-h-screen flex flex-col items-center justify-center p-8 lg:p-24 overflow-hidden bg-black">
       
       {/* Background Layer */}
       <div className="absolute inset-0 z-0">
@@ -33,93 +33,99 @@ export function BentoGridLMS({ data }: BentoGridLMSProps) {
           >
             <source src={videoBg} type="video/mp4" />
           </video>
-        ) : imageBg ? (
-          <img src={imageBg} className="w-full h-full object-cover opacity-20 grayscale" alt="" />
         ) : (
-          <div className="w-full h-full bg-gradient-to-b from-black via-zinc-900 to-black" />
+          <div className="w-full h-full bg-zinc-950" />
         )}
+        
+        {/* Premium Background Texture */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay">
+           <img src="/assets/curso/backgrounds/technical-grid.png" className="w-full h-full object-cover grayscale" alt="" />
+        </div>
+
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_oklch(0.2_0.05_62)_0%,_transparent_70%)] opacity-40" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto space-y-16">
+      <div className="relative z-10 w-full max-w-7xl mx-auto space-y-12">
         {/* Cinematic Header */}
-        <div className="max-w-3xl space-y-6">
-           <motion.span 
+        <div className="max-w-2xl space-y-4">
+           <motion.div 
              initial={{ opacity: 0, x: -20 }}
              animate={{ opacity: 1, x: 0 }}
-             className="text-amber-500 font-mono text-sm font-bold tracking-[0.5em] uppercase"
+             className="flex items-center gap-4"
            >
-             Módulo {data.numero} · Conceptos Clave
-           </motion.span>
+             <div className="h-px w-8 bg-amber-500/50" />
+             <span className="text-amber-500 font-mono text-[10px] font-black tracking-[0.5em] uppercase">
+               Módulo {data.numero} · Herramientas
+             </span>
+           </motion.div>
            <motion.h2 
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
-             className="text-5xl md:text-7xl font-display font-medium text-white tracking-tight leading-none"
+             className="text-5xl md:text-7xl font-display font-bold text-white tracking-tighter leading-[0.9]"
            >
              {data.titulo}
            </motion.h2>
-           <motion.p 
-             initial={{ opacity: 0 }}
-             animate={{ opacity: 1 }}
-             transition={{ delay: 0.3 }}
-             className="text-xl md:text-2xl text-white/50 font-light leading-relaxed font-display italic"
-           >
-             {data.texto_principal}
-           </motion.p>
         </div>
 
         {/* Premium Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 auto-rows-[280px]">
+        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 auto-rows-[240px]">
           {items.map((item: BentoItem, i: number) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              transition={{ duration: 0.8, delay: 0.1 * i, ease: [0.16, 1, 0.3, 1] }}
               className={cn(
-                "relative rounded-[2.5rem] p-10 overflow-hidden group border border-white/10 backdrop-blur-xl transition-all duration-500",
+                "relative rounded-[2rem] p-8 overflow-hidden group border border-white/10 flex flex-col justify-between transition-all duration-500 shadow-2xl",
                 i === 0 
-                  ? "md:col-span-2 md:row-span-2 bg-amber-500 shadow-[0_0_50px_rgba(245,158,11,0.2)]" 
-                  : "bg-white/5 hover:bg-white/10 hover:border-white/20"
+                  ? "md:col-span-2 md:row-span-2 bg-zinc-900/50" 
+                  : "bg-zinc-900/30 hover:bg-zinc-900/60 hover:border-amber-500/30"
               )}
             >
-              {/* Decorative lens flare for primary item */}
-              {i === 0 && (
-                <div className="absolute top-0 right-0 w-80 h-80 bg-white/20 blur-[100px] rounded-full -translate-y-1/3 translate-x-1/3" />
+              {/* Background Product Image */}
+              {item.imagen && (
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={item.imagen} 
+                    className={cn(
+                      "w-full h-full object-cover transition-all duration-700 opacity-40 group-hover:scale-110 group-hover:opacity-60",
+                      i === 0 ? "opacity-60 grayscale-[0.5] group-hover:grayscale-0" : "grayscale group-hover:grayscale-0"
+                    )} 
+                    alt={item.titulo} 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                </div>
               )}
 
-              <div className="relative z-10 h-full flex flex-col justify-end">
-                 <div className={cn(
-                   "w-12 h-12 rounded-2xl flex items-center justify-center mb-8",
-                   i === 0 ? "bg-black/10" : "bg-amber-500/10"
-                 )}>
-                    <span className={cn(
-                      "font-mono text-sm font-black",
-                      i === 0 ? "text-black" : "text-amber-500"
-                    )}>
+              {/* Decorative accent */}
+              <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                 <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.8)]" />
+              </div>
+
+              <div className="relative z-10 flex flex-col justify-end h-full">
+                 <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4 border border-amber-500/20">
+                    <span className="font-mono text-[10px] font-black text-amber-500">
                       0{i + 1}
                     </span>
                  </div>
 
                  <h3 className={cn(
-                   "text-3xl font-display font-bold tracking-tight mb-4",
-                   i === 0 ? "text-black leading-none" : "text-white leading-tight"
+                   "font-display font-bold tracking-tight mb-2",
+                   i === 0 ? "text-4xl leading-none text-white" : "text-xl text-white/90"
                  )}>
                    {item.titulo}
                  </h3>
                  <p className={cn(
-                   "text-base leading-relaxed font-light",
-                   i === 0 ? "text-black/60" : "text-white/40"
+                   "text-sm leading-relaxed font-light",
+                   i === 0 ? "text-white/60 max-w-xs" : "text-white/40"
                  )}>
                    {item.descripcion}
                  </p>
               </div>
 
-              {/* Sophisticated hover effect */}
-              {i !== 0 && (
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-amber-500/0 to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              )}
+              {/* Hover Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 via-amber-500/0 to-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             </motion.div>
           ))}
         </div>
@@ -127,3 +133,4 @@ export function BentoGridLMS({ data }: BentoGridLMSProps) {
     </div>
   )
 }
+

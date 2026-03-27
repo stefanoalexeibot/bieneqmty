@@ -256,7 +256,7 @@
             { "titulo": "Escofina (Rasp)", "descripcion": "Acabado final y el famoso Mustang Roll.", "imagen": "/assets/curso/tools/rasp.png" },
             { "titulo": "Pujavante", "descripcion": "Retirada de suela exfoliante y barras excedentes.", "imagen": "/assets/curso/tools/knife.png" },
             { "titulo": "Tenazas (Nippers)", "descripcion": "Recorte preciso de la pared excedente.", "imagen": "/assets/curso/tools/nippers.png" },
-            { "titulo": "Cuchilla", "descripcion": "Limpieza profunda de ranilla y lagunas.", "imagen": "/assets/curso/tools/hoof-knife.png" }
+            { "titulo": "Cuchilla", "descripcion": "Limpieza profunda de ranilla y lagunas.", "imagen": "/assets/curso/tools/loop-knife.png" }
           ]
         }
       ]
@@ -269,11 +269,12 @@
       "tipo_vista": "step-slider",
       "descripcion": "El protocolo BieneQ MTY paso a paso.",
       "pasos": [
-        { "numero": 1, "nombre": "Limpieza y Evaluación", "texto": "Identificar el punto más ancho de la ranilla.", "imagen": "/assets/curso/trim/step1.png" },
-        { "numero": 2, "nombre": "Nivelación de Talones", "texto": "Llevándolos al nivel de la unión ranilla-barras.", "imagen": "/assets/curso/trim/step2.png" },
-        { "numero": 3, "nombre": "El Mustang Roll", "texto": "Redondeo del ángulo para tracción perfecta.", "imagen": "/assets/curso/trim/step3.png" },
-        { "numero": 4, "nombre": "Control de Suela", "texto": "Respetar la suela de transición sin sobre-recortar.", "imagen": "/assets/curso/trim/step4.png" }
+        { "numero": 1, "nombre": "Limpieza y Evaluación", "texto": "Identificar el punto más ancho de la ranilla.", "imagen": "/assets/curso/pasos/step1.png" },
+        { "numero": 2, "nombre": "Nivelación de Talones", "texto": "Llevándolos al nivel de la unión ranilla-barras.", "imagen": "/assets/curso/pasos/step2.png" },
+        { "numero": 3, "nombre": "El Mustang Roll", "texto": "Redondeo del ángulo para tracción perfecta.", "imagen": "/assets/curso/pasos/step3.png" },
+        { "numero": 4, "nombre": "Control de Suela", "texto": "Respetar la suela de transición sin sobre-recortar.", "imagen": "/assets/curso/pasos/step4.png" }
       ]
+
     },
     {
       "id": "modulo-10",

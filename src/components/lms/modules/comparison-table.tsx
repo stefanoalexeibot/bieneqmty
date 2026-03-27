@@ -2,251 +2,162 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Leaf, Ban, ChevronDown, ChevronUp } from "lucide-react"
+import { ShieldAlert, Leaf, Wind, Activity, Zap, CheckCircle2 } from "lucide-react"
 import { cn } from "@/lib/utils"
-
-interface FoodItem {
-  alimento: string
-  desc: string
-}
 
 interface ComparisonTableProps {
   data: any
 }
 
-// Visual references per food item
-const GREEN_IMAGES: Record<string, string> = {
-  default: "https://images.unsplash.com/photo-1500595046743-cec271a393dc?auto=format&fit=crop&q=80&w=800",
-}
-const RED_IMAGES: Record<string, string> = {
-  default: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&q=80&w=800",
-}
-
-function ImpactBar({ level, color }: { level: number; color: "green" | "red" }) {
-  return (
-    <div className="flex items-center gap-3">
-      <span className={cn("text-[9px] uppercase tracking-widest font-black", color === "green" ? "text-emerald-500/60" : "text-red-500/60")}>
-        {color === "green" ? "Seguridad" : "Riesgo"}
-      </span>
-      <div className="flex-1 h-1 rounded-full bg-white/5 overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${level}%` }}
-          transition={{ duration: 1.2, ease: "circOut", delay: 0.3 }}
-          className={cn("h-full rounded-full", color === "green" ? "bg-emerald-500" : "bg-red-500")}
-        />
-      </div>
-      <span className={cn("text-[10px] font-mono font-bold", color === "green" ? "text-emerald-500" : "text-red-500")}>
-        {level}%
-      </span>
-    </div>
-  )
-}
-
-const GREEN_LEVELS = [95, 88, 92, 78, 85]
-const RED_LEVELS  = [85, 92, 78, 95, 88]
+const DASHBOARD_ITEMS = [
+  { id: 1, label: "Salud Laminar", value: "Óptimo", impact: 95, icon: <Activity className="w-5 h-5" />, desc: "Inflamación controlada mediante dieta baja en azúcares." },
+  { id: 2, label: "Respuesta Insulínica", value: "Estable", impact: 88, icon: <Zap className="w-5 h-5" />, desc: "Evita picos glucémicos que comprometen la unión laminar." },
+  { id: 3, label: "Biodisponibilidad", value: "Alta", impact: 92, icon: <Wind className="w-5 h-5" />, desc: "Absorción eficiente de minerales quelatados (Zn/Cu)." },
+  { id: 4, label: "Calidad de Queratina", value: "Premium", impact: 94, icon: <ShieldAlert className="w-5 h-5" />, desc: "Crecimiento de muralla densa y sin anillos de estrés." },
+]
 
 export function ComparisonTable({ data }: ComparisonTableProps) {
-  const [expandedGreen, setExpandedGreen] = useState<number | null>(null)
-  const [expandedRed, setExpandedRed] = useState<number | null>(null)
-
-  const interaction = data.interacciones?.[0] || {}
-  const itemsVerde: FoodItem[] = interaction.verde || []
-  const itemsRojo: FoodItem[]  = interaction.rojo  || []
+  const [activeItem, setActiveItem] = useState(0)
 
   return (
-    <div className="relative w-full h-screen bg-black overflow-hidden flex flex-col">
+    <div className="relative w-full min-h-screen flex flex-col items-center justify-center p-8 lg:p-24 overflow-hidden bg-black font-sans">
+      
+      {/* Background Layer */}
+      <div className="absolute inset-0 z-0">
+        <div className="w-full h-full bg-zinc-950" />
+        
+        {/* Metabolic Background Texture */}
+        <div className="absolute inset-0 opacity-[0.06] pointer-events-none mix-blend-screen saturate-0">
+           <img src="/assets/curso/backgrounds/metabolic.png" className="w-full h-full object-cover" alt="" />
+        </div>
 
-      {/* Full-bleed atmospheric split background */}
-      <div className="absolute inset-0 grid grid-cols-2 pointer-events-none">
-        {/* Green side BG */}
-        <div className="relative overflow-hidden">
-          <img
-            src="/assets/curso/pasto en slowfeeder para padock paradise.png"
-            onError={(e) => { (e.currentTarget as HTMLImageElement).src = GREEN_IMAGES.default }}
-            alt=""
-            className="w-full h-full object-cover brightness-[0.18] saturate-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/30 via-emerald-950/10 to-black/80" />
-        </div>
-        {/* Red side BG */}
-        <div className="relative overflow-hidden">
-          <img
-            src="/assets/curso/grano y alfalfa.png"
-            onError={(e) => { (e.currentTarget as HTMLImageElement).src = RED_IMAGES.default }}
-            alt=""
-            className="w-full h-full object-cover brightness-[0.18] saturate-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-l from-red-950/30 via-red-950/10 to-black/80" />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.2_0.1_62)_0%,_transparent_60%)] opacity-30" />
       </div>
 
-      {/* Center spine glow */}
-      <div className="absolute inset-y-0 left-1/2 w-px bg-white/[0.04] z-10" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-amber-500 rounded-full shadow-[0_0_40px_12px_rgba(245,158,11,0.3)] z-10" />
-
-      {/* Content */}
-      <div className="relative z-20 w-full h-full flex flex-col overflow-hidden">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center py-10 px-6 space-y-2 shrink-0"
-        >
-          <span className="text-[10px] uppercase tracking-[0.7em] text-amber-500 font-black block">
-            {data.parte} · Nutrición
-          </span>
-          <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-tighter leading-none">
-            Semáforo <span className="text-amber-400 italic">Nutricional</span>
-          </h2>
-          {data.texto_introduccion && (
-            <p className="text-white/30 text-sm font-light max-w-xl mx-auto">{data.texto_introduccion}</p>
-          )}
-        </motion.div>
-
-        {/* Column labels */}
-        <div className="grid grid-cols-2 px-8 md:px-16 gap-4 mb-4 shrink-0">
-          {/* Green label */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
+      <div className="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+        
+        {/* Left: Info Section */}
+        <div className="space-y-12">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center gap-4"
+            className="space-y-4"
           >
-            <div className="relative w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.15)]">
-              <Leaf className="w-7 h-7 text-emerald-400" />
-              <motion.div
-                animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0, 0.3] }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="absolute inset-0 rounded-2xl border border-emerald-500/30"
-              />
+            <div className="flex items-center gap-4">
+              <div className="h-px w-10 bg-amber-500/50" />
+              <span className="text-amber-500 font-mono text-[10px] font-black tracking-[0.5em] uppercase">
+                Módulo {data.numero} · Ecosistema Vital
+              </span>
             </div>
-            <div>
-              <span className="text-[9px] uppercase tracking-[0.5em] text-emerald-500/50 font-black block">Nivel Verde</span>
-              <h3 className="text-2xl font-display font-bold text-emerald-400 uppercase tracking-wider">Permitidos</h3>
-            </div>
+            <h2 className="text-5xl md:text-8xl font-display font-bold text-white tracking-tighter leading-[0.85]">
+              Ecosistema <br /> <span className="text-amber-400 italic">Metabólico</span>
+            </h2>
+            <p className="text-xl text-white/40 font-light leading-relaxed max-w-xl font-display">
+              {data.texto_introduccion || "El equilibrio interno se refleja en la salud externa del casco. Entender los indicadores es clave para el éxito del Barefoot."}
+            </p>
           </motion.div>
 
-          {/* Red label */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center gap-4"
-          >
-            <div className="relative w-16 h-16 rounded-2xl bg-red-500/15 border border-red-500/25 flex items-center justify-center shadow-[0_0_40px_rgba(239,68,68,0.15)]">
-              <Ban className="w-7 h-7 text-red-400" />
-              <motion.div
-                animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0, 0.3] }}
-                transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
-                className="absolute inset-0 rounded-2xl border border-red-500/30"
-              />
-            </div>
-            <div>
-              <span className="text-[9px] uppercase tracking-[0.5em] text-red-500/50 font-black block">Nivel Rojo</span>
-              <h3 className="text-2xl font-display font-bold text-red-400 uppercase tracking-wider">Peligrosos</h3>
-            </div>
-          </motion.div>
+          {/* Indicators List */}
+          <div className="grid gap-3">
+             {DASHBOARD_ITEMS.map((item, i) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveItem(i)}
+                  className={cn(
+                    "flex items-center justify-between p-6 rounded-2xl border transition-all duration-500 group relative overflow-hidden",
+                    activeItem === i 
+                      ? "bg-amber-500 border-amber-500 shadow-[0_0_40px_rgba(245,158,11,0.2)]" 
+                      : "bg-zinc-900/40 border-white/5 hover:border-amber-500/30"
+                  )}
+                >
+                  <div className="flex items-center gap-5 relative z-10 transition-transform duration-500 group-hover:translate-x-1">
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center transition-colors shadow-lg",
+                      activeItem === i ? "bg-black text-amber-500" : "bg-amber-500/10 text-amber-500"
+                    )}>
+                       {item.icon}
+                    </div>
+                    <div className="text-left">
+                       <h4 className={cn(
+                         "text-sm font-black uppercase tracking-widest leading-none mb-1",
+                         activeItem === i ? "text-black" : "text-white/80"
+                       )}>
+                         {item.label}
+                       </h4>
+                       <span className={cn(
+                         "text-xs font-mono font-bold",
+                         activeItem === i ? "text-black/60" : "text-amber-500/60"
+                       )}>
+                         Indicador: {item.value}
+                       </span>
+                    </div>
+                  </div>
+
+                  <div className="relative z-10 flex items-center gap-3">
+                     <div className={cn("w-1.5 h-1.5 rounded-full", activeItem === i ? "bg-black" : "bg-amber-500/40")} />
+                     {activeItem === i && <CheckCircle2 className="w-5 h-5 text-black" />}
+                  </div>
+                </button>
+             ))}
+          </div>
         </div>
 
-        {/* Food items grid - scrollable */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-2 px-8 md:px-16 overflow-y-auto flex-1 pb-8" style={{ scrollbarWidth: "none" }}>
-
-          {/* GREEN column */}
-          <div className="space-y-2">
-            {itemsVerde.map((item, i) => (
+        {/* Right: Data Visualization */}
+        <div className="relative space-y-8 h-full flex flex-col pt-12">
+           <AnimatePresence mode="wait">
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 + i * 0.08 }}
-                onClick={() => setExpandedGreen(expandedGreen === i ? null : i)}
-                className="group cursor-pointer"
+                key={activeItem}
+                initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="flex-1 p-12 rounded-[4rem] bg-zinc-900/50 border border-white/5 backdrop-blur-3xl shadow-3xl flex flex-col justify-between relative overflow-hidden"
               >
-                <div className={cn(
-                  "p-5 rounded-[1.5rem] border transition-all duration-500",
-                  expandedGreen === i
-                    ? "bg-emerald-500/10 border-emerald-500/40 shadow-[0_0_30px_rgba(16,185,129,0.1)]"
-                    : "bg-emerald-500/[0.03] border-emerald-500/10 hover:border-emerald-500/30 hover:bg-emerald-500/[0.07]"
-                )}>
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-                      <h4 className="text-base font-display font-bold text-white">{item.alimento}</h4>
+                 {/* Internal Glow */}
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 blur-[100px] rounded-full" />
+                 
+                 <div className="space-y-8 relative z-10">
+                    <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                       <span className="text-[10px] font-black text-black uppercase tracking-widest">Análisis Profundo</span>
                     </div>
-                    <div className="text-white/20 group-hover:text-white/50 transition-colors">
-                      {expandedGreen === i ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    
+                    <h3 className="text-5xl md:text-6xl font-display font-bold text-white tracking-tighter leading-none">
+                       {DASHBOARD_ITEMS[activeItem].label}
+                    </h3>
+
+                    <p className="text-2xl text-white/50 font-light leading-relaxed italic font-display">
+                       &ldquo;{DASHBOARD_ITEMS[activeItem].desc}&rdquo;
+                    </p>
+                 </div>
+
+                 {/* Impact Meter */}
+                 <div className="space-y-6 pt-12 relative z-10">
+                    <div className="flex justify-between items-end">
+                       <span className="text-xs font-black text-amber-500/60 uppercase tracking-widest font-mono">Índice Biológico</span>
+                       <span className="text-6xl font-display font-black text-white">{DASHBOARD_ITEMS[activeItem].impact}%</span>
                     </div>
-                  </div>
-
-                  <ImpactBar level={GREEN_LEVELS[i % GREEN_LEVELS.length]} color="green" />
-
-                  <AnimatePresence>
-                    {expandedGreen === i && (
-                      <motion.p
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="text-white/40 text-sm font-light leading-relaxed mt-3 overflow-hidden"
-                      >
-                        {item.desc}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </div>
+                    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                       <motion.div
+                         initial={{ width: 0 }}
+                         animate={{ width: `${DASHBOARD_ITEMS[activeItem].impact}%` }}
+                         transition={{ duration: 1.5, ease: "circOut", delay: 0.3 }}
+                         className="h-full bg-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.5)] rounded-full"
+                       />
+                    </div>
+                 </div>
               </motion.div>
-            ))}
-          </div>
+           </AnimatePresence>
 
-          {/* RED column */}
-          <div className="space-y-2">
-            {itemsRojo.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 + i * 0.08 }}
-                onClick={() => setExpandedRed(expandedRed === i ? null : i)}
-                className="group cursor-pointer"
-              >
-                <div className={cn(
-                  "p-5 rounded-[1.5rem] border transition-all duration-500",
-                  expandedRed === i
-                    ? "bg-red-500/10 border-red-500/40 shadow-[0_0_30px_rgba(239,68,68,0.1)]"
-                    : "bg-red-500/[0.03] border-red-500/10 hover:border-red-500/30 hover:bg-red-500/[0.07]"
-                )}>
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
-                      <h4 className="text-base font-display font-bold text-white">{item.alimento}</h4>
-                    </div>
-                    <div className="text-white/20 group-hover:text-white/50 transition-colors">
-                      {expandedRed === i ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    </div>
-                  </div>
-
-                  <ImpactBar level={RED_LEVELS[i % RED_LEVELS.length]} color="red" />
-
-                  <AnimatePresence>
-                    {expandedRed === i && (
-                      <motion.p
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="text-white/40 text-sm font-light leading-relaxed mt-3 overflow-hidden"
-                      >
-                        {item.desc}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
+           {/* Call to action footer */}
+           <motion.div
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             className="flex items-center gap-4 px-8"
+           >
+              <div className="w-1 h-1 rounded-full bg-amber-500/40" />
+              <p className="text-xs uppercase tracking-[0.3em] font-black text-white/20">Desplázate para ver más indicadores</p>
+           </motion.div>
         </div>
       </div>
     </div>
