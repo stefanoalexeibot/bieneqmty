@@ -83,10 +83,10 @@
       "numero": 1,
       "titulo": "Bienvenida al Barefoot",
       "parte": "Parte 2 · Pie Descalzo",
-      "tipo_vista": "intro-module",
+      "tipo_vista": "hero-split",
       "descripcion": "El inicio de tu viaje hacia la recuperación natural. Prepárate para desaprender lo convencional.",
       "media": {
-        "imagen_fondo": "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?auto=format&fit=crop&q=80"
+        "imagen_fondo": "/assets/curso/bg-modulo-1.webp"
       }
     },
     {
@@ -118,7 +118,7 @@
       "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "interactive-image-hotspots",
       "media": {
-        "imagen_principal": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80"
+        "imagen_principal": "/assets/curso/pilares/mustang-model.png"
       },
       "hotspots_externos": [
         { 
@@ -204,9 +204,9 @@
       "media": { "imagen_fondo": "/assets/curso/anatomia/hoof-pump.png" },
       "descripcion": "La 'Válvula Hidráulica Equina' permite bombear hasta 1 litro de sangre por minuto.",
       "pasos": [
-        { "numero": 1, "nombre": "Impacto", "texto": "El aterrizaje de talón activa los sensores de presión.", "imagen": "https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&q=80" },
-        { "numero": 2, "nombre": "Expansión", "texto": "Los bulbos se expanden y la almohadilla digital se comprime.", "imagen": "https://images.unsplash.com/photo-1596766465451-2d7c00e1ccda?auto=format&fit=crop&q=80" },
-        { "numero": 3, "nombre": "Bombeo", "texto": "La sangre es expulsada violentamente hacia arriba hacia el corazón.", "imagen": "https://images.unsplash.com/photo-1606016159991-cdf4a2973161?auto=format&fit=crop&q=80" }
+        { "numero": 1, "nombre": "Impacto", "texto": "El aterrizaje de talón activa los sensores de presión.", "imagen": "/assets/curso/anatomia/impact.png" },
+        { "numero": 2, "nombre": "Expansión", "texto": "Los bulbos se expanden y la almohadilla digital se comprime.", "imagen": "/assets/curso/anatomia/expansion.png" },
+        { "numero": 3, "nombre": "Bombeo", "texto": "La sangre es expulsada violentamente hacia arriba hacia el corazón.", "imagen": "/assets/curso/anatomia/pumping.png" }
       ]
     },
     {
