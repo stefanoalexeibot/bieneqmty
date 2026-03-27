@@ -5,12 +5,13 @@ import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { TiltCard } from "@/components/ui/tilt-card"
 import { Magnetic } from "@/components/ui/magnetic"
-import { Video, Mic, BookOpen, ArrowRight, Eye, Lock } from "lucide-react"
+import { BookOpen, Video, Mic, Eye, Lock, ArrowRight, X } from "lucide-react"
 
-function TopicCard({ id, title, image, delay }: { id: number; title: string; image: string; delay: number }) {
+function TopicCard({ id, title, image, delay, onSelect }: { id: number; title: string; image: string; delay: number; onSelect: () => void }) {
   const label = String(id).padStart(2, "0")
   return (
     <motion.div
+      layoutId={`card-topic-${id}`}
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
@@ -19,31 +20,27 @@ function TopicCard({ id, title, image, delay }: { id: number; title: string; ima
       <Magnetic strength={0.2}>
         <TiltCard intensity={15} className="group h-full">
           <motion.div 
-            whileHover={{ scale: 1.15, zIndex: 10 }}
+            onClick={onSelect}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="h-full p-6 rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-xl border border-white/10 group-hover:bg-amber-500/[0.1] group-hover:border-amber-500/50 transition-all duration-500 flex flex-col gap-4 relative overflow-hidden shadow-2xl"
+            className="h-full p-6 rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-xl border border-white/10 group-hover:bg-amber-500/[0.1] group-hover:border-amber-500/50 transition-all duration-500 flex flex-col gap-4 relative overflow-hidden shadow-2xl cursor-pointer"
           >
-            {/* Background Image Preview - DRAMATIC ZOOM */}
             <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-80 transition-opacity duration-700 grayscale group-hover:grayscale-0">
-               <img 
-                 src={image} 
-                 className="w-full h-full object-cover scale-110 group-hover:scale-150 transition-transform duration-1000 ease-out" 
-                 alt={title} 
-               />
+               <img src={image} className="w-full h-full object-cover scale-110 group-hover:scale-125 transition-transform duration-1000 ease-out" alt={title} />
                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent" />
             </div>
             
             <div className="flex items-start justify-between relative z-10">
-              <span className="font-mono text-4xl font-black text-amber-500/30 group-hover:text-amber-500 transition-colors leading-none tracking-tighter">
+              <span className="font-mono text-4xl font-black text-amber-500/30 group-hover:text-amber-500 transition-colors tracking-tighter">
                 {label}
               </span>
-              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-amber-500 group-hover:border-amber-500 transition-all shadow-[0_0_20px_rgba(245,158,11,0)] group-hover:shadow-[0_0_20px_rgba(245,158,11,0.4)]">
+              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-amber-500 group-hover:border-amber-500 transition-all">
                 <BookOpen className="w-5 h-5 text-white/20 group-hover:text-black transition-colors" />
               </div>
             </div>
             
             <div className="flex-1 flex flex-col gap-3 relative z-10 justify-end">
-              <h3 className="text-2xl text-white/90 font-display font-black leading-tight group-hover:text-white transition-colors group-hover:scale-110 origin-left duration-500">
+              <h3 className="text-2xl text-white/90 font-display font-black leading-tight group-hover:text-white transition-colors duration-500">
                 {title}
               </h3>
               <div className="h-1.5 w-12 bg-amber-500/30 group-hover:w-full transition-all duration-700 rounded-full" />
@@ -55,12 +52,13 @@ function TopicCard({ id, title, image, delay }: { id: number; title: string; ima
   )
 }
 
-function QuestionCard({ id, question, delay }: { id: number; question: string; delay: number }) {
+function QuestionCard({ id, question, delay, onExpand }: { id: number; question: string; delay: number; onExpand: () => void }) {
   const [isRevealed, setIsRevealed] = useState(false)
   const label = String(id).padStart(2, "0")
   
   return (
     <motion.div
+      layoutId={`card-q-${id}`}
       initial={{ opacity: 0, scale: 0.9, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
@@ -72,33 +70,21 @@ function QuestionCard({ id, question, delay }: { id: number; question: string; d
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setIsRevealed(!isRevealed)}
+            onDoubleClick={onExpand}
             className={cn(
               "h-full p-8 rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-xl border transition-all duration-500 flex flex-col gap-6 relative overflow-hidden cursor-pointer",
               isRevealed ? "border-amber-500/50 bg-amber-500/[0.05]" : "border-white/10 hover:border-white/20"
             )}
           >
-            {/* Visual indicators */}
             <div className="absolute top-0 right-0 p-6 pointer-events-none">
               <AnimatePresence mode="wait">
                 {!isRevealed ? (
-                  <motion.div 
-                    key="closed"
-                    initial={{ opacity: 0, rotate: -20 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 20 }}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
-                  >
+                  <motion.div key="closed" initial={{ opacity: 0, rotate: -20 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 20 }} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
                     <Lock className="w-3 h-3 text-amber-500" />
                     <span className="text-[8px] font-black uppercase tracking-widest text-amber-500">Locked</span>
                   </motion.div>
                 ) : (
-                  <motion.div 
-                    key="opened"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500 border border-amber-600 shadow-[0_0_20px_rgba(245,158,11,0.3)]"
-                  >
+                  <motion.div key="opened" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500 border border-amber-600 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
                     <Eye className="w-3 h-3 text-black" />
                     <span className="text-[8px] font-black uppercase tracking-widest text-black">Revealed</span>
                   </motion.div>
@@ -117,7 +103,7 @@ function QuestionCard({ id, question, delay }: { id: number; question: string; d
             
             <div className="flex-1 flex flex-col gap-4 relative z-10">
               <div className={cn("h-px w-12 transition-all duration-700", isRevealed ? "w-full bg-amber-500" : "bg-amber-500/30 group-hover:w-24")} />
-              <p className="text-[10px] text-amber-500/60 tracking-[0.3em] uppercase font-black">Pregunta para Video</p>
+              <p className="text-[10px] text-amber-500/60 tracking-[0.3em] uppercase font-black">Pregunta para Video <span className="opacity-40 ml-2">(Doblo Clic: Zoom)</span></p>
               
               <div className="relative">
                 <motion.h3 
@@ -140,13 +126,6 @@ function QuestionCard({ id, question, delay }: { id: number; question: string; d
                 )}
               </div>
             </div>
-
-            <div className="flex items-center gap-2 pt-4 relative z-10">
-               <Mic className={cn("w-3 h-3", isRevealed ? "text-amber-500" : "text-white/20")} />
-               <span className={cn("text-[8px] uppercase tracking-[0.2em] font-bold", isRevealed ? "text-white/60" : "text-white/10")}>
-                 Respuesta sugerida: 1-2 min
-               </span>
-            </div>
           </motion.div>
         </TiltCard>
       </Magnetic>
@@ -156,14 +135,14 @@ function QuestionCard({ id, question, delay }: { id: number; question: string; d
 
 export function Presentacion({ data }: { data?: any }) {
   const [activeView, setActiveView] = useState<"curriculum" | "questions">("curriculum")
+  const [selectedTopic, setSelectedTopic] = useState<any>(null)
+  const [selectedQuestion, setSelectedQuestion] = useState<any>(null)
+
   const questions = data?.interacciones?.find((i: any) => i.tipo === "video-questions")?.items || []
   const initialCurriculum = data?.interacciones?.find((i: any) => i.tipo === "curriculum-preview")?.items || []
   
   return (
-    <section
-      id="presentacion"
-      className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center p-8 md:p-12 lg:p-24"
-    >
+    <section id="presentacion" className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center p-8 md:p-12 lg:p-24">
       {/* Cinematic Background */}
       <div className="absolute inset-0 z-0">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.06)_0%,transparent_70%)]" />
@@ -175,11 +154,7 @@ export function Presentacion({ data }: { data?: any }) {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/5 pb-8 relative">
           <div className="space-y-4 max-w-2xl">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-4"
-            >
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-4">
               <div className="h-px w-10 bg-amber-500" />
               <span className="text-[10px] uppercase tracking-[0.6em] text-amber-500 font-black">Escena 02 · Introducción</span>
             </motion.div>
@@ -192,33 +167,13 @@ export function Presentacion({ data }: { data?: any }) {
               className="font-display font-black text-white tracking-tighter leading-[0.85]"
               style={{ fontSize: "clamp(4rem, 10vw, 10rem)" }}
             >
-              {activeView === "curriculum" ? (
-                <span className="text-amber-500">CURRICULUM</span>
-              ) : (
-                <span className="text-amber-500">ENTREVISTAS</span>
-              )}
+              {activeView === "curriculum" ? <span className="text-amber-500">CURRICULUM</span> : <span className="text-amber-500">ENTREVISTAS</span>}
             </motion.h2>
           </div>
 
           <div className="flex items-center gap-2 md:gap-4 bg-zinc-950/80 backdrop-blur-2xl p-2 rounded-3xl border border-white/10 shadow-2xl">
-             <button 
-                onClick={() => setActiveView("curriculum")}
-                className={cn(
-                  "px-6 py-3 rounded-2xl text-[10px] items-center gap-2 flex uppercase tracking-widest font-black transition-all",
-                  activeView === "curriculum" ? "bg-amber-500 text-black shadow-lg shadow-amber-500/20" : "text-white/40 hover:text-white"
-                )}
-             >
-                <BookOpen className="w-3 h-3" /> Contenido
-             </button>
-             <button 
-                onClick={() => setActiveView("questions")}
-                className={cn(
-                  "px-6 py-3 rounded-2xl text-[10px] items-center gap-2 flex uppercase tracking-widest font-black transition-all",
-                  activeView === "questions" ? "bg-amber-500 text-black shadow-lg shadow-amber-500/20" : "text-white/40 hover:text-white"
-                )}
-             >
-                <Video className="w-3 h-3" /> Entrevistas
-             </button>
+             <button onClick={() => setActiveView("curriculum")} className={cn("px-6 py-3 rounded-2xl text-[10px] items-center gap-2 flex uppercase tracking-widest font-black transition-all", activeView === "curriculum" ? "bg-amber-500 text-black shadow-lg shadow-amber-500/20" : "text-white/40 hover:text-white")}><BookOpen className="w-3 h-3" /> Contenido</button>
+             <button onClick={() => setActiveView("questions")} className={cn("px-6 py-3 rounded-2xl text-[10px] items-center gap-2 flex uppercase tracking-widest font-black transition-all", activeView === "questions" ? "bg-amber-500 text-black shadow-lg shadow-amber-500/20" : "text-white/40 hover:text-white")}><Video className="w-3 h-3" /> Entrevistas</button>
           </div>
         </div>
 
@@ -226,38 +181,15 @@ export function Presentacion({ data }: { data?: any }) {
         <div className="relative flex-1 overflow-y-auto scrollbar-hide focus:outline-none pr-2 max-h-[60vh]">
           <AnimatePresence mode="wait">
             {activeView === "curriculum" ? (
-              <motion.div 
-                key="curriculum"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 relative z-10"
-              >
+              <motion.div key="curriculum" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 relative z-10" >
                 {initialCurriculum.map((topic: any, i: number) => (
-                  <TopicCard 
-                    key={topic.id || i} 
-                    id={i + 1} 
-                    title={topic.titulo} 
-                    image={topic.imagen} 
-                    delay={0.1 + i * 0.05} 
-                  />
+                  <TopicCard key={topic.id || i} id={i+1} title={topic.titulo} image={topic.imagen} delay={0.1+i*0.05} onSelect={() => setSelectedTopic({...topic, index: i+1})} />
                 ))}
               </motion.div>
             ) : (
-              <motion.div 
-                key="questions"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative z-10"
-              >
+              <motion.div key="questions" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative z-10" >
                 {questions.map((q: any, i: number) => (
-                  <QuestionCard 
-                    key={q.id || i} 
-                    id={i + 1} 
-                    question={q.pregunta} 
-                    delay={0.1 + i * 0.05} 
-                  />
+                  <QuestionCard key={q.id || i} id={i+1} question={q.pregunta} delay={0.1+i*0.05} onExpand={() => setSelectedQuestion({...q, index: i+1})} />
                 ))}
               </motion.div>
             )}
@@ -265,23 +197,81 @@ export function Presentacion({ data }: { data?: any }) {
         </div>
 
         {/* Footer Action */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="flex justify-center pt-4"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex justify-center pt-4" >
           {activeView === "curriculum" && (
-            <button 
-              onClick={() => setActiveView("questions")}
-              className="group bg-white/5 backdrop-blur-3xl px-10 py-5 rounded-full border border-white/10 flex items-center gap-6 shadow-2xl hover:bg-amber-500 transition-all hover:text-black"
-            >
+            <button onClick={() => setActiveView("questions")} className="group bg-white/5 backdrop-blur-3xl px-10 py-5 rounded-full border border-white/10 flex items-center gap-6 shadow-2xl hover:bg-amber-500 transition-all hover:text-black" >
                <span className="text-[10px] uppercase tracking-[0.4em] font-black whitespace-nowrap group-hover:text-black">Ir a Dinámica de Grabación</span>
                <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
             </button>
           )}
         </motion.div>
       </div>
+
+      {/* Expanded Modal View */}
+      <AnimatePresence>
+        {(selectedTopic || selectedQuestion) && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-8 md:p-24"
+          >
+            {/* Close button with high-end feel */}
+            <motion.button 
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
+              onClick={() => { setSelectedTopic(null); setSelectedQuestion(null) }}
+              className="absolute top-12 right-12 w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:scale-110 transition-all z-[110]"
+            >
+              <X className="w-8 h-8" />
+            </motion.button>
+
+            {/* Content Container */}
+            <motion.div 
+              layoutId={selectedTopic ? `card-topic-${selectedTopic.index}` : `card-q-${selectedQuestion.index}`}
+              className="relative w-full max-w-6xl aspect-video md:aspect-[21/9] bg-zinc-900 rounded-[4rem] border border-white/10 shadow-[0_0_100px_rgba(0,0,0,1)] overflow-hidden flex flex-col md:flex-row items-center"
+            >
+              {/* Image side (for topics) */}
+              <div className="relative w-full h-full md:w-3/5 overflow-hidden">
+                 <img src={selectedTopic?.imagen || "/assets/curso/etologia-bg.png"} className="w-full h-full object-cover" alt="" />
+                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-zinc-900" />
+                 {selectedTopic && (
+                   <div className="absolute top-12 left-12">
+                     <span className="font-mono text-9xl font-black text-amber-500/20 leading-none">
+                       {String(selectedTopic.index).padStart(2, "0")}
+                     </span>
+                   </div>
+                 )}
+              </div>
+
+              {/* Text side */}
+              <div className="flex-1 p-12 md:p-24 space-y-8">
+                 <div className="space-y-4">
+                    <span className="text-amber-500 font-mono text-sm uppercase tracking-[0.5em] font-black">
+                      {selectedTopic ? "Módulo Educativo" : "Pregunta de Entrevista"}
+                    </span>
+                    <h3 className="text-5xl md:text-8xl font-display font-black text-white tracking-tighter leading-none">
+                      {selectedTopic?.titulo || selectedQuestion?.pregunta}
+                    </h3>
+                    <div className="h-2 w-24 bg-amber-500 rounded-full" />
+                 </div>
+                 
+                 <div className="pt-8 flex items-center gap-6">
+                    <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+                       {selectedTopic ? <BookOpen className="w-8 h-8 text-amber-500" /> : <Mic className="w-8 h-8 text-amber-500" />}
+                    </div>
+                    <p className="text-white/60 text-xl font-light max-w-md leading-relaxed">
+                      {selectedTopic 
+                        ? "Este tema explora la base fundamental del cuidado natural y los principios del Barefoot moderno."
+                        : "Esta pregunta busca profundizar en la experiencia personal y la transformación hacia el bienestar equino."}
+                    </p>
+                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
