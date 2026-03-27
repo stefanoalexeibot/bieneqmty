@@ -63,7 +63,11 @@ export function AlertCards({ data }: AlertCardsProps) {
               animate={{ opacity: 1, scale: 1 }}
               className="text-6xl md:text-[8rem] font-display font-bold text-white tracking-tighter leading-none"
             >
-               Código <br /> <span className="text-red-600 italic">Rojo</span>
+               {data.titulo_alerta ? (
+                 <span dangerouslySetInnerHTML={{ __html: data.titulo_alerta }} />
+               ) : (
+                 <>Código <br /> <span className="text-red-600 italic">Rojo</span></>
+               )}
             </motion.h2>
 
             <div className="h-px w-24 bg-red-600/30" />
@@ -80,13 +84,13 @@ export function AlertCards({ data }: AlertCardsProps) {
             className="p-10 bg-white/[0.02] border border-white/5 rounded-[3rem] space-y-8 relative overflow-hidden backdrop-blur-3xl group"
           >
              <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 blur-[60px] rounded-full group-hover:scale-150 transition-transform duration-1000" />
-             <h3 className="text-2xl font-display font-bold text-red-500 uppercase tracking-widest">Procedimiento SOS</h3>
+             <h3 className="text-2xl font-display font-bold text-red-500 uppercase tracking-widest">{data.titulo_procedimiento || "Procedimiento SOS"}</h3>
              <ul className="space-y-4">
-                {[
+                {(data.procedimiento_sos || [
                    "Retirar granos y melazas inmediatamente.",
                    "Llamar al veterinario / podólogo de urgencia.",
                    "Crioterapia (hielo en cascos) durante 15-20 min."
-                ].map((step, idx) => (
+                ]).map((step: string, idx: number) => (
                   <li key={idx} className="flex items-center gap-4 text-white/50 text-lg font-light italic">
                      <span className="w-1.5 h-1.5 rounded-full bg-red-600/40" />
                      {step}

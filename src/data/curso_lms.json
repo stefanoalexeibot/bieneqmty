@@ -83,23 +83,11 @@
       "numero": 1,
       "titulo": "Bienvenida al Barefoot",
       "parte": "Parte 2 · Pie Descalzo",
-      "tipo_vista": "hero-split",
+      "tipo_vista": "intro-module",
+      "descripcion": "El inicio de tu viaje hacia la recuperación natural. Prepárate para desaprender lo convencional.",
       "media": {
-        "video_url": "/assets/curso/bienvenida.mp4",
-        "imagen_fondo": "/assets/curso/bg-modulo-1.webp"
-      },
-      "interacciones": [
-        {
-          "tipo": "highlight-cards",
-          "titulo": "¿Qué vas a aprender?",
-          "items": [
-            { "texto": "Evaluar el estado del casco de tu caballo", "icono": "🔍" },
-            { "texto": "Entender por qué el entorno y la nutrición son el 70% del éxito", "icono": "🌿" },
-            { "texto": "Identificar señales tempranas de problemas", "icono": "⚠️" },
-            { "texto": "Tomar decisiones informadas", "icono": "🧠" }
-          ]
-        }
-      ]
+        "imagen_fondo": "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?auto=format&fit=crop&q=80"
+      }
     },
     {
       "id": "modulo-2",
@@ -130,7 +118,7 @@
       "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "interactive-image-hotspots",
       "media": {
-        "imagen_principal": "/assets/curso/pilares/mustang-model.png"
+        "imagen_principal": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80"
       },
       "hotspots_externos": [
         { 
@@ -200,11 +188,11 @@
         "imagen_principal": "/assets/curso/nuevos/hoof_external.png"
       },
       "hotspots_externos": [
-        { "id": "corona", "coordenadas": { "x": "50%", "y": "20%" }, "titulo": "Banda Coronaria", "texto": "Donde nace la muralla, a un ritmo de 1cm por mes. Cualquier inflamación aquí dejará cicatriz anatómica." },
-        { "id": "pinza", "coordenadas": { "x": "20%", "y": "60%" }, "titulo": "Pinza (Toe)", "texto": "Área de despegue (breakover). El exceso de pinza genera tensión destructiva en tendones." },
-        { "id": "cuartos", "coordenadas": { "x": "50%", "y": "60%" }, "titulo": "Cuartos", "texto": "Pared lateral, responsable de flexionar y absorber impacto asimétrico." },
-        { "id": "talon", "coordenadas": { "x": "80%", "y": "70%" }, "titulo": "Talón", "texto": "Área de impacto inicial primario. Debe ser bajo y robusto, no contraído." },
-        { "id": "bulbos", "coordenadas": { "x": "90%", "y": "50%" }, "titulo": "Bulbos", "texto": "Cojines carnosos posteriores, clave en la propiocepción y flujo sanguíneo." }
+        { "id": "corona", "coordenadas": { "x": "45%", "y": "20%" }, "titulo": "Banda Coronaria", "texto": "Donde nace la muralla, a un ritmo de 1cm por mes. Cualquier inflamación aquí dejará cicatriz anatómica." },
+        { "id": "pinza", "coordenadas": { "x": "75%", "y": "60%" }, "titulo": "Pinza (Toe)", "texto": "Área de despegue (breakover). El exceso de pinza genera tensión destructiva en tendones." },
+        { "id": "cuartos", "coordenadas": { "x": "40%", "y": "50%" }, "titulo": "Cuartos", "texto": "Pared lateral, responsable de flexionar y absorber impacto asimétrico." },
+        { "id": "talon", "coordenadas": { "x": "25%", "y": "70%" }, "titulo": "Talón", "texto": "Área de impacto inicial primario. Debe ser bajo y robusto, no contraído." },
+        { "id": "bulbos", "coordenadas": { "x": "10%", "y": "50%" }, "titulo": "Bulbos", "texto": "Cojines carnosos posteriores, clave en la propiocepción y flujo sanguíneo." }
       ]
     },
     {
@@ -216,9 +204,9 @@
       "media": { "imagen_fondo": "/assets/curso/anatomia/hoof-pump.png" },
       "descripcion": "La 'Válvula Hidráulica Equina' permite bombear hasta 1 litro de sangre por minuto.",
       "pasos": [
-        { "numero": 1, "nombre": "Impacto", "texto": "El aterrizaje de talón activa los sensores de presión.", "imagen": "/assets/curso/anatomia/impact.png" },
-        { "numero": 2, "nombre": "Expansión", "texto": "Los bulbos se expanden y la almohadilla digital se comprime.", "imagen": "/assets/curso/anatomia/expansion.png" },
-        { "numero": 3, "nombre": "Bombeo", "texto": "La sangre es expulsada violentamente hacia arriba hacia el corazón.", "imagen": "/assets/curso/anatomia/pumping.png" }
+        { "numero": 1, "nombre": "Impacto", "texto": "El aterrizaje de talón activa los sensores de presión.", "imagen": "https://images.unsplash.com/photo-1553531384-cc64ac80f931?auto=format&fit=crop&q=80" },
+        { "numero": 2, "nombre": "Expansión", "texto": "Los bulbos se expanden y la almohadilla digital se comprime.", "imagen": "https://images.unsplash.com/photo-1596766465451-2d7c00e1ccda?auto=format&fit=crop&q=80" },
+        { "numero": 3, "nombre": "Bombeo", "texto": "La sangre es expulsada violentamente hacia arriba hacia el corazón.", "imagen": "https://images.unsplash.com/photo-1606016159991-cdf4a2973161?auto=format&fit=crop&q=80" }
       ]
     },
     {
@@ -238,6 +226,14 @@
       "titulo": "El Problema Convencional",
       "parte": "Parte 2 · Pie Descalzo",
       "tipo_vista": "alert-cards",
+      "titulo_alerta": "Hierro <br /> <span class='text-red-500 italic'>Dañino</span>",
+      "texto_introduccion": "Las herraduras comerciales anulan las funciones biomecánicas vitales, ocultando el dolor mientras destruyen la arquitectura interna a largo plazo.",
+      "titulo_procedimiento": "Evitar el Hierro",
+      "procedimiento_sos": [
+         "Transición a Botas de Hule terapéuticas.",
+         "Mejorar el entorno (pads y paddocks).",
+         "Dejar asentar la almohadilla digital."
+      ],
       "media": { "imagen_fondo": "/assets/curso/nuevos/horseshoe_damage.png" },
       "checklist_emergencia": [
         "Inhibición de la Bomba Hidráulica (Bloquea expansión)",
@@ -317,6 +313,14 @@
       "titulo": "La Laminitis",
       "parte": "Parte 3 · Patologías",
       "tipo_vista": "alert-cards",
+      "titulo_alerta": "Alerta <br /> <span class='text-red-600 italic'>Roja</span>",
+      "texto_introduccion": "Emergencia metabólica aguda y dolorosa sistemática por hiperinsulinemia.",
+      "titulo_procedimiento": "Procedimiento SOS",
+      "procedimiento_sos": [
+         "Retirar grano de inmediato (Solo Pasto).",
+         "Contacto al Especialista Podólogo urgente.",
+         "Hielo en los cascos para desinflamación rápida."
+      ],
       "media": { "imagen_fondo": "/assets/curso/laminitis-bg.png" },
       "checklist_emergencia": [
         "¿Se inclina hacia atrás (postura del fundador)?",
