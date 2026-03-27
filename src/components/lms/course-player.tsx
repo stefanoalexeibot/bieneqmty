@@ -21,6 +21,8 @@ import { CaseStudies } from "./modules/case-studies"
 import { Completion } from "./modules/completion"
 import { HeroSection } from "@/components/sections/hero"
 import { Presentacion } from "@/components/sections/presentacion"
+import { NutritionFormula } from "./modules/nutrition-formula"
+import { SplitComparison } from "./modules/split-comparison"
 
 // Unsplash fallback backgrounds per intro-module id
 const INTRO_BG_FALLBACKS: Record<string, string> = {
@@ -172,6 +174,10 @@ export function CoursePlayer() {
         return <AlertCards data={currentModule} />
       case "timeline-view":
         return <TimelineView data={currentModule} />
+      case "nutrition-formula":
+        return <NutritionFormula data={currentModule} />
+      case "split-comparison":
+        return <SplitComparison data={currentModule} />
       case "completion":
         return <Completion data={currentModule} />
       default:
