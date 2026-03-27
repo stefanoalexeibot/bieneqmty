@@ -23,8 +23,12 @@ import { HeroSection } from "@/components/sections/hero"
 import { Presentacion } from "@/components/sections/presentacion"
 import { NutritionFormula } from "./modules/nutrition-formula"
 import { SplitComparison } from "./modules/split-comparison"
+import { HighlightCards } from "./modules/highlight-cards"
 import { AmbientParticles } from "@/components/ui/ambient-particles"
 import { Magnetic } from "@/components/ui/magnetic"
+
+import { HeroSplit } from "./modules/hero-split"
+import { FullScreenView } from "./modules/full-screen-view"
 
 // ... (existing code)
 
@@ -47,9 +51,15 @@ const TextReveal = ({ text }: { text: string }) => {
   )
 }
 const INTRO_BG_FALLBACKS: Record<string, string> = {
-  "etologia": "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1800",
-  "habitat-presa": "https://images.unsplash.com/photo-1500595046743-cec271a393dc?auto=format&fit=crop&q=80&w=1800",
-  "vida-manada": "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=1800",
+  "hero": "/assets/curso/anatomy/anatomy-bg.png",
+  "etologia": "/assets/curso/etologia-bg.png",
+  "habitat": "/assets/curso/wild-habitat.png",
+  "manada": "/assets/curso/horse-herd-social.png",
+  "mustang": "/assets/curso/mustang/mustang-bg.png",
+  "retorno": "/assets/curso/recorte-natural.png",
+  "paddock": "/assets/curso/paddockparadise.png",
+  "tecnica": "/assets/curso/tools/tools-bg.png",
+  "laminitis": "/assets/curso/laminitis-bg.png"
 }
 
 export function CoursePlayer() {
@@ -87,10 +97,14 @@ export function CoursePlayer() {
         e.preventDefault()
         handlePrev()
       }
+      if (e.key === "Escape") {
+        e.preventDefault()
+        setIsSidebarOpen(false)
+      }
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [currentModuleIndex])
+  }, [currentModuleIndex, isSidebarOpen])
 
   // Handle mouse move for parallax
   useEffect(() => {
@@ -112,43 +126,7 @@ export function CoursePlayer() {
       case "presentacion":
         return <Presentacion data={currentModule} />
       case "hero-split":
-        return (
-          <div className="flex flex-col lg:flex-row gap-12 items-center min-h-screen p-12 lg:p-24 relative overflow-hidden">
-             {/* Background glow for depth */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.04)_0%,transparent_70%)]" />
-             
-             <div className="flex-1 space-y-8 relative z-10">
-                <motion.span 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="text-amber-500 font-mono text-xs font-bold tracking-[0.4em] uppercase"
-                >
-                  {currentModule.parte}
-                </motion.span>
-                <h1 className="text-6xl md:text-9xl font-display font-bold text-white leading-[0.85] tracking-tighter">
-                  {currentModule.titulo}
-                </h1>
-                <p className="text-xl md:text-2xl text-white/50 font-light leading-relaxed max-w-xl">
-                  {currentModule.texto_instructor}
-                </p>
-                {currentModule.cita_destacada && (
-                  <blockquote className="border-l-2 border-amber-500/50 pl-8 py-4 italic text-xl text-amber-400 font-display">
-                    "{currentModule.cita_destacada}"
-                  </blockquote>
-                )}
-             </div>
-             {currentModule.media?.video_url && (
-               <div className="flex-1 w-full aspect-square md:aspect-video rounded-[40px] overflow-hidden bg-white/5 border border-white/10 shadow-3xl group relative">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 to-transparent mix-blend-overlay" />
-                  <div className="w-full h-full flex items-center justify-center">
-                     <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 cursor-pointer">
-                        <Play className="w-8 h-8 text-white fill-white" />
-                     </div>
-                  </div>
-               </div>
-             )}
-          </div>
-        )
+        return <HeroSplit data={currentModule} />
       case "intro-module":
         return (
           <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
@@ -161,11 +139,11 @@ export function CoursePlayer() {
                className="absolute inset-[-5%] z-0"
              >
                <img
-                 src={currentModule.media?.imagen_fondo || INTRO_BG_FALLBACKS[currentModule.id] || "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&q=80&w=1800"}
+                 src={currentModule.media?.imagen_fondo || INTRO_BG_FALLBACKS[currentModule.id] || "/assets/curso/backgrounds/technical-grid.png"}
                  className="w-full h-full object-cover grayscale"
                  alt=""
                  onError={(e) => {
-                   (e.currentTarget as HTMLImageElement).src = INTRO_BG_FALLBACKS[currentModule.id] || "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&q=80&w=1800"
+                   (e.currentTarget as HTMLImageElement).src = INTRO_BG_FALLBACKS[currentModule.id] || "/assets/curso/backgrounds/technical-grid.png"
                  }}
                />
                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
@@ -180,7 +158,7 @@ export function CoursePlayer() {
                 </motion.span>
                 <motion.h2 
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-                  className="text-7xl md:text-[12rem] font-display font-bold text-white tracking-tighter leading-[0.7] mb-8"
+                  className="text-8xl md:text-[14rem] font-display font-bold text-white tracking-tighter leading-[0.7] mb-8"
                 >
                     {currentModule.titulo}
                 </motion.h2>
@@ -190,7 +168,7 @@ export function CoursePlayer() {
                 />
                 <motion.p 
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
-                  className="text-2xl md:text-4xl text-white/70 font-display italic leading-relaxed"
+                  className="text-2xl md:text-3xl text-white/70 font-display italic leading-relaxed"
                 >
                     {currentModule.descripcion}
                 </motion.p>
@@ -215,35 +193,14 @@ export function CoursePlayer() {
         return <NutritionFormula data={currentModule} />
       case "split-comparison":
         return <SplitComparison data={currentModule} />
+      case "highlight-cards":
+        return <HighlightCards data={currentModule} />
+      case "case-studies":
+        return <CaseStudies data={currentModule} />
+      case "flip-card-gallery":
+        return <FlipCardGallery data={currentModule} />
       case "full-screen-image":
-        return (
-          <div className="relative w-full h-screen overflow-hidden bg-black flex items-center justify-center">
-            <motion.div
-              initial={{ scale: 1.2, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 2, ease: "easeOut" }}
-              className="absolute inset-0 z-0"
-            >
-              <img 
-                src={currentModule.media?.imagen_principal || currentModule.media?.imagen_fondo} 
-                className="w-full h-full object-cover" 
-                alt="Full visual" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
-            </motion.div>
-            
-            {/* Subtle indicator */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="absolute bottom-32 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center gap-3"
-            >
-              <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-              <span className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-black">Vista de Inmersión Visual</span>
-            </motion.div>
-          </div>
-        )
+        return <FullScreenView data={currentModule} />
       case "completion":
         return <Completion data={currentModule} />
       default:
@@ -297,14 +254,12 @@ export function CoursePlayer() {
             >
               <div className="relative h-full">
                 <Magnetic>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <button 
                     onClick={() => setIsSidebarOpen(false)}
-                    className="absolute right-4 top-4 z-[80] rounded-full hover:bg-white/10"
+                    className="absolute right-8 top-8 z-[80] w-24 h-24 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:scale-110 transition-all shadow-2xl backdrop-blur-3xl active:scale-95"
                   >
-                    <X className="w-5 h-5 text-white" />
-                  </Button>
+                    <X className="w-12 h-12" />
+                  </button>
                 </Magnetic>
                 <ProgressSidebar />
               </div>
@@ -324,14 +279,12 @@ export function CoursePlayer() {
           >
             <div className="flex items-center gap-6 pointer-events-auto">
               <Magnetic strength={0.3}>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => setIsSidebarOpen(true)}
-                  className="w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10 group"
-                >
-                  <Menu className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
-                </Button>
+                <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="group p-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-amber-500 hover:border-amber-400 transition-all duration-500 hover:scale-110 active:scale-95"
+            >
+              <Menu className="w-16 h-16 text-white group-hover:text-black" />
+            </button>
               </Magnetic>
               
               {/* Only show title if not in presentacion/hero to avoid repetition */}

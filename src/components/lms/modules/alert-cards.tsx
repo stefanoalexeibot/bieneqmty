@@ -59,11 +59,11 @@ export function AlertCards({ data }: AlertCardsProps) {
             </motion.div>
 
             <motion.h2 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-6xl md:text-[8rem] font-display font-bold text-white tracking-tighter leading-none"
-            >
-               {data.titulo_alerta ? (
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-7xl md:text-[10rem] font-display font-bold text-white tracking-tighter leading-none"
+          >
+            {data.titulo_alerta ? (
                  <span dangerouslySetInnerHTML={{ __html: data.titulo_alerta }} />
                ) : (
                  <>Código <br /> <span className="text-red-600 italic">Rojo</span></>

@@ -35,7 +35,7 @@ export function CaseStudies({ data }: { data: any }) {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-6xl md:text-8xl font-display font-bold text-white tracking-tighter"
+            className="text-7xl md:text-[10rem] font-display font-bold text-white tracking-tighter"
           >
             Casos de <span className="text-amber-500 italic">Éxito</span>
           </motion.h2>

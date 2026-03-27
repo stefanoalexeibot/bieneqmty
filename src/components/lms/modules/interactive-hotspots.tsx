@@ -23,8 +23,8 @@ interface InteractiveHotspotsProps {
 function getModuleFallback(data: any): string {
   const title = (data.titulo || "").toLowerCase()
   if (title.includes("paddock")) return "/assets/curso/paddockparadise.png"
-  if (title.includes("mustang")) return "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1400"
-  return "https://images.unsplash.com/photo-1590422750058-2fb0c058eb7b?auto=format&fit=crop&q=80&w=1400"
+  if (title.includes("mustang")) return "/assets/curso/mustang/mustang-bg.png"
+  return "/assets/curso/backgrounds/hoof-texture.png"
 }
 
 // Per-hotspot fallbacks
@@ -32,13 +32,13 @@ function getHotspotFallback(titulo: string, data: any): string {
   const t = titulo.toLowerCase()
   if (t.includes("track") || t.includes("pista")) return "/assets/curso/paddockparadise.png"
   if (t.includes("heno") || t.includes("slowfeeder")) return "/assets/curso/pasto en slowfeeder para padock paradise.png"
-  if (t.includes("suelo") || t.includes("grava") || t.includes("tierra")) return "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&q=80&w=1400"
-  if (t.includes("agua") || t.includes("bebedero")) return "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1400"
-  if (t.includes("autoregul")) return "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=1400"
-  if (t.includes("bomba") || t.includes("sangre")) return "https://images.unsplash.com/photo-1590422750058-2fb0c058eb7b?auto=format&fit=crop&q=80&w=1400"
-  if (t.includes("suela") || t.includes("cóncava") || t.includes("concava")) return "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&q=80&w=1400"
-  if (t.includes("pared") || t.includes("perpendicular")) return "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=1400"
-  if (t.includes("ángulo") || t.includes("angulo") || t.includes("perfecto")) return "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?auto=format&fit=crop&q=80&w=1400"
+  if (t.includes("suelo") || t.includes("grava") || t.includes("tierra")) return "/assets/curso/terrenos duros y arena.png"
+  if (t.includes("agua") || t.includes("bebedero")) return "/assets/curso/backgrounds/paddock.png"
+  if (t.includes("autoregul")) return "/assets/curso/mustang/autoregulacion.png"
+  if (t.includes("bomba") || t.includes("sangre")) return "/assets/curso/mustang/hoof-pump-blood.png"
+  if (t.includes("suela") || t.includes("cóncava")) return "/assets/curso/mustang/concave-sole.png"
+  if (t.includes("pared") || t.includes("perpendicular")) return "/assets/curso/mustang/walls.png"
+  if (t.includes("ángulo") || t.includes("perfecto")) return "/assets/curso/mustang/alignment-3d.png"
   return getModuleFallback(data)
 }
 
@@ -51,6 +51,18 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
   const mainImage = data.media?.imagen_principal || moduleFallback
   const [currentImage, setCurrentImage] = useState(mainImage)
   const [lastDataId, setLastDataId] = useState(data.id)
+
+  // Handle Escape to close active details
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveId(null)
+        setCurrentImage(mainImage)
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [mainImage])
 
   // Sync currentImage IF the module ID actually changed
   if (data.id !== lastDataId) {
@@ -193,7 +205,7 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                     <ShieldCheck className="w-4 h-4 text-amber-500" />
                     <span className="text-xs font-black text-amber-500 uppercase tracking-[0.3em]">Hito Clínico</span>
                   </div>
-                  <h3 className="text-6xl md:text-8xl font-display font-bold text-white tracking-tighter leading-none mb-6">
+                  <h3 className="text-7xl md:text-9xl font-display font-bold text-white tracking-tighter leading-none mb-6">
                     {activeSpot.titulo}
                   </h3>
                   <p className="text-2xl md:text-3xl text-white/40 font-light leading-relaxed max-w-xl">
@@ -216,7 +228,6 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
                     </div>
                   </motion.div>
                 )}
-
                 <button
                   onClick={() => { setActiveId(null); setCurrentImage(mainImage) }}
                   className="group flex items-center gap-6 text-sm font-black text-white/60 hover:text-white uppercase tracking-[0.3em]"

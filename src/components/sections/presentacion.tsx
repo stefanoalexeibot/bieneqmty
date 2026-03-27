@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { TiltCard } from "@/components/ui/tilt-card"
@@ -40,7 +40,7 @@ function TopicCard({ id, title, image, delay, onSelect }: { id: number; title: s
             </div>
             
             <div className="flex-1 flex flex-col gap-3 relative z-10 justify-end">
-              <h3 className="text-2xl text-white/90 font-display font-black leading-tight group-hover:text-white transition-colors duration-500">
+              <h3 className="text-3xl md:text-4xl text-white/90 font-display font-black leading-tight group-hover:text-white transition-colors duration-500">
                 {title}
               </h3>
               <div className="h-1.5 w-12 bg-amber-500/30 group-hover:w-full transition-all duration-700 rounded-full" />
@@ -140,7 +140,19 @@ export function Presentacion({ data }: { data?: any }) {
 
   const questions = data?.interacciones?.find((i: any) => i.tipo === "video-questions")?.items || []
   const initialCurriculum = data?.interacciones?.find((i: any) => i.tipo === "curriculum-preview")?.items || []
-  
+
+  // Handle Escape to close modals
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedTopic(null)
+        setSelectedQuestion(null)
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
   return (
     <section id="presentacion" className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center p-8 md:p-12 lg:p-24">
       {/* Cinematic Background */}
@@ -233,13 +245,13 @@ export function Presentacion({ data }: { data?: any }) {
               className="relative w-full max-w-5xl bg-zinc-900 rounded-[3rem] border border-white/10 shadow-[0_0_100px_rgba(0,0,0,1)] overflow-hidden flex flex-col md:flex-row items-stretch min-h-[500px]"
             >
               {/* Image side */}
-              <div className="relative w-full md:w-[45%] h-64 md:h-auto overflow-hidden bg-zinc-800 shrink-0">
-                 <img 
-                   src={selectedTopic?.imagen || "/assets/curso/social/herd-dynamics.png"} 
-                   className="w-full h-full object-cover" 
-                   alt="" 
-                 />
-                 <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-transparent via-zinc-900/10 to-zinc-900" />
+               <div className="relative w-full md:w-[45%] h-64 md:h-auto overflow-hidden bg-zinc-800 shrink-0">
+                  <img 
+                    src={selectedTopic?.imagen || "/assets/curso/recorte-natural.png"} 
+                    className="w-full h-full object-cover" 
+                    alt="" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-transparent via-zinc-900/10 to-zinc-900" />
                  
                  {/* Background Number - Subtle */}
                  <div className="absolute top-8 left-8 pointer-events-none">
@@ -264,35 +276,22 @@ export function Presentacion({ data }: { data?: any }) {
                        </span>
                     </motion.div>
                     
-                    <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white tracking-tighter leading-[1.1] text-balance">
+                    <h3 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-white tracking-tighter leading-[0.95] text-balance">
                       {selectedTopic?.titulo || selectedQuestion?.pregunta}
                     </h3>
                     <motion.div 
                       initial={{ width: 0 }}
-                      animate={{ width: 60 }}
+                      animate={{ width: 100 }}
                       transition={{ delay: 0.5, duration: 0.8 }}
-                      className="h-1.5 bg-amber-500 rounded-full" 
+                      className="h-2 bg-amber-500 rounded-full" 
                     />
                  </div>
                  
-                 <div className="flex items-start gap-6 pt-4">
-                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                       {selectedTopic ? <BookOpen className="w-6 h-6 md:w-8 md:h-8 text-amber-500/80" /> : <Video className="w-6 h-6 md:w-8 md:h-8 text-amber-500/80" />}
-                    </div>
-                    <div className="space-y-4">
-                       <p className="text-white/50 text-base md:text-lg font-light leading-relaxed">
-                         {selectedTopic 
-                           ? "Este tema profundiza en los pilares fundamentales del bienestar equino. Aprenderemos a interpretar las señales del cuerpo y a respetar la biología evolutiva del animal para un rendimiento óptimo sin herraduras."
-                           : "Esta pregunta está diseñada para generar reflexión profunda sobre la transición al Barefoot. El objetivo es capturar testimonios reales que inspiren a otros propietarios en cada paso del proceso."}
-                       </p>
-                       
-                       {selectedTopic && (
-                         <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-amber-500/40">
-                            <Eye className="w-3 h-3" />
-                            <span>Contenido Visual HD disponible</span>
-                         </div>
-                       )}
-                    </div>
+                 <div className="flex items-center gap-4 pt-8">
+                    <div className="h-px flex-1 bg-white/5" />
+                    <span className="text-[10px] uppercase tracking-[0.6em] text-white/20 font-black">
+                       Contenido de Inmersión
+                    </span>
                  </div>
               </div>
             </motion.div>

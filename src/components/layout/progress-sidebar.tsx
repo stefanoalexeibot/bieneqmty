@@ -140,16 +140,20 @@ export function ProgressSidebar() {
                   {String(section.numero).padStart(2, '0')}
                 </span>
 
-                {/* Status Icon */}
-                <span className="relative z-10 shrink-0">
-                  {isActive ? (
-                    <PlayCircle className="w-3.5 h-3.5 text-black" />
-                  ) : isPast ? (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-amber-500/60" />
+                {/* Thumbnail/Icon */}
+                <div className="relative z-10 w-8 h-8 rounded-full overflow-hidden border border-white/10 shrink-0">
+                  {section.media?.imagen_fondo || section.media?.imagen_principal ? (
+                    <img 
+                      src={section.media?.imagen_fondo || section.media?.imagen_principal} 
+                      className={cn("w-full h-full object-cover", !isActive && "grayscale opacity-50")} 
+                      alt="" 
+                    />
                   ) : (
-                    <div className="w-1.5 h-1.5 rounded-full border border-muted-foreground/20 group-hover:border-amber-500/40 transition-colors" />
+                    <div className={cn("w-full h-full flex items-center justify-center bg-white/5", isActive ? "text-black" : "text-white/20")}>
+                      {isActive ? <PlayCircle className="w-4 h-4" /> : <div className="w-1.5 h-1.5 rounded-full bg-current" />}
+                    </div>
                   )}
-                </span>
+                </div>
 
                 {/* Label */}
                 <span className={cn(

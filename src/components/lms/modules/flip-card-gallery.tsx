@@ -103,7 +103,7 @@ export function FlipCardGallery({ data }: { data: any }) {
           <div key={i} className="max-w-4xl space-y-10">
              <div className="space-y-4">
                 <span className="text-amber-500 font-mono text-sm font-bold tracking-[0.5em] uppercase">Módulo {data.numero}</span>
-                <h2 className="text-6xl md:text-8xl font-display font-medium text-white tracking-tighter leading-none leading-none">
+                <h2 className="text-7xl md:text-[10rem] font-display font-medium text-white tracking-tighter leading-none">
                   {b.titulo}
                 </h2>
              </div>
