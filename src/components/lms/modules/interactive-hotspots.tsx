@@ -135,7 +135,7 @@ export function InteractiveHotspots({ data }: InteractiveHotspotsProps) {
             <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent pointer-events-none" />
 
             {/* Hotspots layer */}
-            <div className="absolute inset-0">
+            <div className={cn("absolute inset-0 transition-opacity duration-700", activeId ? "opacity-0 pointer-events-none delay-500" : "opacity-100 delay-100")}>
               {hotspots.map((spot: Hotspot) => (
                 <button
                   key={spot.id}
