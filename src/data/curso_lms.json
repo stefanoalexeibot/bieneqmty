@@ -3,7 +3,7 @@
     "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
     "autor": "José Manuel Luna",
     "organizacion": "BieneQ MTY",
-    "total_modulos": 24
+    "total_modulos": 25
   },
   "modulos": [
     {
@@ -301,8 +301,16 @@
       ]
     },
     {
-      "id": "modulo-11",
+      "id": "paddock-full-view",
       "numero": 20,
+      "titulo": "Inmersión: Paddock Paradise",
+      "parte": "05 · La Solución",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/paddock/paddock_paradise_3d.png" }
+    },
+    {
+      "id": "modulo-11",
+      "numero": 21,
       "titulo": "Kit de Herramientas",
       "parte": "05 · La Solución",
       "tipo_vista": "bento-grid",
@@ -320,7 +328,7 @@
     },
     {
       "id": "modulo-12",
-      "numero": 21,
+      "numero": 22,
       "titulo": "Técnica de Recorte",
       "parte": "05 · La Solución",
       "tipo_vista": "step-slider",
@@ -333,7 +341,7 @@
     },
     {
       "id": "modulo-14",
-      "numero": 22,
+      "numero": 23,
       "titulo": "Transición",
       "parte": "06 · El Resultado",
       "tipo_vista": "timeline-view",
@@ -345,7 +353,7 @@
     },
     {
       "id": "modulo-15",
-      "numero": 23,
+      "numero": 24,
       "titulo": "Certificación",
       "parte": "06 · El Resultado",
       "tipo_vista": "completion"
