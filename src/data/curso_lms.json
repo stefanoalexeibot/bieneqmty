@@ -37,9 +37,9 @@
           "items": [
             { "id": 1, "titulo": "Etología Equina", "imagen": "/assets/curso/etologia-bg.png" },
             { "id": 2, "titulo": "Hábitat & Supervivencia", "imagen": "/assets/curso/habitat/wild-habitat.png" },
-            { "id": 3, "titulo": "Retorno al Estado Natural", "imagen": "/assets/curso/historia/recorte-perfecto.webp" },
+            { "id": 3, "titulo": "Retorno al Estado Natural", "imagen": "/assets/curso/recorte-natural.png" },
             { "id": 4, "titulo": "Modelo Mustang", "imagen": "/assets/curso/mustang/autoregulación.png" },
-            { "id": 5, "titulo": "La Bomba del Casco", "imagen": "/assets/curso/hoof-pump-blood.png" },
+            { "id": 5, "titulo": "La Bomba del Casco", "imagen": "/assets/curso/bomba-corazon.png" },
             { "id": 6, "titulo": "Anatomía Planta/Exterior", "imagen": "/assets/curso/nuevos/hoof_external.png" },
             { "id": 7, "titulo": "Biomecánica de Impacto", "imagen": "/assets/curso/nuevos/landing_healthy.png" },
             { "id": 8, "titulo": "El Problema del Hierro", "imagen": "/assets/curso/laminitis-bg.png" },
