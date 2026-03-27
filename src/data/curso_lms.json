@@ -83,7 +83,7 @@
       "numero": 1,
       "titulo": "Bienvenida al Barefoot",
       "parte": "Parte 2 · Pie Descalzo",
-      "tipo_vista": "hero-split",
+      "tipo_vista": "intro-module",
       "descripcion": "El inicio de tu viaje hacia la recuperación natural. Prepárate para desaprender lo convencional.",
       "media": {
         "imagen_fondo": "/assets/curso/bg-modulo-1.webp"
