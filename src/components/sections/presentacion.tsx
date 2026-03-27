@@ -16,16 +16,20 @@ function TopicCard({ id, title, image, delay }: { id: number; title: string; ima
       transition={{ duration: 0.6, delay }}
       className="h-full"
     >
-      <Magnetic strength={0.15}>
-        <TiltCard intensity={10} className="group h-full">
+      <Magnetic strength={0.2}>
+        <TiltCard intensity={15} className="group h-full">
           <motion.div 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="h-full p-6 rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-xl border border-white/10 group-hover:bg-amber-500/[0.08] group-hover:border-amber-500/40 transition-all duration-500 flex flex-col gap-4 relative overflow-hidden"
+            whileHover={{ scale: 1.15, zIndex: 10 }}
+            whileTap={{ scale: 0.95 }}
+            className="h-full p-6 rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-xl border border-white/10 group-hover:bg-amber-500/[0.1] group-hover:border-amber-500/50 transition-all duration-500 flex flex-col gap-4 relative overflow-hidden shadow-2xl"
           >
-            {/* Background Image Preview */}
-            <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-60 transition-opacity duration-700 grayscale group-hover:grayscale-0">
-               <img src={image} className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000" alt={title} />
+            {/* Background Image Preview - DRAMATIC ZOOM */}
+            <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-80 transition-opacity duration-700 grayscale group-hover:grayscale-0">
+               <img 
+                 src={image} 
+                 className="w-full h-full object-cover scale-110 group-hover:scale-150 transition-transform duration-1000 ease-out" 
+                 alt={title} 
+               />
                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent" />
             </div>
             
@@ -33,16 +37,16 @@ function TopicCard({ id, title, image, delay }: { id: number; title: string; ima
               <span className="font-mono text-4xl font-black text-amber-500/30 group-hover:text-amber-500 transition-colors leading-none tracking-tighter">
                 {label}
               </span>
-              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-amber-500 group-hover:border-amber-500 transition-all">
+              <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-amber-500 group-hover:border-amber-500 transition-all shadow-[0_0_20px_rgba(245,158,11,0)] group-hover:shadow-[0_0_20px_rgba(245,158,11,0.4)]">
                 <BookOpen className="w-5 h-5 text-white/20 group-hover:text-black transition-colors" />
               </div>
             </div>
             
             <div className="flex-1 flex flex-col gap-3 relative z-10 justify-end">
-              <h3 className="text-2xl text-white/90 font-display font-bold leading-tight group-hover:text-white transition-colors group-hover:scale-105 origin-left duration-500">
+              <h3 className="text-2xl text-white/90 font-display font-black leading-tight group-hover:text-white transition-colors group-hover:scale-110 origin-left duration-500">
                 {title}
               </h3>
-              <div className="h-1 w-12 bg-amber-500/30 group-hover:w-full transition-all duration-700 rounded-full" />
+              <div className="h-1.5 w-12 bg-amber-500/30 group-hover:w-full transition-all duration-700 rounded-full" />
             </div>
           </motion.div>
         </TiltCard>
@@ -64,7 +68,9 @@ function QuestionCard({ id, question, delay }: { id: number; question: string; d
     >
       <Magnetic strength={0.1}>
         <TiltCard intensity={5} className="group h-full">
-          <div 
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => setIsRevealed(!isRevealed)}
             className={cn(
               "h-full p-8 rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-xl border transition-all duration-500 flex flex-col gap-6 relative overflow-hidden cursor-pointer",
@@ -141,7 +147,7 @@ function QuestionCard({ id, question, delay }: { id: number; question: string; d
                  Respuesta sugerida: 1-2 min
                </span>
             </div>
-          </div>
+          </motion.div>
         </TiltCard>
       </Magnetic>
     </motion.div>
@@ -183,13 +189,13 @@ export function Presentacion({ data }: { data?: any }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display font-medium text-white tracking-tighter leading-[0.85]"
-              style={{ fontSize: "clamp(3.5rem, 8vw, 6rem)" }}
+              className="font-display font-black text-white tracking-tighter leading-[0.85]"
+              style={{ fontSize: "clamp(4rem, 10vw, 10rem)" }}
             >
               {activeView === "curriculum" ? (
-                <>Temas del <span className="text-amber-400 italic">Curso</span></>
+                <span className="text-amber-500">CURRICULUM</span>
               ) : (
-                <>Dinámica de <span className="text-amber-400 italic">Grabación</span></>
+                <span className="text-amber-500">ENTREVISTAS</span>
               )}
             </motion.h2>
           </div>
@@ -216,8 +222,8 @@ export function Presentacion({ data }: { data?: any }) {
           </div>
         </div>
 
-        {/* Content Section */}
-        <div className="relative flex-1 overflow-y-auto pr-2 custom-scrollbar max-h-[60vh]">
+        {/* Content Section - HIDING SCROLLBARS */}
+        <div className="relative flex-1 overflow-y-auto scrollbar-hide focus:outline-none pr-2 max-h-[60vh]">
           <AnimatePresence mode="wait">
             {activeView === "curriculum" ? (
               <motion.div 

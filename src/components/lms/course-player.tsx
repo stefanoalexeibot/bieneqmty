@@ -304,14 +304,18 @@ export function CoursePlayer() {
                   <Menu className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
                 </Button>
               </Magnetic>
-              <div className="flex flex-col">
-                <span className="text-xs uppercase tracking-[0.4em] text-amber-500 font-black leading-none mb-1.5">
-                  {currentModule.parte || "Módulo"}
-                </span>
-                <span className="text-base font-bold text-white tracking-tight">
-                  <TextReveal text={currentModule.titulo} />
-                </span>
-              </div>
+              
+              {/* Only show title if not in presentacion/hero to avoid repetition */}
+              {currentModule.tipo_vista !== "presentacion" && currentModule.tipo_vista !== "hero" && (
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-[0.4em] text-amber-500 font-black leading-none mb-1.5">
+                    {currentModule.parte || "Módulo"}
+                  </span>
+                  <span className="text-base font-bold text-white tracking-tight">
+                    <TextReveal text={currentModule.titulo} />
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="flex items-center gap-10 pointer-events-auto">
