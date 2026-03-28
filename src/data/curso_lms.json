@@ -3,7 +3,7 @@
     "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
     "autor": "José Manuel Luna",
     "organizacion": "BieneQ MTY",
-    "total_modulos": 31
+    "total_modulos": 34
   },
   "modulos": [
     {
@@ -27,9 +27,9 @@
             { "id": 1, "pregunta": "¿Cuál es el mayor desafío que has enfrentado con los cascos de tu caballo?" },
             { "id": 2, "pregunta": "¿Qué te motivó a buscar una alternativa al herrado tradicional?" },
             { "id": 3, "pregunta": "¿Cómo ha cambiado tu percepción del bienestar equino desde el Barefoot?" },
-            { "id": 4, "pregunta": "¿Cuál es la duda más frecuente que tienen otros personas sobre tu caballo descalzo?" },
-            { "id": 5, "pregunta": "¿Qué consejo le darías a alguien que teme quitarle las herraduras a su caballo?" },
-            { "id": 6, "pregunta": "¿Cuál ha sido el cambio más notable en el movimiento o actitud de tu caballo?" }
+            { "id": 4, "pregunta": "¿Cuál es la duda más frecuente sobre tu caballo descalzo?" },
+            { "id": 5, "pregunta": "¿Qué consejo le darías a alguien que teme quitar las herraduras?" },
+            { "id": 6, "pregunta": "¿Cuál ha sido el cambio más notable en el movimiento de tu caballo?" }
           ]
         },
         {
@@ -37,19 +37,16 @@
           "items": [
             { "id": 1, "titulo": "Etología Equina", "imagen": "/assets/curso/etologia-bg.png" },
             { "id": 2, "titulo": "Hábitat & Supervivencia", "imagen": "/assets/curso/wild-habitat.png" },
-            { "id": 3, "titulo": "Retorno al Estado Natural", "imagen": "/assets/curso/recorte-natural.png" },
-            { "id": 4, "titulo": "Modelo Mustang", "imagen": "/assets/curso/mustang/mustang-bg.png" },
-            { "id": 5, "titulo": "La Bomba del Casco", "imagen": "/assets/curso/bomba-corazon.png" },
-            { "id": 6, "titulo": "Anatomía Planta/Exterior", "imagen": "/assets/curso/nuevos/hoof_external.png" },
-            { "id": 7, "titulo": "Biomecánica de Impacto", "imagen": "/assets/curso/nuevos/landing_healthy.png" },
-            { "id": 8, "titulo": "El Problema del Hierro", "imagen": "/assets/curso/laminitis-bg.png" },
-            { "id": 9, "titulo": "La Laminitis", "imagen": "/assets/curso/laminitis-bg.png" },
-            { "id": 10, "titulo": "Nutrición Crítica", "imagen": "/assets/curso/nutrition/nutrition-bg.png" },
-            { "id": 11, "titulo": "Paddock Paradise", "imagen": "/assets/curso/paddockparadise.png" },
-            { "id": 12, "titulo": "Kit de Herramientas", "imagen": "/assets/curso/tools/rasp.png" },
-            { "id": 13, "titulo": "Técnica de Recorte", "imagen": "/assets/curso/pasos/step1.png" },
-            { "id": 14, "titulo": "Transición", "imagen": "/assets/curso/nuevos/transicion-ai.png" },
-            { "id": 15, "titulo": "Certificación", "imagen": "/assets/curso/recorte-natural.png" }
+            { "id": 3, "titulo": "Modelo Mustang", "imagen": "/assets/curso/mustang/mustang-bg.png" },
+            { "id": 4, "titulo": "La Bomba del Casco", "imagen": "/assets/curso/bomba-corazon.png" },
+            { "id": 5, "titulo": "Anatomía del Casco", "imagen": "/assets/curso/nuevos/hoof_external.png" },
+            { "id": 6, "titulo": "Biomecánica de Impacto", "imagen": "/assets/curso/nuevos/horseshoe_damage.png" },
+            { "id": 7, "titulo": "El Problema del Hierro", "imagen": "/assets/curso/nutrition/grano-danino.png" },
+            { "id": 8, "titulo": "La Laminitis", "imagen": "/assets/curso/laminitis-bg.png" },
+            { "id": 9, "titulo": "Nutrición Crítica", "imagen": "/assets/curso/nutrition/nutrition-bg.png" },
+            { "id": 10, "titulo": "Paddock Paradise", "imagen": "/assets/curso/paddockparadise.png" },
+            { "id": 11, "titulo": "Técnica de Recorte", "imagen": "/assets/curso/pasos/step1.png" },
+            { "id": 12, "titulo": "Transición", "imagen": "/assets/curso/nuevos/transicion-ai.png" }
           ]
         }
       ]
@@ -74,9 +71,24 @@
         {
           "tipo": "highlights",
           "items": [
-            { "titulo": "Circulación", "descripcion": "Flujo de sangre sin obstáculos metálicos en cada paso.", "iconText": "heart" },
-            { "titulo": "Sensibilidad", "descripcion": "Propiocepción total para moverse con precisión natural.", "iconText": "zap" },
-            { "titulo": "Fortaleza", "descripcion": "Queratina viva que se adapta al terreno y al movimiento.", "iconText": "shield" }
+            {
+              "titulo": "Circulación",
+              "descripcion": "Flujo de sangre sin obstáculos metálicos en cada paso.",
+              "iconText": "heart",
+              "imagen": "/assets/curso/barefoot/vascular-hoof.png"
+            },
+            {
+              "titulo": "Sensibilidad",
+              "descripcion": "Propiocepción total para moverse con precisión natural.",
+              "iconText": "zap",
+              "imagen": "/assets/curso/barefoot/hoof-amanecer.png"
+            },
+            {
+              "titulo": "Fortaleza",
+              "descripcion": "Queratina viva que se adapta al terreno y al movimiento.",
+              "iconText": "shield",
+              "imagen": "/assets/curso/barefoot/hoof-rocas.png"
+            }
           ]
         }
       ]
@@ -101,9 +113,24 @@
         {
           "tipo": "highlights",
           "items": [
-            { "titulo": "Libertad", "descripcion": "Movimiento constante en manada y grandes espacios.", "iconText": "zap" },
-            { "titulo": "Compañía", "descripcion": "Interacción social obligatoria para reducir el cortisol.", "iconText": "heart" },
-            { "titulo": "Nutrición", "descripcion": "Forrajeo de fibra larga disponible las 24 horas.", "iconText": "star" }
+            {
+              "titulo": "Libertad",
+              "descripcion": "Movimiento constante en manada y grandes espacios.",
+              "iconText": "zap",
+              "imagen": "/assets/curso/caballo-libre.png"
+            },
+            {
+              "titulo": "Compañía",
+              "descripcion": "Interacción social obligatoria para reducir el cortisol.",
+              "iconText": "heart",
+              "imagen": "/assets/curso/manada-montanas.png"
+            },
+            {
+              "titulo": "Nutrición",
+              "descripcion": "Forrajeo de fibra larga disponible las 24 horas.",
+              "iconText": "star",
+              "imagen": "/assets/curso/heno-natural.png"
+            }
           ]
         }
       ]
@@ -123,7 +150,7 @@
       "titulo": "El Desierto como Forjador",
       "parte": "01 · El Origen",
       "tipo_vista": "split-comparison",
-      "media": { 
+      "media": {
         "imagen_mala": "/assets/curso/backgrounds/paddock.png",
         "imagen_buena": "/assets/curso/wild-habitat.png"
       },
@@ -133,22 +160,14 @@
           "left": {
             "label": "Hábitat Doméstico",
             "title": "Terreno Blando",
-            "items": [
-              "Debilidad por humedad.",
-              "Sobre-crecimiento patológico.",
-              "Atrofia por confinamiento."
-            ],
+            "items": ["Debilidad por humedad.", "Sobre-crecimiento patológico.", "Atrofia por confinamiento."],
             "highlight": "Atrofia Estructural",
             "quote": "El confort excesivo es el enemigo de la salud."
           },
           "right": {
             "label": "Hábitat Desértico",
             "title": "Terreno Abrasivo",
-            "items": [
-              "Estimulación de queratina.",
-              "Desgaste mecánico perfecto.",
-              "Movimiento vital constante."
-            ],
+            "items": ["Estimulación de queratina.", "Desgaste mecánico perfecto.", "Movimiento vital constante."],
             "highlight": "Fortaleza Mustang",
             "quote": "El desierto no perdona, forja herramientas perfectas."
           }
@@ -162,7 +181,7 @@
       "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
       "descripcion": "La importancia de la socialización y las normas grupales en el bienestar equino.",
-      "media": { "imagen_fondo": "/assets/curso/horse-herd-social.png" }
+      "media": { "imagen_fondo": "/assets/curso/manada-montanas.png" }
     },
     {
       "id": "manada-detalles",
@@ -170,68 +189,53 @@
       "titulo": "Seguridad Colectiva",
       "parte": "01 · El Origen",
       "tipo_vista": "highlight-cards",
-      "media": { "imagen_fondo": "/assets/curso/horse-herd-social.png" },
       "interacciones": [
         {
           "tipo": "highlights",
           "items": [
-            { "titulo": "Vigilancia", "descripcion": "Descanso REM profundo en manada.", "iconText": "shield" },
-            { "titulo": "Jerarquía", "descripcion": "Cerebro alerta y psicológicamente sano.", "iconText": "star" },
-            { "titulo": "Imitación", "descripcion": "Movimiento vital garantizado por el grupo.", "iconText": "zap" }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "bienvenida",
-      "numero": 10,
-      "titulo": "Bienvenida al Barefoot",
-      "parte": "02 · El Ideal",
-      "tipo_vista": "hero-split",
-      "titulo_intro": "Bienvenido al Retorno Natural",
-      "descripcion": "El inicio de tu viaje hacia la recuperación natural. Prepárate para desaprender.",
-      "media": { "imagen_fondo": "/assets/curso/paddockparadise.png" },
-      "cita_destacada": "No estamos 'quitando herraduras', estamos 'devolviendo funciones'."
-    },
-    {
-      "id": "pilares",
-      "numero": 11,
-      "titulo": "Los 6 Pilares del Sanación",
-      "parte": "02 · El Ideal",
-      "tipo_vista": "flip-card-gallery",
-      "media": { "imagen_fondo": "/assets/curso/backgrounds/technical-grid.png" },
-      "bloques_lectura": [
-        {
-          "titulo": "Pilares BieneQ",
-          "texto": "Un casco solo puede estar sano si el estilo de vida del caballo es coherente con su biología."
-        }
-      ],
-      "interacciones": [
-        {
-          "tipo": "flip-cards",
-          "items": [
-            { 
-              "frente_titulo": "Recorte", 
-              "dorso_texto": "Recrear el patrón del Mustang para liberar la mecánica.", 
-              "imagen_fondo": "/assets/curso/recorte-natural.png" 
+            {
+              "titulo": "Vigilancia",
+              "descripcion": "Descanso REM profundo en manada.",
+              "iconText": "shield",
+              "imagen": "/assets/curso/manada-montanas.png"
             },
-            { 
-              "frente_titulo": "Movimiento", 
-              "dorso_texto": "Mínimo 15km diarios para activar la bomba de sangre.", 
-              "imagen_fondo": "/assets/curso/mustang/mustang-bg.png" 
+            {
+              "titulo": "Jerarquía",
+              "descripcion": "Cerebro alerta y psicológicamente sano.",
+              "iconText": "star",
+              "imagen": "/assets/curso/horse-herd-social.png"
             },
-            { 
-              "frente_titulo": "Nutrición", 
-              "dorso_texto": "Heno 24/7. Cero granos que inflamen las láminas.", 
-              "imagen_fondo": "/assets/curso/pasto en slowfeeder para padock paradise.png" 
+            {
+              "titulo": "Imitación",
+              "descripcion": "Movimiento vital garantizado por el grupo.",
+              "iconText": "zap",
+              "imagen": "/assets/curso/caballo-libre.png"
             }
           ]
         }
       ]
     },
     {
+      "id": "pilares",
+      "numero": 10,
+      "titulo": "Los 6 Pilares de Sanación",
+      "parte": "02 · El Ideal",
+      "tipo_vista": "flip-card-gallery",
+      "media": { "imagen_fondo": "/assets/curso/backgrounds/technical-grid.png" },
+      "interacciones": [
+        {
+          "tipo": "flip-cards",
+          "items": [
+            { "frente_titulo": "Recorte", "dorso_texto": "Recrear el patrón del Mustang para liberar la mecánica.", "imagen_fondo": "/assets/curso/recorte-natural.png" },
+            { "frente_titulo": "Movimiento", "dorso_texto": "Mínimo 15km diarios para activar la bomba de sangre.", "imagen_fondo": "/assets/curso/mustang/mustang-bg.png" },
+            { "frente_titulo": "Nutrición", "dorso_texto": "Heno 24/7. Cero granos que inflamen las láminas.", "imagen_fondo": "/assets/curso/heno-natural.png" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "retorno",
-      "numero": 12,
+      "numero": 11,
       "titulo": "Retorno al Estado Natural",
       "parte": "02 · El Ideal",
       "tipo_vista": "intro-module",
@@ -240,7 +244,7 @@
     },
     {
       "id": "mustang",
-      "numero": 13,
+      "numero": 12,
       "titulo": "Modelo Mustang",
       "parte": "02 · El Ideal",
       "tipo_vista": "interactive-image-hotspots",
@@ -255,7 +259,7 @@
     },
     {
       "id": "bomba",
-      "numero": 14,
+      "numero": 13,
       "titulo": "La Bomba del Casco",
       "parte": "03 · El Motor",
       "tipo_vista": "hoof-pump",
@@ -269,7 +273,7 @@
     },
     {
       "id": "bomba-visual",
-      "numero": 15,
+      "numero": 14,
       "titulo": "El Corazón Periférico",
       "parte": "03 · El Motor",
       "tipo_vista": "full-screen-image",
@@ -277,7 +281,7 @@
     },
     {
       "id": "anatomia-planta",
-      "numero": 16,
+      "numero": 15,
       "titulo": "Anatomía: Planta",
       "parte": "03 · El Motor",
       "tipo_vista": "interactive-image-hotspots",
@@ -292,7 +296,7 @@
     },
     {
       "id": "anatomia-exterior",
-      "numero": 17,
+      "numero": 16,
       "titulo": "Anatomía Exterior",
       "parte": "03 · El Motor",
       "tipo_vista": "interactive-image-hotspots",
@@ -304,6 +308,14 @@
       ]
     },
     {
+      "id": "anatomia-3d-visual",
+      "numero": 17,
+      "titulo": "Estructura Ósea Interna",
+      "parte": "03 · El Motor",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/anatomia/anatomia-3d-seccion.png" }
+    },
+    {
       "id": "biomecanica-herraduras",
       "numero": 18,
       "titulo": "El Daño de las Herraduras",
@@ -312,61 +324,99 @@
       "media": { "imagen_principal": "/assets/curso/nuevos/horseshoe_damage.png" }
     },
     {
-      "id": "biomecanica-aterrizaje",
+      "id": "barefoot-vs-hierro-visual",
       "numero": 19,
-      "titulo": "Tipos de Aterrizaje",
+      "titulo": "Libre vs. Encadenado",
       "parte": "03 · El Motor",
       "tipo_vista": "full-screen-image",
-      "media": { "imagen_principal": "/assets/curso/ai/landing-comparison.png" }
+      "media": { "imagen_principal": "/assets/curso/biomecanica/barefoot-vs-hierro.png" }
     },
     {
-      "id": "biomecanica-impacto",
+      "id": "aterrizaje-pinza",
       "numero": 20,
-      "titulo": "El Impacto Natural",
+      "titulo": "Aterrizaje de Pinza",
       "parte": "03 · El Motor",
-      "tipo_vista": "full-screen-image",
-      "media": { "imagen_principal": "/assets/curso/barefoot-philosophy.png" }
+      "tipo_vista": "intro-module",
+      "descripcion": "Impacto óseo directo. Vibración en articulaciones. Daño progresivo en láminas y tendones.",
+      "media": { "imagen_fondo": "/assets/curso/barefoot/hoof-rocas.png" }
+    },
+    {
+      "id": "aterrizaje-talon",
+      "numero": 21,
+      "titulo": "Aterrizaje de Talón",
+      "parte": "03 · El Motor",
+      "tipo_vista": "intro-module",
+      "descripcion": "Amortiguación natural del 70%. Activa la bomba hidráulica. Flujo sanguíneo óptimo.",
+      "media": { "imagen_fondo": "/assets/curso/barefoot/hoof-amanecer.png" }
+    },
+    {
+      "id": "aterrizaje-simultaneo",
+      "numero": 22,
+      "titulo": "Aterrizaje Simultáneo ✓",
+      "parte": "03 · El Motor",
+      "tipo_vista": "intro-module",
+      "descripcion": "El aterrizaje simultáneo es la patrón correcto. Distribución perfecta de la carga en toda la base.",
+      "media": { "imagen_fondo": "/assets/curso/ai/landing-comparison.png" }
     },
     {
       "id": "hierro",
-      "numero": 21,
+      "numero": 23,
       "titulo": "El Problema del Hierro",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
-      "media": { "imagen_fondo": "/assets/curso/nuevos/horseshoe_damage.png" },
+      "media": { "imagen_fondo": "/assets/curso/biomecanica/barefoot-vs-hierro.png" },
       "titulo_alerta": "Hierro <br /> <span class='text-red-500 italic'>Dañino</span>",
-      "texto_introduccion": "Las herraduras anulan las funciones vitales, ocultando el dolor.",
-      "checklist_emergencia": [
-        "Inhibición de la Bomba Hidráulica",
-        "Atrofia Severa de Ranilla",
-        "Daño Estructural por Clavos",
-        "Vibración Articular"
+      "texto_introduccion": "Las herraduras anulan las funciones vitales del casco, ocultando el dolor progresivo.",
+      "info_cards": [
+        {
+          "pregunta": "¿Qué es?",
+          "respuesta": "Metal fijo con clavos que elimina la movilidad y función biomecánica natural del casco."
+        },
+        {
+          "pregunta": "¿Por qué daña?",
+          "respuesta": "Bloquea la Bomba Hidráulica, atrofia la ranilla y genera vibración articular constante en cada paso."
+        },
+        {
+          "pregunta": "¿Cómo se resuelve?",
+          "respuesta": "Transición Barefoot progresiva con recorte fisiológico certificado y cambio de hábitat."
+        }
       ]
     },
     {
+      "id": "grano-visual",
+      "numero": 24,
+      "titulo": "El Veneno Procesado",
+      "parte": "04 · El Conflicto",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/nutrition/grano-danino.png" }
+    },
+    {
       "id": "laminitis",
-      "numero": 22,
+      "numero": 25,
       "titulo": "La Laminitis",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
-      "media": { "imagen_fondo": "/assets/curso/laminitis-bg.png" },
+      "media": { "imagen_fondo": "/assets/curso/laminitis-real.png" },
       "titulo_alerta": "Alerta <br /> <span class='text-red-600 italic'>Roja</span>",
       "texto_introduccion": "Emergencia metabólica aguda. La separación lámina-casco es inminente.",
-      "procedimiento_sos": [
-         "Retirar granos, zanahorias y melazas.",
-         "Podólogo Barefoot urgente.",
-         "Crioterapia 24/7 (Hielo)."
-      ],
-      "checklist_emergencia": [
-        "¿Postura del fundador?",
-        "¿Calor excesivo en la muralla?",
-        "¿Pulso digital resaltado?",
-        "¿Hemorragias en la línea blanca?"
+      "info_cards": [
+        {
+          "pregunta": "¿Qué es?",
+          "respuesta": "Inflamación aguda de las láminas sensitivas que unen el hueso Coffin a la muralla del casco."
+        },
+        {
+          "pregunta": "¿Por qué ocurre?",
+          "respuesta": "Exceso de carbohidratos, granos, melazas o pasto fructosado inflama el delicado tejido laminar."
+        },
+        {
+          "pregunta": "¿Cómo se trata?",
+          "respuesta": "Recorte fisiológico urgente. Dieta solo heno. Crioterapia 24h. Reposo activo controlado."
+        }
       ]
     },
     {
       "id": "nutricion",
-      "numero": 23,
+      "numero": 26,
       "titulo": "Nutrición Crítica",
       "parte": "05 · La Solución",
       "tipo_vista": "nutrition-formula",
@@ -374,28 +424,36 @@
     },
     {
       "id": "paddock",
-      "numero": 24,
+      "numero": 27,
       "titulo": "Paddock Paradise",
       "parte": "05 · La Solución",
       "tipo_vista": "interactive-image-hotspots",
       "media": { "imagen_principal": "/assets/curso/paddockparadise.png" },
       "hotspots_externos": [
         { "id": "track", "coordenadas": { "x": "30%", "y": "40%" }, "titulo": "El Track", "texto": "Pasillo que obliga a caminar 15-25km.", "imagen_dinamica": "/assets/curso/mustang/mustang-bg.png" },
-        { "id": "heno", "coordenadas": { "x": "60%", "y": "50%" }, "titulo": "Puntos de Heno", "texto": "Incentiva el forrajeo constante.", "imagen_dinamica": "/assets/curso/pasto en slowfeeder para padock paradise.png" },
+        { "id": "heno", "coordenadas": { "x": "60%", "y": "50%" }, "titulo": "Puntos de Heno", "texto": "Incentiva el forrajeo constante.", "imagen_dinamica": "/assets/curso/heno-natural.png" },
         { "id": "suelo", "coordenadas": { "x": "45%", "y": "80%" }, "titulo": "Suelo Variado", "texto": "Grava y agua para endurecer la suela.", "imagen_dinamica": "/assets/curso/terrenos duros y arena.png" }
       ]
     },
     {
       "id": "paddock-detalles",
-      "numero": 25,
+      "numero": 28,
       "titulo": "Inmersión: Paddock Paradise",
       "parte": "05 · La Solución",
       "tipo_vista": "full-screen-image",
       "media": { "imagen_principal": "/assets/curso/paddockparadise.png" }
     },
     {
+      "id": "caballo-libre-visual",
+      "numero": 29,
+      "titulo": "Libertad en Movimiento",
+      "parte": "05 · La Solución",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/caballo-libre.png" }
+    },
+    {
       "id": "herramientas",
-      "numero": 26,
+      "numero": 30,
       "titulo": "Kit de Herramientas",
       "parte": "05 · La Solución",
       "tipo_vista": "bento-grid",
@@ -413,7 +471,7 @@
     },
     {
       "id": "tecnica",
-      "numero": 27,
+      "numero": 31,
       "titulo": "Técnica de Recorte",
       "parte": "05 · La Solución",
       "tipo_vista": "step-slider",
@@ -426,36 +484,24 @@
     },
     {
       "id": "transicion",
-      "numero": 28,
+      "numero": 32,
       "titulo": "Transición",
       "parte": "06 · El Resultado",
       "tipo_vista": "timeline-view",
       "media": { "imagen_fondo": "/assets/curso/nuevos/transicion-ai.png" },
       "timeline": [
-        { 
-          "periodo": "Mes 1", 
-          "evento": "Desinflamación", 
-          "texto": "Adaptación inicial." 
-        },
-        { 
-          "periodo": "Mes 6", 
-          "evento": "Conexión Laminar", 
-          "texto": "Queratina sólida." 
-        },
-        { 
-          "periodo": "Año 1", 
-          "evento": "Renovación", 
-          "texto": "Cápsula 100% nueva." 
-        }
+        { "periodo": "Mes 1", "evento": "Desinflamación", "texto": "Adaptación inicial." },
+        { "periodo": "Mes 6", "evento": "Conexión Laminar", "texto": "Queratina sólida." },
+        { "periodo": "Año 1", "evento": "Renovación", "texto": "Cápsula 100% nueva." }
       ]
     },
     {
       "id": "certificacion",
-      "numero": 29,
+      "numero": 33,
       "titulo": "Certificación",
       "parte": "06 · El Resultado",
       "tipo_vista": "completion",
-      "media": { "imagen_fondo": "/assets/curso/recorte-natural.png" }
+      "media": { "imagen_fondo": "/assets/curso/caballo-libre.png" }
     }
   ]
 }

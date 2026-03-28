@@ -80,6 +80,18 @@ export function HighlightCards({ data }: any) {
                 transition={{ duration: 0.8, delay: 0.1 * idx, ease: [0.16, 1, 0.3, 1] }}
                 className="group relative h-full min-h-[380px] rounded-[3rem] bg-white/[0.03] border border-white/10 p-12 lg:p-14 flex flex-col justify-between hover:bg-white/[0.06] hover:border-amber-500/30 transition-all duration-700 overflow-hidden"
               >
+                {/* Card background image */}
+                {item.imagen && (
+                  <div className="absolute inset-0 z-0 rounded-[3rem] overflow-hidden">
+                    <img
+                      src={item.imagen}
+                      className="w-full h-full object-cover opacity-20 group-hover:opacity-35 group-hover:scale-105 transition-all duration-1000"
+                      alt=""
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
+                  </div>
+                )}
+                
                 {/* Background Number Decal */}
                 <div className="absolute -bottom-10 -right-10 text-[18rem] font-display font-black text-white/[0.02] select-none pointer-events-none group-hover:text-amber-500/[0.03] transition-colors duration-1000">
                   {idx + 1}
@@ -88,7 +100,7 @@ export function HighlightCards({ data }: any) {
                 {/* Background Glow */}
                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-500/[0.03] blur-[100px] rounded-full group-hover:bg-amber-500/10 transition-colors duration-1000" />
                 
-                <div className="relative z-10 space-y-8">
+                <div className="relative z-[5] space-y-8">
                   <Magnetic strength={0.2}>
                     <div className="w-20 h-20 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-amber-500/30 group-hover:bg-amber-500/10 transition-all duration-500 cursor-pointer shadow-2xl">
                       <IconComp className="w-8 h-8 text-amber-500/80 group-hover:text-amber-500" />
@@ -105,7 +117,7 @@ export function HighlightCards({ data }: any) {
                   </div>
                 </div>
 
-                <div className="relative z-10 flex items-center gap-6 pt-10">
+                <div className="relative z-[5] flex items-center gap-6 pt-10">
                   <div className="h-px w-12 bg-amber-500/30 group-hover:w-full transition-all duration-700" />
                   <span className="font-mono text-xs font-black text-white/20 uppercase tracking-[0.4em] mb-1">{String(idx + 1).padStart(2, '0')}</span>
                 </div>
