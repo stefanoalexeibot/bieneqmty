@@ -3,7 +3,7 @@
     "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
     "autor": "José Manuel Luna",
     "organizacion": "BieneQ MTY",
-    "total_modulos": 35
+    "total_modulos": 37
   },
   "modulos": [
     {
@@ -341,8 +341,16 @@
       "media": { "imagen_fondo": "/assets/curso/barefoot/hoof-rocas.png" }
     },
     {
-      "id": "aterrizaje-talon",
+      "id": "aterrizaje-pinza-visual",
       "numero": 21,
+      "titulo": "Impacto de Pinza",
+      "parte": "03 · El Motor",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/biomecanica/aterrizaje-pinza-grande.png" }
+    },
+    {
+      "id": "aterrizaje-talon",
+      "numero": 22,
       "titulo": "Aterrizaje de Talón",
       "parte": "03 · El Motor",
       "tipo_vista": "intro-module",
@@ -351,7 +359,7 @@
     },
     {
       "id": "aterrizaje-simultaneo",
-      "numero": 22,
+      "numero": 23,
       "titulo": "Aterrizaje Simultáneo ✓",
       "parte": "03 · El Motor",
       "tipo_vista": "intro-module",
@@ -359,8 +367,16 @@
       "media": { "imagen_fondo": "/assets/curso/ai/landing-comparison.png" }
     },
     {
+      "id": "aterrizaje-simultaneo-visual",
+      "numero": 24,
+      "titulo": "Biomecánica Correcta",
+      "parte": "03 · El Motor",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/ai/landing-comparison.png" }
+    },
+    {
       "id": "hierro",
-      "numero": 23,
+      "numero": 25,
       "titulo": "El Problema del Hierro",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
@@ -384,7 +400,7 @@
     },
     {
       "id": "grano-visual",
-      "numero": 24,
+      "numero": 26,
       "titulo": "El Veneno Procesado",
       "parte": "04 · El Conflicto",
       "tipo_vista": "full-screen-image",
@@ -392,7 +408,7 @@
     },
     {
       "id": "laminitis",
-      "numero": 25,
+      "numero": 27,
       "titulo": "La Laminitis",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
@@ -416,7 +432,7 @@
     },
     {
       "id": "nutricion",
-      "numero": 26,
+      "numero": 28,
       "titulo": "Nutrición Crítica",
       "parte": "05 · La Solución",
       "tipo_vista": "nutrition-formula",
@@ -424,7 +440,7 @@
     },
     {
       "id": "paddock",
-      "numero": 27,
+      "numero": 29,
       "titulo": "Paddock Paradise",
       "parte": "05 · La Solución",
       "tipo_vista": "interactive-image-hotspots",
@@ -437,7 +453,7 @@
     },
     {
       "id": "paddock-detalles",
-      "numero": 28,
+      "numero": 30,
       "titulo": "Inmersión: Paddock Paradise",
       "parte": "05 · La Solución",
       "tipo_vista": "full-screen-image",
@@ -445,7 +461,7 @@
     },
     {
       "id": "caballo-libre-visual",
-      "numero": 29,
+      "numero": 31,
       "titulo": "Libertad en Movimiento",
       "parte": "05 · La Solución",
       "tipo_vista": "full-screen-image",
@@ -453,7 +469,7 @@
     },
     {
       "id": "herramientas",
-      "numero": 30,
+      "numero": 32,
       "titulo": "Kit de Herramientas",
       "parte": "05 · La Solución",
       "tipo_vista": "bento-grid",
@@ -471,7 +487,7 @@
     },
     {
       "id": "tecnica",
-      "numero": 31,
+      "numero": 33,
       "titulo": "Técnica de Recorte",
       "parte": "05 · La Solución",
       "tipo_vista": "step-slider",
@@ -511,7 +527,7 @@
     },
     {
       "id": "galeria-recorte",
-      "numero": 32,
+      "numero": 34,
       "titulo": "Galería de Recorte",
       "parte": "05 · La Solución",
       "tipo_vista": "bento-grid",
@@ -531,7 +547,7 @@
     },
     {
       "id": "transicion",
-      "numero": 32,
+      "numero": 35,
       "titulo": "Transición",
       "parte": "06 · El Resultado",
       "tipo_vista": "timeline-view",
@@ -544,7 +560,7 @@
     },
     {
       "id": "certificacion",
-      "numero": 33,
+      "numero": 36,
       "titulo": "Certificación",
       "parte": "06 · El Resultado",
       "tipo_vista": "completion",
