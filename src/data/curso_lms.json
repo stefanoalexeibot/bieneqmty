@@ -3,7 +3,7 @@
     "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
     "autor": "José Manuel Luna",
     "organizacion": "BieneQ MTY",
-    "total_modulos": 27
+    "total_modulos": 31
   },
   "modulos": [
     {
@@ -55,8 +55,35 @@
       ]
     },
     {
-      "id": "etologia",
+      "id": "barefoot-intro",
       "numero": 2,
+      "titulo": "¿Qué es el Barefoot?",
+      "parte": "00 · Apertura",
+      "tipo_vista": "intro-module",
+      "descripcion": "La filosofía de devolver al caballo su casco natural, funcional y completamente libre.",
+      "media": { "imagen_fondo": "/assets/curso/barefoot-philosophy.png" }
+    },
+    {
+      "id": "barefoot-beneficios",
+      "numero": 3,
+      "titulo": "Beneficios para Toda la Vida",
+      "parte": "00 · Apertura",
+      "tipo_vista": "highlight-cards",
+      "texto_introduccion": "Un casco sin hierro es un casco que respira, bombea y siente.",
+      "interacciones": [
+        {
+          "tipo": "highlights",
+          "items": [
+            { "titulo": "Circulación", "descripcion": "Flujo de sangre sin obstáculos metálicos en cada paso.", "iconText": "heart" },
+            { "titulo": "Sensibilidad", "descripcion": "Propiocepción total para moverse con precisión natural.", "iconText": "zap" },
+            { "titulo": "Fortaleza", "descripcion": "Queratina viva que se adapta al terreno y al movimiento.", "iconText": "shield" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "etologia",
+      "numero": 4,
       "titulo": "Etología Equina",
       "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
@@ -65,7 +92,7 @@
     },
     {
       "id": "etologia-detalles",
-      "numero": 3,
+      "numero": 5,
       "titulo": "Fundamentos Biológicos",
       "parte": "01 · El Origen",
       "tipo_vista": "highlight-cards",
@@ -83,7 +110,7 @@
     },
     {
       "id": "habitat",
-      "numero": 4,
+      "numero": 6,
       "titulo": "Hábitat & Supervivencia",
       "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
@@ -92,7 +119,7 @@
     },
     {
       "id": "habitat-detalles",
-      "numero": 5,
+      "numero": 7,
       "titulo": "El Desierto como Forjador",
       "parte": "01 · El Origen",
       "tipo_vista": "split-comparison",
@@ -130,7 +157,7 @@
     },
     {
       "id": "manada",
-      "numero": 6,
+      "numero": 8,
       "titulo": "Vida en Manada",
       "parte": "01 · El Origen",
       "tipo_vista": "intro-module",
@@ -139,7 +166,7 @@
     },
     {
       "id": "manada-detalles",
-      "numero": 7,
+      "numero": 9,
       "titulo": "Seguridad Colectiva",
       "parte": "01 · El Origen",
       "tipo_vista": "highlight-cards",
@@ -157,7 +184,7 @@
     },
     {
       "id": "bienvenida",
-      "numero": 8,
+      "numero": 10,
       "titulo": "Bienvenida al Barefoot",
       "parte": "02 · El Ideal",
       "tipo_vista": "hero-split",
@@ -168,7 +195,7 @@
     },
     {
       "id": "pilares",
-      "numero": 9,
+      "numero": 11,
       "titulo": "Los 6 Pilares del Sanación",
       "parte": "02 · El Ideal",
       "tipo_vista": "flip-card-gallery",
@@ -204,7 +231,7 @@
     },
     {
       "id": "retorno",
-      "numero": 10,
+      "numero": 12,
       "titulo": "Retorno al Estado Natural",
       "parte": "02 · El Ideal",
       "tipo_vista": "intro-module",
@@ -213,7 +240,7 @@
     },
     {
       "id": "mustang",
-      "numero": 11,
+      "numero": 13,
       "titulo": "Modelo Mustang",
       "parte": "02 · El Ideal",
       "tipo_vista": "interactive-image-hotspots",
@@ -228,7 +255,7 @@
     },
     {
       "id": "bomba",
-      "numero": 12,
+      "numero": 14,
       "titulo": "La Bomba del Casco",
       "parte": "03 · El Motor",
       "tipo_vista": "hoof-pump",
@@ -241,8 +268,16 @@
       ]
     },
     {
+      "id": "bomba-visual",
+      "numero": 15,
+      "titulo": "El Corazón Periférico",
+      "parte": "03 · El Motor",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/bomba-corazon.png" }
+    },
+    {
       "id": "anatomia-planta",
-      "numero": 13,
+      "numero": 16,
       "titulo": "Anatomía: Planta",
       "parte": "03 · El Motor",
       "tipo_vista": "interactive-image-hotspots",
@@ -257,7 +292,7 @@
     },
     {
       "id": "anatomia-exterior",
-      "numero": 14,
+      "numero": 17,
       "titulo": "Anatomía Exterior",
       "parte": "03 · El Motor",
       "tipo_vista": "interactive-image-hotspots",
@@ -269,48 +304,36 @@
       ]
     },
     {
-      "id": "biomecanica",
-      "numero": 15,
-      "titulo": "Biomecánica de Impacto",
+      "id": "biomecanica-herraduras",
+      "numero": 18,
+      "titulo": "El Daño de las Herraduras",
       "parte": "03 · El Motor",
-      "tipo_vista": "split-comparison",
-      "media": { 
-        "imagen_mala": "/assets/curso/nuevos/horseshoe_damage.png",
-        "imagen_buena": "/assets/curso/ai/landing-comparison.png"
-      },
-      "interacciones": [
-        {
-          "tipo": "comparison",
-          "left": {
-            "label": "Patológico",
-            "title": "En Pinza",
-            "items": [
-              "Impacto óseo directo.",
-              "Vibración destructiva."
-            ],
-            "highlight": "Impacto Óseo",
-            "quote": "El hueso sufre lo que el talón no amortiza."
-          },
-          "right": {
-            "label": "Correcto",
-            "title": "En Talón",
-            "items": [
-              "Disipación del 70% del impacto.",
-              "Bombeo venoso activo."
-            ],
-            "highlight": "Amortiguación Natural",
-            "quote": "Cada impacto en talón es una carga de vida."
-          }
-        }
-      ]
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/nuevos/horseshoe_damage.png" }
+    },
+    {
+      "id": "biomecanica-aterrizaje",
+      "numero": 19,
+      "titulo": "Tipos de Aterrizaje",
+      "parte": "03 · El Motor",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/ai/landing-comparison.png" }
+    },
+    {
+      "id": "biomecanica-impacto",
+      "numero": 20,
+      "titulo": "El Impacto Natural",
+      "parte": "03 · El Motor",
+      "tipo_vista": "full-screen-image",
+      "media": { "imagen_principal": "/assets/curso/barefoot-philosophy.png" }
     },
     {
       "id": "hierro",
-      "numero": 16,
+      "numero": 21,
       "titulo": "El Problema del Hierro",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
-      "media": { "imagen_fondo": "/assets/curso/laminitis-bg.png" },
+      "media": { "imagen_fondo": "/assets/curso/nuevos/horseshoe_damage.png" },
       "titulo_alerta": "Hierro <br /> <span class='text-red-500 italic'>Dañino</span>",
       "texto_introduccion": "Las herraduras anulan las funciones vitales, ocultando el dolor.",
       "checklist_emergencia": [
@@ -322,7 +345,7 @@
     },
     {
       "id": "laminitis",
-      "numero": 17,
+      "numero": 22,
       "titulo": "La Laminitis",
       "parte": "04 · El Conflicto",
       "tipo_vista": "alert-cards",
@@ -343,7 +366,7 @@
     },
     {
       "id": "nutricion",
-      "numero": 18,
+      "numero": 23,
       "titulo": "Nutrición Crítica",
       "parte": "05 · La Solución",
       "tipo_vista": "nutrition-formula",
@@ -351,7 +374,7 @@
     },
     {
       "id": "paddock",
-      "numero": 19,
+      "numero": 24,
       "titulo": "Paddock Paradise",
       "parte": "05 · La Solución",
       "tipo_vista": "interactive-image-hotspots",
@@ -364,7 +387,7 @@
     },
     {
       "id": "paddock-detalles",
-      "numero": 20,
+      "numero": 25,
       "titulo": "Inmersión: Paddock Paradise",
       "parte": "05 · La Solución",
       "tipo_vista": "full-screen-image",
@@ -372,7 +395,7 @@
     },
     {
       "id": "herramientas",
-      "numero": 21,
+      "numero": 26,
       "titulo": "Kit de Herramientas",
       "parte": "05 · La Solución",
       "tipo_vista": "bento-grid",
@@ -390,7 +413,7 @@
     },
     {
       "id": "tecnica",
-      "numero": 22,
+      "numero": 27,
       "titulo": "Técnica de Recorte",
       "parte": "05 · La Solución",
       "tipo_vista": "step-slider",
@@ -403,7 +426,7 @@
     },
     {
       "id": "transicion",
-      "numero": 23,
+      "numero": 28,
       "titulo": "Transición",
       "parte": "06 · El Resultado",
       "tipo_vista": "timeline-view",
@@ -427,47 +450,8 @@
       ]
     },
     {
-      "id": "exito",
-      "numero": 24,
-      "titulo": "Casos de Éxito",
-      "parte": "06 · El Resultado",
-      "tipo_vista": "case-studies",
-      "descripcion": "Resultados reales de la aplicación del método BieneQ.",
-      "media": { "imagen_fondo": "/assets/curso/nuevos/success-ai.png" },
-      "items": [
-        { 
-          "id": 1, 
-          "titulo": "Deporte sin Hierro", 
-          "texto": "Caballo de salto recuperado de síndrome navicular, ahora compitiendo descalzo y sin dolor." 
-        },
-        { 
-          "id": 2, 
-          "titulo": "Laminitis Crónica", 
-          "texto": "Yegua desahuciada que volvió a galopar tras 12 meses de rehabilitación Barefoot." 
-        }
-      ]
-    },
-    {
-      "id": "preguntas",
-      "numero": 25,
-      "titulo": "Preguntas & Respuestas",
-      "parte": "06 · El Resultado",
-      "tipo_vista": "highlight-cards",
-      "texto_introduccion": "Discusión final y resolución de dudas.",
-      "interacciones": [
-        {
-          "tipo": "highlights",
-          "items": [
-            { "titulo": "Dudas Técnicas", "descripcion": "Herramientas, ángulos, frecuencia de recorte.", "iconText": "help-circle" },
-            { "titulo": "Logística", "descripcion": "Transición, botas, manejo de terreno.", "iconText": "activity" },
-            { "titulo": "Cierre", "descripcion": "Próximos pasos y comunidad BieneQ.", "iconText": "check" }
-          ]
-        }
-      ]
-    },
-    {
       "id": "certificacion",
-      "numero": 26,
+      "numero": 29,
       "titulo": "Certificación",
       "parte": "06 · El Resultado",
       "tipo_vista": "completion",

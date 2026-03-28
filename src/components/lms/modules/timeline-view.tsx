@@ -120,61 +120,36 @@ export function TimelineView({ data }: TimelineViewProps) {
         </div>
 
         {/* Detailed Milestone Container */}
-        <div className="w-full relative mt-12">
+        <div className="w-full relative mt-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
-              initial={{ opacity: 0, x: 50, filter: "blur(30px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, x: -50, filter: "blur(30px)" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-white/[0.02] border border-white/5 rounded-[4rem] p-16 md:p-24 relative overflow-hidden flex flex-col md:flex-row items-center gap-20 backdrop-blur-3xl group"
+              initial={{ opacity: 0, y: 30, filter: "blur(20px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -30, filter: "blur(20px)" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-white/[0.02] border border-white/5 rounded-[3rem] px-16 py-14 relative overflow-hidden backdrop-blur-3xl group"
             >
               <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/[0.03] blur-[150px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:scale-125 transition-transform duration-1000" />
 
-              <div className="flex-1 space-y-10 relative z-10">
-                <div className="space-y-4">
-                  <span className="text-[10px] uppercase tracking-[0.6em] text-amber-500/60 font-black">
-                    {timeline[activeIndex]?.periodo}
-                  </span>
-                  <h3 className="text-5xl md:text-[6.5rem] font-display font-bold text-white tracking-tighter leading-none">
-                    {timeline[activeIndex]?.evento}
-                  </h3>
-                </div>
+              <div className="space-y-8 relative z-10">
+                <span className="text-[10px] uppercase tracking-[0.6em] text-amber-500/60 font-black block">
+                  {timeline[activeIndex]?.periodo}
+                </span>
 
-                <div className="h-px w-24 bg-amber-500/30" />
+                <h3 className="text-6xl md:text-[7rem] font-display font-bold text-white tracking-tighter leading-none">
+                  {timeline[activeIndex]?.evento}
+                </h3>
 
-                <p className="text-3xl md:text-4xl text-white/50 font-light leading-snug font-display italic max-w-3xl">
+                <div className="h-px w-20 bg-amber-500/30" />
+
+                <p className="text-2xl md:text-3xl text-white/50 font-light leading-relaxed font-display italic max-w-4xl">
                   &ldquo;{timeline[activeIndex]?.texto}&rdquo;
                 </p>
 
-                <div className="flex items-center gap-6 pt-8">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-amber-500" />
-                    <span className="text-[10px] uppercase tracking-widest text-white/40 font-black">Hito Biológico</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Milestone Visual — unique per step */}
-              <div className="w-full md:w-[450px] aspect-square rounded-[3.5rem] bg-zinc-900 border border-white/5 overflow-hidden relative shadow-2xl shrink-0">
-                <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-transparent mix-blend-overlay z-10" />
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeIndex}
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 0.6, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.1 }}
-                    transition={{ duration: 1.5 }}
-                    src={MILESTONE_IMAGES[activeIndex % MILESTONE_IMAGES.length]}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[6s]"
-                    alt={timeline[activeIndex]?.evento || ""}
-                  />
-                </AnimatePresence>
-                <div className="absolute bottom-10 left-10 p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl z-20">
-                  <span className="text-[10px] uppercase tracking-widest text-white font-black">
-                    {timeline[activeIndex]?.periodo}
-                  </span>
+                <div className="flex items-center gap-3 pt-4">
+                  <CheckCircle2 className="w-5 h-5 text-amber-500" />
+                  <span className="text-[10px] uppercase tracking-widest text-white/40 font-black">Hito Biológico Verificado</span>
                 </div>
               </div>
             </motion.div>

@@ -86,7 +86,7 @@ export function CoursePlayer() {
     prevModule()
   }
 
-  // Handle keyboard navigation — Space + ArrowRight advance, ArrowLeft goes back
+  // Handle keyboard navigation — Space + ArrowRight advance, ArrowLeft goes back, C toggles Clean Mode
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
@@ -100,6 +100,9 @@ export function CoursePlayer() {
       if (e.key === "Escape") {
         e.preventDefault()
         setIsSidebarOpen(false)
+      }
+      if (e.key === "c" || e.key === "C") {
+        setIsHudVisible(prev => !prev)
       }
     }
     window.addEventListener("keydown", handleKeyDown)
