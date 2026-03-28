@@ -3,7 +3,7 @@
     "titulo": "Pie Descalzo: El Arte de Cuidar el Casco Natural",
     "autor": "José Manuel Luna",
     "organizacion": "BieneQ MTY",
-    "total_modulos": 34
+    "total_modulos": 35
   },
   "modulos": [
     {
@@ -477,9 +477,56 @@
       "tipo_vista": "step-slider",
       "media": { "imagen_fondo": "/assets/curso/tools/tools-bg.png" },
       "pasos": [
-        { "numero": 1, "nombre": "Limpieza", "texto": "Evaluación del punto más ancho.", "imagen": "/assets/curso/pasos/step1.png" },
-        { "numero": 2, "nombre": "Nivelación", "texto": "Talones al nivel de lo más alto de la ranilla.", "imagen": "/assets/curso/pasos/step2.png" },
-        { "numero": 3, "nombre": "Mustang Roll", "texto": "Redondeo de 45° para favorecer el despegue.", "imagen": "/assets/curso/pasos/step3.png" }
+        {
+          "numero": 1,
+          "nombre": "Inspección Inicial",
+          "texto": "Levantar el casco y evaluar su estado general: suciedad, ranilla, nivel de los talones y paredes.",
+          "imagen": "/assets/curso/pasos/paso1-inspeccionar.png"
+        },
+        {
+          "numero": 2,
+          "nombre": "Medición y Límites",
+          "texto": "Identificar el punto más ancho del casco y marcar los límites internos de la suela.",
+          "imagen": "/assets/curso/pasos/paso2-medir.png"
+        },
+        {
+          "numero": 3,
+          "nombre": "Vista de la Suela",
+          "texto": "Una vez identificado el límite, verificar la suela exfoliante. Nunca cortar suela viva.",
+          "imagen": "/assets/curso/pasos/paso3-limites.png"
+        },
+        {
+          "numero": 4,
+          "nombre": "Navaja — Material Muerto",
+          "texto": "Con la navaja retirar el material exfoliante de suela y ranilla sin tocar tejido vivo.",
+          "imagen": "/assets/curso/pasos/paso4-navaja.png"
+        },
+        {
+          "numero": 5,
+          "nombre": "Mustang Roll",
+          "texto": "Con la escofina, redondear la pared a 45° para imitar el desgaste natural del Mustang.",
+          "imagen": "/assets/curso/pasos/paso5-mustang-roll.png"
+        }
+      ]
+    },
+    {
+      "id": "galeria-recorte",
+      "numero": 32,
+      "titulo": "Galería de Recorte",
+      "parte": "05 · La Solución",
+      "tipo_vista": "bento-grid",
+      "media": { "imagen_fondo": "/assets/curso/tools/tools-bg.png" },
+      "interacciones": [
+        {
+          "tipo": "bento-items",
+          "items": [
+            { "titulo": "", "descripcion": "", "imagen": "/assets/curso/galeria/galeria-1.png" },
+            { "titulo": "", "descripcion": "", "imagen": "/assets/curso/galeria/galeria-2.png" },
+            { "titulo": "", "descripcion": "", "imagen": "/assets/curso/galeria/galeria-3.png" },
+            { "titulo": "", "descripcion": "", "imagen": "/assets/curso/galeria/galeria-4.png" },
+            { "titulo": "", "descripcion": "", "imagen": "/assets/curso/galeria/galeria-5.png" }
+          ]
+        }
       ]
     },
     {
