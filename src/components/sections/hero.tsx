@@ -2,12 +2,15 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
+import { TextReveal } from "@/components/ui/text-reveal";
+import { Background3D } from "@/components/ui/3d-canvas";
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#050505]">
       {/* Background Ambient Effects */}
       <div className="absolute inset-0 z-0">
+        <Background3D />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-bieneq-green/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-bieneq-cafe/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
       </div>
@@ -23,14 +26,9 @@ export function HeroSection() {
           <span className="text-sm font-medium text-white/80">Revolucionando la Podología Equina</span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-5xl md:text-7xl lg:text-8xl font-heading font-semibold text-white tracking-tight max-w-5xl leading-[1.1]"
-        >
-          El <span className="text-transparent bg-clip-text bg-gradient-to-r from-bieneq-green to-bieneq-yellow">Bienestar</span> de tu Caballo Empieza en la Base
-        </motion.h1>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-semibold text-white tracking-tight max-w-5xl leading-[1.1] flex flex-wrap justify-center items-center">
+           <TextReveal text="El Bienestar de tu Caballo Empieza en la Base" className="justify-center" />
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 40 }}

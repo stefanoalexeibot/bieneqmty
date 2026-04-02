@@ -3,6 +3,9 @@ import "./globals.css";
 import { Inter, Playfair_Display } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/layout/navbar";
+import { LenisProvider } from "@/components/layout/lenis-provider";
+import { CustomCursor } from "@/components/ui/custom-cursor";
+import { Noise } from "@/components/ui/noise";
 
 const inter = Inter({subsets:['latin'], variable:'--font-sans'});
 const playfair = Playfair_Display({subsets:['latin'], variable:'--font-heading'});
@@ -18,10 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={cn("dark font-sans antialiased", inter.variable, playfair.variable)}>
-      <body>
-        <Navbar />
-        {children}
+    <html lang="es" className={cn("dark font-sans antialiased cursor-none", inter.variable, playfair.variable)}>
+      <body className="cursor-none">
+        <Noise />
+        <CustomCursor />
+        <LenisProvider>
+          <Navbar />
+          {children}
+        </LenisProvider>
       </body>
     </html>
   );

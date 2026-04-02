@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Menu, X, User } from "lucide-react";
+import { Magnetic } from "@/components/ui/magnetic";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -34,51 +35,60 @@ export function Navbar() {
     >
       <div className="w-full max-w-7xl flex items-center justify-between">
         {/* LOGO */}
-        <Link href="/" className="relative z-50 flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-bieneq-green to-bieneq-yellow flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
-            <span className="text-black font-bold text-lg font-heading leading-none">B</span>
-          </div>
-          <span className="text-xl font-semibold tracking-tight text-white group-hover:text-white/80 transition-colors">
-            BieneqMty
-          </span>
-        </Link>
+        <Magnetic strength={0.1}>
+          <Link href="/" className="relative z-50 flex items-center gap-2 group block">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-bieneq-green to-bieneq-yellow flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+              <span className="text-black font-bold text-lg font-heading leading-none">B</span>
+            </div>
+            <span className="text-xl font-semibold tracking-tight text-white group-hover:text-white/80 transition-colors">
+              BieneqMty
+            </span>
+          </Link>
+        </Magnetic>
 
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-8 bg-white/5 border border-white/10 px-8 py-2.5 rounded-full backdrop-blur-md">
+        <div className="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md">
           {navLinks.map((link) => {
             const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
             
             return (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors relative group ${isActive ? "text-white" : "text-white/70 hover:text-white"}`}
-              >
-                {link.name}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-bieneq-green transition-all ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
-              </Link>
+              <Magnetic strength={0.2} key={link.name}>
+                <Link
+                  href={link.href}
+                  className={`px-4 py-1 text-sm font-medium transition-colors relative group block ${isActive ? "text-white" : "text-white/70 hover:text-white"}`}
+                >
+                  {link.name}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-bieneq-green transition-all ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
+                </Link>
+              </Magnetic>
             )
           })}
         </div>
 
         {/* ICONS & MOBILE TOGGLE */}
         <div className="flex items-center gap-4 relative z-50">
-          <Link href="/academia/mi-progreso" className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors hidden sm:block">
-            <User className="w-5 h-5" />
-          </Link>
-          <button className="relative p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors">
-            <ShoppingBag className="w-5 h-5" />
-            <span className="absolute top-0 right-0 w-4 h-4 bg-bieneq-cafe text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-              0
-            </span>
-          </button>
+          <Magnetic strength={0.2}>
+            <Link href="/academia/mi-progreso" className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors hidden sm:block">
+              <User className="w-5 h-5" />
+            </Link>
+          </Magnetic>
+          <Magnetic strength={0.2}>
+            <button className="relative p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors">
+              <ShoppingBag className="w-5 h-5" />
+              <span className="absolute top-0 right-0 w-4 h-4 bg-bieneq-cafe text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                0
+              </span>
+            </button>
+          </Magnetic>
           
-          <button 
-            className="p-2 text-white/70 hover:text-white md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <Magnetic strength={0.2}>
+            <button 
+              className="p-2 text-white/70 hover:text-white md:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </Magnetic>
         </div>
       </div>
 
