@@ -33,22 +33,22 @@ export default function CitasPage() {
       </div>
 
       <div className="w-full max-w-5xl flex flex-col gap-12 relative z-10">
-        
+
         {/* Progress Steps */}
         <div className="flex justify-center items-center gap-4 mb-4">
           {steps.map((step) => (
             <div key={step.id} className="flex items-center gap-4">
               <div className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors",
-                selectedMode && step.id === 1 ? "bg-bieneq-green text-black" : 
-                step.id === 2 && selectedMode ? "bg-white text-black" : "bg-white/10 text-white/50"
+                selectedMode && step.id === 1 ? "bg-bieneq-green text-black" :
+                  step.id === 2 && selectedMode ? "bg-white text-black" : "bg-white/10 text-white/50"
               )}>
                 {selectedMode && step.id === 1 ? <CheckCircle2 className="w-5 h-5" /> : step.id}
               </div>
               <span className={cn(
                 "hidden sm:block text-sm font-medium",
-                selectedMode && step.id === 1 ? "text-bieneq-green" : 
-                step.id === 2 && selectedMode ? "text-white" : "text-white/50"
+                selectedMode && step.id === 1 ? "text-bieneq-green" :
+                  step.id === 2 && selectedMode ? "text-white" : "text-white/50"
               )}>
                 {step.title}
               </span>
@@ -65,8 +65,8 @@ export default function CitasPage() {
             onClick={() => setSelectedMode("presencial")}
             className={cn(
               "cursor-pointer p-8 rounded-3xl border transition-all duration-300 flex flex-col items-center text-center gap-6",
-              selectedMode === "presencial" 
-                ? "bg-bieneq-green/10 border-bieneq-green shadow-[0_0_30px_rgba(34,197,94,0.15)]" 
+              selectedMode === "presencial"
+                ? "bg-bieneq-green/10 border-bieneq-green shadow-[0_0_30px_rgba(34,197,94,0.15)]"
                 : "bg-white/5 border-white/10 hover:border-white/30"
             )}
           >
@@ -91,8 +91,8 @@ export default function CitasPage() {
             onClick={() => setSelectedMode("online")}
             className={cn(
               "cursor-pointer p-8 rounded-3xl border transition-all duration-300 flex flex-col items-center text-center gap-6",
-              selectedMode === "online" 
-                ? "bg-bieneq-yellow/10 border-bieneq-yellow shadow-[0_0_30px_rgba(234,179,8,0.15)]" 
+              selectedMode === "online"
+                ? "bg-bieneq-yellow/10 border-bieneq-yellow shadow-[0_0_30px_rgba(234,179,8,0.15)]"
                 : "bg-white/5 border-white/10 hover:border-white/30"
             )}
           >
@@ -126,7 +126,7 @@ export default function CitasPage() {
                 <div className="flex-1 space-y-6">
                   <div className="flex items-center justify-between">
                     <h4 className="text-xl font-semibold text-white flex items-center gap-2">
-                       <CalendarIcon className="w-5 h-5 text-bieneq-green" /> Elige un día
+                      <CalendarIcon className="w-5 h-5 text-bieneq-green" /> Elige un día
                     </h4>
                     <div className="flex gap-2">
                       <button className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white">&lt;</button>
@@ -138,8 +138,8 @@ export default function CitasPage() {
                     {Array.from({ length: 30 }).map((_, i) => (
                       <div key={i} className={cn(
                         "aspect-square flex items-center justify-center rounded-full cursor-pointer hover:bg-white/10 transition-colors",
-                         i === 14 ? "bg-bieneq-green text-black hover:bg-bieneq-green" : "text-white",
-                         (i < 5 || i === 12 || i === 20) ? "opacity-20 pointer-events-none" : ""
+                        i === 14 ? "bg-bieneq-green text-black hover:bg-bieneq-green" : "text-white",
+                        (i < 5 || i === 12 || i === 20) ? "opacity-20 pointer-events-none" : ""
                       )}>
                         {i + 1}
                       </div>

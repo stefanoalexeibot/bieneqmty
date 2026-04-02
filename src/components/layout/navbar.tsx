@@ -22,7 +22,8 @@ export function Navbar() {
     { name: "Inicio", href: "/" },
     { name: "Tienda", href: "/tienda" },
     { name: "Academia", href: "/academia" },
-    { name: "Casos de Éxito", href: "/casos-de-exito" }, // Updated from /casos
+    { name: "Galería", href: "/galeria" },
+    { name: "Casos de Éxito", href: "/casos-de-exito" },
     { name: "Citas", href: "/citas" },
     { name: "Recursos", href: "/recursos" },
   ];
