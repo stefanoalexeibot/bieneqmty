@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { LenisProvider } from "@/components/layout/lenis-provider";
 import { CustomCursor } from "@/components/ui/custom-cursor";
 import { Noise } from "@/components/ui/noise";
+import { Footer } from "@/components/layout/footer";
 
 const inter = Inter({subsets:['latin'], variable:'--font-sans'});
 const playfair = Playfair_Display({subsets:['latin'], variable:'--font-heading'});
@@ -28,6 +29,7 @@ export default function RootLayout({
         <LenisProvider>
           <Navbar />
           {children}
+          <Footer />
         </LenisProvider>
       </body>
     </html>
