@@ -31,31 +31,31 @@ export function FounderProfile() {
   const reels = [
     { 
       id: 1, 
-      title: "El Secreto del Bombeo Sanguíneo en el Casco", 
-      views: "1.2M", 
-      img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&q=80",
-      link: "https://www.instagram.com/bieneqmty/reels/"
+      title: "No recortar ni raspar la pared del casco", 
+      views: "376K", 
+      img: "/images/reels/reel-no-recortar.jpg",
+      link: "https://www.instagram.com/reel/DT4e7whDiWD/"
     },
     { 
       id: 2, 
-      title: "Rehabilitación: De Cojera a Galope en 6 Meses", 
-      views: "850K", 
-      img: "https://images.unsplash.com/photo-1506795660198-e95c77602129?w=400&q=80",
-      link: "https://www.instagram.com/bieneqmty/reels/"
+      title: "No cortar las vibrisas", 
+      views: "74K", 
+      img: "/images/reels/reel-vibrisas.jpg",
+      link: "https://www.instagram.com/reel/DTwiZgMgPqy/"
     },
     { 
       id: 3, 
-      title: "Por qué las Herraduras Limitan el Bienestar", 
-      views: "2.1M", 
-      img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",
-      link: "https://www.instagram.com/bieneqmty/reels/"
+      title: "¿Qué es el Barefoot?", 
+      views: "12K", 
+      img: "/images/reels/reel-barefoot.jpg",
+      link: "https://www.instagram.com/reel/DO-GYM9gJmP/"
     },
     { 
       id: 4, 
-      title: "Preparación de la Suela: El Arte del Barefoot", 
-      views: "560K", 
-      img: "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=400&q=80",
-      link: "https://www.instagram.com/bieneqmty/reels/"
+      title: "Las caballerizas y sus efectos", 
+      views: "10K", 
+      img: "/images/reels/reel-caballeriza.jpg",
+      link: "https://www.instagram.com/reel/DOXoCJhDhBF/"
     },
   ];
 
@@ -76,7 +76,7 @@ export function FounderProfile() {
           >
             <div className="relative w-24 h-24 rounded-full border border-white/20 p-1.5 overflow-visible">
               <div className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-bieneq-green to-transparent opacity-50 animate-pulse" />
-              <div className="w-full h-full rounded-full bg-bieneq-cafe/20 bg-[url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80')] bg-cover bg-center grayscale mix-blend-luminosity border border-white/10" />
+              <div className="w-full h-full rounded-full bg-bieneq-cafe/20 bg-[url('/images/founder/profile.jpg')] bg-cover bg-center border border-white/10" />
             </div>
             <div>
               <div className="text-3xl font-heading font-bold text-white tracking-tight flex flex-col">
