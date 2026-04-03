@@ -2,177 +2,208 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Video, Calendar as CalendarIcon, CheckCircle2 } from "lucide-react";
+import { MapPin, Video, Calendar as CalendarIcon, CheckCircle2, ChevronRight, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { OutlineText } from "@/components/ui/outline-text";
+import { GradientText } from "@/components/ui/gradient-text";
 
 export default function CitasPage() {
   const [selectedMode, setSelectedMode] = useState<"presencial" | "online" | null>(null);
 
   const steps = [
-    { id: 1, title: "Selecciona Modalidad" },
-    { id: 2, title: "Elige Fecha" },
+    { id: 1, title: "Modalidad" },
+    { id: 2, title: "Fecha y Hora" },
     { id: 3, title: "Confirmación" }
   ];
 
   return (
-    <main className="min-h-screen pt-32 pb-24 px-6 flex flex-col items-center bg-[#050505]">
-      <div className="text-center mb-16 relative z-10 w-full max-w-2xl">
+    <main className="min-h-screen bg-[#030303] text-white pt-32 pb-24 relative overflow-hidden">
+      {/* Background Ambience */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none -z-10">
+        <div className="absolute top-[10%] left-[10%] w-72 h-72 bg-bieneq-green/5 blur-[100px] rounded-full" />
+        <div className="absolute bottom-[20%] right-[10%] w-96 h-96 bg-bieneq-cafe/5 blur-[120px] rounded-full" />
+      </div>
+
+      {/* Hero Header */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          className="max-w-3xl"
         >
-          <span className="text-bieneq-green font-semibold tracking-wider uppercase text-sm mb-4 block">Agenda Inteligente</span>
-          <h1 className="text-4xl md:text-6xl font-heading font-semibold text-white mb-6 tracking-tight">
-            Prioriza la salud de tu caballo.
+          <span className="text-bieneq-green font-bold text-[10px] tracking-[0.4em] uppercase mb-6 block">
+            Exclusive Booking
+          </span>
+          <h1 className="text-5xl md:text-8xl font-heading font-bold leading-[0.9] tracking-tighter mb-8">
+            Agenda tu <br />
+            <OutlineText text="Consulta." strokeColor="rgba(255,255,255,0.2)" className="text-white" />
           </h1>
-          <p className="text-white/60 text-lg md:text-xl font-light">
-            Reserva una consulta presencial en Monterrey o una evaluación remota de radiografías desde cualquier parte del mundo.
+          <p className="text-xl text-white/40 font-light leading-relaxed">
+            Prioriza el rendimiento de tu caballo con una evaluación biomecánica de clase mundial.
           </p>
         </motion.div>
       </div>
 
-      <div className="w-full max-w-5xl flex flex-col gap-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-12 gap-16 items-start">
+          
+          {/* Left Column: Selection & Info */}
+          <div className="lg:col-span-12">
+            
+            {/* Steps Progress */}
+            <div className="flex justify-start gap-12 mb-12 border-b border-white/5 pb-8 overflow-x-auto scrollbar-hide">
+              {steps.map((step) => (
+                <div key={step.id} className="flex items-center gap-4 shrink-0">
+                  <div className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs border transition-all duration-500",
+                    selectedMode && step.id === 1 ? "bg-bieneq-green border-bieneq-green text-black" :
+                    step.id === 2 && selectedMode ? "border-white text-white" : "border-white/10 text-white/30"
+                  )}>
+                    {selectedMode && step.id === 1 ? <CheckCircle2 className="w-5 h-5" /> : step.id}
+                  </div>
+                  <span className={cn(
+                    "text-xs font-bold uppercase tracking-widest",
+                    selectedMode && step.id === 1 ? "text-bieneq-green" :
+                    step.id === 2 && selectedMode ? "text-white" : "text-white/30"
+                  )}>
+                    {step.title}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-        {/* Progress Steps */}
-        <div className="flex justify-center items-center gap-4 mb-4">
-          {steps.map((step) => (
-            <div key={step.id} className="flex items-center gap-4">
-              <div className={cn(
-                "w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors",
-                selectedMode && step.id === 1 ? "bg-bieneq-green text-black" :
-                  step.id === 2 && selectedMode ? "bg-white text-black" : "bg-white/10 text-white/50"
-              )}>
-                {selectedMode && step.id === 1 ? <CheckCircle2 className="w-5 h-5" /> : step.id}
-              </div>
-              <span className={cn(
-                "hidden sm:block text-sm font-medium",
-                selectedMode && step.id === 1 ? "text-bieneq-green" :
-                  step.id === 2 && selectedMode ? "text-white" : "text-white/50"
-              )}>
-                {step.title}
-              </span>
-              {step.id !== 3 && <div className="w-8 h-0.5 bg-white/10" />}
-            </div>
-          ))}
-        </div>
+            {/* Selection Grid */}
+            <div className="grid md:grid-cols-2 gap-8 mb-16">
+              {/* Presencial */}
+              <motion.div
+                whileHover={{ y: -5 }}
+                onClick={() => setSelectedMode("presencial")}
+                className={cn(
+                  "relative p-10 rounded-[2.5rem] border cursor-pointer transition-all duration-500 group",
+                  selectedMode === "presencial" 
+                  ? "bg-bieneq-green/5 border-bieneq-green shadow-[0_0_50px_rgba(34,197,94,0.1)]" 
+                  : "bg-white/5 border-white/10 hover:border-white/20"
+                )}
+              >
+                <div className={cn(
+                  "w-16 h-16 rounded-2xl flex items-center justify-center mb-8 transition-colors",
+                  selectedMode === "presencial" ? "bg-bieneq-green text-black" : "bg-white/5 text-white/40"
+                )}>
+                  <MapPin className="w-8 h-8" />
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-4">Clínica Presencial</h3>
+                <p className="text-white/40 mb-8 leading-relaxed">
+                  Evaluación física completa en Monterrey. Análisis de aplomos, recorte correctivo y plan de rehabilitación.
+                </p>
+                <div className="flex items-end justify-between uppercase">
+                  <span className="text-[10px] font-bold tracking-widest text-white/30">Inversión</span>
+                  <span className="text-2xl font-bold text-white tracking-tighter">$2,500 <span className="text-xs text-white/40">MXN</span></span>
+                </div>
+                
+                {selectedMode === "presencial" && (
+                  <motion.div layoutId="active-indicator" className="absolute top-6 right-6 w-3 h-3 rounded-full bg-bieneq-green animate-pulse" />
+                )}
+              </motion.div>
 
-        {/* Modalidad Selection */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setSelectedMode("presencial")}
-            className={cn(
-              "cursor-pointer p-8 rounded-3xl border transition-all duration-300 flex flex-col items-center text-center gap-6",
-              selectedMode === "presencial"
-                ? "bg-bieneq-green/10 border-bieneq-green shadow-[0_0_30px_rgba(34,197,94,0.15)]"
-                : "bg-white/5 border-white/10 hover:border-white/30"
-            )}
-          >
-            <div className={cn(
-              "w-20 h-20 rounded-full flex items-center justify-center transition-colors",
-              selectedMode === "presencial" ? "bg-bieneq-green text-black" : "bg-white/10 text-white"
-            )}>
-              <MapPin className="w-10 h-10" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-2">Consulta Presencial</h3>
-              <p className="text-white/60">Monterrey y área metropolitana. Evaluación clínica completa, recorte y plan de transición.</p>
-            </div>
-            <div className="mt-auto pt-4">
-              <span className="text-lg font-semibold text-white">$2,500 MXN</span>
-            </div>
-          </motion.div>
+              {/* Online */}
+              <motion.div
+                whileHover={{ y: -5 }}
+                onClick={() => setSelectedMode("online")}
+                className={cn(
+                  "relative p-10 rounded-[2.5rem] border cursor-pointer transition-all duration-500 group",
+                  selectedMode === "online" 
+                  ? "bg-bieneq-yellow/5 border-bieneq-yellow shadow-[0_0_50px_rgba(234,179,8,0.1)]" 
+                  : "bg-white/5 border-white/10 hover:border-white/20"
+                )}
+              >
+                <div className={cn(
+                  "w-16 h-16 rounded-2xl flex items-center justify-center mb-8 transition-colors",
+                  selectedMode === "online" ? "bg-bieneq-yellow text-black" : "bg-white/5 text-white/40"
+                )}>
+                  <Video className="w-8 h-8" />
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-4">Evaluación Digital</h3>
+                <p className="text-white/40 mb-8 leading-relaxed">
+                  Asesoría remota vía videollamada HD. Revisión de radiografías y videos de movimiento desde cualquier lugar.
+                </p>
+                <div className="flex items-end justify-between uppercase">
+                  <span className="text-[10px] font-bold tracking-widest text-white/30">Inversión</span>
+                  <span className="text-2xl font-bold text-white tracking-tighter">$1,500 <span className="text-xs text-white/40">MXN</span></span>
+                </div>
 
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => setSelectedMode("online")}
-            className={cn(
-              "cursor-pointer p-8 rounded-3xl border transition-all duration-300 flex flex-col items-center text-center gap-6",
-              selectedMode === "online"
-                ? "bg-bieneq-yellow/10 border-bieneq-yellow shadow-[0_0_30px_rgba(234,179,8,0.15)]"
-                : "bg-white/5 border-white/10 hover:border-white/30"
-            )}
-          >
-            <div className={cn(
-              "w-20 h-20 rounded-full flex items-center justify-center transition-colors",
-              selectedMode === "online" ? "bg-bieneq-yellow text-black" : "bg-white/10 text-white"
-            )}>
-              <Video className="w-10 h-10" />
+                {selectedMode === "online" && (
+                  <motion.div layoutId="active-indicator" className="absolute top-6 right-6 w-3 h-3 rounded-full bg-bieneq-yellow animate-pulse" />
+                )}
+              </motion.div>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-2">Asesoría Remota</h3>
-              <p className="text-white/60">Análisis detallado de radiografías, fotos del casco y videollamada de 60 minutos.</p>
-            </div>
-            <div className="mt-auto pt-4">
-              <span className="text-lg font-semibold text-white">$1,500 MXN</span>
-            </div>
-          </motion.div>
-        </div>
 
-        {/* Calendar UI Mockup */}
-        <AnimatePresence>
-          {selectedMode && (
-            <motion.div
-              initial={{ opacity: 0, y: 20, height: 0 }}
-              animate={{ opacity: 1, y: 0, height: "auto" }}
-              exit={{ opacity: 0, y: -20, height: 0 }}
-              className="w-full bg-white/5 border border-white/10 rounded-3xl p-8 overflow-hidden"
-            >
-              <div className="flex flex-col md:flex-row gap-8">
-                {/* Mock Calendar */}
-                <div className="flex-1 space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-xl font-semibold text-white flex items-center gap-2">
-                      <CalendarIcon className="w-5 h-5 text-bieneq-green" /> Elige un día
-                    </h4>
-                    <div className="flex gap-2">
-                      <button className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white">&lt;</button>
-                      <button className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white">&gt;</button>
+            {/* Interactive Scheduler Container */}
+            <AnimatePresence>
+              {selectedMode && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  className="w-full bg-[#080808] border border-white/10 rounded-[3rem] p-8 md:p-16 mb-20"
+                >
+                  <div className="grid lg:grid-cols-2 gap-16">
+                    {/* Calendar Section */}
+                    <div>
+                      <div className="flex items-center justify-between mb-10">
+                        <h4 className="text-2xl font-bold text-white flex items-center gap-3">
+                          <CalendarIcon className="w-6 h-6 text-bieneq-green" /> Elige fecha
+                        </h4>
+                        <span className="text-xs font-bold text-white/30 uppercase tracking-[0.2em]">Octubre 2026</span>
+                      </div>
+                      
+                      <div className="grid grid-cols-7 gap-1 md:gap-4 text-center">
+                        {['L', 'M', 'X', 'J', 'V', 'S', 'D'].map(d => (
+                          <div key={d} className="text-[10px] font-bold text-white/20 uppercase pb-4">{d}</div>
+                        ))}
+                        {Array.from({ length: 30 }).map((_, i) => (
+                          <button key={i} className={cn(
+                            "aspect-square rounded-2xl flex items-center justify-center text-sm font-bold transition-all border border-transparent",
+                            i === 14 ? "bg-white text-black" : "text-white/40 hover:bg-white/5 hover:text-white hover:border-white/10",
+                            (i < 5 || i === 20) ? "opacity-10 pointer-events-none" : ""
+                          )}>
+                            {i + 1}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Time & Confirmation */}
+                    <div className="flex flex-col">
+                      <h4 className="text-2xl font-bold text-white mb-10">Horarios Disponibles</h4>
+                      <div className="grid grid-cols-2 gap-4 mb-12">
+                        {["09:00", "11:30", "14:00", "16:30"].map((time, i) => (
+                          <button key={time} className={cn(
+                            "py-4 rounded-2xl border font-bold text-sm transition-all",
+                            i === 1 ? "bg-bieneq-green border-bieneq-green text-black" : "bg-white/5 border-white/10 text-white/40 hover:border-white/20"
+                          )}>
+                            {time} <span className="text-[10px] opacity-60">AM</span>
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="mt-auto bg-white/5 rounded-3xl p-6 border border-white/5 flex items-start gap-4 mb-8">
+                        <Info className="w-5 h-5 text-bieneq-green mt-1 shrink-0" />
+                        <p className="text-xs text-white/40 leading-relaxed">
+                          Al confirmar, recibirás un correo con las instrucciones de preparación de radiografías o ubicación del establo.
+                        </p>
+                      </div>
+
+                      <button className="w-full py-6 bg-white text-black font-bold uppercase tracking-[0.3em] rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_20px_50px_rgba(255,255,255,0.1)]">
+                        Confirmar Cita
+                      </button>
                     </div>
                   </div>
-                  <div className="grid grid-cols-7 gap-2 text-center text-sm font-medium">
-                    {['L', 'M', 'X', 'J', 'V', 'S', 'D'].map(d => <div key={d} className="text-white/40 pb-2">{d}</div>)}
-                    {Array.from({ length: 30 }).map((_, i) => (
-                      <div key={i} className={cn(
-                        "aspect-square flex items-center justify-center rounded-full cursor-pointer hover:bg-white/10 transition-colors",
-                        i === 14 ? "bg-bieneq-green text-black hover:bg-bieneq-green" : "text-white",
-                        (i < 5 || i === 12 || i === 20) ? "opacity-20 pointer-events-none" : ""
-                      )}>
-                        {i + 1}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-                {/* Vertical Divider */}
-                <div className="hidden md:block w-px bg-white/10" />
-
-                {/* Mock Time Slots */}
-                <div className="w-full md:w-64 space-y-6">
-                  <h4 className="text-xl font-semibold text-white">Horas disponibles</h4>
-                  <p className="text-sm text-white/50">Octubre 15, 2026</p>
-                  <div className="flex flex-col gap-3">
-                    {["09:00 AM", "11:30 AM", "02:00 PM", "04:30 PM"].map((t, i) => (
-                      <button key={i} className={cn(
-                        "w-full py-3 rounded-xl border transition-all text-sm font-medium",
-                        i === 1 ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.2)]" : "bg-transparent border-white/20 text-white hover:border-white/50"
-                      )}>
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                  <button className="w-full mt-8 py-4 bg-bieneq-green text-black rounded-xl font-bold uppercase tracking-wider hover:bg-[#1ea852] transition-colors">
-                    Continuar
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
+          </div>
+        </div>
       </div>
     </main>
   );
