@@ -2,7 +2,8 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { TextReveal } from "@/components/ui/text-reveal";
+import { GradientText } from "@/components/ui/gradient-text";
+import { KineticHeading } from "@/components/ui/kinetic-word";
 
 export function WellnessPhilosophy() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,18 +21,26 @@ export function WellnessPhilosophy() {
         
         {/* Left Side: Typography */}
         <motion.div style={{ opacity: opacityFade }} className="w-full md:w-1/2">
-          <h2 className="text-sm font-semibold text-bieneq-green tracking-widest uppercase mb-6">
+          <h2 className="text-sm font-semibold text-bieneq-green tracking-widest uppercase mb-6 font-mono">
             La Filosofía Bieneq
           </h2>
-          <h3 className="text-4xl md:text-5xl lg:text-7xl font-heading font-semibold text-white leading-[1.1] mb-8">
-            <TextReveal text="No es quitar herraduras. Es devolver la naturaleza." />
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-heading font-semibold text-white leading-[1.1] mb-8">
+            <KineticHeading text="No es quitar herraduras." className="text-white mb-1" />
+            <span className="block mt-2">
+              Es devolver la{" "}
+              <GradientText variant="green" className="font-heading font-semibold text-4xl md:text-5xl lg:text-6xl">
+                naturaleza.
+              </GradientText>
+            </span>
           </h3>
-          <p className="text-lg md:text-xl text-white/60 font-light max-w-lg mb-8">
-            El sistema <i>barefoot</i> y la podología equina moderna no se tratan de una moda. Se trata de biomecánica perfecta probada por millones de años de evolución.
+          <p className="text-lg md:text-xl text-white/60 font-light max-w-lg mb-8 leading-relaxed">
+            El sistema <span className="italic text-white/80">barefoot</span> y la podología equina moderna no se tratan de una moda. Se trata de{" "}
+            <span className="text-bieneq-green font-medium">biomecánica perfecta</span> probada por millones de años de evolución.
           </p>
           <div className="w-16 h-1 bg-bieneq-cafe mb-8" />
           <p className="text-lg text-white/50 leading-relaxed font-light">
-            En BieneqMty, vemos el casco como el segundo corazón del caballo. Rehabilitar problemas crónicos, expandir la fuerza estructural y educar al propietario es nuestro estándar de excelencia diaria.
+            En BieneqMty, vemos el casco como el{" "}
+            <span className="text-bieneq-yellow/80 italic">segundo corazón del caballo</span>. Rehabilitar problemas crónicos, expandir la fuerza estructural y educar al propietario es nuestro estándar de excelencia diaria.
           </p>
         </motion.div>
 
