@@ -6,6 +6,7 @@ import { useState } from "react";
 import { OutlineText } from "@/components/ui/outline-text";
 import { GradientText } from "@/components/ui/gradient-text";
 import { cn } from "@/lib/utils";
+import { ClinicHighlights } from "@/components/sections/clinic-highlights";
 
 const categories = ["Todos", "Barefoot", "Biomecánica", "Rehabilitación", "Herramientas"];
 
@@ -235,6 +236,9 @@ export default function AcademiaPage() {
             ))}
         </motion.div>
       </div>
+
+      {/* Clinic Highlights Section */}
+      <ClinicHighlights />
     </main>
   );
 }

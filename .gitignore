@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+public/content/clinics/clinica-01/videos/*.mp4
+
+public/content/clinics/clinica-01/highlights/*.mp4
