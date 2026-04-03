@@ -26,12 +26,12 @@ const hoofCases = [
 ];
 
 const clinics = [
-  { id: 1, img: "https://images.unsplash.com/photo-1535083783855-aabecc5e67db?w=800&q=80", title: "Clínica Teórica — NL", size: "tall" },
-  { id: 2, img: "https://images.unsplash.com/photo-1506795660198-e95c77602129?w=800&q=80", title: "Certificación Pro", size: "small" },
-  { id: 3, img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&q=80", title: "Taller de Forja", size: "wide" },
-  { id: 4, img: "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=800&q=80", title: "Manejo Etológico", size: "small" },
-  { id: 5, img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80", title: "Biomecánica de Campo", size: "tall" },
-  { id: 6, img: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=800&q=80", title: "Clínica Internacional", size: "small" },
+  { id: 1, img: "/content/clinics/clinica-01/gallery/gallery-1.png", title: "Certificación 2023 — NL", size: "tall" },
+  { id: 2, img: "/content/clinics/clinica-01/gallery/gallery-2.png", title: "Teoría Barefoot", size: "small" },
+  { id: 3, img: "/content/clinics/clinica-01/gallery/gallery-3.png", title: "Primeros Resultados", size: "wide" },
+  { id: 4, img: "/content/clinics/clinica-01/gallery/gallery-4.png", title: "Evaluación Clínica", size: "small" },
+  { id: 5, img: "/content/clinics/clinica-01/gallery/gallery-5.png", title: "Práctica de Campo", size: "tall" },
+  { id: 6, img: "/content/clinics/clinica-01/gallery/gallery-6.png", title: "Clínica 01 - Octubre", size: "small" },
 ];
 
 const tabs = [

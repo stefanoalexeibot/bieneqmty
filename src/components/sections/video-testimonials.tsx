@@ -9,39 +9,39 @@ import { OutlineText } from "@/components/ui/outline-text";
 const testimonials = [
   {
     id: 1,
-    name: "Daniela Morales",
-    location: "San Pedro Garza García, NL",
-    result: "Mi yegua Canela dejó de cojear en 6 semanas. El cambio fue radical.",
-    videoUrl: "#", // Placeholder
-    img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&q=80",
-    tags: ["Rehabilitación", "Casco Crónico"]
+    name: "Alonso Alvarez",
+    location: "Apaseo el Grande, GTO",
+    result: "Certificado en Clínica de Barefoot 01. La técnica cambió mi perspectiva del bienestar equino.",
+    videoUrl: "/content/clinics/clinica-01/videos/alonso-alvarez.mp4",
+    img: "/content/clinics/clinica-01/certificates/alonso-alvarez.png",
+    tags: ["Certificación", "Barefoot 01"]
   },
   {
     id: 2,
-    name: "Rodrigo Elizondo",
-    location: "Saltillo, Coahuila",
-    result: "Laminitis crónica resuelta. Increíble la diferencia en su calidad de vida.",
-    videoUrl: "#",
-    img: "https://images.unsplash.com/photo-1506795660198-e95c77602129?w=600&q=80",
-    tags: ["Laminitis", "Barefoot"]
+    name: "Antonio Rodriguez",
+    location: "Querétaro, MX",
+    result: "Una experiencia transformadora. Antonio comparte su testimonio tras completar el curso intensivo.",
+    videoUrl: "/content/clinics/clinica-01/videos/antonio-rodriguez.mp4",
+    img: "/content/clinics/clinica-01/certificates/antonio-rodriguez.png",
+    tags: ["Academia", "Clínica 2023"]
   },
   {
     id: 3,
-    name: "Ana Sofía Treviño",
-    location: "Monterrey, NL",
-    result: "Las herramientas son de otro nivel. Mi trabajo mejoró un 100% en precisión.",
-    videoUrl: "#",
-    img: "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=600&q=80",
-    tags: ["Herramientas de Élite", "Academy"]
+    name: "Dante Torres",
+    location: "Toluca, EdoMex",
+    result: "El nivel técnico de BieneqMty es superior. Recomendado para todo profesional del caballo.",
+    videoUrl: "/content/clinics/clinica-01/videos/dante-torres.mp4",
+    img: "/content/clinics/clinica-01/certificates/dante-torres.png",
+    tags: ["Profesional", "Barefoot"]
   },
   {
     id: 4,
-    name: "Francisco Garza",
-    location: "Linares, NL",
-    result: "Llevé a mi caballo al barefoot y la transición fue perfecta gracias a Bieneq.",
-    videoUrl: "#",
-    img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80",
-    tags: ["Transición", "Bienestar"]
+    name: "MVZ Ivan Huerta",
+    location: "Puebla, MX",
+    result: "Como médico veterinario, la evidencia clínica de estos certificados es indispensable.",
+    videoUrl: "/content/clinics/clinica-01/videos/ivan-huerta.mp4",
+    img: "/content/clinics/clinica-01/certificates/ivan-huerta.png",
+    tags: ["Veterinaria", "Certificación"]
   }
 ];
 
@@ -199,14 +199,15 @@ export function VideoTestimonials() {
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="w-full h-full flex flex-col items-center justify-center text-center p-12">
-                <Play className="w-20 h-20 text-bieneq-green mb-8 opacity-20 animate-pulse" />
-                <h4 className="text-3xl font-heading font-bold text-white mb-4">Reproduciendo Testimonio...</h4>
-                <p className="text-white/40 max-w-md">
-                  Aquí se cargará el video de {testimonials.find(t => t.id === activeId)?.name} una vez que compartas los links.
-                </p>
-                
-                {/* Integration point for real video player (YouTube/Vimeo/Direct) */}
+              <div className="w-full h-full bg-black">
+                {selectedVideo && (
+                  <video 
+                    src={selectedVideo} 
+                    controls 
+                    autoPlay 
+                    className="w-full h-full object-contain"
+                  />
+                )}
               </div>
             </motion.div>
           </motion.div>
