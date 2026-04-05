@@ -39,11 +39,11 @@ export function Navbar() {
         {/* LOGO */}
         <Magnetic strength={0.1}>
           <Link href="/" className="relative z-50 flex items-center gap-2 group block">
-            <div className="h-10 flex items-center">
+            <div className="h-16 md:h-20 flex items-center justify-center -ml-2">
               <img 
                 src="/images/logo.png" 
                 alt="BieneqMty Logo" 
-                className="h-full w-auto object-contain transition-transform group-hover:scale-105"
+                className="h-[140%] md:h-[160%] w-auto object-contain transition-transform group-hover:scale-105"
               />
             </div>
           </Link>
