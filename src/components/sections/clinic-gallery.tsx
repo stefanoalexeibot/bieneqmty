@@ -5,28 +5,38 @@ import { OutlineText } from "@/components/ui/outline-text";
 
 const galleryImages = [
   {
-    src: "/images/clinics/clinica-01-hd/01.png",
-    alt: "Detalle de herraje y conformación",
+    src: "/images/home/wellness/IPPELP - CLINICA TAMPICO 02.jpg",
+    alt: "Práctica clínica en Tampico",
     className: "col-span-1 md:col-span-2 row-span-2",
   },
   {
-    src: "/images/clinics/clinica-01-hd/02.png",
-    alt: "Participantes de la clínica interactuando",
+    src: "/images/home/wellness/IPPELP - CLINICA TAMPICO 03.jpg",
+    alt: "Detalle de trabajo en casco",
     className: "col-span-1 row-span-1",
   },
   {
-    src: "/images/clinics/clinica-01-hd/03.png",
-    alt: "Explicación teórica y práctica",
+    src: "/images/home/wellness/IPPELP - 002.jpg",
+    alt: "Recorte preventivo y correctivo",
     className: "col-span-1 row-span-1",
   },
   {
-    src: "/images/clinics/clinica-01-hd/04.png",
-    alt: "Evaluación de casco en pista",
+    src: "/images/home/wellness/IPPELP - 003.jpg",
+    alt: "Análisis de la pisada",
     className: "col-span-1 row-span-2 md:col-span-2",
   },
   {
-    src: "/images/clinics/clinica-01-hd/05.png",
-    alt: "Grupo de asistentes en sesión clínica",
+    src: "/images/home/wellness/IPPELP - 004.jpg",
+    alt: "Conformación del casco saludable",
+    className: "col-span-1 row-span-1",
+  },
+  {
+    src: "/images/home/wellness/IPPELP - 005.jpg",
+    alt: "Evaluación biomecánica",
+    className: "col-span-1 row-span-1",
+  },
+  {
+    src: "/images/home/wellness/IPPELP - 006.jpg",
+    alt: "Resultados finales del recorte",
     className: "col-span-1 row-span-1",
   },
 ];

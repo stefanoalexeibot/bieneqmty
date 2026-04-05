@@ -8,6 +8,9 @@ import { StatsSection } from "@/components/sections/stats";
 import { BentoGrid } from "@/components/sections/bento-grid";
 import { FounderProfile } from "@/components/sections/founder-profile";
 import { VideoTestimonials } from "@/components/sections/video-testimonials";
+import { ClinicVisitor } from "@/components/sections/clinic-visitor";
+import { ClinicHighlights } from "@/components/sections/clinic-highlights";
+import { ClinicHDGallery } from "@/components/sections/clinic-gallery";
 
 export const metadata: Metadata = {
   title: "BieneqMty | Bienestar Equino Ultra-Premium en Monterrey",
@@ -28,7 +31,10 @@ export default function Home() {
       <StatsSection />
       <WellnessPhilosophy />
       <BarefootResults />
+      <ClinicVisitor />
       <ClinicsFocus />
+      <ClinicHighlights />
+      <ClinicHDGallery />
       <BentoGrid />
       <FounderProfile />
       <VideoTestimonials />

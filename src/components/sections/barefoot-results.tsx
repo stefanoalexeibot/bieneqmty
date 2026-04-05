@@ -56,8 +56,8 @@ export function BarefootResults() {
               className="relative z-10"
             >
               <ComparisonSlider 
-                beforeImage="https://images.unsplash.com/photo-1598974357801-cbca100e65d3?q=80&w=1000" // Placeholder Case Study
-                afterImage="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?q=80&w=1000" // Placeholder Healthy Hoof
+                beforeImage="/images/home/wellness/IPPELP - ANTES.jpg"
+                afterImage="/images/home/wellness/IPPELP - DESPUES.jpg"
                 beforeLabel="Casco Contraído"
                 afterLabel="Barefoot Saludable"
                 className="shadow-[0_40px_80px_rgba(0,0,0,0.5)] border-white/5"
