@@ -99,7 +99,7 @@ export default function ClinicasPage() {
             <Calendar className="w-8 h-8 text-bieneq-green mb-6" />
             <h5 className="text-xl font-bold text-white mb-3">Formación Continua</h5>
             <p className="text-white/40 leading-relaxed">
-              3 días de inmersión total combinando anatomía aplicada y disecciones con práctica real en pista.
+              2 días de inmersión total combinando anatomía aplicada y disecciones con práctica real en pista.
             </p>
           </motion.div>
           
@@ -142,7 +142,7 @@ export default function ClinicasPage() {
           viewport={{ once: true }}
           className="relative rounded-[3rem] overflow-hidden p-12 md:p-24 text-center border border-white/10 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-xl"
         >
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-10 grayscale mix-blend-overlay" />
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/clinics/clinica-01-hd/01.png')] bg-cover bg-center opacity-10 grayscale mix-blend-overlay" />
           
           <div className="relative z-10">
             <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-8">¿Listo para la próxima?</h2>

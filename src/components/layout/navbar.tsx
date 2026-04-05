@@ -39,12 +39,13 @@ export function Navbar() {
         {/* LOGO */}
         <Magnetic strength={0.1}>
           <Link href="/" className="relative z-50 flex items-center gap-2 group block">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-bieneq-green to-bieneq-yellow flex items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.3)]">
-              <span className="text-black font-bold text-lg font-heading leading-none">B</span>
+            <div className="h-10 flex items-center">
+              <img 
+                src="/images/logo.png" 
+                alt="BieneqMty Logo" 
+                className="h-full w-auto object-contain transition-transform group-hover:scale-105"
+              />
             </div>
-            <span className="text-xl font-semibold tracking-tight text-white group-hover:text-white/80 transition-colors">
-              BieneqMty
-            </span>
           </Link>
         </Magnetic>
 
