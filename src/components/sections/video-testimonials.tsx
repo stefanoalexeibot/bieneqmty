@@ -6,7 +6,7 @@ import { Play, X, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils";
 import { OutlineText } from "@/components/ui/outline-text";
 
-// YouTube video IDs — thumbnails are fetched directly from YouTube CDN
+// Testimonials — certificate photos from Clinica Barefoot 01
 const testimonials = [
   {
     id: 1,
@@ -14,14 +14,16 @@ const testimonials = [
     location: "Apaseo el Grande, GTO",
     result: "Certificado en Clínica de Barefoot 01. La técnica cambió mi perspectiva del bienestar equino.",
     videoId: "ClsvEWI-3CI",
+    img: "/images/testimonials/alonso-alvarez.png",
     tags: ["Certificación", "Barefoot 01"]
   },
   {
     id: 2,
     name: "Antonio Rodriguez",
-    location: "Querétaro, MX",
+    location: "Parras, Coahuila",
     result: "Una experiencia transformadora. Antonio comparte su testimonio tras completar el curso intensivo.",
     videoId: "QUaaMzjiRB4",
+    img: "/images/testimonials/antonio-rodriguez.png",
     tags: ["Academia", "Clínica 2023"]
   },
   {
@@ -30,6 +32,7 @@ const testimonials = [
     location: "Toluca, EdoMex",
     result: "El nivel técnico de BieneqMty es superior. Recomendado para todo profesional del caballo.",
     videoId: "rM0tBunVGdc",
+    img: "/images/testimonials/dante-torres.png",
     tags: ["Profesional", "Barefoot"]
   },
   {
@@ -38,6 +41,7 @@ const testimonials = [
     location: "Puebla, MX",
     result: "Como médico veterinario, la evidencia clínica de estos certificados es indispensable.",
     videoId: "vI-gKEhcdL8",
+    img: "/images/testimonials/ivan-huerta.png",
     tags: ["Veterinaria", "Certificación"]
   }
 ];
@@ -157,12 +161,12 @@ export function VideoTestimonials() {
                     </p>
 
                     <div className="flex items-center gap-4 border-t border-white/5 pt-8">
-                      {/* Avatar: YouTube thumbnail so we always see the real person */}
+                      {/* Avatar: real certificate photo */}
                       <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-bieneq-green/30 shrink-0">
                         <img
-                          src={`https://img.youtube.com/vi/${t.videoId}/mqdefault.jpg`}
+                          src={t.img}
                           alt={t.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover object-top"
                         />
                       </div>
                       <div>
@@ -222,11 +226,11 @@ export function VideoTestimonials() {
                       activeId === t.id ? "border-bieneq-green" : "border-white/10"
                     )}
                   >
-                    {/* YouTube thumbnail as card background — shows the real person */}
+                    {/* Real certificate ceremony photo */}
                     <img
-                      src={`https://img.youtube.com/vi/${t.videoId}/maxresdefault.jpg`}
+                      src={t.img}
                       alt={t.name}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                       draggable={false}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
