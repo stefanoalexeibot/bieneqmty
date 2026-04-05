@@ -56,8 +56,8 @@ export function BarefootResults() {
               className="relative z-10"
             >
               <ComparisonSlider 
-                beforeImage="/images/home/wellness/IPPELP - ANTES.jpg"
-                afterImage="/images/home/wellness/IPPELP - DESPUES.jpg"
+                beforeImage="/images/home/wellness/antes.jpg"
+                afterImage="/images/home/wellness/despues.jpg"
                 beforeLabel="Casco Contraído"
                 afterLabel="Barefoot Saludable"
                 className="shadow-[0_40px_80px_rgba(0,0,0,0.5)] border-white/5"

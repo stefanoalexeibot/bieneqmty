@@ -31,14 +31,10 @@ export default function Home() {
       <StatsSection />
       <WellnessPhilosophy />
       <BarefootResults />
-      <ClinicVisitor />
       <ClinicsFocus />
-      <ClinicHighlights />
-      <ClinicHDGallery />
       <BentoGrid />
       <FounderProfile />
       <VideoTestimonials />
     </main>
   );
 }
-

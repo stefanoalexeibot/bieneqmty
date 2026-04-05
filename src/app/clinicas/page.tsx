@@ -6,6 +6,8 @@ import { useState } from "react";
 import { OutlineText } from "@/components/ui/outline-text";
 import { Magnetic } from "@/components/ui/magnetic";
 import { ClinicHDGallery } from "@/components/sections/clinic-gallery";
+import { ClinicVisitor } from "@/components/sections/clinic-visitor";
+import { ClinicTampicoGallery } from "@/components/sections/clinic-tampico-gallery";
 import Link from "next/link";
 
 export default function ClinicasPage() {
@@ -87,6 +89,22 @@ export default function ClinicasPage() {
             />
           )}
         </motion.div>
+
+        {/* HD Gallery Bento - Clinica 01 */}
+        <div className="mb-20">
+          <h4 className="text-2xl font-bold text-white mb-8 border-l-4 border-bieneq-green pl-6">Clínica 01 - Memoria Visual</h4>
+          <ClinicHDGallery />
+        </div>
+
+        {/* Tommy Vasques Visit Section */}
+        <div className="mb-20">
+          <ClinicVisitor />
+        </div>
+
+        {/* Clínica 03 Tampico Gallery */}
+        <div className="mb-32">
+          <ClinicTampicoGallery />
+        </div>
 
         {/* Experience Details Bento */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">

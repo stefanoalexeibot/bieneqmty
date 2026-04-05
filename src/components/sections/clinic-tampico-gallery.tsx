@@ -3,35 +3,30 @@
 import { motion } from "framer-motion";
 import { OutlineText } from "@/components/ui/outline-text";
 
-const galleryImages = [
+const tampicoImages = [
   {
-    src: "/images/clinics/clinica-01-hd/01.png",
-    alt: "Práctica clínica — Anatomía palpación",
+    src: "/images/home/wellness/tampico-02.jpg",
+    alt: "Práctica clínica en Tampico - Anatomía palpación",
     className: "col-span-1 md:col-span-2 row-span-2",
   },
   {
-    src: "/images/clinics/clinica-01-hd/02.png",
+    src: "/images/home/wellness/tampico-03.jpg",
     alt: "Instrucción grupal bajo sombra",
     className: "col-span-1 row-span-1",
   },
   {
-    src: "/images/clinics/clinica-01-hd/03.png",
-    alt: "Recorte preventivo y correctivo",
+    src: "/images/home/wellness/tampico-04.jpg",
+    alt: "Evaluación de aplomos y conformación",
     className: "col-span-1 row-span-1",
   },
   {
-    src: "/images/clinics/clinica-01-hd/04.png",
-    alt: "Análisis de la pisada",
+    src: "/images/home/wellness/tampico-05.jpg",
+    alt: "Demostración de recorte fisiológico",
     className: "col-span-1 row-span-2 md:col-span-2",
   },
   {
-    src: "/images/clinics/clinica-01-hd/05.png",
-    alt: "Conformación del casco saludable",
-    className: "col-span-1 row-span-1",
-  },
-  {
-    src: "/images/clinics/clinica-01-hd/06.png",
-    alt: "Evaluación biomecánica",
+    src: "/images/home/wellness/tampico-06.jpg",
+    alt: "Análisis biomecánico en pista",
     className: "col-span-1 row-span-1",
   },
 ];
@@ -53,12 +48,12 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.16, 1, 0.3, 1] as const, // Custom slow ease out
+      ease: [0.16, 1, 0.3, 1] as const,
     },
   },
 };
 
-export function ClinicHDGallery() {
+export function ClinicTampicoGallery() {
   return (
     <section className="py-20 md:py-32 relative z-10">
       <div className="max-w-7xl mx-auto">
@@ -70,14 +65,14 @@ export function ClinicHDGallery() {
             transition={{ duration: 0.8 }}
           >
             <span className="text-bieneq-green font-bold tracking-[0.3em] uppercase text-sm mb-4 block">
-              Testimonio Visual
+              Memoria Clínica 03
             </span>
             <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
-              Capturas en <br className="hidden md:block" />
-              <OutlineText text="Alta Definición." strokeColor="rgba(255,255,255,0.2)" className="text-white" />
+              Sede <br className="hidden md:block" />
+              <OutlineText text="Tampico." strokeColor="rgba(255,255,255,0.2)" className="text-white" />
             </h2>
             <p className="text-white/60 text-lg max-w-2xl mx-auto md:mx-0">
-              Cada momento cuenta. Una selección exclusiva de lo que se vivió en nuestra Clínica 01, documentando la precisión, técnica y la conexión en cada sesión práctica.
+              Capturas exclusivas de nuestra formación en Tampico. Un grupo comprometido con la salud podal y la biomecánica avanzada.
             </p>
           </motion.div>
         </div>
@@ -89,7 +84,7 @@ export function ClinicHDGallery() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-3 auto-rows-[250px] md:auto-rows-[300px] gap-4 md:gap-6"
         >
-          {galleryImages.map((image, index) => (
+          {tampicoImages.map((image, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
@@ -105,7 +100,6 @@ export function ClinicHDGallery() {
                 whileInView={{ scale: 1 }}
                 transition={{ duration: 1.5 }}
               />
-              {/* Optional Glassmorphism overlay for info on hover */}
               <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent blur-sm" />
                 <div className="relative">

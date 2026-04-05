@@ -13,15 +13,15 @@ const highlights = [
     title: "Clínica Barefoot 01",
     subtitle: "Octubre 2023",
     videoUrl: "/content/clinics/clinica-01/highlights/resumen-2023-10.mp4",
-    thumbnail: "/images/home/wellness/IPPELP - 05.jpg", // Real photo for thumb
+    thumbnail: "/images/home/wellness/IPPELP - 05.jpg",
     description: "Una inmersión total en la teoría y práctica del cuidado equino sin herraduras."
   },
   {
     id: "2024-03-tampico",
     title: "Clínica Barefoot 03 - Tampico",
     subtitle: "Marzo 2024",
-    videoUrl: "", // Assuming no video linked yet, or use photo fallback
-    thumbnail: "/images/home/wellness/IPPELP - CLINICA TAMPICO 04.jpg",
+    videoUrl: "",
+    thumbnail: "/images/home/wellness/tampico-04.jpg",
     description: "Expandiendo la filosofía barefoot a Tampico, con un éxito rotundo en la formación teórica y práctica."
   }
 ];

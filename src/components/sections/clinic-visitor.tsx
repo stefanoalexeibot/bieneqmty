@@ -61,7 +61,7 @@ export function ClinicVisitor() {
               {/* Main Image Overlay with Play button */}
               <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
                 <img 
-                  src="/images/home/wellness/TOMMY VASQUES NOS VISITA AL RANCHO .jpg" 
+                  src="/images/clinics/tommy-visita.jpg" 
                   alt="Tommy Vasques y JM Luna en BieneqMty"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
