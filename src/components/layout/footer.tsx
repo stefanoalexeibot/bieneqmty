@@ -42,6 +42,7 @@ export function Footer() {
               <h5 className="text-white/40 font-mono text-sm tracking-widest uppercase mb-2">Ecosistema</h5>
               <Link href="/tienda" className="text-white/70 hover:text-white transition-colors">Tienda Oficial</Link>
               <Link href="/academia" className="text-white/70 hover:text-white transition-colors">Bieneq Academy</Link>
+              <Link href="/clinicas" className="text-white/70 hover:text-white transition-colors">Clínicas</Link>
               <Link href="/citas" className="text-white/70 hover:text-white transition-colors">Consultoría</Link>
             </div>
             <div className="flex flex-col gap-4">

@@ -12,8 +12,8 @@ const testimonials = [
     name: "Alonso Alvarez",
     location: "Apaseo el Grande, GTO",
     result: "Certificado en Clínica de Barefoot 01. La técnica cambió mi perspectiva del bienestar equino.",
-    videoUrl: "/content/clinics/clinica-01/videos/alonso-alvarez.mp4",
-    img: "/content/clinics/clinica-01/certificates/alonso-alvarez.png",
+    videoUrl: "https://www.youtube.com/embed/ClsvEWI-3CI?autoplay=1&rel=0",
+    img: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=800",
     tags: ["Certificación", "Barefoot 01"]
   },
   {
@@ -21,8 +21,8 @@ const testimonials = [
     name: "Antonio Rodriguez",
     location: "Querétaro, MX",
     result: "Una experiencia transformadora. Antonio comparte su testimonio tras completar el curso intensivo.",
-    videoUrl: "/content/clinics/clinica-01/videos/antonio-rodriguez.mp4",
-    img: "/content/clinics/clinica-01/certificates/antonio-rodriguez.png",
+    videoUrl: "https://www.youtube.com/embed/QUaaMzjiRB4?autoplay=1&rel=0",
+    img: "https://images.unsplash.com/photo-1598974357851-98166a9f9b44?auto=format&fit=crop&q=80&w=800",
     tags: ["Academia", "Clínica 2023"]
   },
   {
@@ -30,8 +30,8 @@ const testimonials = [
     name: "Dante Torres",
     location: "Toluca, EdoMex",
     result: "El nivel técnico de BieneqMty es superior. Recomendado para todo profesional del caballo.",
-    videoUrl: "/content/clinics/clinica-01/videos/dante-torres.mp4",
-    img: "/content/clinics/clinica-01/certificates/dante-torres.png",
+    videoUrl: "https://www.youtube.com/embed/rM0tBunVGdc?autoplay=1&rel=0",
+    img: "https://images.unsplash.com/photo-1574689049868-e94ed5301745?auto=format&fit=crop&q=80&w=800",
     tags: ["Profesional", "Barefoot"]
   },
   {
@@ -39,8 +39,8 @@ const testimonials = [
     name: "MVZ Ivan Huerta",
     location: "Puebla, MX",
     result: "Como médico veterinario, la evidencia clínica de estos certificados es indispensable.",
-    videoUrl: "/content/clinics/clinica-01/videos/ivan-huerta.mp4",
-    img: "/content/clinics/clinica-01/certificates/ivan-huerta.png",
+    videoUrl: "https://www.youtube.com/embed/vI-gKEhcdL8?autoplay=1&rel=0",
+    img: "https://images.unsplash.com/photo-1605713288610-00c1c630ca1e?auto=format&fit=crop&q=80&w=800",
     tags: ["Veterinaria", "Certificación"]
   }
 ];
@@ -190,7 +190,7 @@ export function VideoTestimonials() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-5xl aspect-video bg-white/5 rounded-3xl overflow-hidden border border-white/10 z-[101] shadow-2xl"
+              className="relative w-full max-w-4xl aspect-[9/16] md:max-w-md bg-white/5 rounded-3xl overflow-hidden border border-white/10 z-[101] shadow-2xl"
             >
               <button 
                 onClick={() => setIsModalOpen(false)}
@@ -201,11 +201,12 @@ export function VideoTestimonials() {
               
               <div className="w-full h-full bg-black">
                 {selectedVideo && (
-                  <video 
+                  <iframe 
                     src={selectedVideo} 
-                    controls 
-                    autoPlay 
-                    className="w-full h-full object-contain"
+                    className="w-full h-full"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    title="YouTube video player"
                   />
                 )}
               </div>
