@@ -5,6 +5,7 @@ import { Play, Calendar, MapPin, Users, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { OutlineText } from "@/components/ui/outline-text";
 import { Magnetic } from "@/components/ui/magnetic";
+import { ClinicHDGallery } from "@/components/sections/clinic-gallery";
 import Link from "next/link";
 
 export default function ClinicasPage() {
@@ -130,6 +131,9 @@ export default function ClinicasPage() {
             </p>
           </motion.div>
         </div>
+
+        {/* HD Gallery Bento */}
+        <ClinicHDGallery />
 
         {/* CTA Section */}
         <motion.div 
