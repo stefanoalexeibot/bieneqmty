@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Background3D } from "@/components/ui/3d-canvas";

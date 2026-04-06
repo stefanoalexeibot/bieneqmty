@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ShoppingBag, GraduationCap, MapPin, ArrowRight } from "lucide-react";
 import { TiltCard } from "@/components/ui/tilt-card";

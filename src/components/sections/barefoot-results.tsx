@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ComparisonSlider } from "@/components/ui/comparison-slider";
 import { OutlineText } from "@/components/ui/outline-text";
