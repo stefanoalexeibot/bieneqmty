@@ -33,7 +33,7 @@ export function Navbar() {
     <nav
       className={`fixed top-4 inset-x-4 z-50 transition-all duration-700 flex justify-center px-4 py-2 rounded-full border border-white/0 shadow-none ${
         scrolled 
-          ? "bg-black/30 backdrop-blur-2xl border-white/10 py-4 translate-y-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
+          ? "bg-white/[0.03] backdrop-blur-3xl backdrop-saturate-150 border-white/10 border-t-white/20 py-4 translate-y-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
           : "bg-transparent translate-y-[-10px]"
       }`}
     >
@@ -52,7 +52,7 @@ export function Navbar() {
         </Magnetic>
 
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md">
+        <div className="hidden md:flex items-center gap-2 bg-gradient-to-b from-white/[0.08] to-transparent border border-white/10 px-4 py-2 rounded-full backdrop-blur-lg shadow-inner">
           {navLinks.map((link) => {
             const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
             

@@ -23,19 +23,25 @@ export function Footer() {
     >
       <motion.div 
         style={{ y }}
-        className="fixed bottom-0 w-full h-[600px] md:h-[800px] flex flex-col justify-between pt-24 pb-8 px-6 lg:px-12 bg-[#020202]"
+        className="fixed bottom-0 w-full h-[600px] md:h-[800px] flex flex-col justify-between pt-24 pb-8 px-6 lg:px-12 bg-[#050505] overflow-hidden"
       >
+        {/* Ambient Footer Lighting */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-bieneq-green/5 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
         <div className="flex flex-col md:flex-row justify-between gap-12 border-b border-white/10 pb-16">
           <div className="max-w-sm">
-            <h4 className="text-white text-2xl font-semibold mb-6">
-              Empecemos a <ShimmerWord className="text-2xl">trabajar.</ShimmerWord>
+            <h4 className="text-white text-3xl font-heading font-semibold mb-6">
+              Empecemos a <ShimmerWord className="text-3xl">trabajar.</ShimmerWord>
             </h4>
-            <p className="text-white/60 mb-8">
-              Agenda tu consultoría, o mejora drásticamente tus técnicas accediendo a nuestra academia hoy mismo.
+            <p className="text-white/60 mb-8 font-light text-lg">
+              Agenda tu consultoría clínica presencial, o mejora drásticamente tus técnicas accediendo a nuestra academia hoy mismo.
             </p>
             <Magnetic strength={0.3}>
-              <Link href="/citas" className="inline-block px-8 py-4 bg-bieneq-green text-black font-semibold rounded-full hover:bg-bieneq-green/90 transition-colors">
-                Agendar Consultoría
+              <Link href="/citas" className="group inline-flex items-center gap-3 px-8 py-4 bg-bieneq-green text-black font-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(34,197,94,0.15)] relative">
+                <span className="relative z-10">AGENDAR AHORA</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="relative z-10 transition-transform group-hover:translate-x-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
               </Link>
             </Magnetic>
           </div>
@@ -58,8 +64,8 @@ export function Footer() {
         </div>
 
         {/* Massive Text Background */}
-        <div className="mt-auto flex justify-center items-end overflow-hidden pt-8">
-          <h1 className="text-[15vw] md:text-[18vw] font-heading font-bold text-white/5 tracking-tighter leading-none select-none">
+        <div className="mt-auto flex justify-center items-end overflow-hidden pt-8 relative z-10">
+          <h1 className="text-[15vw] md:text-[18vw] font-heading font-black text-white/5 tracking-tighter leading-none select-none">
             BIENEQ<span className="text-bieneq-green/10">MTY</span>
           </h1>
         </div>
