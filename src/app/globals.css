@@ -34,6 +34,16 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Animations */
+  @keyframes border-beam {
+    100% {
+      offset-distance: 100%;
+    }
+  }
+
+  /* Utility classes / Animation presets */
+  --animate-border-beam: border-beam var(--duration) infinite linear;
 }
 
 :root {

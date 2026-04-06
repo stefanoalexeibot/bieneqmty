@@ -1,8 +1,8 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ComparisonSlider } from "@/components/ui/comparison-slider";
 import { OutlineText } from "@/components/ui/outline-text";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { useRef } from "react";
 
 export function BarefootResults() {
   return (
@@ -26,11 +26,11 @@ export function BarefootResults() {
               </h2>
               <h3 className="text-5xl md:text-6xl font-heading font-bold text-white leading-none mb-8">
                 Resultados <br />
-                <OutlineText text="Indiscutibles" strokeColor="rgba(255,255,255,0.2)" className="text-white" />
+                <OutlineText text="Indiscutibles" strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" />
               </h3>
               
-              <p className="text-xl text-white/50 font-light leading-relaxed mb-10">
-                La transición al barefoot no es solo estética; es una reconstrucción funcional de la anatomía del caballo. Observa cómo recuperamos la concavidad, el grosor de la muralla y la salud del candado.
+              <p className="text-xl text-white/50 font-extralight leading-relaxed mb-10 max-w-xl">
+                La transición al barefoot no es solo estética; es una <span className="text-white/80 font-medium italic">reconstrucción funcional</span> de la anatomía del caballo. Observa cómo recuperamos la concavidad, el grosor de la muralla y la salud del candado.
               </p>
 
               <div className="grid grid-cols-2 gap-8">
@@ -47,29 +47,35 @@ export function BarefootResults() {
           </div>
 
           {/* Slider Content */}
-          <div className="w-full lg:w-1/2 relative group">
+          <div className="w-full lg:w-1/2 relative group perspective-1000">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.95, rotateY: -10 }}
+              whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="relative z-10"
             >
-              <ComparisonSlider 
-                beforeImage="/images/home/wellness/antes.jpg"
-                afterImage="/images/home/wellness/despues.jpg"
-                beforeLabel="Antes de recortar"
-                afterLabel="Después de recortar"
-                className="shadow-[0_40px_80px_rgba(0,0,0,0.5)] border-white/5"
-              />
+              <TiltCard intensity={15} className="w-full max-w-2xl mx-auto shadow-[0_50px_100px_-20px_rgba(34,197,94,0.15)] ring-1 ring-white/5 rounded-3xl overflow-hidden">
+                <ComparisonSlider 
+                  beforeImage="/images/home/wellness/antes.jpg"
+                  afterImage="/images/home/wellness/despues.jpg"
+                  beforeLabel="Antes de recortar"
+                  afterLabel="Después de recortar"
+                  className="border-none"
+                />
+              </TiltCard>
               
               {/* Subtle accent glow */}
-              <div className="absolute -inset-4 bg-bieneq-green/5 blur-3xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+              <div className="absolute -inset-10 bg-bieneq-green/10 blur-[120px] -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             </motion.div>
             
-            <p className="text-center text-white/20 text-[10px] uppercase font-bold tracking-[0.4em] mt-8">
-              Desliza para comparar la evolución
-            </p>
+            <motion.p 
+              animate={{ opacity: [0.2, 0.5, 0.2] }}
+              transition={{ repeat: Infinity, duration: 4 }}
+              className="text-center text-white/20 text-[10px] uppercase font-bold tracking-[0.6em] mt-10 select-none"
+            >
+              Interacción 3D Activa
+            </motion.p>
           </div>
 
         </div>

@@ -3,6 +3,8 @@
 import { motion, useMotionValue, useSpring, useInView, useAnimation } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { GradientText } from "@/components/ui/gradient-text";
+import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 interface StatItemProps {
   number: number;
@@ -88,38 +90,32 @@ export function StatsSection() {
           </h3>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
+        <ScrollReveal className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4" staggerChildren={0.1}>
           {stats.map((stat, i) => (
-            <motion.div
+            <RevealItem
               key={stat.label}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.8,
-                delay: stat.delay,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="relative group flex flex-col gap-4 p-6 md:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors"
+              className="relative group flex flex-col gap-4 p-6 md:p-8 rounded-3xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors overflow-hidden"
             >
+              <BorderBeam size={200} duration={12} delay={i * 2} colorFrom="#16a34a" colorTo="#84cc16" />
+              
               {/* Number */}
-              <div className="text-4xl md:text-6xl font-heading font-bold tracking-tighter leading-none">
+              <div className="text-4xl md:text-6xl font-heading font-bold tracking-tighter leading-none relative z-10 transition-transform group-hover:scale-110 duration-500">
                 <GradientText variant={stat.color} className="font-heading font-bold">
                   <AnimatedNumber to={stat.number} suffix={stat.suffix} />
                 </GradientText>
               </div>
 
               {/* Label */}
-              <div>
+              <div className="relative z-10">
                 <p className="text-white font-semibold text-lg mb-1">{stat.label}</p>
                 <p className="text-white/40 text-sm leading-relaxed">{stat.description}</p>
               </div>
 
               {/* Hover glow */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-bieneq-green/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            </motion.div>
+              <div className="absolute inset-0 bg-gradient-to-br from-bieneq-green/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            </RevealItem>
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
