@@ -86,10 +86,10 @@ export function ClinicsFocus() {
             >
               {/* Background */}
               <div
-                className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-105 opacity-50 group-hover:opacity-70 grayscale group-hover:grayscale-0"
+                className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100 grayscale group-hover:grayscale-0 mix-blend-overlay"
                 style={{ backgroundImage: `url(${clinic.img})` }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
               {/* Coming soon overlay */}
               {clinic.comingSoon && (
@@ -123,11 +123,19 @@ export function ClinicsFocus() {
                     <MapPin className="w-4 h-4" style={{ color: clinic.accent }} />
                     {clinic.location}
                   </span>
-                  {clinic.spots > 0 && (
+                  {clinic.spots > 0 && !clinic.soldOut && (
                     <span className="flex items-center gap-1.5">
                       <Users className="w-4 h-4" style={{ color: clinic.accent }} />
                       <span style={{ color: clinic.spotsLeft <= 3 ? "#ef4444" : "white" }}>
                         {clinic.spotsLeft} lugares disponibles
+                      </span>
+                    </span>
+                  )}
+                  {clinic.soldOut && (
+                    <span className="flex items-center gap-1.5 min-w-max">
+                      <Users className="w-4 h-4 text-red-500" />
+                      <span className="text-red-500 font-bold uppercase tracking-widest text-[10px] px-2 py-0.5 rounded-sm bg-red-500/10 border border-red-500/20">
+                        Sold Out
                       </span>
                     </span>
                   )}
