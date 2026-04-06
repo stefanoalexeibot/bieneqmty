@@ -122,15 +122,16 @@ export function HeroSection() {
                   src={img}
                   alt="BieneqMty"
                   className="absolute inset-0 w-full h-full object-cover grayscale contrast-110"
+                  style={{
+                    willChange: "transform, opacity"
+                  }}
                   animate={{
                     opacity: active ? 0.75 : 0,
                     scale: active ? 1 : 1.08,
-                    filter: active ? 'blur(0px)' : 'blur(6px)',
                   }}
                   transition={{
                     opacity: { duration: 2, ease: [0.16, 1, 0.3, 1] },
                     scale: { duration: 2.5, ease: [0.16, 1, 0.3, 1] },
-                    filter: { duration: 1.6, ease: [0.16, 1, 0.3, 1] },
                   }}
                 />
               );
@@ -184,16 +185,16 @@ export function HeroSection() {
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   color: 'transparent',
+                  filter: 'drop-shadow(0px 25px 35px rgba(0,0,0,0.8))',
+                  willChange: 'transform, opacity'
                 }}
                 animate={{
                   opacity: i === bgIndex ? 1 : 0,
                   scale: i === bgIndex ? 1 : 1.05,
-                  filter: i === bgIndex ? 'drop-shadow(0px 25px 35px rgba(0,0,0,0.8)) blur(0px)' : 'drop-shadow(0px 0px 0px rgba(0,0,0,0)) blur(8px)',
                 }}
                 transition={{
                   opacity: { duration: 1.8, ease: [0.16, 1, 0.3, 1] },
                   scale: { duration: 2.2, ease: [0.16, 1, 0.3, 1] },
-                  filter: { duration: 1.4, ease: [0.16, 1, 0.3, 1] },
                 }}
               >
                 BIENESTAR
