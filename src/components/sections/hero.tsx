@@ -163,7 +163,7 @@ export function HeroSection() {
           className="font-heading font-black text-white tracking-tighter max-w-6xl leading-[0.9] text-center"
         >
           {/* Line 1 — Each image has its OWN bg-clip:text span, stacked and crossfaded */}
-          <div className="relative inline-flex items-center justify-center mb-4">
+          <div className="relative flex items-center justify-center mb-0">
             {/* First span sets the natural size/layout */}
             <span
               className="block text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 invisible"
@@ -188,7 +188,7 @@ export function HeroSection() {
                 animate={{
                   opacity: i === bgIndex ? 1 : 0,
                   scale: i === bgIndex ? 1 : 1.05,
-                  filter: i === bgIndex ? 'blur(0px)' : 'blur(8px)',
+                  filter: i === bgIndex ? 'drop-shadow(0px 25px 35px rgba(0,0,0,0.8)) blur(0px)' : 'drop-shadow(0px 0px 0px rgba(0,0,0,0)) blur(8px)',
                 }}
                 transition={{
                   opacity: { duration: 1.8, ease: [0.16, 1, 0.3, 1] },
@@ -209,10 +209,8 @@ export function HeroSection() {
             />
           </div>
 
-          <br />
-
           {/* Line 2 — Kinetic Heading with Shimmer accent */}
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black text-white tracking-tighter">
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black text-white tracking-tighter -mt-2 lg:-mt-8 relative z-20 drop-shadow-2xl">
             EQUINO{" "}<ShimmerWord>REDEFINIDO.</ShimmerWord>
           </h2>
         </motion.h1>
