@@ -33,7 +33,7 @@ export default function ClinicasPage() {
   const bgY = useTransform(mouseY, [-0.5, 0.5], [15, -15]);
 
   return (
-    <main className="min-h-screen bg-[#050505] pt-32 pb-24 overflow-hidden relative">
+    <main className="min-h-screen bg-transparent pt-32 pb-24 overflow-hidden relative">
       {/* Background decoration */}
       <motion.div 
         style={{ x: bgX, y: bgY }}

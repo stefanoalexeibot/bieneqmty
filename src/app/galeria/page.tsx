@@ -62,7 +62,7 @@ export default function GaleriaPage() {
   const bgY = useTransform(mouseY, [-0.5, 0.5], [20, -20]);
 
   return (
-    <main className="min-h-screen bg-[#020202] text-white pt-32 pb-24 relative overflow-hidden">
+    <main className="min-h-screen bg-transparent text-white pt-32 pb-24 relative overflow-hidden">
       {/* Background Decorative Elements & Parallax */}
       <motion.div 
         style={{ x: bgX, y: bgY }}

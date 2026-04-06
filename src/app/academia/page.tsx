@@ -148,7 +148,7 @@ export default function AcademiaPage() {
   const bgY = useTransform(mouseY, [-0.5, 0.5], [20, -20]);
 
   return (
-    <main className="min-h-screen bg-[#030303] text-white pt-32 pb-24 overflow-hidden relative">
+    <main className="min-h-screen bg-transparent text-white pt-32 pb-24 overflow-hidden relative">
       {/* Background Glow & Parallax */}
       <motion.div 
         style={{ x: bgX, y: bgY }}

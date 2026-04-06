@@ -36,7 +36,7 @@ export default function CitasPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#030303] text-white pt-32 pb-24 relative overflow-hidden">
+    <main className="min-h-screen bg-transparent text-white pt-32 pb-24 relative overflow-hidden">
       {/* Background Decorative Elements & Parallax */}
       <motion.div 
         style={{ x: bgX, y: bgY }}

@@ -21,20 +21,20 @@ export function DynamicBackground() {
     restDelta: 0.001
   });
 
-  // Layer 1 Opacity (First image)
-  const op1 = useTransform(smoothProgress, [0, 0.25], [0.15, 0]);
-  // Layer 2 Opacity (Second image)
-  const op2 = useTransform(smoothProgress, [0.15, 0.4, 0.55], [0, 0.1, 0]);
-  // Layer 3 Opacity (Third image)
-  const op3 = useTransform(smoothProgress, [0.45, 0.7, 0.85], [0, 0.1, 0]);
-  // Layer 4 Opacity (Fourth image)
-  const op4 = useTransform(smoothProgress, [0.75, 1], [0, 0.1]);
+  // Increased Opacity for Layer 1 (First image)
+  const op1 = useTransform(smoothProgress, [0, 0.25], [0.35, 0]);
+  // Increased Opacity for Layer 2 (Second image)
+  const op2 = useTransform(smoothProgress, [0.15, 0.4, 0.55], [0, 0.25, 0]);
+  // Increased Opacity for Layer 3 (Third image)
+  const op3 = useTransform(smoothProgress, [0.45, 0.7, 0.85], [0, 0.25, 0]);
+  // Increased Opacity for Layer 4 (Fourth image)
+  const op4 = useTransform(smoothProgress, [0.75, 1], [0, 0.3]);
 
-  // Dynamic Gradient Color Shifts
+  // Dynamic Gradient Color Shifts (More vibrant and distinct)
   const gradientColor = useTransform(
     smoothProgress,
     [0, 0.3, 0.6, 1],
-    ["rgba(22, 163, 74, 0.08)", "rgba(180, 83, 9, 0.08)", "rgba(234, 179, 8, 0.05)", "rgba(22, 163, 74, 0.08)"]
+    ["rgba(34, 197, 94, 0.12)", "rgba(180, 83, 9, 0.15)", "rgba(234, 179, 8, 0.12)", "rgba(34, 197, 94, 0.12)"]
   );
 
   return (
@@ -57,9 +57,9 @@ export function DynamicBackground() {
             <motion.img
               src={src}
               alt=""
-              className="w-full h-full object-cover grayscale opacity-50 mix-blend-overlay scale-110"
+              className="w-full h-full object-cover grayscale opacity-70 mix-blend-overlay scale-110 blur-[1px]"
               style={{
-                y: useTransform(smoothProgress, [0, 1], [0, -100 * (i + 1)])
+                y: useTransform(smoothProgress, [0, 1], [0, -150 * (i + 1)])
               }}
             />
           </motion.div>

@@ -35,7 +35,7 @@ export function HeroSection() {
   const textY = useTransform(mouseY, [-0.5, 0.5], [-10, 10]);
 
   return (
-    <section className="relative min-h-[110vh] w-full flex items-center justify-center overflow-hidden bg-[#050505] perspective-1000">
+    <section className="relative min-h-[110vh] w-full flex items-center justify-center overflow-hidden bg-transparent perspective-1000">
       {/* Background Ambient Effects - Layer 0 (Deep) */}
       <motion.div 
         style={{ x: bgX, y: bgY }}
@@ -180,8 +180,8 @@ export function HeroSection() {
       </div>
 
       {/* Decorative Floor fade with grid */}
-      <div className="absolute bottom-0 w-full h-[30vh] bg-gradient-to-t from-background via-background/60 to-transparent z-10" />
-      <div className="absolute bottom-0 w-full h-full pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_0%,_#050505_100%)] opacity-60 z-[1]" />
+      <div className="absolute bottom-0 w-full h-[30vh] bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+      <div className="absolute bottom-0 w-full h-full pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.8)_100%)] opacity-60 z-[1]" />
     </section>
   );
 }

@@ -5,7 +5,7 @@ import { Download, PlayCircle, ArrowRight } from "lucide-react";
 
 export default function RecursosPage() {
   return (
-    <main className="min-h-screen pt-32 pb-24 px-6 flex flex-col items-center bg-[#050505]">
+    <main className="min-h-screen pt-32 pb-24 px-6 flex flex-col items-center bg-transparent text-white">
       <div className="text-center mb-16 relative z-10 w-full max-w-2xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
