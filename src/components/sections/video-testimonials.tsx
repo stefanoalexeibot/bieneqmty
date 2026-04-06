@@ -106,7 +106,7 @@ export function VideoTestimonials() {
   }, []);
 
   return (
-    <section className="relative w-full bg-[#030303] py-24 md:py-48 overflow-hidden border-t border-white/5">
+    <section className="relative w-full bg-transparent py-24 md:py-48 overflow-hidden border-t border-white/5">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-bieneq-green/5 blur-[120px] rounded-full pointer-events-none" />
 

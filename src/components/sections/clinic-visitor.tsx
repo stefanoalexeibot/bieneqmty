@@ -7,7 +7,7 @@ import { Magnetic } from "@/components/ui/magnetic";
 
 export function ClinicVisitor() {
   return (
-    <section className="py-24 md:py-32 bg-[#0a0a0a] relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-transparent relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-bieneq-green/5 blur-[120px] rounded-full" />
       

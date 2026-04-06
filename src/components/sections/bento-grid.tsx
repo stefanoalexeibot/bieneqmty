@@ -8,7 +8,7 @@ import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal"
 
 export function BentoGrid() {
   return (
-    <section className="relative w-full py-24 px-6 lg:px-8 bg-[#050505]">
+    <section className="relative w-full py-24 px-6 lg:px-8 bg-transparent">
       <div className="max-w-7xl mx-auto flex flex-col gap-12 text-center">
         <ScrollReveal>
           <RevealItem>

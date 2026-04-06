@@ -38,7 +38,7 @@ export function WellnessPhilosophy() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-black py-32 md:py-48 overflow-hidden z-20">
+    <section ref={containerRef} className="relative w-full bg-transparent py-32 md:py-48 overflow-hidden z-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center gap-16">
         
         {/* Left Side: Typography */}

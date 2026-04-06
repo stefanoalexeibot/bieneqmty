@@ -60,7 +60,7 @@ export function FounderProfile() {
   ];
 
   return (
-    <section className="relative w-full bg-[#030303] py-24 md:py-48 overflow-hidden z-20 border-t border-white/5">
+    <section className="relative w-full bg-transparent py-24 md:py-48 overflow-hidden z-20 border-t border-white/5">
       {/* Background Aura */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-bieneq-green/10 rounded-full blur-[120px] pointer-events-none" />
       

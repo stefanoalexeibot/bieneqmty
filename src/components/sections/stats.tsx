@@ -73,7 +73,7 @@ const stats: StatItemProps[] = [
 
 export function StatsSection() {
   return (
-    <section className="relative w-full bg-[#030303] py-24 md:py-32 overflow-hidden border-t border-white/5">
+    <section className="relative w-full bg-transparent py-24 md:py-32 overflow-hidden border-t border-white/5">
       {/* Top edge line accent */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-bieneq-green to-transparent" />
 

@@ -47,7 +47,7 @@ const clinics = [
 
 export function ClinicsFocus() {
   return (
-    <section className="relative w-full bg-[#050505] py-24 md:py-40 overflow-hidden z-20 border-t border-white/5">
+    <section className="relative w-full bg-transparent py-24 md:py-40 overflow-hidden z-20 border-t border-white/5">
       {/* Ambient blobs */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-bieneq-green/5 blur-[120px] rounded-full pointer-events-none" />
 

@@ -8,7 +8,7 @@ import { useRef } from "react";
 
 export function BarefootResults() {
   return (
-    <section className="relative w-full bg-black py-24 md:py-48 overflow-hidden">
+    <section className="relative w-full bg-transparent py-24 md:py-48 overflow-hidden">
       {/* Decorative vertical line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-bieneq-green/0 via-bieneq-green/50 to-bieneq-green/0" />
 
