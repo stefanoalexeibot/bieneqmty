@@ -28,10 +28,11 @@ export function BentoGrid() {
               <div className="group relative h-full rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between p-8 text-left backdrop-blur-sm">
                 <BorderBeam size={250} duration={12} colorFrom="#b45309" colorTo="#d97706" />
                 <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-100 transition-all duration-700" 
+                  className="absolute inset-0 bg-cover bg-center opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" 
                   style={{ backgroundImage: "url('/images/home/wellness/IPPELP - 08.jpg')" }} 
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-cafe/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-cafe/40 via-black/40 to-transparent opacity-100 group-hover:opacity-0 transition-opacity" />
                 
                 <div className="relative z-10 w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-cafe mb-auto shadow-inner backdrop-blur-md border border-white/10">
                   <ShoppingBag className="w-8 h-8" />
@@ -54,10 +55,11 @@ export function BentoGrid() {
               <div className="group relative h-full rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between p-8 text-left backdrop-blur-sm">
                 <BorderBeam size={200} duration={10} colorFrom="#22c55e" colorTo="#10b981" delay={2} />
                 <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-70 group-hover:opacity-100 transition-all duration-700"
+                  className="absolute inset-0 bg-cover bg-center opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
                   style={{ backgroundImage: "url('/images/home/wellness/despues.jpg')" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-green/40 via-black/40 to-transparent opacity-100 group-hover:opacity-0 transition-opacity" />
                 
                 <div className="relative z-10 w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-green mb-auto shadow-inner backdrop-blur-md border border-white/10">
                   <GraduationCap className="w-8 h-8" />
@@ -80,10 +82,11 @@ export function BentoGrid() {
               <div className="group relative h-full rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col md:flex-row items-start md:items-center justify-between p-8 md:p-12 text-left backdrop-blur-sm">
                 <BorderBeam size={400} duration={20} colorFrom="#eab308" colorTo="#ca8a04" delay={5} />
                 <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-100 transition-all duration-700"
+                  className="absolute inset-0 bg-cover bg-center opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
                   style={{ backgroundImage: "url('/images/home/wellness/IPPELP - 06.jpg')" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-yellow/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-black/60 group-hover:bg-black/30 transition-colors duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-yellow/30 via-black/60 to-transparent opacity-100 group-hover:opacity-0 transition-opacity" />
                 
                 <div className="relative z-10 max-w-2xl">
                    <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-yellow mb-6 shadow-inner backdrop-blur-md border border-white/10">

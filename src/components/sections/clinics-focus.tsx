@@ -86,10 +86,11 @@ export function ClinicsFocus() {
             >
               {/* Background */}
               <div
-                className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-80"
+                className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-105 opacity-80 grayscale group-hover:grayscale-0 group-hover:opacity-100"
                 style={{ backgroundImage: `url(${clinic.img})` }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-black/60 group-hover:bg-black/20 transition-all duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-100 group-hover:opacity-60 transition-opacity duration-700" />
 
               {/* Coming soon overlay */}
               {clinic.comingSoon && (
