@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ComparisonSlider } from "@/components/ui/comparison-slider";
 import { PlayCircle, Star } from "lucide-react";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 export default function CasosPage() {
   const casos = [
@@ -36,7 +37,7 @@ export default function CasosPage() {
         >
           <span className="text-white/40 font-semibold tracking-wider uppercase text-sm mb-4 block">Portafolio Clínico</span>
           <h1 className="text-4xl md:text-6xl font-heading font-semibold text-white mb-6 tracking-tight">
-            Casos de <span className="text-transparent bg-clip-text bg-gradient-to-r from-bieneq-green to-bieneq-yellow">Éxito.</span>
+            Casos de <ShimmerWord className="text-4xl md:text-6xl">Éxito.</ShimmerWord>
           </h1>
           <p className="text-white/60 text-lg md:text-xl font-light">
             La biomecánica equina en acción. Analiza el antes y después de rehabilitaciones extremas reales.

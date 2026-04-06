@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { X } from "lucide-react";
 
 const highlights = [
@@ -36,8 +36,8 @@ export function ClinicHighlights() {
           <div>
             <h2 className="text-sm font-bold text-bieneq-green tracking-[0.3em] uppercase mb-4">Lo que se vivió</h2>
             <h3 className="text-5xl md:text-7xl font-heading font-bold text-white">
-              <OutlineText text="Experiencias" strokeColor="rgba(255,255,255,0.2)" className="text-white" /> <br />
-              Inmersivas.
+              <ShimmerWord>Experiencias</ShimmerWord> <br />
+              de Campo.
             </h3>
           </div>
           <p className="text-white/40 max-w-md text-lg font-light">

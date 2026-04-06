@@ -5,8 +5,8 @@ import { ArrowRight, PlayCircle } from "lucide-react";
 import { Background3D } from "@/components/ui/3d-canvas";
 import { GradientText } from "@/components/ui/gradient-text";
 import { KineticWord, KineticHeading } from "@/components/ui/kinetic-word";
-import { OutlineText } from "@/components/ui/outline-text";
 import { useMousePosition } from "@/hooks/use-mouse-position";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -20,8 +20,8 @@ export function HeroSection() {
 
   useEffect(() => {
     // Normalize coordinates -0.5 to 0.5
-    mouseX.set((x / window.innerWidth) - 0.5);
-    mouseY.set((y / window.innerHeight) - 0.5);
+    mouseX.set((x / (typeof window !== 'undefined' ? window.innerWidth : 1)) - 0.5);
+    mouseY.set((y / (typeof window !== 'undefined' ? window.innerHeight : 1)) - 0.5);
   }, [x, y, mouseX, mouseY]);
 
   // Parallax transforms for different layers
@@ -119,11 +119,10 @@ export function HeroSection() {
 
           <br />
 
-          {/* Line 2 — Kinetic Heading */}
-          <KineticHeading 
-            text="EQUINO REDEFINIDO."
-            className="text-5xl md:text-7xl lg:text-8xl text-white font-heading"
-          />
+          {/* Line 2 — Kinetic Heading with Shimmer accent */}
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black text-white tracking-tighter">
+            EQUINO{" "}<ShimmerWord>REDEFINIDO.</ShimmerWord>
+          </h2>
         </motion.h1>
 
         {/* Subheading */}

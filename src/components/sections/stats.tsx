@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { GradientText } from "@/components/ui/gradient-text";
 import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 interface StatItemProps {
   number: number;
@@ -83,10 +84,7 @@ export function StatsSection() {
             BieneqMty en Números
           </h2>
           <h3 className="text-4xl md:text-5xl font-heading font-semibold text-white">
-            Resultados que{" "}
-            <GradientText variant="aurora" className="font-heading">
-              se miden.
-            </GradientText>
+            Resultados que <ShimmerWord className="text-4xl md:text-5xl">se miden.</ShimmerWord>
           </h3>
         </div>
 

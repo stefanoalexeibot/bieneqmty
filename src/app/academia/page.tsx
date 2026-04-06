@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Clock, BarChart, BookOpen, ChevronRight, Star } from "lucide-react";
 import { useState } from "react";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { GradientText } from "@/components/ui/gradient-text";
 import { cn } from "@/lib/utils";
 import { ClinicHighlights } from "@/components/sections/clinic-highlights";
@@ -163,8 +163,8 @@ export default function AcademiaPage() {
         <ScrollReveal direction="up" staggerChildren={0.15}>
           <RevealItem>
             <h1 className="text-5xl md:text-8xl font-heading font-bold leading-[0.9] tracking-tighter mb-8">
-              <OutlineText text="Formación" strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" /> <br />
-              de <GradientText variant="green">Élite.</GradientText>
+              <ShimmerWord className="text-5xl md:text-8xl">Formación</ShimmerWord> <br />
+              de <ShimmerWord className="text-5xl md:text-8xl">Élite.</ShimmerWord>
             </h1>
           </RevealItem>
           <RevealItem>

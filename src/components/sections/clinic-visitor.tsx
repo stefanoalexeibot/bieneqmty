@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { Magnetic } from "@/components/ui/magnetic";
 
 export function ClinicVisitor() {
@@ -27,7 +27,7 @@ export function ClinicVisitor() {
               </span>
               <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-8 leading-tight">
                 Tommy Vasques <br />
-                <OutlineText text="nos visita." strokeColor="rgba(255,255,255,0.2)" className="text-white" />
+                <ShimmerWord>nos visita.</ShimmerWord>
               </h2>
               <p className="text-white/60 text-lg mb-10 font-light leading-relaxed">
                 Recibimos a Tommy Vasques en nuestro rancho para una jornada de intercambio técnico y visión compartida sobre el bienestar equino. Descubre la experiencia completa y los aprendizajes que dejó esta valiosa visita.

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Video, Calendar as CalendarIcon, CheckCircle2, ChevronRight, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { GradientText } from "@/components/ui/gradient-text";
 import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
 import { TiltCard } from "@/components/ui/tilt-card";
@@ -57,7 +57,7 @@ export default function CitasPage() {
           <RevealItem>
             <h1 className="text-5xl md:text-8xl font-heading font-bold leading-[0.9] tracking-tighter mb-8">
               Agenda tu <br />
-              <OutlineText text="Consulta." strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" />
+              <ShimmerWord className="text-5xl md:text-8xl">Consulta.</ShimmerWord>
             </h1>
           </RevealItem>
           <RevealItem>

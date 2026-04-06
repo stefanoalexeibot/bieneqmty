@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, ChevronRight, Filter, Info, Star } from "lucide-react";
 import { useState } from "react";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { GradientText } from "@/components/ui/gradient-text";
 import { cn } from "@/lib/utils";
 import { TiltCard } from "@/components/ui/tilt-card";
@@ -154,7 +154,7 @@ export default function TiendaPage() {
             <RevealItem>
               <h1 className="text-5xl md:text-8xl font-heading font-bold leading-[0.85] tracking-tighter mb-8">
                 Boutique <br />
-                <OutlineText text="Profesional." strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" />
+                <ShimmerWord className="text-5xl md:text-8xl">Profesional.</ShimmerWord>
               </h1>
             </RevealItem>
             <RevealItem>

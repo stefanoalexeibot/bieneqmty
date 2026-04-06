@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ComparisonSlider } from "@/components/ui/comparison-slider";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { useRef } from "react";
 
@@ -28,7 +28,7 @@ export function BarefootResults() {
               </h2>
               <h3 className="text-5xl md:text-6xl font-heading font-bold text-white leading-none mb-8">
                 Resultados <br />
-                <OutlineText text="Indiscutibles" strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" />
+                <ShimmerWord className="text-5xl md:text-6xl">Indiscutibles</ShimmerWord>
               </h3>
               
               <p className="text-xl text-white/50 font-extralight leading-relaxed mb-10 max-w-xl">

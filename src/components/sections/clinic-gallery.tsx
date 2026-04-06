@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 const galleryImages = [
   {
@@ -74,7 +74,7 @@ export function ClinicHDGallery() {
             </span>
             <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
               Capturas en <br className="hidden md:block" />
-              <OutlineText text="Alta Definición." strokeColor="rgba(255,255,255,0.2)" className="text-white" />
+              <ShimmerWord>Alta Definición.</ShimmerWord>
             </h2>
             <p className="text-white/60 text-lg max-w-2xl mx-auto md:mx-0">
               Cada momento cuenta. Una selección exclusiva de lo que se vivió en nuestra Clínica 01, documentando la precisión, técnica y la conexión en cada sesión práctica.

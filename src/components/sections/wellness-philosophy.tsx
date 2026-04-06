@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { GradientText } from "@/components/ui/gradient-text";
 import { KineticHeading } from "@/components/ui/kinetic-word";
 import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 const HOOF_IMAGES = [
   "/images/home/wellness/IPPELP - 01.jpg",
@@ -50,12 +51,10 @@ export function WellnessPhilosophy() {
           </RevealItem>
           <RevealItem>
             <h3 className="text-4xl md:text-5xl lg:text-6xl font-heading font-semibold text-white leading-[1.1] mb-8">
-              <KineticHeading text="No es quitar herraduras." className="text-white mb-1" />
+              No es quitar herraduras.
               <span className="block mt-2">
                 Es devolver la{" "}
-                <GradientText variant="green" className="font-heading font-semibold text-4xl md:text-5xl lg:text-6xl">
-                  naturaleza.
-                </GradientText>
+                <ShimmerWord className="text-4xl md:text-5xl lg:text-6xl">naturaleza.</ShimmerWord>
               </span>
             </h3>
           </RevealItem>

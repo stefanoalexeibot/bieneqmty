@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import { Magnetic } from "@/components/ui/magnetic";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 export function Footer() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -26,7 +27,9 @@ export function Footer() {
       >
         <div className="flex flex-col md:flex-row justify-between gap-12 border-b border-white/10 pb-16">
           <div className="max-w-sm">
-            <h4 className="text-white text-2xl font-semibold mb-6">Empecemos a trabajar.</h4>
+            <h4 className="text-white text-2xl font-semibold mb-6">
+              Empecemos a <ShimmerWord className="text-2xl">trabajar.</ShimmerWord>
+            </h4>
             <p className="text-white/60 mb-8">
               Agenda tu consultoría, o mejora drásticamente tus técnicas accediendo a nuestra academia hoy mismo.
             </p>

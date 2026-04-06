@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Download, PlayCircle, ArrowRight } from "lucide-react";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 export default function RecursosPage() {
   return (
@@ -14,7 +15,8 @@ export default function RecursosPage() {
         >
           <span className="text-bieneq-yellow font-semibold tracking-wider uppercase text-sm mb-4 block">Recursos Gratuitos</span>
           <h1 className="text-4xl md:text-6xl font-heading font-semibold text-white mb-6 tracking-tight">
-            Conocimiento a tu <br/> alcance.
+            Conocimiento a tu <br />
+            <ShimmerWord className="text-4xl md:text-6xl">alcance.</ShimmerWord>
           </h1>
           <p className="text-white/60 text-lg md:text-xl font-light">
             Empieza tu viaje hacia el bienestar equino con nuestras guías y videos fundamentales, sin costo.

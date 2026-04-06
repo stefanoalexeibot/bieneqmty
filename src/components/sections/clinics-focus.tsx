@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Calendar, Users, MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Magnetic } from "@/components/ui/magnetic";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 const clinics = [
   {
@@ -58,7 +59,7 @@ export function ClinicsFocus() {
               Formación Élite
             </h2>
             <h3 className="text-4xl md:text-6xl font-heading font-semibold text-white leading-tight">
-              Clínicas & Cursos
+              Clínicas &{" "}<ShimmerWord>Cursos</ShimmerWord>
             </h3>
             <p className="text-white/60 text-xl mt-4 max-w-lg">
               Aprende directamente con José Manuel Luna. Grupos reducidos, práctica intensiva y conocimiento que transforma.

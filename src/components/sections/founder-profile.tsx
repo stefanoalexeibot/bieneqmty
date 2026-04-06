@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Magnetic } from "@/components/ui/magnetic";
 import { KineticWord } from "@/components/ui/kinetic-word";
 import { TiltCard } from "@/components/ui/tilt-card";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 // Custom Instagram SVG to avoid lucide-react version issues
 const InstagramIcon = ({ className }: { className?: string }) => (
@@ -89,7 +90,8 @@ export function FounderProfile() {
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading text-white font-semibold leading-[1.05] mb-8">
             Eleva tus estándares. <br />
-            <span className="text-white/40">Trata a los caballos como merecen.</span>
+            <span className="text-white/40">Trata a los caballos como </span>
+            <ShimmerWord>merecen.</ShimmerWord>
           </h2>
           
           <p className="text-xl text-white/50 font-light mb-12 leading-relaxed max-w-lg">

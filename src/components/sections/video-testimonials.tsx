@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Play, X, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 // Testimonials — certificate photos from Clinica Barefoot 01
 const testimonials = [
@@ -122,7 +122,7 @@ export function VideoTestimonials() {
           </h2>
           <h3 className="text-5xl md:text-7xl font-heading font-bold text-white leading-none">
             Testimonios en{" "}
-            <OutlineText text="Video" className="text-white" strokeColor="rgba(255,255,255,0.2)" />
+            <ShimmerWord>Video</ShimmerWord>
           </h3>
         </motion.div>
       </div>

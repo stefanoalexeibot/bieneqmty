@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ComparisonSlider } from "@/components/ui/comparison-slider";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { GradientText } from "@/components/ui/gradient-text";
 import { cn } from "@/lib/utils";
 import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
@@ -77,8 +77,8 @@ export default function GaleriaPage() {
         <ScrollReveal direction="up" staggerChildren={0.15}>
           <RevealItem>
             <h1 className="text-6xl md:text-8xl font-heading font-bold tracking-tighter mb-8 leading-none">
-              <OutlineText text="Galería de" strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" /> <br />
-              <GradientText variant="green">Resultados.</GradientText>
+              <ShimmerWord className="text-6xl md:text-8xl">Galería de</ShimmerWord> <br />
+              <ShimmerWord className="text-6xl md:text-8xl">Resultados.</ShimmerWord>
             </h1>
           </RevealItem>
           <RevealItem>

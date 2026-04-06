@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 const tampicoImages = [
   {
@@ -69,7 +69,7 @@ export function ClinicTampicoGallery() {
             </span>
             <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
               Sede <br className="hidden md:block" />
-              <OutlineText text="Tampico." strokeColor="rgba(255,255,255,0.2)" className="text-white" />
+              <ShimmerWord>Tampico.</ShimmerWord>
             </h2>
             <p className="text-white/60 text-lg max-w-2xl mx-auto md:mx-0">
               Capturas exclusivas de nuestra formación en Tampico. Un grupo comprometido con la salud podal y la biomecánica avanzada.

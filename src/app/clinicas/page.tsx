@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Play, Calendar, MapPin, Users, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { OutlineText } from "@/components/ui/outline-text";
+import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { Magnetic } from "@/components/ui/magnetic";
 import { ClinicHDGallery } from "@/components/sections/clinic-gallery";
 import { ClinicVisitor } from "@/components/sections/clinic-visitor";
@@ -53,7 +53,7 @@ export default function ClinicasPage() {
             <RevealItem>
               <h1 className="text-5xl md:text-8xl font-heading font-bold text-white leading-[1.1] mb-8">
                 Lo que se vivió en la <br />
-                <OutlineText text="Clínica." strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" />
+                <ShimmerWord className="text-5xl md:text-8xl">Clínica.</ShimmerWord>
               </h1>
             </RevealItem>
             <RevealItem>
