@@ -95,11 +95,12 @@ export function ClinicsFocus() {
               {/* Large Sold Out Graphic Overlay */}
               {clinic.soldOut && (
                 <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                  <div className="bg-[#DABB7D] text-[#1A1A1A] font-black text-xl md:text-2xl tracking-[0.25em] uppercase py-4 px-10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-4 transform -rotate-[4deg] border border-[#f0e6d2]/30 backdrop-blur-sm">
-                    <svg className="w-6 h-6 text-[#1A1A1A]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <div className="relative overflow-hidden bg-red-950/40 backdrop-blur-md text-white font-black text-xl md:text-2xl tracking-[0.3em] uppercase py-4 px-10 rounded-full shadow-[0_8px_32px_rgba(220,38,38,0.5)] border border-red-500/30 flex items-center gap-4 transform -rotate-[4deg]">
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-600/50 to-transparent opacity-60 mix-blend-overlay" />
+                    <svg className="relative z-10 w-6 h-6 text-red-500 drop-shadow-md" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span>SOLD OUT</span>
+                    <span className="relative z-10 text-white drop-shadow-[0_2px_10px_rgba(220,38,38,0.8)]">SOLD OUT</span>
                   </div>
                 </div>
               )}
