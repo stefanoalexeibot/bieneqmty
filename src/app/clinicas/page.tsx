@@ -80,7 +80,7 @@ export default function ClinicasPage() {
                 
                 {/* Thumbnail (using high res YT thumb) */}
                 <img 
-                  src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+                  src="/images/home/wellness/IPPELP - CLINICA TAMPICO 02.jpg"
                   alt="Clinic Experience Thumbnail"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
