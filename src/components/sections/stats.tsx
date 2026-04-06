@@ -39,7 +39,7 @@ function AnimatedNumber({ to, suffix = "" }: { to: number; suffix?: string }) {
 
 const stats: StatItemProps[] = [
   {
-    number: 340,
+    number: 60,
     suffix: "+",
     label: "Caballos Rehabilitados",
     description: "De cojeras crónicas a rendimiento pleno mediante el sistema barefoot.",
@@ -63,7 +63,7 @@ const stats: StatItemProps[] = [
     delay: 0.2,
   },
   {
-    number: 24,
+    number: 6,
     suffix: "+",
     label: "Clínicas Presenciales",
     description: "Impartidas en Monterrey y estados del norte de México.",
