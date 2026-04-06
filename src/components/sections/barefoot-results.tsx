@@ -58,8 +58,8 @@ export function BarefootResults() {
               <ComparisonSlider 
                 beforeImage="/images/home/wellness/antes.jpg"
                 afterImage="/images/home/wellness/despues.jpg"
-                beforeLabel="Casco Contraído"
-                afterLabel="Barefoot Saludable"
+                beforeLabel="Antes de recortar"
+                afterLabel="Después de recortar"
                 className="shadow-[0_40px_80px_rgba(0,0,0,0.5)] border-white/5"
               />
               
