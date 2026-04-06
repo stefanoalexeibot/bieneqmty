@@ -80,10 +80,10 @@ export function HeroSection() {
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-bieneq-cafe/10 rounded-full blur-[160px] mix-blend-screen pointer-events-none opacity-40" />
       </motion.div>
 
-      {/* Floating Decorative Images - Layer 1 (Mid) */}
+      {/* Floating Decorative Images - Layer 1 (Mid) - Hidden on mobile to avoid layout blocking */}
       <motion.div 
         style={{ x: midX, y: midY, rotateZ: 5 }}
-        className="absolute inset-0 z-5 pointer-events-none"
+        className="absolute inset-0 z-5 pointer-events-none hidden lg:block"
       >
         {/* Top-right floating card */}
         <div className="absolute top-20 right-[15%] w-64 h-64 rotate-12">
@@ -167,7 +167,7 @@ export function HeroSection() {
           <div className="relative flex items-center justify-center mb-0">
             {/* First span sets the natural size/layout */}
             <span
-              className="block text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 invisible"
+              className="block text-[4rem] sm:text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 invisible font-heading font-black"
               aria-hidden="true"
             >
               BIENESTAR
@@ -177,7 +177,7 @@ export function HeroSection() {
             {wellnessImages.map((img, i) => (
               <motion.span
                 key={img}
-                className="absolute inset-0 flex items-center justify-center text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 font-heading font-black"
+                className="absolute inset-0 flex items-center justify-center text-[4rem] sm:text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 font-heading font-black"
                 style={{
                   backgroundImage: `url("${img}")`,
                   backgroundSize: 'cover',
@@ -185,7 +185,6 @@ export function HeroSection() {
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   color: 'transparent',
-                  filter: 'drop-shadow(0px 25px 35px rgba(0,0,0,0.8))',
                   willChange: 'transform, opacity'
                 }}
                 animate={{
