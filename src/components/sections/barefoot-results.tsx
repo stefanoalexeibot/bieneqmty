@@ -57,7 +57,7 @@ export function BarefootResults() {
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="relative z-10"
             >
-              <TiltCard intensity={15} className="w-full max-w-2xl mx-auto shadow-[0_50px_100px_-20px_rgba(34,197,94,0.15)] ring-1 ring-white/5 rounded-3xl overflow-hidden">
+              <TiltCard intensity={15} className="w-full max-w-4xl mx-auto shadow-[0_50px_100px_-20px_rgba(34,197,94,0.15)] ring-1 ring-white/5 rounded-[2rem] overflow-hidden">
                 <ComparisonSlider 
                   beforeImage="/images/home/wellness/antes.jpg"
                   afterImage="/images/home/wellness/despues.jpg"

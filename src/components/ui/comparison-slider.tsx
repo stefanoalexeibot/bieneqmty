@@ -60,7 +60,7 @@ export function ComparisonSlider({
     <div
       ref={containerRef}
       className={cn(
-        "relative w-full aspect-video md:aspect-[16/9] rounded-3xl overflow-hidden cursor-ew-resize select-none border border-white/10 group",
+        "relative w-full aspect-[4/5] md:aspect-square rounded-[2rem] overflow-hidden cursor-ew-resize select-none border border-white/10 group shadow-inner",
         className
       )}
       onMouseDown={handleMouseDown}

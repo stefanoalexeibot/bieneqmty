@@ -40,7 +40,7 @@ const clinics = [
     spots: 0,
     spotsLeft: 0,
     hours: "8 hrs",
-    img: "https://images.unsplash.com/photo-1506795660198-e95c77602129?w=800&q=80",
+    img: "/images/home/wellness/IPPELP - BAREFOOT 04.jpg",
     accent: "#eab308",
     comingSoon: true,
   },
