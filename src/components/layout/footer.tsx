@@ -63,18 +63,28 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Massive Text Background */}
-        <div className="mt-auto flex justify-center items-end overflow-hidden pt-8 relative z-10">
-          <h1 className="text-[15vw] md:text-[18vw] font-heading font-black text-white/5 tracking-tighter leading-none select-none">
+        {/* Massive Text Background with Parallax */}
+        <motion.div 
+          style={{ y: useTransform(scrollYProgress, [0.5, 1], [100, 0]) }}
+          className="mt-auto flex justify-center items-end overflow-hidden pt-8 relative z-0"
+        >
+          <h1 className="text-[15vw] md:text-[18vw] font-heading font-black tracking-tighter leading-none select-none bg-gradient-to-b from-white/10 to-transparent bg-clip-text text-transparent">
             BIENEQ<span className="text-bieneq-green/10">MTY</span>
           </h1>
-        </div>
+        </motion.div>
         
-        <div className="flex justify-between items-center text-white/40 text-sm mt-8 border-t border-white/5 pt-8">
-          <p>© {new Date().getFullYear()} BieneqMty. Todos los derechos reservados.</p>
-          <div className="flex gap-6">
-            <Link href="#" className="hover:text-white transition-colors">Aviso de Privacidad</Link>
-            <Link href="#" className="hover:text-white transition-colors">Términos y Condiciones</Link>
+        {/* Sleek Bottom Bar container */}
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center bg-white/[0.02] border border-white/5 backdrop-blur-md rounded-2xl px-6 py-4 mt-8 md:mt-2">
+          <p className="text-white/40 text-xs tracking-wider uppercase">© {new Date().getFullYear()} BieneqMty. Todos los derechos reservados.</p>
+          <div className="flex gap-8 mt-4 md:mt-0 text-xs font-mono tracking-widest uppercase">
+            <Link href="#" className="text-white/50 hover:text-white transition-colors relative group">
+              Aviso de Privacidad
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all group-hover:w-full" />
+            </Link>
+            <Link href="#" className="text-white/50 hover:text-white transition-colors relative group">
+              Términos
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all group-hover:w-full" />
+            </Link>
           </div>
         </div>
       </motion.div>
