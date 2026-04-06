@@ -16,7 +16,7 @@ const clinics = [
     spots: 0,
     spotsLeft: 0,
     hours: "16 hrs",
-    img: "/images/home/wellness/IPPELP - 05.jpg",
+    img: "/images/home/wellness/IPPELP%20-%2005.jpg",
     accent: "#22c55e",
     soldOut: true,
   },
@@ -42,7 +42,7 @@ const clinics = [
     spots: 0,
     spotsLeft: 0,
     hours: "16 hrs",
-    img: "/images/home/wellness/IPPELP - 04.jpg",
+    img: "/images/home/wellness/IPPELP%20-%2004.jpg",
     accent: "#eab308",
     comingSoon: true,
   },
@@ -91,6 +91,18 @@ export function ClinicsFocus() {
               />
               <div className="absolute inset-0 bg-black/60 group-hover:bg-black/20 transition-all duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-100 group-hover:opacity-60 transition-opacity duration-700" />
+
+              {/* Large Sold Out Graphic Overlay */}
+              {clinic.soldOut && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                  <div className="bg-[#c2a265] text-black font-black text-2xl md:text-3xl tracking-[0.2em] uppercase py-3 px-8 rounded-full shadow-2xl flex items-center gap-3 transform -rotate-6 backdrop-blur-sm border-2 border-[#b5955b]">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    SOLD OUT
+                  </div>
+                </div>
+              )}
 
               {/* Coming soon overlay */}
               {clinic.comingSoon && (
