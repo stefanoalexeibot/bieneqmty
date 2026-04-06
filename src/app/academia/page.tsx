@@ -7,6 +7,12 @@ import { OutlineText } from "@/components/ui/outline-text";
 import { GradientText } from "@/components/ui/gradient-text";
 import { cn } from "@/lib/utils";
 import { ClinicHighlights } from "@/components/sections/clinic-highlights";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
+import { useMousePosition } from "@/hooks/use-mouse-position";
+import { useSpring, useTransform } from "framer-motion";
+import { useEffect } from "react";
 
 const categories = ["Todos", "Barefoot", "Biomecánica", "Rehabilitación", "Herramientas"];
 
@@ -65,111 +71,134 @@ const courses = [
 
 function CourseCard({ course }: { course: typeof courses[0] }) {
   return (
-    <motion.div
-      whileHover={{ y: -10 }}
-      className="group relative w-[320px] md:w-[380px] shrink-0 rounded-3xl overflow-hidden bg-white/5 border border-white/10 transition-all hover:border-bieneq-green/30"
-    >
-      {/* Thumbnail */}
-      <div className="relative aspect-video overflow-hidden">
-        <img 
-          src={course.img} 
-          alt={course.title} 
-          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-        
-        {/* Play Icon Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-transform">
-            <Play className="w-6 h-6 fill-black ml-1" />
-          </div>
-        </div>
-
-        {/* Rating Badge */}
-        <div className="absolute top-4 right-4 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full flex items-center gap-1.5 border border-white/10">
-          <Star className="w-3 h-3 text-bieneq-green fill-bieneq-green" />
-          <span className="text-[10px] font-bold text-white">{course.rating}</span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <span className="text-[10px] font-bold tracking-[0.2em] text-bieneq-green uppercase mb-2 block">
-          {course.category}
-        </span>
-        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-bieneq-green transition-colors">
-          {course.title}
-        </h3>
-        <p className="text-sm text-white/40 mb-6 line-clamp-2 leading-relaxed">
-          {course.description}
-        </p>
-
-        <div className="flex items-center justify-between pt-4 border-t border-white/5">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-white/30" />
-              <span className="text-xs text-white/50">{course.duration}</span>
+    <RevealItem>
+      <TiltCard className="h-full">
+        <div className="group relative w-[320px] md:w-[380px] h-full shrink-0 rounded-3xl overflow-hidden bg-white/5 border border-white/10 transition-all backdrop-blur-sm">
+          <BorderBeam size={250} duration={12} colorFrom="#16a34a" colorTo="#84cc16" />
+          
+          {/* Thumbnail */}
+          <div className="relative aspect-video overflow-hidden">
+            <img 
+              src={course.img} 
+              alt={course.title} 
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+            
+            {/* Play Icon Overlay */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-transform">
+                <Play className="w-6 h-6 fill-black ml-1" />
+              </div>
             </div>
-            <div className="flex items-center gap-1.5">
-              <BarChart className="w-3.5 h-3.5 text-white/30" />
-              <span className="text-xs text-white/50">{course.level}</span>
+
+            {/* Rating Badge */}
+            <div className="absolute top-4 right-4 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full flex items-center gap-1.5 border border-white/10">
+              <Star className="w-3 h-3 text-bieneq-green fill-bieneq-green" />
+              <span className="text-[10px] font-bold text-white">{course.rating}</span>
             </div>
           </div>
-          <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all" />
+
+          {/* Content */}
+          <div className="p-6">
+            <span className="text-[10px] font-bold tracking-[0.2em] text-bieneq-green uppercase mb-2 block">
+              {course.category}
+            </span>
+            <h3 className="text-xl font-bold text-white mb-3 group-hover:text-bieneq-green transition-colors">
+              {course.title}
+            </h3>
+            <p className="text-sm text-white/40 mb-6 line-clamp-2 leading-relaxed">
+              {course.description}
+            </p>
+
+            <div className="flex items-center justify-between pt-4 border-t border-white/5">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-white/30" />
+                  <span className="text-xs text-white/50">{course.duration}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <BarChart className="w-3.5 h-3.5 text-white/30" />
+                  <span className="text-xs text-white/50">{course.level}</span>
+                </div>
+              </div>
+              <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all" />
+            </div>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </TiltCard>
+    </RevealItem>
   );
 }
 
 export default function AcademiaPage() {
   const [activeCategory, setActiveCategory] = useState("Todos");
 
+  const { x, y } = useMousePosition();
+  const springConfig = { stiffness: 150, damping: 20 };
+  const mouseX = useSpring(0, springConfig);
+  const mouseY = useSpring(0, springConfig);
+
+  useEffect(() => {
+    mouseX.set((x / (typeof window !== "undefined" ? window.innerWidth : 1)) - 0.5);
+    mouseY.set((y / (typeof window !== "undefined" ? window.innerHeight : 1)) - 0.5);
+  }, [x, y, mouseX, mouseY]);
+
+  const bgX = useTransform(mouseX, [-0.5, 0.5], [20, -20]);
+  const bgY = useTransform(mouseY, [-0.5, 0.5], [20, -20]);
+
   return (
-    <main className="min-h-screen bg-[#030303] text-white pt-32 pb-24 overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-bieneq-green/5 blur-[120px] rounded-full -z-10" />
+    <main className="min-h-screen bg-[#030303] text-white pt-32 pb-24 overflow-hidden relative">
+      {/* Background Glow & Parallax */}
+      <motion.div 
+        style={{ x: bgX, y: bgY }}
+        className="absolute inset-0 pointer-events-none -z-10"
+      >
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-bieneq-green/5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-bieneq-green/3 blur-[120px] rounded-full" />
+      </motion.div>
 
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-3xl"
-        >
-          <h1 className="text-5xl md:text-8xl font-heading font-bold leading-[0.9] tracking-tighter mb-8">
-            <OutlineText text="Formación" strokeColor="rgba(255,255,255,0.2)" className="text-white" /> <br />
-            de <GradientText variant="green">Élite.</GradientText>
-          </h1>
-          <p className="text-xl md:text-2xl text-white/40 font-light leading-relaxed mb-10">
-            Aprende la ciencia detrás del barefoot y la podología equina moderna con José Manuel Luna.
-          </p>
+        <ScrollReveal direction="up" staggerChildren={0.15}>
+          <RevealItem>
+            <h1 className="text-5xl md:text-8xl font-heading font-bold leading-[0.9] tracking-tighter mb-8">
+              <OutlineText text="Formación" strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" /> <br />
+              de <GradientText variant="green">Élite.</GradientText>
+            </h1>
+          </RevealItem>
+          <RevealItem>
+            <p className="text-xl md:text-2xl text-white/40 font-light leading-relaxed mb-10 max-w-3xl">
+              Aprende la ciencia detrás del barefoot y la podología equina moderna con José Manuel Luna.
+            </p>
+          </RevealItem>
 
           {/* Stats Bar */}
-          <div className="flex flex-wrap gap-8 py-6 border-y border-white/5 mb-12">
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white tracking-tighter">15+</span>
-              <span className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Módulos</span>
+          <RevealItem>
+            <div className="flex flex-wrap gap-8 py-6 border-y border-white/5 mb-12">
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-white tracking-tighter">15+</span>
+                <span className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Módulos</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-white tracking-tighter">50h</span>
+                <span className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Contenido HD</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-white tracking-tighter">1.2k</span>
+                <span className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Alumnos</span>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white tracking-tighter">50h</span>
-              <span className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Contenido HD</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-white tracking-tighter">1.2k</span>
-              <span className="text-[10px] uppercase tracking-widest text-white/30 font-bold">Alumnos</span>
-            </div>
-          </div>
-        </motion.div>
+          </RevealItem>
+        </ScrollReveal>
       </div>
 
       {/* Featured Course (Spotlight) */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-32">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+      <ScrollReveal className="max-w-7xl mx-auto px-6 lg:px-8 mb-32" direction="up" delay={0.4}>
+        <div
           className="relative w-full aspect-[21/9] rounded-[2.5rem] overflow-hidden border border-white/10 group"
         >
+          <BorderBeam size={600} duration={20} colorFrom="#c2410c" colorTo="#9a3412" />
           <img 
             src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1600&q=80" 
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -191,16 +220,16 @@ export default function AcademiaPage() {
               Descubre cómo abordar casos de laminitis y deformaciones digitales desde una perspectiva puramente científica y biomecánica.
             </p>
             <div className="flex gap-4">
-              <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+              <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2 font-mono text-xs tracking-widest">
                 <Play className="w-4 h-4 fill-black" /> Comenzar Ahora
               </button>
-              <button className="px-8 py-4 bg-white/5 backdrop-blur-md text-white border border-white/20 font-bold rounded-full hover:bg-white/10 transition-all">
+              <button className="px-8 py-4 bg-white/5 backdrop-blur-md text-white border border-white/20 font-bold rounded-full hover:bg-white/10 transition-all font-mono text-xs tracking-widest">
                 Ver Detalles
               </button>
             </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </ScrollReveal>
 
       {/* Category Filter */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-12">
@@ -224,17 +253,13 @@ export default function AcademiaPage() {
 
       {/* Course Carousel */}
       <div className="w-full overflow-hidden">
-        <motion.div 
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="flex gap-6 px-6 lg:px-12 overflow-x-auto pb-12 scrollbar-hide"
-        >
+        <ScrollReveal className="flex gap-6 px-6 lg:px-12 overflow-x-auto pb-12 scrollbar-hide" direction="right" staggerChildren={0.1}>
           {courses
             .filter(c => activeCategory === "Todos" || c.category === activeCategory)
             .map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
-        </motion.div>
+        </ScrollReveal>
       </div>
 
       {/* Clinic Highlights Section */}

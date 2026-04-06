@@ -96,7 +96,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-bieneq-green/20 selection:text-bieneq-green;
+    @apply bg-transparent text-foreground antialiased selection:bg-bieneq-green/20 selection:text-bieneq-green;
   }
   html {
     scroll-behavior: smooth;
@@ -112,5 +112,8 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+  .bg-radial-vignette {
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.8) 100%);
   }
 }

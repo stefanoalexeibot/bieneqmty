@@ -6,6 +6,12 @@ import { ComparisonSlider } from "@/components/ui/comparison-slider";
 import { OutlineText } from "@/components/ui/outline-text";
 import { GradientText } from "@/components/ui/gradient-text";
 import { cn } from "@/lib/utils";
+import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { useMousePosition } from "@/hooks/use-mouse-position";
+import { useSpring, useTransform } from "framer-motion";
+import { useEffect } from "react";
 
 // Case Studies Data
 const hoofCases = [
@@ -42,25 +48,45 @@ const tabs = [
 export default function GaleriaPage() {
   const [activeTab, setActiveTab] = useState("cascos");
 
+  const { x, y } = useMousePosition();
+  const springConfig = { stiffness: 150, damping: 20 };
+  const mouseX = useSpring(0, springConfig);
+  const mouseY = useSpring(0, springConfig);
+
+  useEffect(() => {
+    mouseX.set((x / (typeof window !== "undefined" ? window.innerWidth : 1)) - 0.5);
+    mouseY.set((y / (typeof window !== "undefined" ? window.innerHeight : 1)) - 0.5);
+  }, [x, y, mouseX, mouseY]);
+
+  const bgX = useTransform(mouseX, [-0.5, 0.5], [20, -20]);
+  const bgY = useTransform(mouseY, [-0.5, 0.5], [20, -20]);
+
   return (
     <main className="min-h-screen bg-[#020202] text-white pt-32 pb-24 relative overflow-hidden">
-      {/* Background radial glow */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-bieneq-green/5 blur-[150px] rounded-full -z-10" />
+      {/* Background Decorative Elements & Parallax */}
+      <motion.div 
+        style={{ x: bgX, y: bgY }}
+        className="absolute inset-0 pointer-events-none -z-10 overflow-hidden"
+      >
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-bieneq-green/5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-1/4 left-1/4 w-[600px] h-[600px] bg-bieneq-green/2 blur-[120px] rounded-full" />
+      </motion.div>
 
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-20 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <h1 className="text-6xl md:text-8xl font-heading font-bold tracking-tighter mb-8 leading-none">
-            <OutlineText text="Galería de" strokeColor="rgba(255,255,255,0.2)" className="text-white" /> <br />
-            <GradientText variant="green">Resultados.</GradientText>
-          </h1>
-          <p className="text-xl text-white/40 max-w-2xl mx-auto font-light leading-relaxed">
-            Documentación visual de nuestra metodología Barefoot y formación técnica especializada.
-          </p>
-        </motion.div>
+        <ScrollReveal direction="up" staggerChildren={0.15}>
+          <RevealItem>
+            <h1 className="text-6xl md:text-8xl font-heading font-bold tracking-tighter mb-8 leading-none">
+              <OutlineText text="Galería de" strokeColor="rgba(22, 163, 74, 0.3)" className="text-white" /> <br />
+              <GradientText variant="green">Resultados.</GradientText>
+            </h1>
+          </RevealItem>
+          <RevealItem>
+            <p className="text-xl text-white/40 max-w-2xl mx-auto font-light leading-relaxed">
+              Documentación visual de nuestra metodología Barefoot y formación técnica especializada.
+            </p>
+          </RevealItem>
+        </ScrollReveal>
       </div>
 
       {/* Modern Tabs */}
@@ -94,59 +120,67 @@ export default function GaleriaPage() {
             transition={{ duration: 0.5, ease: "circOut" }}
           >
             {activeTab === "cascos" ? (
-              <div className="flex flex-col gap-24 md:gap-32">
+              <ScrollReveal className="flex flex-col gap-24 md:gap-32" staggerChildren={0.3}>
                 {hoofCases.map((item, i) => (
-                  <div key={item.id} className={cn(
-                    "flex flex-col gap-12 items-center",
-                    i % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-                  )}>
-                    <div className="w-full lg:w-7/12">
-                      <div className="rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
-                        <ComparisonSlider 
-                          beforeImage={item.before} 
-                          afterImage={item.after}
-                          beforeLabel="Problema Inicial"
-                          afterLabel="Resultado Bieneq"
-                        />
+                  <RevealItem key={item.id}>
+                    <div className={cn(
+                      "flex flex-col gap-12 items-center",
+                      i % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
+                    )}>
+                      <div className="w-full lg:w-7/12">
+                        <TiltCard intensity={10} className="rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl relative">
+                          <BorderBeam size={400} duration={15} colorFrom="#16a34a" colorTo="#84cc16" />
+                          <ComparisonSlider 
+                            beforeImage={item.before} 
+                            afterImage={item.after}
+                            beforeLabel="Problema Inicial"
+                            afterLabel="Resultado Bieneq"
+                          />
+                        </TiltCard>
+                      </div>
+                      <div className="w-full lg:w-5/12 space-y-6">
+                        <span className="text-bieneq-green font-bold text-sm tracking-widest uppercase">Caso No. {item.id}</span>
+                        <h3 className="text-4xl font-heading font-bold text-white tracking-tight">{item.title}</h3>
+                        <p className="text-lg text-white/50 leading-relaxed font-light">{item.desc}</p>
+                        <div className="flex gap-4 pt-4 text-[10px] font-bold text-white/30 uppercase tracking-widest">
+                          <span className="px-3 py-1 bg-white/5 rounded-full border border-white/10">#Barefoot</span>
+                          <span className="px-3 py-1 bg-white/5 rounded-full border border-white/10">#Rehabilitación</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="w-full lg:w-5/12 space-y-6">
-                      <span className="text-bieneq-green font-bold text-sm tracking-widest uppercase">Caso No. {item.id}</span>
-                      <h3 className="text-4xl font-heading font-bold text-white">{item.title}</h3>
-                      <p className="text-lg text-white/50 leading-relaxed font-light">{item.desc}</p>
-                      <div className="flex gap-4 pt-4 text-[10px] font-bold text-white/30 uppercase tracking-widest">
-                        <span className="px-3 py-1 bg-white/5 rounded-full border border-white/10">#Barefoot</span>
-                        <span className="px-3 py-1 bg-white/5 rounded-full border border-white/10">#Rehabilitación</span>
-                      </div>
-                    </div>
-                  </div>
+                  </RevealItem>
                 ))}
-              </div>
+              </ScrollReveal>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[250px]">
+              <ScrollReveal className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[250px]" staggerChildren={0.1}>
                 {clinics.map((img) => (
-                  <motion.div
+                  <RevealItem
                     key={img.id}
                     className={cn(
-                      "relative rounded-3xl overflow-hidden border border-white/10 group cursor-pointer",
+                      "relative",
                       img.size === "tall" ? "row-span-2" : 
                       img.size === "wide" ? "col-span-2" : ""
                     )}
                   >
-                    <img 
-                      src={img.img} 
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                      alt={img.title}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
-                      <div>
-                        <p className="text-xs font-bold text-bieneq-green uppercase tracking-widest mb-1">Clínica Bieneq</p>
-                        <p className="text-lg font-bold text-white">{img.title}</p>
+                    <TiltCard className="h-full">
+                      <div className="relative h-full rounded-3xl overflow-hidden border border-white/10 group cursor-pointer bg-white/5 backdrop-blur-sm">
+                        <BorderBeam size={200} duration={10} colorFrom="#16a34a" colorTo="#84cc16" />
+                        <img 
+                          src={img.img} 
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                          alt={img.title}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
+                          <div>
+                            <p className="text-xs font-bold text-bieneq-green uppercase tracking-widest mb-1">Clínica Bieneq</p>
+                            <p className="text-lg font-bold text-white">{img.title}</p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </TiltCard>
+                  </RevealItem>
                 ))}
-              </div>
+              </ScrollReveal>
             )}
           </motion.div>
         </AnimatePresence>

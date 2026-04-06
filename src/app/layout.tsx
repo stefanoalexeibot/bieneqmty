@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/layout/navbar";
 import { LenisProvider } from "@/components/layout/lenis-provider";
 import { CustomCursor } from "@/components/ui/custom-cursor";
-import { Noise } from "@/components/ui/noise";
+import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { Footer } from "@/components/layout/footer";
 
 const inter = Inter({subsets:['latin'], variable:'--font-sans'});
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={cn("dark font-sans antialiased cursor-none", inter.variable, playfair.variable)}>
       <body className="cursor-none">
-        <Noise />
+        <DynamicBackground />
         <CustomCursor />
         <LenisProvider>
           <Navbar />
