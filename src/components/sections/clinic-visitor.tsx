@@ -32,24 +32,10 @@ export function ClinicVisitor() {
               <p className="text-white/60 text-lg mb-10 font-light leading-relaxed">
                 Recibimos a Tommy Vasques en nuestro rancho para una jornada de intercambio técnico y visión compartida sobre el bienestar equino. Descubre la experiencia completa y los aprendizajes que dejó esta valiosa visita.
               </p>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
-                <Magnetic>
-                  <a 
-                    href="https://youtu.be/w9ijh42lFZM" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="px-8 py-4 bg-bieneq-green text-black font-bold rounded-full flex items-center gap-3 hover:shadow-[0_0_20px_rgba(46,213,115,0.4)] transition-all duration-300"
-                  >
-                    <Play className="w-5 h-5 fill-black" />
-                    Ver Video Completo
-                  </a>
-                </Magnetic>
-              </div>
             </motion.div>
           </div>
 
-          {/* Visual Content: Image + Embed */}
+          {/* Visual Content: Image */}
           <div className="lg:col-span-7 order-1 lg:order-2">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -58,7 +44,7 @@ export function ClinicVisitor() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="relative group"
             >
-              {/* Main Image Overlay with Play button */}
+              {/* Main Image Overlay */}
               <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
                 <img 
                   src="/images/clinics/tommy-visita.jpg" 
@@ -66,12 +52,8 @@ export function ClinicVisitor() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 
-                {/* Embedded Video (Iframe hidden by default, shown on request or just keep as preview with link) */}
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform duration-500">
-                    <Play className="w-8 h-8 text-white fill-white ml-1" />
-                  </div>
-                </div>
+                {/* Subtle overlay to match aesthetics */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
               </div>
 
               {/* Float Card */}
@@ -91,22 +73,6 @@ export function ClinicVisitor() {
               </div>
             </motion.div>
           </div>
-        </div>
-      </div>
-
-      {/* Video Section (Optional Embed below if needed) */}
-      <div className="max-w-5xl mx-auto mt-24 px-6">
-        <div className="aspect-video rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl relative">
-          <iframe 
-            width="100%" 
-            height="100%" 
-            src="https://www.youtube.com/embed/w9ijh42lFZM" 
-            title="Tommy Vasques nos visita"
-            frameBorder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowFullScreen
-            className="w-full h-full"
-          ></iframe>
         </div>
       </div>
     </section>
