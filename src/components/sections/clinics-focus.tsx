@@ -11,13 +11,14 @@ const clinics = [
     id: 1,
     title: "Clínica Intensiva Barefoot",
     type: "Presencial",
-    date: "Próximamente",
+    date: "Realizada con Éxito",
     location: "Monterrey, NL",
-    spots: 12,
-    spotsLeft: 4,
+    spots: 0,
+    spotsLeft: 0,
     hours: "16 hrs",
     img: "/images/home/wellness/IPPELP - 05.jpg",
     accent: "#22c55e",
+    soldOut: true,
   },
   {
     id: 3,
@@ -30,16 +31,17 @@ const clinics = [
     hours: "12 hrs",
     img: "/images/home/wellness/IPPELP - CLINICA TAMPICO 02.jpg",
     accent: "#22c55e",
+    soldOut: true,
   },
   {
     id: 2,
-    title: "Módulo: Biomecánica del Casco",
-    type: "Online — Próximamente",
-    date: "Próxima Edición",
-    location: "Plataforma Digital",
+    title: "Próxima Clínica en Monterrey",
+    type: "Presencial — Próximamente",
+    date: "Junio 2026",
+    location: "Sede por confirmar",
     spots: 0,
     spotsLeft: 0,
-    hours: "8 hrs",
+    hours: "16 hrs",
     img: "/images/home/wellness/IPPELP - BAREFOOT 04.jpg",
     accent: "#eab308",
     comingSoon: true,
@@ -84,8 +86,8 @@ export function ClinicsFocus() {
             >
               {/* Background */}
               <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: `url(${clinic.img})`, opacity: 0.4 }}
+                className="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-105 opacity-50 group-hover:opacity-70 grayscale group-hover:grayscale-0"
+                style={{ backgroundImage: `url(${clinic.img})` }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
 
@@ -131,9 +133,14 @@ export function ClinicsFocus() {
                   )}
                 </div>
 
-                {!clinic.comingSoon && (
+                {!clinic.comingSoon && !clinic.soldOut && (
                   <Link href="/citas" className="inline-flex items-center gap-2 font-semibold text-black px-6 py-3 rounded-full transition-all text-sm" style={{ backgroundColor: clinic.accent }}>
                     Reservar mi lugar <ArrowRight className="w-4 h-4" />
+                  </Link>
+                )}
+                {clinic.soldOut && (
+                  <Link href="/clinicas" className="inline-flex items-center gap-2 font-semibold text-white border border-white/20 hover:border-white/50 px-6 py-3 rounded-full transition-all text-sm group/btn bg-white/5 backdrop-blur-md">
+                    Ver Resumen Fotográfico <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
                 )}
               </div>
