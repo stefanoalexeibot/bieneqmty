@@ -27,9 +27,10 @@ export function BentoGrid() {
             <TiltCard className="h-full">
               <div className="group relative h-full rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between p-8 text-left backdrop-blur-sm">
                 <BorderBeam size={250} duration={12} colorFrom="#b45309" colorTo="#d97706" />
-                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-cafe/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/1996337/pexels-photo-1996337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity grayscale duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-cafe/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 
-                <div className="relative z-10 w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-cafe mb-auto shadow-inner">
+                <div className="relative z-10 w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-cafe mb-auto shadow-inner backdrop-blur-md border border-white/10">
                   <ShoppingBag className="w-8 h-8" />
                 </div>
 
@@ -49,9 +50,10 @@ export function BentoGrid() {
             <TiltCard className="h-full">
               <div className="group relative h-full rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between p-8 text-left backdrop-blur-sm">
                 <BorderBeam size={200} duration={10} colorFrom="#22c55e" colorTo="#10b981" delay={2} />
-                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/1996331/pexels-photo-1996331.jpeg?auto=compress&cs=tinysrgb&w=800')] bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity grayscale duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 
-                <div className="relative z-10 w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-green mb-auto shadow-inner">
+                <div className="relative z-10 w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-green mb-auto shadow-inner backdrop-blur-md border border-white/10">
                   <GraduationCap className="w-8 h-8" />
                 </div>
 
@@ -71,19 +73,20 @@ export function BentoGrid() {
             <TiltCard className="h-full">
               <div className="group relative h-full rounded-3xl overflow-hidden bg-white/5 border border-white/10 hover:border-white/20 transition-all flex flex-col md:flex-row items-start md:items-center justify-between p-8 md:p-12 text-left backdrop-blur-sm">
                 <BorderBeam size={400} duration={20} colorFrom="#eab308" colorTo="#ca8a04" delay={5} />
-                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-yellow/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/1996330/pexels-photo-1996330.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center opacity-5 group-hover:opacity-10 transition-opacity grayscale duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-bieneq-yellow/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 <div className="relative z-10 max-w-2xl">
-                   <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-yellow mb-6 shadow-inner">
+                   <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-bieneq-yellow mb-6 shadow-inner backdrop-blur-md border border-white/10">
                      <MapPin className="w-8 h-8" />
                    </div>
                   <h3 className="text-3xl font-black text-white mb-2 tracking-tighter uppercase">Consultoría y Servicios</h3>
-                  <p className="text-white/60 mb-6 font-light">Agenda una evaluación clínica presencial en Monterrey, o una asesoría técnica remota desde cualquier parte del mundo.</p>
+                  <p className="text-white/60 mb-6 font-light text-lg">Agenda una evaluación clínica presencial en Monterrey, o una asesoría técnica remota desde cualquier parte del mundo.</p>
                 </div>
 
                 <div className="relative z-10 mt-6 md:mt-0">
-                   <Link href="/citas" className="inline-flex items-center justify-center gap-2 bg-white text-black px-10 py-5 rounded-full font-black uppercase hover:scale-110 shadow-xl transition-all active:scale-95">
-                    Agendar Cita
+                   <Link href="/citas" className="inline-flex items-center justify-center gap-2 bg-white text-black px-10 py-5 rounded-full font-black uppercase hover:scale-110 shadow-[0_20px_50px_rgba(255,255,255,0.2)] transition-all active:scale-95">
+                    Agendar Cita <ArrowRight className="w-5 h-5 ml-2" />
                   </Link>
                 </div>
               </div>

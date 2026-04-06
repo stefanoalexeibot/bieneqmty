@@ -16,7 +16,7 @@ export function InfiniteMarquee() {
     <div className="w-full bg-bieneq-green py-4 overflow-hidden flex whitespace-nowrap z-20 relative border-y border-white/20">
       <motion.div
         animate={{ x: ["0%", "-50%"] }}
-        transition={{ repeat: Infinity, ease: "linear", duration: 15 }}
+        transition={{ repeat: Infinity, ease: "linear", duration: 35 }}
         className="flex items-center gap-16"
       >
         {/* Repeat twice for seamless infinite scroll */}

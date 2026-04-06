@@ -1,17 +1,37 @@
 "use client";
 
-import { motion, useSpring, useTransform } from "framer-motion";
+import { motion, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Background3D } from "@/components/ui/3d-canvas";
-import { GradientText } from "@/components/ui/gradient-text";
 import { KineticWord, KineticHeading } from "@/components/ui/kinetic-word";
 import { useMousePosition } from "@/hooks/use-mouse-position";
 import { ShimmerWord } from "@/components/ui/shimmer-word";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+// Real BieneqMty wellness images
+const wellnessImages = [
+  "/images/home/wellness/IPPELP - 01.jpg",
+  "/images/home/wellness/IPPELP - 004.jpg",
+  "/images/home/wellness/IPPELP - 05.jpg",
+  "/images/home/wellness/tampico-02.jpg",
+  "/images/home/wellness/IPPELP - 06.jpg",
+  "/images/home/wellness/tampico-05.jpg",
+];
+
+// Floating decorative images (card-friendly crops)
+const floatingImages = [
+  "/images/home/wellness/IPPELP - 002.jpg",
+  "/images/home/wellness/IPPELP - 003.jpg",
+  "/images/home/wellness/IPPELP - 007.jpg",
+  "/images/home/wellness/tampico-04.jpg",
+  "/images/home/wellness/tampico-06.jpg",
+];
+
 export function HeroSection() {
   const { x, y } = useMousePosition();
+  const [bgIndex, setBgIndex] = useState(0);
+  const [floatIndex, setFloatIndex] = useState(0);
   
   // Smooth spring motion for parallax
   const springConfig = { stiffness: 150, damping: 20 };
@@ -19,10 +39,25 @@ export function HeroSection() {
   const mouseY = useSpring(0, springConfig);
 
   useEffect(() => {
-    // Normalize coordinates -0.5 to 0.5
     mouseX.set((x / (typeof window !== 'undefined' ? window.innerWidth : 1)) - 0.5);
     mouseY.set((y / (typeof window !== 'undefined' ? window.innerHeight : 1)) - 0.5);
   }, [x, y, mouseX, mouseY]);
+
+  // Cycle BIENESTAR background image every 3s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBgIndex((prev) => (prev + 1) % wellnessImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Cycle floating images every 4s (offset so they don't change together)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFloatIndex((prev) => (prev + 1) % floatingImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Parallax transforms for different layers
   const bgX = useTransform(mouseX, [-0.5, 0.5], [20, -20]);
@@ -46,17 +81,47 @@ export function HeroSection() {
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-bieneq-cafe/10 rounded-full blur-[160px] mix-blend-screen pointer-events-none opacity-40" />
       </motion.div>
 
-      {/* Floating 3D-feeling elements - Layer 1 (Mid) */}
+      {/* Floating Decorative Images - Layer 1 (Mid) */}
       <motion.div 
         style={{ x: midX, y: midY, rotateZ: 5 }}
         className="absolute inset-0 z-5 pointer-events-none"
       >
-        <div className="absolute top-20 right-[15%] w-64 h-64 opacity-20 filter grayscale contrast-125 rotate-12">
-            {/* Placeholder for high-end horse asset */}
-            <div className="w-full h-full border border-white/10 rounded-2xl flex items-center justify-center text-[100px] select-none">🐎</div>
+        {/* Top-right floating card */}
+        <div className="absolute top-20 right-[15%] w-64 h-64 rotate-12 group">
+          <div className="w-full h-full border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative">
+            <AnimatePresence mode="sync">
+              <motion.img
+                key={floatIndex}
+                src={floatingImages[floatIndex]}
+                alt="BieneqMty"
+                className="absolute inset-0 w-full h-full object-cover opacity-70 grayscale contrast-110"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.7 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.5 }}
+              />
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          </div>
         </div>
-        <div className="absolute bottom-40 left-[10%] w-48 h-48 opacity-15 filter grayscale contrast-125 -rotate-12">
-            <div className="w-full h-full border border-white/10 rounded-full flex items-center justify-center text-[80px] select-none">⚙️</div>
+
+        {/* Bottom-left floating card */}
+        <div className="absolute bottom-40 left-[10%] w-48 h-48 -rotate-12 group">
+          <div className="w-full h-full border border-white/10 rounded-full overflow-hidden shadow-2xl relative">
+            <AnimatePresence mode="sync">
+              <motion.img
+                key={(floatIndex + 2) % floatingImages.length}
+                src={floatingImages[(floatIndex + 2) % floatingImages.length]}
+                alt="BieneqMty"
+                className="absolute inset-0 w-full h-full object-cover opacity-70 grayscale contrast-110"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.7 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.5 }}
+              />
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-full" />
+          </div>
         </div>
       </motion.div>
 
@@ -74,7 +139,7 @@ export function HeroSection() {
           </span>
         </motion.div>
 
-        {/* Hero H1 — Super Wow Video Masking */}
+        {/* Hero H1 — Video Masked Text with Cycling Real Images */}
         <motion.h1
           style={{ x: textX, y: textY }}
           initial={{ opacity: 0, scale: 0.9 }}
@@ -82,31 +147,39 @@ export function HeroSection() {
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           className="font-heading font-black text-white tracking-tighter max-w-6xl leading-[0.9] text-center"
         >
-          {/* Line 1 - The Video Masked Text */}
+          {/* Line 1 - The Cycling Image Masked Text */}
           <div className="relative inline-block mb-4 overflow-hidden">
-            <span className="block text-7xl md:text-9xl lg:text-[11.5rem] bg-clip-text text-transparent bg-cover bg-center select-none leading-none py-4"
-                  style={{ 
-                    backgroundImage: 'url("https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                  }}>
+            {/* Crossfading background images */}
+            <AnimatePresence mode="sync">
+              <motion.div
+                key={bgIndex}
+                className="absolute inset-0 z-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.5 }}
+                style={{
+                  backgroundImage: `url("${wellnessImages[bgIndex]}")`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+            </AnimatePresence>
+
+            {/* The text acts as a mask over the cycling images */}
+            <span
+              className="block text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 relative z-10"
+              style={{
+                backgroundImage: `url("${wellnessImages[bgIndex]}")`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
               BIENESTAR
             </span>
-            
-            {/* Absolute positioned video that will be masked by the text above if we use a different approach, 
-                but for simplicity and performance, a high-res image or a video-masked div is better.
-                Let's use a real video element with CSS mask. */}
-            <div className="absolute inset-0 z-[-1] opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-               <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                className="w-full h-full object-cover"
-               >
-                 <source src="https://player.vimeo.com/external/494252666.sd.mp4?s=727e3ef340a030f81d1134706596328318721c51&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
-               </video>
-            </div>
             
             {/* Reveal animation line */}
             <motion.div 

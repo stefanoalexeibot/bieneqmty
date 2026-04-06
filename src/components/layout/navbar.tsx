@@ -31,8 +31,10 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 flex justify-center px-4 pt-4 pb-2 ${
-        scrolled ? "bg-black/40 backdrop-blur-xl border-b border-white/5 py-4 pt-4" : "bg-transparent py-6"
+      className={`fixed top-4 inset-x-4 z-50 transition-all duration-700 flex justify-center px-4 py-2 rounded-full border border-white/0 shadow-none ${
+        scrolled 
+          ? "bg-black/30 backdrop-blur-2xl border-white/10 py-4 translate-y-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
+          : "bg-transparent translate-y-[-10px]"
       }`}
     >
       <div className="w-full max-w-7xl flex items-center justify-between">
