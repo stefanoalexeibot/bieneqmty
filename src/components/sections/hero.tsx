@@ -1,9 +1,8 @@
 "use client";
 
-import { motion, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Background3D } from "@/components/ui/3d-canvas";
-import { KineticWord, KineticHeading } from "@/components/ui/kinetic-word";
 import { useMousePosition } from "@/hooks/use-mouse-position";
 import { ShimmerWord } from "@/components/ui/shimmer-word";
 import Link from "next/link";
@@ -87,40 +86,56 @@ export function HeroSection() {
         className="absolute inset-0 z-5 pointer-events-none"
       >
         {/* Top-right floating card */}
-        <div className="absolute top-20 right-[15%] w-64 h-64 rotate-12 group">
+        <div className="absolute top-20 right-[15%] w-64 h-64 rotate-12">
           <div className="w-full h-full border border-white/10 rounded-2xl overflow-hidden shadow-2xl relative">
-            <AnimatePresence mode="sync">
+            {floatingImages.map((img, i) => (
               <motion.img
-                key={floatIndex}
-                src={floatingImages[floatIndex]}
+                key={img}
+                src={img}
                 alt="BieneqMty"
-                className="absolute inset-0 w-full h-full object-cover opacity-70 grayscale contrast-110"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.7 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5 }}
+                className="absolute inset-0 w-full h-full object-cover grayscale contrast-110"
+                animate={{
+                  opacity: i === floatIndex ? 0.75 : 0,
+                  scale: i === floatIndex ? 1 : 1.08,
+                  filter: i === floatIndex ? 'blur(0px)' : 'blur(6px)',
+                }}
+                transition={{
+                  opacity: { duration: 2, ease: [0.16, 1, 0.3, 1] },
+                  scale: { duration: 2.5, ease: [0.16, 1, 0.3, 1] },
+                  filter: { duration: 1.6, ease: [0.16, 1, 0.3, 1] },
+                }}
               />
-            </AnimatePresence>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            ))}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10" />
           </div>
         </div>
 
         {/* Bottom-left floating card */}
-        <div className="absolute bottom-40 left-[10%] w-48 h-48 -rotate-12 group">
+        <div className="absolute bottom-40 left-[10%] w-48 h-48 -rotate-12">
           <div className="w-full h-full border border-white/10 rounded-full overflow-hidden shadow-2xl relative">
-            <AnimatePresence mode="sync">
-              <motion.img
-                key={(floatIndex + 2) % floatingImages.length}
-                src={floatingImages[(floatIndex + 2) % floatingImages.length]}
-                alt="BieneqMty"
-                className="absolute inset-0 w-full h-full object-cover opacity-70 grayscale contrast-110"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.7 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5 }}
-              />
-            </AnimatePresence>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-full" />
+            {floatingImages.map((img, i) => {
+              const idx = (i + 2) % floatingImages.length;
+              const active = idx === floatIndex;
+              return (
+                <motion.img
+                  key={img}
+                  src={img}
+                  alt="BieneqMty"
+                  className="absolute inset-0 w-full h-full object-cover grayscale contrast-110"
+                  animate={{
+                    opacity: active ? 0.75 : 0,
+                    scale: active ? 1 : 1.08,
+                    filter: active ? 'blur(0px)' : 'blur(6px)',
+                  }}
+                  transition={{
+                    opacity: { duration: 2, ease: [0.16, 1, 0.3, 1] },
+                    scale: { duration: 2.5, ease: [0.16, 1, 0.3, 1] },
+                    filter: { duration: 1.6, ease: [0.16, 1, 0.3, 1] },
+                  }}
+                />
+              );
+            })}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-full z-10" />
           </div>
         </div>
       </motion.div>
@@ -147,46 +162,50 @@ export function HeroSection() {
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           className="font-heading font-black text-white tracking-tighter max-w-6xl leading-[0.9] text-center"
         >
-          {/* Line 1 - The Cycling Image Masked Text */}
-          <div className="relative inline-block mb-4 overflow-hidden">
-            {/* Crossfading background images */}
-            <AnimatePresence mode="sync">
-              <motion.div
-                key={bgIndex}
-                className="absolute inset-0 z-0"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 1.5 }}
-                style={{
-                  backgroundImage: `url("${wellnessImages[bgIndex]}")`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              />
-            </AnimatePresence>
-
-            {/* The text acts as a mask over the cycling images */}
+          {/* Line 1 — Each image has its OWN bg-clip:text span, stacked and crossfaded */}
+          <div className="relative inline-flex items-center justify-center mb-4">
+            {/* First span sets the natural size/layout */}
             <span
-              className="block text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 relative z-10"
-              style={{
-                backgroundImage: `url("${wellnessImages[bgIndex]}")`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-              }}
+              className="block text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 invisible"
+              aria-hidden="true"
             >
               BIENESTAR
             </span>
-            
+
+            {/* All image spans are absolute-positioned on top, fading in/out */}
+            {wellnessImages.map((img, i) => (
+              <motion.span
+                key={img}
+                className="absolute inset-0 flex items-center justify-center text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 font-heading font-black"
+                style={{
+                  backgroundImage: `url("${img}")`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                }}
+                animate={{
+                  opacity: i === bgIndex ? 1 : 0,
+                  scale: i === bgIndex ? 1 : 1.05,
+                  filter: i === bgIndex ? 'blur(0px)' : 'blur(8px)',
+                }}
+                transition={{
+                  opacity: { duration: 1.8, ease: [0.16, 1, 0.3, 1] },
+                  scale: { duration: 2.2, ease: [0.16, 1, 0.3, 1] },
+                  filter: { duration: 1.4, ease: [0.16, 1, 0.3, 1] },
+                }}
+              >
+                BIENESTAR
+              </motion.span>
+            ))}
+
             {/* Reveal animation line */}
-            <motion.div 
-               initial={{ width: 0 }}
-               animate={{ width: "100%" }}
-               transition={{ delay: 0.8, duration: 1.2, ease: "circOut" }}
-               className="absolute bottom-4 left-0 h-1 bg-bieneq-green/60"
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ delay: 0.8, duration: 1.2, ease: "circOut" }}
+              className="absolute bottom-4 left-0 h-[2px] bg-gradient-to-r from-transparent via-bieneq-green to-transparent"
             />
           </div>
 
