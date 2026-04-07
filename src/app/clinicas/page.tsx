@@ -85,13 +85,19 @@ export default function ClinicasPage() {
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
 
-                {/* Play Button */}
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <Magnetic strength={0.2}>
-                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_60px_rgba(255,255,255,0.4)] group-hover:bg-bieneq-green group-hover:shadow-[0_0_60px_rgba(34,197,94,0.4)] transition-all duration-500">
-                      <Play className="w-10 h-10 fill-current ml-2" />
-                    </div>
-                  </Magnetic>
+                {/* Play Button Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                  <div className="md:block hidden">
+                    <Magnetic strength={0.2}>
+                      <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_60px_rgba(255,255,255,0.4)] transition-all duration-500">
+                        <Play className="w-10 h-10 fill-current ml-2" />
+                      </div>
+                    </Magnetic>
+                  </div>
+                  {/* Simple play button for mobile to avoid magnetic interference */}
+                  <div className="md:hidden w-20 h-20 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.4)] active:scale-95 transition-transform">
+                    <Play className="w-8 h-8 fill-current ml-1" />
+                  </div>
                 </div>
 
                 {/* Video Title Indicator */}

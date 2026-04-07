@@ -213,7 +213,13 @@ export function VideoTestimonials() {
                 <div
                   key={t.id}
                   className="snap-center shrink-0"
-                  onClick={() => setActiveId(t.id)}
+                  onClick={() => {
+                    if (activeId === t.id) {
+                      openVideo(t.videoId);
+                    } else {
+                      setActiveId(t.id);
+                    }
+                  }}
                 >
                   <motion.div
                     animate={{
@@ -235,25 +241,24 @@ export function VideoTestimonials() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
-                    {/* Play button */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <motion.button
+                    {/* Play button — Visual only on active card */}
+                    <div className={cn(
+                      "absolute inset-0 flex items-center justify-center transition-opacity duration-300",
+                      activeId === t.id ? "opacity-100" : "opacity-0"
+                    )}>
+                      <motion.div
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openVideo(t.videoId);
-                        }}
                         className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] z-20"
                       >
                         <Play className="w-6 h-6 fill-black ml-1" />
-                      </motion.button>
+                      </motion.div>
                     </div>
 
                     {/* Name tag at bottom */}
                     <div className="absolute bottom-0 left-0 w-full p-5 z-10">
                       <p className="text-[10px] font-bold text-bieneq-green uppercase tracking-[0.15em] mb-1">
-                        Ver Testimonio
+                        {activeId === t.id ? "Reproducir Ahora" : "Ver Testimonio"}
                       </p>
                       <p className="text-base font-bold text-white leading-tight">{t.name}</p>
                       <p className="text-xs text-white/40 mt-0.5">{t.location}</p>
