@@ -71,9 +71,9 @@ export function Navbar() {
         </div>
 
         {/* ICONS & MOBILE TOGGLE */}
-        <div className="flex items-center gap-4 relative z-50">
+        <div className="flex items-center gap-2 sm:gap-4 relative z-50">
           <Magnetic strength={0.2}>
-            <Link href="/academia/mi-progreso" className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors hidden sm:block">
+            <Link href="/academia/mi-progreso" className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors hidden md:block">
               <User className="w-5 h-5" />
             </Link>
           </Magnetic>
@@ -90,6 +90,7 @@ export function Navbar() {
             <button 
               className="p-2 text-white/70 hover:text-white md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -101,24 +102,26 @@ export function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-2xl border-b border-white/10 flex flex-col px-6 py-8 gap-6 md:hidden shadow-2xl"
+            initial={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-2xl border-b border-white/10 flex flex-col px-6 py-10 gap-6 md:hidden shadow-2xl gpu-optimize"
           >
             {navLinks.map((link, i) => (
               <motion.div
                 key={link.name}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.05 }}
               >
                 <Link
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-2xl font-semibold text-white/90 hover:text-bieneq-green transition-colors"
+                  className="text-2xl font-heading font-bold text-white/90 hover:text-bieneq-green transition-colors flex items-center justify-between group"
                 >
                   {link.name}
+                  <span className="w-6 h-px bg-bieneq-green scale-x-0 group-hover:scale-x-100 transition-transform origin-right" />
                 </Link>
               </motion.div>
             ))}

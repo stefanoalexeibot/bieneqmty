@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -14,28 +13,21 @@ import { ShimmerWord } from "@/components/ui/shimmer-word";
 
 export function Footer() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end end"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [-200, 0]);
-
+  
   return (
     <footer 
       ref={containerRef}
-      className="relative h-[600px] md:h-[800px] w-full bg-black overflow-hidden clip-path-footer"
-      style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
+      className="relative min-h-[700px] md:h-[800px] w-full bg-black overflow-hidden"
     >
-      <motion.div 
-        style={{ y }}
-        className="fixed bottom-0 w-full h-[600px] md:h-[800px] flex flex-col justify-between pt-24 pb-8 px-6 lg:px-12 bg-[#050505] overflow-hidden"
+      {/* Background container that reveals on scroll */}
+      <div 
+        className="sticky bottom-0 w-full min-h-[700px] md:h-[800px] flex flex-col justify-between pt-24 pb-8 px-6 lg:px-12 bg-[#050505] overflow-hidden gpu-optimize"
       >
         {/* Ambient Footer Lighting */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-bieneq-green/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-        <div className="flex flex-col md:flex-row justify-between gap-12 border-b border-white/10 pb-16">
+        <div className="flex flex-col md:flex-row justify-between gap-12 border-b border-white/10 pb-16 relative z-10">
           <div className="max-w-sm">
             <h4 className="text-white text-3xl font-heading font-semibold mb-6">
               Empecemos a <ShimmerWord className="text-3xl">trabajar.</ShimmerWord>
@@ -46,14 +38,14 @@ export function Footer() {
             <Magnetic strength={0.3}>
               <Link href="/citas" className="group inline-flex items-center gap-3 px-8 py-4 bg-bieneq-green text-black font-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(34,197,94,0.15)] relative">
                 <span className="relative z-10">AGENDAR AHORA</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="relative z-10 transition-transform group-hover:translate-x-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="relative z-10 transition-transform group-hover:translate-x-2"><path d="M5 12h14"/><path d="m12(5 7 7-7 7)"/></svg>
                 <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
               </Link>
             </Magnetic>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 md:gap-24 w-full md:w-auto mt-12 md:mt-0">
-            <div className="flex flex-col gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 md:gap-24 w-full md:w-auto mt-6 md:mt-0 relative z-10">
+            <div className="flex flex-col gap-5">
               <h5 className="text-white/40 font-mono text-xs tracking-[0.2em] uppercase mb-2 flex items-center gap-3">
                 <span className="w-8 h-[1px] bg-white/20"></span>
                 Ecosistema
@@ -86,7 +78,7 @@ export function Footer() {
               </div>
             </div>
             
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               <h5 className="text-white/40 font-mono text-xs tracking-[0.2em] uppercase mb-2 flex items-center gap-3">
                 <span className="w-8 h-[1px] bg-white/20"></span>
                 Social
@@ -115,22 +107,21 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Massive Text Background with Parallax */}
-        <motion.div 
-          style={{ y: useTransform(scrollYProgress, [0.5, 1], [100, 0]) }}
+        {/* Massive Text Background */}
+        <div 
           className="mt-auto flex justify-center items-end overflow-hidden pt-8 relative z-0"
         >
-          <h1 className="text-[15vw] md:text-[18vw] font-heading font-black tracking-tighter leading-none select-none bg-gradient-to-b from-white/10 to-transparent bg-clip-text text-transparent">
+          <h1 className="text-[14vw] md:text-[18vw] font-heading font-black tracking-tighter leading-none select-none bg-gradient-to-b from-white/10 to-transparent bg-clip-text text-transparent gpu-optimize">
             BIENEQ<span className="text-bieneq-green/10">MTY</span>
           </h1>
-        </motion.div>
+        </div>
         
         {/* Sleek Bottom Bar container */}
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center bg-white/[0.02] border border-white/5 backdrop-blur-md rounded-2xl px-6 py-4 mt-8 md:mt-2">
-          <p className="text-white/40 text-xs tracking-wider uppercase">© {new Date().getFullYear()} BieneqMty. Todos los derechos reservados.</p>
-          <div className="flex gap-8 mt-4 md:mt-0 text-xs font-mono tracking-widest uppercase">
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center bg-white/[0.02] border border-white/5 backdrop-blur-md rounded-2xl px-6 py-4 mt-8 md:mt-2 mb-4">
+          <p className="text-white/40 text-[10px] sm:text-xs tracking-wider uppercase text-center">© {new Date().getFullYear()} BieneqMty. Todos los derechos reservados.</p>
+          <div className="flex gap-6 sm:gap-8 mt-4 md:mt-0 text-[10px] sm:text-xs font-mono tracking-widest uppercase">
             <Link href="#" className="text-white/50 hover:text-white transition-colors relative group">
-              Aviso de Privacidad
+              Privacidad
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all group-hover:w-full" />
             </Link>
             <Link href="#" className="text-white/50 hover:text-white transition-colors relative group">
@@ -139,7 +130,7 @@ export function Footer() {
             </Link>
           </div>
         </div>
-      </motion.div>
+      </div>
     </footer>
   );
 }

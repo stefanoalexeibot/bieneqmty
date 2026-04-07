@@ -42,8 +42,12 @@ function AnimatedSphere() {
 
 export function Background3D() {
   return (
-    <div className="absolute inset-0 z-0 opacity-40 pointer-events-none mix-blend-screen">
-      <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
+    <div className="absolute inset-0 z-0 opacity-40 pointer-events-none mix-blend-screen gpu-optimize">
+      <Canvas 
+        camera={{ position: [0, 0, 8], fov: 45 }}
+        dpr={[1, 1.5]} /* Limit pixel ratio for performance */
+        gl={{ antialias: false, powerPreference: "high-performance" }}
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <pointLight position={[-10, -10, -10]} color="#22c55e" intensity={2} />

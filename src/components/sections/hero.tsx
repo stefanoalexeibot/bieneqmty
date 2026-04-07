@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useSpring, useTransform } from "framer-motion";
+import { motion, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Background3D } from "@/components/ui/3d-canvas";
 import { useMousePosition } from "@/hooks/use-mouse-position";
@@ -142,12 +142,12 @@ export function HeroSection() {
       </motion.div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
-        {/* Pill badge */}
+        {/* Pill badge - Increased top margin on mobile to avoid navbar overlap */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-10 overflow-hidden group hover:border-bieneq-green/30 transition-colors cursor-pointer"
+          className="mt-20 sm:mt-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6 sm:mb-10 overflow-hidden group hover:border-bieneq-green/30 transition-colors cursor-pointer gpu-optimize"
         >
           <span className="w-2 h-2 rounded-full bg-bieneq-green animate-pulse" />
           <span className="text-[10px] font-bold text-white/60 tracking-[0.2em] uppercase font-mono">
@@ -158,47 +158,42 @@ export function HeroSection() {
         {/* Hero H1 — Video Masked Text with Cycling Real Images */}
         <motion.h1
           style={{ x: textX, y: textY }}
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          className="font-heading font-black text-white tracking-tighter max-w-6xl leading-[0.9] text-center"
+          className="font-heading font-black text-white tracking-tighter max-w-6xl leading-[0.9] text-center gpu-optimize"
         >
-          {/* Line 1 — Each image has its OWN bg-clip:text span, stacked and crossfaded */}
           <div className="relative flex items-center justify-center mb-0">
-            {/* First span sets the natural size/layout */}
+            {/* Base text for layout */}
             <span
-              className="block text-[4rem] sm:text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 invisible font-heading font-black"
+              className="block text-[3.5rem] sm:text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 invisible font-heading font-black"
               aria-hidden="true"
             >
               BIENESTAR
             </span>
 
-            {/* All image spans are absolute-positioned on top, fading in/out */}
-            {wellnessImages.map((img, i) => (
+            {/* Performance Optimized Crossfade: Only render current and previous */}
+            <AnimatePresence mode="popLayout">
               <motion.span
-                key={img}
-                className="absolute inset-0 flex items-center justify-center text-[4rem] sm:text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 font-heading font-black"
+                key={`bg-${bgIndex}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="absolute inset-0 flex items-center justify-center text-[3.5rem] sm:text-7xl md:text-9xl lg:text-[11.5rem] select-none leading-none py-4 font-heading font-black"
                 style={{
-                  backgroundImage: `url("${img}")`,
+                  backgroundImage: `url("${wellnessImages[bgIndex]}")`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   color: 'transparent',
-                  willChange: 'transform, opacity'
-                }}
-                animate={{
-                  opacity: i === bgIndex ? 1 : 0,
-                  scale: i === bgIndex ? 1 : 1.05,
-                }}
-                transition={{
-                  opacity: { duration: 1.8, ease: [0.16, 1, 0.3, 1] },
-                  scale: { duration: 2.2, ease: [0.16, 1, 0.3, 1] },
+                  willChange: 'opacity'
                 }}
               >
                 BIENESTAR
               </motion.span>
-            ))}
+            </AnimatePresence>
 
             {/* Reveal animation line */}
             <motion.div
@@ -210,7 +205,7 @@ export function HeroSection() {
           </div>
 
           {/* Line 2 — Kinetic Heading with Shimmer accent */}
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-heading font-black text-white tracking-tighter -mt-2 lg:-mt-8 relative z-20 drop-shadow-2xl">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-heading font-black text-white tracking-tighter -mt-2 lg:-mt-8 relative z-20 drop-shadow-2xl">
             EQUINO{" "}<ShimmerWord>REDEFINIDO.</ShimmerWord>
           </h2>
         </motion.h1>
