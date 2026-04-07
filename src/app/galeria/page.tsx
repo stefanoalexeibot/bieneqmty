@@ -31,8 +31,8 @@ const hoofCases = [
   },
   { 
     id: 3, 
-    before: "/images/home/wellness/rehab-before.jpg", 
-    after: "/images/home/wellness/rehab-after.jpg", 
+    before: "/images/home/wellness/rehab-after.jpg", 
+    after: "/images/home/wellness/rehab-before.jpg", 
     title: "Rehabilitación Estructural", 
     desc: "Proceso de saneamiento y fortalecimiento de la estructura podal mediante estimulación natural y recorte correctivo." 
   }
@@ -40,7 +40,6 @@ const hoofCases = [
 
 const clinics = [
   { id: 1, img: "/images/home/wellness/IPPELP - 01.jpg", title: "Certificación 2023 — NL", size: "tall" },
-  { id: 2, img: "/images/home/wellness/IPPELP - 02.png", title: "Teoría Barefoot", size: "small" },
   { id: 3, img: "/images/home/wellness/IPPELP - 03.jpg", title: "Primeros Resultados", size: "wide" },
   { id: 4, img: "/images/home/wellness/IPPELP - 04.jpg", title: "Evaluación Clínica", size: "small" },
   { id: 5, img: "/images/home/wellness/IPPELP - 05.jpg", title: "Práctica de Campo", size: "tall" },
