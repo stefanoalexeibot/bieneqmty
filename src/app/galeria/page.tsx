@@ -17,27 +17,40 @@ import { useEffect } from "react";
 const hoofCases = [
   { 
     id: 1, 
-    before: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=1000&q=80", 
-    after: "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=1000&q=80", 
-    title: "Rehabilitación Laminitis", 
-    desc: "Recuperación de la concavidad y muralla en 6 semanas de tratamiento intensivo." 
+    before: "/images/home/wellness/antes.jpg", 
+    after: "/images/home/wellness/despues.jpg", 
+    title: "Recorte Fisiológico", 
+    desc: "Balance digital y recuperación de la profundidad de laguna lateral en una sola sesión de recorte profesional." 
   },
   { 
     id: 2, 
-    before: "https://images.unsplash.com/photo-1506795660198-e95c77602129?w=1000&q=80", 
-    after: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1000&q=80", 
-    title: "Transición Barefoot", 
-    desc: "De herrado tradicional a funcionalidad completa sin protección metálica." 
+    before: "/images/home/wellness/ai-hoof-before.png", 
+    after: "/images/home/wellness/ai-hoof-after.png", 
+    title: "Expansión de Talones", 
+    desc: "Rehabilitación de un casco contraído (atrotifiado) a un estado funcional con ranilla activa y talones expandidos." 
+  },
+  { 
+    id: 3, 
+    before: "/images/home/wellness/rehab-before.jpg", 
+    after: "/images/home/wellness/rehab-after.jpg", 
+    title: "Rehabilitación Estructural", 
+    desc: "Proceso de saneamiento y fortalecimiento de la estructura podal mediante estimulación natural y recorte correctivo." 
   }
 ];
 
 const clinics = [
-  { id: 1, img: "/content/clinics/clinica-01/gallery/gallery-1.png", title: "Certificación 2023 — NL", size: "tall" },
-  { id: 2, img: "/content/clinics/clinica-01/gallery/gallery-2.png", title: "Teoría Barefoot", size: "small" },
-  { id: 3, img: "/content/clinics/clinica-01/gallery/gallery-3.png", title: "Primeros Resultados", size: "wide" },
-  { id: 4, img: "/content/clinics/clinica-01/gallery/gallery-4.png", title: "Evaluación Clínica", size: "small" },
-  { id: 5, img: "/content/clinics/clinica-01/gallery/gallery-5.png", title: "Práctica de Campo", size: "tall" },
-  { id: 6, img: "/content/clinics/clinica-01/gallery/gallery-6.png", title: "Clínica 01 - Octubre", size: "small" },
+  { id: 1, img: "/images/home/wellness/IPPELP - 01.jpg", title: "Certificación 2023 — NL", size: "tall" },
+  { id: 2, img: "/images/home/wellness/IPPELP - 02.png", title: "Teoría Barefoot", size: "small" },
+  { id: 3, img: "/images/home/wellness/IPPELP - 03.jpg", title: "Primeros Resultados", size: "wide" },
+  { id: 4, img: "/images/home/wellness/IPPELP - 04.jpg", title: "Evaluación Clínica", size: "small" },
+  { id: 5, img: "/images/home/wellness/IPPELP - 05.jpg", title: "Práctica de Campo", size: "tall" },
+  { id: 6, img: "/images/home/wellness/IPPELP - 06.jpg", title: "Clínica 01 - Octubre", size: "small" },
+  { id: 7, img: "/images/home/wellness/tampico-02.jpg", title: "Sede Tampico - Anatomía", size: "small" },
+  { id: 8, img: "/images/home/wellness/tampico-03.jpg", title: "Dinámicas de Grupo", size: "wide" },
+  { id: 9, img: "/images/home/wellness/tampico-04.jpg", title: "Análisis de Aplomos", size: "tall" },
+  { id: 10, img: "/images/home/wellness/tampico-05.jpg", title: "Recorte en Vivo", size: "small" },
+  { id: 11, img: "/images/home/wellness/tampico-06.jpg", title: "Biomecánica Aplicada", size: "small" },
+  { id: 12, img: "/images/home/wellness/DANTE TORRES RECORTANDO - CL01.png", title: "José Manuel en Acción", size: "wide" },
 ];
 
 const tabs = [
