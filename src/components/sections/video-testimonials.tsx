@@ -50,6 +50,15 @@ export function VideoTestimonials() {
   const [activeId, setActiveId] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState<string | null>(null);
+  const [playingInlineId, setPlayingInlineId] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Drag-to-scroll refs
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -233,9 +242,14 @@ export function VideoTestimonials() {
                   className="snap-center shrink-0"
                   onClick={() => {
                     if (activeId === t.id) {
-                      openVideo(t.videoId);
+                      if (isMobile) {
+                        setPlayingInlineId(t.id);
+                      } else {
+                        openVideo(t.videoId);
+                      }
                     } else {
                       setActiveId(t.id);
+                      setPlayingInlineId(null);
                     }
                   }}
                 >
@@ -250,37 +264,59 @@ export function VideoTestimonials() {
                       activeId === t.id ? "border-bieneq-green" : "border-white/10"
                     )}
                   >
-                    {/* Real certificate ceremony photo */}
-                    <img
-                      src={t.img}
-                      alt={t.name}
-                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                      draggable={false}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                    {playingInlineId === t.id ? (
+                      <div className="absolute inset-0 bg-black">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setPlayingInlineId(null);
+                          }}
+                          className="absolute top-4 right-4 z-30 w-8 h-8 rounded-full bg-black/60 border border-white/20 flex items-center justify-center text-white"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                        <iframe
+                          src={`https://www.youtube.com/embed/${t.videoId}?autoplay=1&rel=0&playsinline=1&modestbranding=1&showinfo=0`}
+                          className="w-full h-full border-none"
+                          allow="autoplay; encrypted-media"
+                          allowFullScreen
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        {/* Real certificate ceremony photo */}
+                        <img
+                          src={t.img}
+                          alt={t.name}
+                          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                          draggable={false}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
-                    {/* Play button — Visual only on active card */}
-                    <div className={cn(
-                      "absolute inset-0 flex items-center justify-center transition-opacity duration-300",
-                      activeId === t.id ? "opacity-100" : "opacity-0"
-                    )}>
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] z-20"
-                      >
-                        <Play className="w-6 h-6 fill-black ml-1" />
-                      </motion.div>
-                    </div>
+                        {/* Play button — Visual only on active card */}
+                        <div className={cn(
+                          "absolute inset-0 flex items-center justify-center transition-opacity duration-300",
+                          activeId === t.id ? "opacity-100" : "opacity-0"
+                        )}>
+                          <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] z-20"
+                          >
+                            <Play className="w-6 h-6 fill-black ml-1" />
+                          </motion.div>
+                        </div>
 
-                    {/* Name tag at bottom */}
-                    <div className="absolute bottom-0 left-0 w-full p-5 z-10">
-                      <p className="text-[10px] font-bold text-bieneq-green uppercase tracking-[0.15em] mb-1">
-                        {activeId === t.id ? "Reproducir Ahora" : "Ver Testimonio"}
-                      </p>
-                      <p className="text-base font-bold text-white leading-tight">{t.name}</p>
-                      <p className="text-xs text-white/40 mt-0.5">{t.location}</p>
-                    </div>
+                        {/* Name tag at bottom */}
+                        <div className="absolute bottom-0 left-0 w-full p-5 z-10">
+                          <p className="text-[10px] font-bold text-bieneq-green uppercase tracking-[0.15em] mb-1">
+                            {activeId === t.id ? (isMobile ? "Reproducir Aquí" : "Reproducir Ahora") : "Ver Testimonio"}
+                          </p>
+                          <p className="text-base font-bold text-white leading-tight">{t.name}</p>
+                          <p className="text-xs text-white/40 mt-0.5">{t.location}</p>
+                        </div>
+                      </>
+                    )}
                   </motion.div>
                 </div>
               ))}
