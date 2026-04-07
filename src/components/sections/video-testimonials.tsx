@@ -109,10 +109,15 @@ export function VideoTestimonials() {
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
     } else {
       document.body.style.overflow = "unset";
+      document.body.style.touchAction = "auto";
     }
-    return () => { document.body.style.overflow = "unset"; };
+    return () => { 
+      document.body.style.overflow = "unset";
+      document.body.style.touchAction = "auto";
+    };
   }, [isModalOpen]);
 
   return (
@@ -305,23 +310,26 @@ export function VideoTestimonials() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-0 md:p-4"
+            className="fixed inset-0 z-[99999] flex items-center justify-center p-0 md:p-4"
           >
             <div
-              className="absolute inset-0 bg-black/98 backdrop-blur-3xl"
+              className="absolute inset-0 bg-black/98"
               onClick={() => setIsModalOpen(false)}
             />
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full h-full md:h-auto md:max-w-sm md:aspect-[9/16] bg-black md:rounded-3xl overflow-hidden border-none md:border md:border-white/10 z-[10000] shadow-2xl"
+              className="relative w-full h-[100dvh] md:h-auto md:max-w-sm md:aspect-[9/16] bg-black md:rounded-3xl overflow-hidden border-none md:border md:border-white/10 z-[100000] shadow-2xl"
             >
               <button
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 z-[102] w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsModalOpen(false);
+                }}
+                className="absolute top-8 right-6 z-[100001] w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all active:scale-90"
               >
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6" />
               </button>
               <iframe
                 src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1&rel=0`}
