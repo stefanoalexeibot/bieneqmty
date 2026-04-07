@@ -13,13 +13,23 @@ import { ClinicHighlights } from "@/components/sections/clinic-highlights";
 import { ClinicHDGallery } from "@/components/sections/clinic-gallery";
 
 export const metadata: Metadata = {
-  title: "BieneqMty | Bienestar Equino Ultra-Premium en Monterrey",
-  description: "Clínica de podología equina, herramientas profesionales para herrado y academia de entrenamiento barefoot en Monterrey, México. José Manuel Luna.",
+  title: "Bienestar Equino Ultra-Premium",
+  description: "Especialistas en podología, rehabilitación y alto rendimiento equino. El estándar de oro en el cuidado del caballo en Monterrey.",
   openGraph: {
-    title: "BieneqMty | El Apple del Bienestar Equino",
-    description: "Rehabilitación, herramientas de élite y cursos de podología equina en Monterrey.",
-    type: "website",
+    title: "BieneqMty | El Estándar Ultra-Premium del Caballo",
+    description: "Rehabilitación clínica, herramientas de élite y formación avanzada en Monterrey.",
     url: "https://bieneqmty.com",
+    siteName: "BieneqMty",
+    images: [
+      {
+        url: "https://bieneqmty.com/og-home.jpg",
+        width: 1200,
+        height: 630,
+        alt: "BieneqMty - Bienestar Equino",
+      },
+    ],
+    locale: "es_MX",
+    type: "website",
   },
 };
 

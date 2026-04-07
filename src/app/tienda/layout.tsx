@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tienda | BieneqMty — Herramientas de Podología Equina",
-  description: "Herramientas de precisión para podólogos: escofinas, cuchillas y kits profesionales para el cuidado del casco equino.",
-  openGraph: { title: "Tienda BieneqMty", description: "Herramientas de élite para podología equina." },
+  title: "Bieneq Shop | Herramientas Profesionales",
+  description: "Equipamiento de grado industrial para el cuidado y mantenimiento del caballo. Herramientas diseñadas para profesionales.",
+  openGraph: {
+    title: "Bieneq Shop | Herramientas de Élite para Caballos",
+    description: "La boutique definitiva para el herrador y podólogo equino profesional.",
+    images: [{ url: "https://bieneqmty.com/og-shop.jpg" }],
+  },
 };
 
-export default function TiendaLayout({ children }: { children: React.ReactNode }) {
+export default function TiendaLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }
