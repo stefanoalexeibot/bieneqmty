@@ -105,18 +105,21 @@ export function VideoTestimonials() {
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
-  // Lock body scroll when modal is open
+  // Lock body scroll and hide navbar when modal is open
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
       document.body.style.touchAction = "none";
+      document.body.classList.add("modal-open");
     } else {
       document.body.style.overflow = "unset";
       document.body.style.touchAction = "auto";
+      document.body.classList.remove("modal-open");
     }
     return () => { 
       document.body.style.overflow = "unset";
       document.body.style.touchAction = "auto";
+      document.body.classList.remove("modal-open");
     };
   }, [isModalOpen]);
 
@@ -332,8 +335,8 @@ export function VideoTestimonials() {
                 <X className="w-6 h-6" />
               </button>
               <iframe
-                src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1&rel=0`}
-                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1&rel=0&playsinline=1&modestbranding=1&showinfo=0`}
+                className="w-full h-full bg-black"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
                 title="YouTube video player"

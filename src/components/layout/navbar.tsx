@@ -10,12 +10,25 @@ import { Magnetic } from "@/components/ui/magnetic";
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
+    
+    // Check for modal-open class periodically or via observer
+    const checkModal = () => {
+      setIsModalActive(document.body.classList.contains("modal-open"));
+    };
+    
+    const observer = new MutationObserver(checkModal);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const navLinks = [
@@ -31,7 +44,9 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-4 inset-x-4 z-50 transition-all duration-700 flex justify-center px-4 py-2 rounded-full border border-white/0 shadow-none ${
+      className={`fixed top-4 inset-x-4 z-50 transition-all duration-500 flex justify-center px-4 py-2 rounded-full border border-white/0 shadow-none ${
+        isModalActive ? "opacity-0 pointer-events-none translate-y-[-20px]" : "opacity-100"
+      } ${
         scrolled 
           ? "bg-white/[0.03] backdrop-blur-3xl backdrop-saturate-150 border-white/10 border-t-white/20 py-4 translate-y-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
           : "bg-transparent translate-y-[-10px]"
