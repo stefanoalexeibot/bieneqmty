@@ -105,6 +105,16 @@ export function VideoTestimonials() {
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => { document.body.style.overflow = "unset"; };
+  }, [isModalOpen]);
+
   return (
     <section className="relative w-full bg-transparent py-24 md:py-48 overflow-hidden border-t border-white/5">
       {/* Background radial glow */}
@@ -295,17 +305,17 @@ export function VideoTestimonials() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-0 md:p-4"
           >
             <div
-              className="absolute inset-0 bg-black/95 backdrop-blur-xl"
+              className="absolute inset-0 bg-black/98 backdrop-blur-3xl"
               onClick={() => setIsModalOpen(false)}
             />
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-sm aspect-[9/16] bg-black rounded-3xl overflow-hidden border border-white/10 z-[101] shadow-2xl"
+              className="relative w-full h-full md:h-auto md:max-w-sm md:aspect-[9/16] bg-black md:rounded-3xl overflow-hidden border-none md:border md:border-white/10 z-[10000] shadow-2xl"
             >
               <button
                 onClick={() => setIsModalOpen(false)}
