@@ -14,6 +14,8 @@ import { useMousePosition } from "@/hooks/use-mouse-position";
 import { useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useEffect } from "react";
+import { clinics } from "@/lib/clinics";
+import { Sparkles } from "lucide-react";
 
 export default function ClinicasPage() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -61,6 +63,66 @@ export default function ClinicasPage() {
                 Revive la experiencia de nuestra última clínica presencial. Teoría avanzada, práctica real y una comunidad apasionada por el bienestar equino.
               </p>
             </RevealItem>
+          </ScrollReveal>
+        </div>
+
+        {/* Featured Clinic - NEW */}
+        <div className="mb-32">
+          <ScrollReveal direction="up" delay={0.3}>
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-bieneq-green to-bieneq-yellow rounded-[4rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+              <Link 
+                href={`/clinicas/${clinics[0].slug}`}
+                className="relative block p-12 md:p-16 rounded-[4rem] bg-black/40 border border-white/10 backdrop-blur-3xl overflow-hidden"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  <div className="relative aspect-[4/3] rounded-[3rem] overflow-hidden">
+                    <img 
+                      src={clinics[0].featuredImage} 
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                      alt="Next Clinic"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  </div>
+                  
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-3">
+                      <span className="px-4 py-1.5 bg-bieneq-green text-black text-[10px] font-bold uppercase tracking-widest rounded-full">Próximo Evento</span>
+                      <span className="text-white/40 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                        <Sparkles className="w-3 h-3" /> {clinics[0].date}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-4xl md:text-6xl font-heading font-bold text-white leading-none">
+                      {clinics[0].name}
+                    </h3>
+                    
+                    <p className="text-white/60 text-lg md:text-xl font-light leading-relaxed">
+                      {clinics[0].shortDescription}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-6 pt-4">
+                      <div className="flex items-center gap-3 text-white/40">
+                        <MapPin className="w-5 h-5 text-bieneq-green" />
+                        <span className="text-sm font-bold uppercase tracking-widest">{clinics[0].location}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-white/40">
+                        <Users className="w-5 h-5 text-bieneq-green" />
+                        <span className="text-sm font-bold uppercase tracking-widest">Cupos Limitados</span>
+                      </div>
+                    </div>
+
+                    <div className="pt-4">
+                      <div className="inline-flex items-center gap-4 px-8 py-4 bg-white text-black font-bold rounded-2xl group/btn overflow-hidden relative">
+                         <span className="relative z-10">Ver Detalles de la Clínica</span>
+                         <ArrowRight className="w-5 h-5 relative z-10 transition-transform group-hover/btn:translate-x-1" />
+                         <div className="absolute inset-0 bg-bieneq-green translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
           </ScrollReveal>
         </div>
 

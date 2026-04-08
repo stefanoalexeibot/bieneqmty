@@ -2,14 +2,23 @@
 
 import { useCart } from "@/hooks/use-cart";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from "lucide-react";
-import { useEffect } from "react";
+import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight, MessageSquare, MapPin, User, ChevronLeft } from "lucide-react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/magnetic";
 import Link from "next/link";
 
 export function CartDrawer() {
-  const { items, isOpen, toggleCart, updateQuantity, removeItem, getTotalPrice, getTotalItems } = useCart();
+  const { items, isOpen, toggleCart, updateQuantity, removeItem, getTotalPrice, getTotalItems, clearCart } = useCart();
+  const [isCheckout, setIsCheckout] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    whatsapp: "",
+    location: "",
+    message: ""
+  });
+
+  const WHATSAPP_NUMBER = "5218134179632";
 
   // Prevent scrolling when drawer is open
   useEffect(() => {
@@ -44,12 +53,25 @@ export function CartDrawer() {
             {/* Header */}
             <div className="flex items-center justify-between p-8 border-b border-white/10">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                  <ShoppingBag className="w-5 h-5 text-bieneq-green" />
-                </div>
+                {isCheckout ? (
+                  <button 
+                    onClick={() => setIsCheckout(false)}
+                    className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                ) : (
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+                    <ShoppingBag className="w-5 h-5 text-bieneq-green" />
+                  </div>
+                )}
                 <div>
-                  <h2 className="text-xl font-bold tracking-tight">Tu Carrito</h2>
-                  <p className="text-xs text-white/40 uppercase tracking-widest">{getTotalItems()} Artículos</p>
+                  <h2 className="text-xl font-bold tracking-tight">
+                    {isCheckout ? "Tus Datos" : "Tu Carrito"}
+                  </h2>
+                  <p className="text-xs text-white/40 uppercase tracking-widest">
+                    {isCheckout ? "Para agendar tu pedido" : `${getTotalItems()} Artículos`}
+                  </p>
                 </div>
               </div>
               <button
@@ -61,11 +83,72 @@ export function CartDrawer() {
               </button>
             </div>
 
-            {/* Items List */}
+            {/* Items List or Checkout Form */}
             <div className="flex-1 overflow-y-auto p-8 scrollbar-hide">
-              <AnimatePresence mode="popLayout">
-                {items.length === 0 ? (
+              <AnimatePresence mode="wait">
+                {isCheckout ? (
                   <motion.div
+                    key="checkout-form"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-8"
+                  >
+                    <div className="space-y-6">
+                      <div className="relative">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                        <input
+                          type="text"
+                          placeholder="Nombre Completo"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:border-bieneq-green outline-none transition-colors"
+                        />
+                      </div>
+
+                      <div className="relative">
+                        <MessageSquare className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                        <input
+                          type="tel"
+                          placeholder="WhatsApp / Celular"
+                          value={formData.whatsapp}
+                          onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:border-bieneq-green outline-none transition-colors"
+                        />
+                      </div>
+
+                      <div className="relative">
+                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                        <input
+                          type="text"
+                          placeholder="Ciudad / Estado"
+                          value={formData.location}
+                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:border-bieneq-green outline-none transition-colors"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-bold text-white/40 uppercase tracking-widest ml-1">Mensaje Adicional (Opcional)</label>
+                        <textarea
+                          placeholder="¿Alguna especificación extra?"
+                          rows={3}
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm focus:border-bieneq-green outline-none transition-colors resize-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="bg-bieneq-green/5 border border-bieneq-green/20 p-6 rounded-[2rem]">
+                      <p className="text-xs text-bieneq-green font-medium leading-relaxed">
+                        Al confirmar, serás redirigido a WhatsApp con un mensaje listo para que podamos agendar tu pedido personalmente.
+                      </p>
+                    </div>
+                  </motion.div>
+                ) : items.length === 0 ? (
+                  <motion.div
+                    key="empty-cart"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="h-full flex flex-col items-center justify-center text-center space-y-6"
@@ -87,7 +170,7 @@ export function CartDrawer() {
                     </Magnetic>
                   </motion.div>
                 ) : (
-                  <ul className="space-y-6">
+                  <ul key="items-list" className="space-y-6">
                     {items.map((item) => (
                       <motion.li
                         key={item.id}
@@ -148,33 +231,64 @@ export function CartDrawer() {
             {/* Footer / Summary */}
             {items.length > 0 && (
               <div className="p-8 border-t border-white/10 space-y-6 bg-black/40 backdrop-blur-3xl">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-white/40 uppercase tracking-widest text-[10px] font-bold">Subtotal</span>
-                    <span className="font-light">${getTotalPrice().toLocaleString()} MXN</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-white/40 uppercase tracking-widest text-[10px] font-bold">Envío</span>
-                    <span className="text-bieneq-green font-bold text-[10px] uppercase">Calculado en el checkout</span>
-                  </div>
-                  <div className="h-px bg-white/10" />
-                  <div className="flex justify-between items-end">
-                    <span className="text-xl font-bold">Total</span>
-                    <div className="text-right">
-                      <p className="text-2xl font-heading font-bold text-bieneq-green tracking-tighter">${getTotalPrice().toLocaleString()}</p>
-                      <p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">Precios con IVA incluido</p>
+                {!isCheckout && (
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-white/40 uppercase tracking-widest text-[10px] font-bold">Subtotal</span>
+                      <span className="font-light">${getTotalPrice().toLocaleString()} MXN</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-white/40 uppercase tracking-widest text-[10px] font-bold">Envío</span>
+                      <span className="text-bieneq-green font-bold text-[10px] uppercase">Calculado por WhatsApp</span>
+                    </div>
+                    <div className="h-px bg-white/10" />
+                    <div className="flex justify-between items-end">
+                      <span className="text-xl font-bold">Total</span>
+                      <div className="text-right">
+                        <p className="text-2xl font-heading font-bold text-bieneq-green tracking-tighter">${getTotalPrice().toLocaleString()}</p>
+                        <p className="text-[10px] text-white/20 font-bold uppercase tracking-widest">Precios con IVA incluido</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 <div className="flex flex-col gap-4">
                   <Magnetic strength={0.1}>
-                    <button className="w-full py-5 bg-white text-black font-bold uppercase tracking-widest rounded-2xl flex items-center justify-center gap-3 hover:bg-bieneq-green transition-colors group">
-                      <span>Finalizar Compra</span>
+                    <button 
+                      disabled={isCheckout && (!formData.name || !formData.whatsapp || !formData.location)}
+                      onClick={() => {
+                        if (!isCheckout) {
+                          setIsCheckout(true);
+                        } else {
+                          // Handle WhatsApp Redirection
+                          const itemsText = items.map(item => `- ${item.quantity}x ${item.name} ($${(item.price * item.quantity).toLocaleString()})`).join("\n");
+                          const text = encodeURIComponent(
+                            `🛍️ *Nuevo Pedido - BieneqMty*\n` +
+                            `-------------------------------\n` +
+                            `👤 *Nombre:* ${formData.name}\n` +
+                            `📞 *WhatsApp:* ${formData.whatsapp}\n` +
+                            `📍 *Ubicación:* ${formData.location}\n` +
+                            `💬 *Mensaje:* ${formData.message || "Sin mensaje adicional"}\n` +
+                            `-------------------------------\n` +
+                            `🛒 *Productos:*\n${itemsText}\n` +
+                            `-------------------------------\n` +
+                            `💰 *Total:* $${getTotalPrice().toLocaleString()} MXN\n` +
+                            `-------------------------------\n` +
+                            `_Enviado desde el sitio web bieneqmty.com_`
+                          );
+                          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
+                          clearCart();
+                          toggleCart(false);
+                          setIsCheckout(false);
+                        }
+                      }}
+                      className="w-full py-5 bg-white text-black font-bold uppercase tracking-widest rounded-2xl flex items-center justify-center gap-3 hover:bg-bieneq-green disabled:opacity-50 disabled:hover:bg-white transition-colors group"
+                    >
+                      <span>{isCheckout ? "Enviar Pedido a WhatsApp" : "Finalizar Compra"}</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </button>
                   </Magnetic>
-                  <p className="text-[10px] text-center text-white/20 uppercase tracking-widest font-bold">Pagos seguros con Stripe & PayPal</p>
+                  <p className="text-[10px] text-center text-white/20 uppercase tracking-widest font-bold">Respuesta inmediata vía WhatsApp</p>
                 </div>
               </div>
             )}
