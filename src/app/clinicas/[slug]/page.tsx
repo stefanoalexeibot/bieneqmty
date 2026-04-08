@@ -3,14 +3,19 @@ import ClinicView from "./clinic-view";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
 export async function generateStaticParams() {
   return clinics.map((clinic) => ({
     slug: clinic.slug,
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const clinic = getClinicBySlug(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const clinic = getClinicBySlug(slug);
   if (!clinic) return { title: "Clínica no encontrada" };
 
   return {
@@ -24,8 +29,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function ClinicPage({ params }: { params: { slug: string } }) {
-  const clinic = getClinicBySlug(params.slug);
+export default async function ClinicPage({ params }: PageProps) {
+  const { slug } = await params;
+  const clinic = getClinicBySlug(slug);
 
   if (!clinic) {
     notFound();
