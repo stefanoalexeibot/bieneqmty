@@ -6,12 +6,14 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Menu, X, User } from "lucide-react";
 import { Magnetic } from "@/components/ui/magnetic";
+import { useCart } from "@/hooks/use-cart";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
   const pathname = usePathname();
+  const { toggleCart, getTotalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -93,11 +95,16 @@ export function Navbar() {
             </Link>
           </Magnetic>
           <Magnetic strength={0.2}>
-            <button className="relative p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors">
+            <button 
+              onClick={() => toggleCart(true)}
+              className="relative p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+            >
               <ShoppingBag className="w-5 h-5" />
-              <span className="absolute top-0 right-0 w-4 h-4 bg-bieneq-cafe text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                0
-              </span>
+              {getTotalItems() > 0 && (
+                <span className="absolute top-0 right-0 w-4 h-4 bg-bieneq-green text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {getTotalItems()}
+                </span>
+              )}
             </button>
           </Magnetic>
           

@@ -8,6 +8,7 @@ import { CustomCursor } from "@/components/ui/custom-cursor";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { Noise } from "@/components/ui/noise";
 import { Footer } from "@/components/layout/footer";
+import { CartDrawer } from "@/components/layout/cart-drawer";
 
 const inter = Inter({subsets:['latin'], variable:'--font-sans'});
 const playfair = Playfair_Display({subsets:['latin'], variable:'--font-heading'});
@@ -48,6 +49,7 @@ export default function RootLayout({
         <CustomCursor />
         <LenisProvider>
           <Navbar />
+          <CartDrawer />
           {children}
           <Footer />
         </LenisProvider>

@@ -20,10 +20,28 @@ import { BorderBeam } from "@/components/ui/border-beam";
 import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/magnetic";
+import { useCart } from "@/hooks/use-cart";
 
 export default function ProductView({ product }: { product: Product }) {
   const [activeImage, setActiveImage] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { addItem, toggleCart } = useCart();
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      slug: product.slug,
+      category: product.category,
+    });
+  };
+
+  const handleBuyNow = () => {
+    handleAddToCart();
+    toggleCart(true);
+  };
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -60,7 +78,10 @@ export default function ProductView({ product }: { product: Product }) {
           <div className="flex items-center gap-8">
             <span className="text-xl font-light">${product.price.toLocaleString()}</span>
             <Magnetic>
-              <button className="px-8 py-3 bg-bieneq-green text-black font-bold rounded-full text-sm">
+              <button 
+                onClick={handleAddToCart}
+                className="px-8 py-3 bg-bieneq-green text-black font-bold rounded-full text-sm hover:scale-105 transition-transform"
+              >
                 Agregar al Carrito
               </button>
             </Magnetic>
@@ -159,11 +180,17 @@ export default function ProductView({ product }: { product: Product }) {
 
               {/* Action Buttons */}
               <RevealItem className="flex flex-col sm:flex-row gap-4 mb-16">
-                <button className="flex-1 h-16 bg-white text-black font-bold uppercase tracking-widest rounded-2xl hover:bg-bieneq-green hover:text-black transition-colors flex items-center justify-center gap-3 group">
-                  <ShoppingBag className="w-5 h-5" />
+                <button 
+                  onClick={handleAddToCart}
+                  className="flex-1 h-16 bg-white text-black font-bold uppercase tracking-widest rounded-2xl hover:bg-bieneq-green hover:text-black transition-colors flex items-center justify-center gap-3 group"
+                >
+                  <ShoppingBag className="w-5 h-5 transition-transform group-hover:scale-110" />
                   Agregar al Carrito
                 </button>
-                <button className="px-10 h-16 bg-white/5 border border-white/10 font-bold uppercase tracking-widest rounded-2xl hover:border-white/30 transition-colors flex items-center justify-center">
+                <button 
+                  onClick={handleBuyNow}
+                  className="px-10 h-16 bg-white/5 border border-white/10 font-bold uppercase tracking-widest rounded-2xl hover:border-white/30 transition-colors flex items-center justify-center"
+                >
                   Comprar Ahora
                 </button>
               </RevealItem>
@@ -285,7 +312,10 @@ export default function ProductView({ product }: { product: Product }) {
             <p className="text-xs font-bold truncate">{product.name}</p>
             <p className="text-sm font-light text-bieneq-green">${product.price.toLocaleString()}</p>
           </div>
-          <button className="px-8 py-4 bg-bieneq-green text-black font-bold rounded-2xl text-xs uppercase tracking-widest">
+          <button 
+            onClick={handleAddToCart}
+            className="px-8 py-4 bg-bieneq-green text-black font-bold rounded-2xl text-xs uppercase tracking-widest active:scale-95 transition-transform"
+          >
             Comprar
           </button>
         </div>

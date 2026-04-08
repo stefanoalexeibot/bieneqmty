@@ -14,12 +14,28 @@ import { useSpring, useTransform } from "framer-motion";
 import { useEffect } from "react";
 import { products as allProducts, type Product } from "@/lib/products";
 import Link from "next/link";
+import { useCart } from "@/hooks/use-cart";
 
 const productCategories = ["Todos", "Herramientas", "Digital", "Kits", "Accesorios"];
 
 // Dynamic products loaded from @/lib/products
 
 function ProductCard({ product }: { product: Product }) {
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent navigating to product page
+    e.stopPropagation();
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      slug: product.slug,
+      category: product.category,
+    });
+  };
+
   return (
     <RevealItem>
       <Link href={`/tienda/${product.slug}`} className="block h-full">
@@ -43,12 +59,12 @@ function ProductCard({ product }: { product: Product }) {
                 </span>
               </div>
   
-              {/* Action Button */}
-              <div className="absolute top-6 right-6">
+              <div className="absolute top-6 right-6 z-10">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={handleAddToCart}
+                  className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity hover:bg-bieneq-green transition-colors"
                 >
                   <ShoppingBag className="w-5 h-5" />
                 </motion.button>
