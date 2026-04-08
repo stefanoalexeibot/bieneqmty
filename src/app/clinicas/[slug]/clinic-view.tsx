@@ -195,7 +195,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                       >
                         <div className={cn(
                           "absolute -left-11 top-0 w-6 h-6 rounded-full border-4 border-[#020202] transition-colors z-10",
-                          item.time.includes("Lunch") ? "bg-bieneq-yellow shadow-[0_0_15px_rgba(234,179,8,0.5)]" : "bg-bieneq-green shadow-[0_0_15px_rgba(34,197,94,0.5)]"
+                          item.time?.includes("Lunch") ? "bg-bieneq-yellow shadow-[0_0_15px_rgba(234,179,8,0.5)]" : "bg-bieneq-green shadow-[0_0_15px_rgba(34,197,94,0.5)]"
                         )} />
                         <div className="group p-6 rounded-3xl hover:bg-white/5 transition-colors">
                           <span className="text-bieneq-green font-mono text-sm mb-2 block font-bold tracking-widest">{item.time}</span>
