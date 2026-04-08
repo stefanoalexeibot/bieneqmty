@@ -32,10 +32,10 @@ export const products: Product[] = [
     category: "Herramientas",
     tag: "Exclusivo",
     images: [
-      "/images/hoofpick/hoofpick hd.png",
-      "/images/hoofpick/hoofpick2.png",
-      "/images/hoofpick/hoofpick3.jpg",
-      "/images/hoofpick/hoofpick5.png"
+      "/images/HOOFPICK/hoofpick hd.png",
+      "/images/HOOFPICK/hoofpick2.png",
+      "/images/HOOFPICK/hoofpick3.jpg",
+      "/images/HOOFPICK/hoofpick5.png"
     ],
     accent: "bieneq-green",
     specs: [
