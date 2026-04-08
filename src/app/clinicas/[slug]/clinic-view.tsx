@@ -22,7 +22,10 @@ import {
   Info,
   ChevronDown,
   X,
-  Maximize2
+  Maximize2,
+  User,
+  MessageSquare,
+  Gauge
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
@@ -40,10 +43,20 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 export default function ClinicView({ clinic }: { clinic: Clinic }) {
   const [selectedTier, setSelectedTier] = useState<number>(1);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
-  const [activeDay, setActiveDay] = useState<1 | 2>(1);
+  const [activeDay, setActiveDay] = useState<number>(0);
   const [activeGalleryTab, setActiveGalleryTab] = useState<"theory" | "practice" | "installations">("theory");
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // New states for Multi-step registration
+  const [step, setStep] = useState<0 | 1>(0);
+  const [formData, setFormData] = useState({
+    name: "",
+    whatsapp: "",
+    city: "",
+    experience: "intermedio",
+    message: ""
+  });
 
   const WHATSAPP_NUMBER = "5218134179632";
 
@@ -69,15 +82,20 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
       : "";
 
     const text = encodeURIComponent(
-      `👋 *Interés en Clínica - BieneqMty*\n` +
+      `👋 *Nueva Inscripción - Clínicas Bieneq*\n` +
+      `-------------------------------\n` +
+      `👤 *Alumno:* ${formData.name}\n` +
+      `📞 *WhatsApp:* ${formData.whatsapp}\n` +
+      `📍 *Ciudad:* ${formData.city}\n` +
+      `🎓 *Nivel de Exp:* ${formData.experience.toUpperCase()}\n` +
       `-------------------------------\n` +
       `📌 *Evento:* ${clinic.name}\n` +
       `🗓️ *Fecha:* ${clinic.date}\n` +
-      `💎 *Nivel elegido:* ${tier.name} ($${tier.price.toLocaleString()})${addonsText}\n` +
+      `💎 *Plan:* ${tier.name} ($${tier.price.toLocaleString()})${addonsText}\n` +
       `-------------------------------\n` +
-      `💰 *Total Estimado:* $${totalPrice.toLocaleString()} MXN\n` +
+      `💰 *Total:* $${totalPrice.toLocaleString()} MXN\n` +
       `-------------------------------\n` +
-      `Quisiera agendar mi lugar y recibir los detalles de pago.\n\n` +
+      `💬 *Mensaje:* ${formData.message || "Sin mensaje adicional"}\n\n` +
       `_Enviado desde el sitio web bieneqmty.com_`
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
@@ -169,19 +187,19 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               <div className="flex items-center justify-between flex-wrap gap-6">
                 <div className="space-y-2">
                   <h3 className="text-3xl font-bold text-white uppercase tracking-tighter">Cronograma ⏰</h3>
-                  <p className="text-white/30 text-xs font-bold uppercase tracking-widest">Inmersión Técnica 10 AM - 6 PM</p>
+                  <p className="text-white/30 text-xs font-bold uppercase tracking-widest">Inmersión Técnica 10 AM - 5 PM</p>
                 </div>
                 <div className="flex bg-black/40 p-1 rounded-2xl border border-white/10">
-                  {[1, 2].map((day) => (
+                  {clinic.schedule.map((_, i) => (
                     <button 
-                      key={day}
-                      onClick={() => setActiveDay(day as 1|2)}
+                      key={i}
+                      onClick={() => setActiveDay(i)}
                       className={cn(
                         "px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all",
-                        activeDay === day ? "bg-white text-black" : "text-white/40 hover:text-white"
+                        activeDay === i ? "bg-white text-black" : "text-white/40 hover:text-white"
                       )}
                     >
-                      Día 0{day}
+                      Día 0{i + 1}
                     </button>
                   ))}
                 </div>
@@ -196,25 +214,27 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                     exit={{ opacity: 0, x: -20 }}
                     className="space-y-12"
                   >
-                    {(activeDay === 1 ? clinic.schedule.day1 : clinic.schedule.day2).map((item, idx) => (
-                      <motion.div 
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        key={idx} 
-                        className="relative"
-                      >
-                        <div className={cn(
-                          "absolute -left-11 top-0 w-6 h-6 rounded-full border-4 border-[#020202] transition-colors z-10",
-                          item.time?.includes("Lunch") ? "bg-bieneq-yellow shadow-[0_0_15px_rgba(234,179,8,0.5)]" : "bg-bieneq-green shadow-[0_0_15px_rgba(34,197,94,0.5)]"
-                        )} />
-                        <div className="group p-6 rounded-3xl hover:bg-white/5 transition-colors">
-                          <span className="text-bieneq-green font-mono text-sm mb-2 block font-bold tracking-widest">{item.time}</span>
-                          <h4 className="text-2xl font-bold text-white mb-2 group-hover:translate-x-1 transition-transform">{item.title}</h4>
-                          <p className="text-white/40 text-sm leading-relaxed max-w-lg">{item.description}</p>
-                        </div>
-                      </motion.div>
-                    ))}
+                    <div className="space-y-12">
+                      {clinic.schedule[activeDay].items.map((item, idx) => (
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: idx * 0.1 }}
+                          key={idx} 
+                          className="relative"
+                        >
+                          <div className={cn(
+                            "absolute -left-11 top-0 w-6 h-6 rounded-full border-4 border-[#020202] transition-colors z-10",
+                            item.activity?.includes("Lunch") || item.activity?.includes("Break") ? "bg-bieneq-yellow shadow-[0_0_15px_rgba(234,179,8,0.5)]" : "bg-bieneq-green shadow-[0_0_15px_rgba(34,197,94,0.5)]"
+                          )} />
+                          <div className="group p-6 rounded-3xl hover:bg-white/5 transition-colors">
+                            <span className="text-bieneq-green font-mono text-sm mb-2 block font-bold tracking-widest">{item.time}</span>
+                            <h4 className="text-2xl font-bold text-white mb-2 group-hover:translate-x-1 transition-transform">{item.activity}</h4>
+                            <p className="text-white/40 text-sm leading-relaxed max-w-lg">{item.description}</p>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               </div>
@@ -288,121 +308,206 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                     <p className="text-white/40 text-sm font-light">Configura tu experiencia académica</p>
                   </div>
 
-                  {/* Tier Selection */}
-                  <div className="space-y-4">
-                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Nivel de Participación</p>
-                    <div className="grid grid-cols-2 gap-4">
-                      {clinic.tiers.map((tier, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedTier(idx)}
-                          className={cn(
-                            "p-6 rounded-[2.5rem] border transition-all text-center relative overflow-hidden group",
-                            selectedTier === idx 
-                              ? "bg-white text-black border-white shadow-xl" 
-                              : "bg-white/5 text-white/40 border-white/10 hover:border-white/30"
-                          )}
+                  <AnimatePresence mode="wait">
+                    {step === 0 ? (
+                      <motion.div
+                        key="step0"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-12"
+                      >
+                        {/* Tier Selection */}
+                        <div className="space-y-4">
+                          <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Nivel de Participación</p>
+                          <div className="grid grid-cols-2 gap-4">
+                            {clinic.tiers.map((tier, idx) => (
+                              <button
+                                key={idx}
+                                onClick={() => setSelectedTier(idx)}
+                                className={cn(
+                                  "p-6 rounded-[2.5rem] border transition-all text-center relative overflow-hidden group",
+                                  selectedTier === idx 
+                                    ? "bg-white text-black border-white shadow-xl" 
+                                    : "bg-white/5 text-white/40 border-white/10 hover:border-white/30"
+                                )}
+                              >
+                                <span className="relative z-10 text-base font-bold block mb-1">{tier.name}</span>
+                                <span className={cn("relative z-10 text-xs font-light block", selectedTier === idx ? "text-black/60" : "text-white/20")}>
+                                  ${tier.price.toLocaleString()}
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Addons Selection */}
+                        <div className="space-y-6">
+                          <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Servicios VIP Opcionales</p>
+                          <div className="grid gap-5">
+                            {clinic.addons.map((addon) => (
+                              <button
+                                key={addon.id}
+                                onClick={() => toggleAddon(addon.id)}
+                                className={cn(
+                                  "flex items-center justify-between p-6 rounded-[2.5rem] border transition-all text-left group",
+                                  selectedAddons.includes(addon.id)
+                                    ? "bg-bieneq-green/10 border-bieneq-green/50"
+                                    : "bg-white/5 border-white/10 hover:border-white/20"
+                                )}
+                              >
+                                <div className="flex items-center gap-5">
+                                  <div className={cn(
+                                    "w-14 h-14 rounded-[1.5rem] flex items-center justify-center transition-all",
+                                    selectedAddons.includes(addon.id) ? "bg-bieneq-green text-black shadow-lg" : "bg-white/5 text-white/40"
+                                  )}>
+                                    {addon.icon === 'Plane' && <Plane className="w-6 h-6" />}
+                                    {addon.icon === 'Bed' && <Bed className="w-6 h-6" />}
+                                  </div>
+                                  <div>
+                                    <p className="font-bold text-white group-hover:text-bieneq-green transition-colors text-lg">{addon.name}</p>
+                                    <p className="text-xs text-white/30 font-light">{addon.description}</p>
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                   <span className={cn(
+                                      "font-bold text-sm block",
+                                      selectedAddons.includes(addon.id) ? "text-bieneq-green" : "text-white/20"
+                                    )}>
+                                      +${addon.price.toLocaleString()}
+                                    </span>
+                                    <div className={cn(
+                                      "w-4 h-4 rounded-full border-2 border-white/10 mt-2 mx-auto transition-colors",
+                                      selectedAddons.includes(addon.id) && "bg-bieneq-green border-bieneq-green"
+                                    )} />
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Summary Step 0 */}
+                        <div className="pt-10 border-t border-white/10">
+                           <div className="flex justify-between items-end mb-10 px-4">
+                              <div className="space-y-1">
+                                <p className="text-xs text-white/30 uppercase tracking-[0.2em] font-bold">Total Final</p>
+                                <div className="flex items-center gap-2 text-bieneq-green">
+                                  <Utensils className="w-3.5 h-3.5" />
+                                  <p className="text-[10px] font-bold uppercase tracking-widest">Lunch Incluido 🍽️</p>
+                                </div>
+                              </div>
+                              <div className="text-right">
+                                <AnimatePresence mode="wait">
+                                  <motion.p 
+                                    key={totalPrice}
+                                    initial={{ y: 20, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    className="text-6xl font-heading font-bold text-white tracking-tighter leading-none mb-1"
+                                  >
+                                    ${totalPrice.toLocaleString()}
+                                  </motion.p>
+                                </AnimatePresence>
+                                <p className="text-[10px] text-white/20 uppercase font-bold tracking-widest">Moneda: MXN</p>
+                              </div>
+                           </div>
+
+                           <Magnetic strength={0.3}>
+                             <button 
+                               onClick={() => setStep(1)}
+                               className="w-full h-24 bg-white text-black font-extrabold uppercase tracking-widest rounded-[2.5rem] flex items-center justify-between px-10 hover:bg-bieneq-green transition-all group active:scale-[0.98] overflow-hidden shadow-[0_20px_60px_rgba(255,255,255,0.1)]"
+                             >
+                                <span className="text-base">Continuar Registro</span>
+                                <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center transition-transform group-hover:translate-x-1">
+                                  <ArrowRight className="w-5 h-5" />
+                                </div>
+                             </button>
+                           </Magnetic>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="step1"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        className="space-y-10"
+                      >
+                        <button 
+                          onClick={() => setStep(0)}
+                          className="flex items-center gap-2 text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] mb-4 hover:text-white transition-colors"
                         >
-                          <span className="relative z-10 text-base font-bold block mb-1">{tier.name}</span>
-                          <span className={cn("relative z-10 text-xs font-light block", selectedTier === idx ? "text-black/60" : "text-white/20")}>
-                            ${tier.price.toLocaleString()}
-                          </span>
+                          <ChevronDown className="w-3 h-3 rotate-90" /> Volver a selección
                         </button>
-                      ))}
-                    </div>
-                  </div>
 
-                  {/* Addons Selection */}
-                  <div className="space-y-6">
-                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Servicios VIP Opcionales</p>
-                    <div className="grid gap-5">
-                      {clinic.addons.map((addon) => (
-                        <button
-                          key={addon.id}
-                          onClick={() => toggleAddon(addon.id)}
-                          className={cn(
-                            "flex items-center justify-between p-6 rounded-[2.5rem] border transition-all text-left group",
-                            selectedAddons.includes(addon.id)
-                              ? "bg-bieneq-green/10 border-bieneq-green/50"
-                              : "bg-white/5 border-white/10 hover:border-white/20"
-                          )}
-                        >
-                          <div className="flex items-center gap-5">
-                            <div className={cn(
-                              "w-14 h-14 rounded-[1.5rem] flex items-center justify-center transition-all",
-                              selectedAddons.includes(addon.id) ? "bg-bieneq-green text-black shadow-lg" : "bg-white/5 text-white/40"
-                            )}>
-                              {addon.icon === 'Plane' && <Plane className="w-6 h-6" />}
-                              {addon.icon === 'Bed' && <Bed className="w-6 h-6" />}
-                            </div>
-                            <div>
-                              <p className="font-bold text-white group-hover:text-bieneq-green transition-colors text-lg">{addon.name}</p>
-                              <p className="text-xs text-white/30 font-light">{addon.description}</p>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                             <span className={cn(
-                                "font-bold text-sm block",
-                                selectedAddons.includes(addon.id) ? "text-bieneq-green" : "text-white/20"
-                              )}>
-                                +${addon.price.toLocaleString()}
-                              </span>
-                              <div className={cn(
-                                "w-4 h-4 rounded-full border-2 border-white/10 mt-2 mx-auto transition-colors",
-                                selectedAddons.includes(addon.id) && "bg-bieneq-green border-bieneq-green"
-                              )} />
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                        <div className="space-y-6">
+                           <div className="relative">
+                              <User className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+                              <input 
+                                type="text" 
+                                placeholder="Nombre Completo"
+                                value={formData.name}
+                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                className="w-full h-20 bg-white/5 border border-white/10 rounded-3xl pl-16 pr-6 text-sm focus:border-bieneq-green outline-none transition-colors"
+                              />
+                           </div>
 
-                  {/* Final Calculation */}
-                  <div className="pt-10 border-t border-white/10">
-                     <div className="flex justify-between items-end mb-10 px-4">
-                        <div className="space-y-1">
-                          <p className="text-xs text-white/30 uppercase tracking-[0.2em] font-bold">Total Final</p>
-                          <div className="flex items-center gap-2 text-bieneq-green">
-                            <Utensils className="w-3.5 h-3.5" />
-                            <p className="text-[10px] font-bold uppercase tracking-widest">Lunch Incluido 🍽️</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <AnimatePresence mode="wait">
-                            <motion.p 
-                              key={totalPrice}
-                              initial={{ y: 20, opacity: 0 }}
-                              animate={{ y: 0, opacity: 1 }}
-                              className="text-6xl font-heading font-bold text-white tracking-tighter leading-none mb-1"
-                            >
-                              ${totalPrice.toLocaleString()}
-                            </motion.p>
-                          </AnimatePresence>
-                          <p className="text-[10px] text-white/20 uppercase font-bold tracking-widest">Moneda: MXN</p>
-                        </div>
-                     </div>
+                           <div className="relative">
+                              <MessageSquare className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+                              <input 
+                                type="tel" 
+                                placeholder="WhatsApp / Celular"
+                                value={formData.whatsapp}
+                                onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
+                                className="w-full h-20 bg-white/5 border border-white/10 rounded-3xl pl-16 pr-6 text-sm focus:border-bieneq-green outline-none transition-colors"
+                              />
+                           </div>
 
-                     <div className="space-y-6">
-                        <Magnetic strength={0.3}>
-                          <button 
-                            onClick={handleRegistration}
-                            className="w-full h-24 bg-bieneq-green text-black font-extrabold uppercase tracking-widest rounded-[2.5rem] flex items-center justify-between px-10 hover:bg-white shadow-[0_20px_60px_rgba(34,197,94,0.3)] transition-all group active:scale-[0.98] overflow-hidden"
-                          >
-                             <div className="flex items-center gap-4">
-                               <WhatsAppIcon className="w-8 h-8" />
-                               <span className="text-sm md:text-base">Agendar por WhatsApp</span>
-                             </div>
-                             <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center transition-transform group-hover:translate-x-1">
-                               <ArrowRight className="w-5 h-5" />
-                             </div>
-                          </button>
-                        </Magnetic>
-                        <div className="flex items-center justify-center gap-3 text-white/20">
-                          <ShieldCheck className="w-4 h-4" />
-                          <p className="text-[10px] font-bold uppercase tracking-[0.2em]">Respaldo Bieneq & Certificado 🏆</p>
+                           <div className="relative">
+                              <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+                              <input 
+                                type="text" 
+                                placeholder="Ciudad / Estado"
+                                value={formData.city}
+                                onChange={(e) => setFormData({...formData, city: e.target.value})}
+                                className="w-full h-20 bg-white/5 border border-white/10 rounded-3xl pl-16 pr-6 text-sm focus:border-bieneq-green outline-none transition-colors"
+                              />
+                           </div>
+
+                           <div className="relative group">
+                              <Gauge className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
+                              <select 
+                                value={formData.experience}
+                                onChange={(e) => setFormData({...formData, experience: e.target.value})}
+                                className="w-full h-20 bg-white/5 border border-white/10 rounded-3xl pl-16 pr-12 text-sm focus:border-bieneq-green outline-none transition-colors appearance-none cursor-pointer"
+                              >
+                                <option value="principiante" className="bg-[#0a0a0a]">Nivel: Principiante</option>
+                                <option value="intermedio" className="bg-[#0a0a0a]">Nivel: Intermedio</option>
+                                <option value="profesional" className="bg-[#0a0a0a]">Nivel: Profesional</option>
+                              </select>
+                              <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 pointer-events-none group-focus-within:rotate-180 transition-transform" />
+                           </div>
                         </div>
-                     </div>
-                  </div>
+
+                        <div className="pt-6">
+                           <Magnetic strength={0.3}>
+                             <button 
+                               disabled={!formData.name || !formData.whatsapp}
+                               onClick={handleRegistration}
+                               className="w-full h-24 bg-bieneq-green text-black font-extrabold uppercase tracking-widest rounded-[2.5rem] flex items-center justify-between px-10 hover:bg-white shadow-[0_20px_60px_rgba(34,197,94,0.3)] transition-all group active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                             >
+                                <div className="flex items-center gap-4">
+                                  <WhatsAppIcon className="w-8 h-8" />
+                                  <span className="text-base">Confirmar Registro</span>
+                                </div>
+                                <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center transition-transform group-hover:translate-x-1">
+                                  <ArrowRight className="w-5 h-5" />
+                                </div>
+                             </button>
+                           </Magnetic>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
 

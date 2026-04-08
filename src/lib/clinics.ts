@@ -7,7 +7,7 @@ export interface ClinicTier {
 
 export interface ClinicSyllabusItem {
   time?: string;
-  title: string;
+  activity: string;
   description: string;
 }
 
@@ -38,9 +38,9 @@ export interface Clinic {
   addons: ClinicAddon[];
   syllabus: ClinicSyllabusItem[];
   schedule: {
-    day1: ClinicSyllabusItem[];
-    day2: ClinicSyllabusItem[];
-  };
+    day: string;
+    items: ClinicSyllabusItem[];
+  }[];
   inclusions: string[];
   requirements: string[];
   testimonials: {
@@ -118,28 +118,34 @@ export const clinics: Clinic[] = [
     ],
     syllabus: [
       {
-        title: "Anatomía y Biomecánica",
+        activity: "Anatomía y Biomecánica",
         description: "Estudio profundo de las estructuras internas y cómo el balance afecta el movimiento global."
       },
       {
-        title: "Evaluación Crítica",
+        activity: "Evaluación Crítica",
         description: "Protocolos de observación y diagnóstico para determinar el estado actual del casco."
       }
     ],
-    schedule: {
-      day1: [
-        { time: "10:00 AM", title: "Introducción y Teoría 📚", description: "Estudio profundo de anatomía aplicada y biomecánica del casco." },
-        { time: "01:00 PM", title: "Break / Lunch 🍽️", description: "Espacio de networking y alimentación premium." },
-        { time: "02:00 PM", title: "Práctica en Pista 🐴", description: "Evaluación de casos reales y demostración de recorte funcional." },
-        { time: "06:00 PM", title: "Cierre Día 1 ✨", description: "Recapitulación y sesión de preguntas y respuestas." }
-      ],
-      day2: [
-        { time: "10:00 AM", title: "Teoría Avanzada 🎓", description: "Manejo de patologías y casos clínicos complejos." },
-        { time: "01:00 PM", title: "Break / Lunch 🍽️", description: "Alimento incluido en instalaciones." },
-        { time: "02:00 PM", title: "Taller Práctico Intenso 🛠️", description: "Práctica supervisada individual con herramientas Bieneq." },
-        { time: "05:00 PM", title: "Certificación 🏆", description: "Entrega de reconocimientos y cierre oficial de la clínica." }
-      ]
-    },
+    schedule: [
+      {
+        day: "Día 1: Teoría & Biomecánica",
+        items: [
+          { time: "10:00 AM", activity: "Bienvenida y Fundamentos", description: "Introducción al sistema Barefoot y anatomía básica." },
+          { time: "01:00 PM", activity: "Lunch Break", description: "Espacio para networking y comida incluida." },
+          { time: "02:00 PM", activity: "Taller Práctico", description: "Evaluación de aplomos y primeras prácticas con herramientas." },
+          { time: "05:00 PM", activity: "Cierre de Jornada", description: "Q&A y reflexiones del primer día." }
+        ]
+      },
+      {
+        day: "Día 2: Inmersión Técnica",
+        items: [
+          { time: "10:00 AM", activity: "Revisión y Ajuste", description: "Análisis de casos reales y técnica de corte." },
+          { time: "01:00 PM", activity: "Lunch Break", description: "Comida en las instalaciones." },
+          { time: "02:00 PM", activity: "Práctica Intensiva", description: "Cada alumno trabaja bajo supervisión directa." },
+          { time: "05:00 PM", activity: "Certificación", description: "Entrega de reconocimientos y convivencia final." }
+        ]
+      }
+    ],
     inclusions: [
       "Instalaciones techadas de primer nivel",
       "Material didáctico impreso",
