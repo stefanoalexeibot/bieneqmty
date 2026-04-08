@@ -1,6 +1,6 @@
 "use client";
 
-import { Clinic, ClinicTier } from "@/lib/clinics";
+import { Clinic, ClinicTier, ClinicAddon } from "@/lib/clinics";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Calendar, 
@@ -14,9 +14,15 @@ import {
   ShieldCheck,
   ChevronRight,
   Sparkles,
-  Camera
+  Camera,
+  Plane,
+  Bed,
+  Utensils,
+  Trophy,
+  Info,
+  ChevronDown
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -24,256 +30,437 @@ import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal"
 
 export default function ClinicView({ clinic }: { clinic: Clinic }) {
   const [selectedTier, setSelectedTier] = useState<number>(1); // Default to Practicante
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+  const [activeDay, setActiveDay] = useState<1 | 2>(1);
+  const [activeGalleryTab, setActiveGalleryTab] = useState<"theory" | "practice" | "installations">("theory");
 
   const WHATSAPP_NUMBER = "5218134179632";
 
+  const toggleAddon = (id: string) => {
+    setSelectedAddons(prev => 
+      prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
+    );
+  };
+
+  const totalPrice = useMemo(() => {
+    const base = clinic.tiers[selectedTier].price;
+    const addonsTotal = clinic.addons
+      .filter(a => selectedAddons.includes(a.id))
+      .reduce((sum, a) => sum + a.price, 0);
+    return base + addonsTotal;
+  }, [selectedTier, selectedAddons, clinic]);
+
   const handleRegistration = () => {
     const tier = clinic.tiers[selectedTier];
+    const activatedAddons = clinic.addons.filter(a => selectedAddons.includes(a.id));
+    const addonsText = activatedAddons.length > 0 
+      ? `\n➕ *Extras:* ${activatedAddons.map(a => a.name).join(", ")}` 
+      : "";
+
     const text = encodeURIComponent(
       `👋 *Interés en Clínica - BieneqMty*\n` +
       `-------------------------------\n` +
       `📌 *Evento:* ${clinic.name}\n` +
       `🗓️ *Fecha:* ${clinic.date}\n` +
-      `💎 *Nivel elegido:* ${tier.name} ($${tier.price.toLocaleString()})\n` +
+      `💎 *Nivel elegido:* ${tier.name} ($${tier.price.toLocaleString()})${addonsText}\n` +
       `-------------------------------\n` +
-      `Quisiera recibir más información sobre cómo apartar mi lugar y los detalles de pago.\n\n` +
+      `💰 *Total Estimado:* $${totalPrice.toLocaleString()} MXN\n` +
+      `-------------------------------\n` +
+      `Quisiera agendar mi lugar y recibir los detalles de pago.\n\n` +
       `_Enviado desde el sitio web bieneqmty.com_`
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] pb-32 overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
+    <main className="min-h-screen bg-[#020202] pb-32 overflow-hidden">
+      {/* Cinematic Hero */}
+      <section className="relative h-[95vh] flex items-center justify-center overflow-hidden">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.4 }}
-          transition={{ duration: 1.5 }}
+          animate={{ scale: 1, opacity: 0.3 }}
+          transition={{ duration: 2, ease: "easeOut" }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${clinic.featuredImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#020202]/60 to-[#020202]" />
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <ScrollReveal direction="up">
             <RevealItem>
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-bieneq-green/10 border border-bieneq-green/20 rounded-full text-bieneq-green text-xs font-bold uppercase tracking-[0.2em] mb-8">
-                <Sparkles className="w-3 h-3" /> Evento Exclusivo
-              </span>
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-bieneq-green text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+                <Sparkles className="w-3.5 h-3.5 animate-pulse" /> Certificación Oficial Bieneq
+              </div>
             </RevealItem>
             <RevealItem>
-              <h1 className="text-5xl md:text-8xl font-heading font-bold text-white mb-8 tracking-tighter">
-                {clinic.name}
+              <h1 className="text-6xl md:text-[10rem] font-heading font-bold text-white mb-8 tracking-tighter leading-[0.85]">
+                {clinic.name.split(' ').map((word, i) => (
+                   <span key={i} className={cn("block", i === 1 && "text-bieneq-green")}>{word}</span>
+                ))}
               </h1>
             </RevealItem>
             <RevealItem>
-              <div className="flex flex-wrap justify-center gap-8 text-white/60 mb-12">
+              <div className="flex flex-wrap justify-center gap-12 text-white/40 mb-12">
                 <div className="flex items-center gap-3">
-                  <Calendar className="w-5 h-5 text-bieneq-green" />
-                  <span className="text-lg font-light">{clinic.fullDate}</span>
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                    <Calendar className="w-4 h-4 text-bieneq-green" />
+                  </div>
+                  <span className="text-xl font-light tracking-tight">{clinic.fullDate}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-bieneq-green" />
-                  <span className="text-lg font-light">{clinic.location}</span>
+                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                    <MapPin className="w-4 h-4 text-bieneq-green" />
+                  </div>
+                  <span className="text-xl font-light tracking-tight">{clinic.location}</span>
                 </div>
               </div>
             </RevealItem>
           </ScrollReveal>
         </div>
+
+        {/* Floating Indicator */}
+        <motion.div 
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        >
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/20">Scroll para explorar</span>
+          <ChevronDown className="w-4 h-4 text-bieneq-green/40" />
+        </motion.div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 -mt-20 relative z-20">
-        {/* Summary Bento */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-          <div className="md:col-span-2 p-12 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-xl relative overflow-hidden group">
-            <BorderBeam size={400} duration={15} colorFrom="#16a34a" colorTo="#84cc16" />
-            <h2 className="text-3xl font-bold text-white mb-6">Sobre la experiencia</h2>
-            <p className="text-white/60 text-xl leading-relaxed font-light italic">
-              "{clinic.longDescription}"
-            </p>
-          </div>
-          <div className="p-12 rounded-[3rem] bg-bieneq-green text-black flex flex-col justify-between">
-            <Users className="w-12 h-12 mb-8" />
-            <div>
-              <p className="text-sm font-bold uppercase tracking-widest opacity-60 mb-2">Disponibilidad</p>
-              <p className="text-4xl font-heading font-bold leading-tight">Cupo Limitado por sesión</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Syllabus / Curriculum */}
-        <div className="mb-32">
-          <div className="flex items-end justify-between mb-16">
-            <div>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">¿Qué aprenderás?</h3>
-              <p className="text-white/40 max-w-xl">Un recorrido técnico desde la base anatómica hasta la resolución de patologías complejas.</p>
-            </div>
-            <div className="hidden md:block">
-              <span className="text-6xl font-heading font-bold text-white/5 tracking-tighter">CURRICULUM</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {clinic.syllabus.map((item, index) => (
-              <motion.div 
-                key={index}
-                whileHover={{ y: -5 }}
-                className="p-8 rounded-[2rem] bg-white/5 border border-white/5 hover:border-white/10 transition-all flex gap-6 group"
-              >
-                <div className="w-12 h-12 shrink-0 rounded-2xl bg-white/5 flex items-center justify-center text-bieneq-green font-bold text-xl">
-                  {index + 1}
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-white mb-2 group-hover:text-bieneq-green transition-colors">{item.title}</h4>
-                  <p className="text-white/40 leading-relaxed text-sm">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Installations Gallery */}
-        <div className="mb-32">
-           <div className="flex items-center gap-4 mb-12">
-            <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-              <Camera className="w-5 h-5 text-bieneq-green" />
-            </div>
-            <h3 className="text-3xl font-bold text-white uppercase tracking-tighter">Nuestras Instalaciones</h3>
-          </div>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-20">
+        
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-[600px]">
-            <div className="relative rounded-[3rem] overflow-hidden group">
-              <img src={clinic.installations[0]} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            </div>
-            <div className="grid grid-rows-2 gap-8">
-               <div className="relative rounded-[3rem] overflow-hidden group">
-                <img src={clinic.installations[1]} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          {/* Left Column: Details & Schedule */}
+          <div className="lg:col-span-12 xl:col-span-7 space-y-32">
+            
+            {/* Experience Intro */}
+            <ScrollReveal direction="up">
+              <div className="space-y-12">
+                <div className="flex items-center gap-4">
+                  <div className="h-[2px] w-12 bg-bieneq-green" />
+                  <h2 className="text-4xl font-heading font-bold text-white tracking-tighter uppercase italic">Misión Académica ✨</h2>
+                </div>
+                <div className="p-12 rounded-[4rem] bg-white/5 border border-white/10 relative overflow-hidden group">
+                  <BorderBeam size={600} duration={20} colorFrom="#16a34a" colorTo="#84cc16" />
+                  <p className="text-white/60 text-2xl md:text-3xl leading-relaxed font-light italic tracking-tight">
+                    {clinic.longDescription}
+                  </p>
+                </div>
               </div>
-              <div className="relative rounded-[3rem] bg-white/5 border border-white/10 p-12 flex flex-col justify-center overflow-hidden">
-                 <BorderBeam size={200} duration={10} colorFrom="#16a34a" colorTo="#84cc16" />
-                 <h4 className="text-2xl font-bold text-white mb-4">Entorno Controlado</h4>
-                 <p className="text-white/40">Áreas diseñadas para que el caballo se sienta seguro while you learn high-performance techniques.</p>
+            </ScrollReveal>
+
+            {/* Schedule Timeline */}
+            <div className="space-y-12 bg-white/5 p-12 rounded-[4rem] border border-white/10">
+              <div className="flex items-center justify-between flex-wrap gap-6">
+                <div className="space-y-2">
+                  <h3 className="text-3xl font-bold text-white uppercase tracking-tighter">Cronograma ⏰</h3>
+                  <p className="text-white/30 text-xs font-bold uppercase tracking-widest">Inmersión Técnica 10 AM - 6 PM</p>
+                </div>
+                <div className="flex bg-black/40 p-1 rounded-2xl border border-white/10">
+                  {[1, 2].map((day) => (
+                    <button 
+                      key={day}
+                      onClick={() => setActiveDay(day as 1|2)}
+                      className={cn(
+                        "px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all",
+                        activeDay === day ? "bg-white text-black" : "text-white/40 hover:text-white"
+                      )}
+                    >
+                      Día 0{day}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Pricing Matrix */}
-        <div className="relative">
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-bieneq-green/10 blur-[150px] rounded-full pointer-events-none" />
-          
-          <div className="relative z-10 text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">Elige tu nivel</h2>
-            <div className="flex justify-center p-1 bg-white/5 rounded-full border border-white/10 w-fit mx-auto">
-              {clinic.tiers.map((tier, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedTier(idx)}
-                  className={cn(
-                    "px-10 py-3 rounded-full text-sm font-bold transition-all duration-500",
-                    selectedTier === idx ? "bg-bieneq-green text-black shadow-[0_0_30px_rgba(34,197,94,0.3)]" : "text-white/40 hover:text-white"
-                  )}
-                >
-                  {tier.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Benefits List */}
-            <div className="space-y-8">
-              <h3 className="text-2xl font-bold text-white">¿Qué incluye el pase {clinic.tiers[selectedTier].name}?</h3>
-              <div className="grid gap-4">
-                {clinic.tiers[selectedTier].includes.map((incl, idx) => (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
+              <div className="relative pl-8 border-l border-white/10 space-y-12 py-4">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeDay}
+                    initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/5"
+                    exit={{ opacity: 0, x: -20 }}
+                    className="space-y-12"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-bieneq-green" />
-                    <span className="text-white/80">{incl}</span>
+                    {(activeDay === 1 ? clinic.schedule.day1 : clinic.schedule.day2).map((item, idx) => (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.1 }}
+                        key={idx} 
+                        className="relative"
+                      >
+                        <div className={cn(
+                          "absolute -left-11 top-0 w-6 h-6 rounded-full border-4 border-[#020202] transition-colors z-10",
+                          item.time.includes("Lunch") ? "bg-bieneq-yellow shadow-[0_0_15px_rgba(234,179,8,0.5)]" : "bg-bieneq-green shadow-[0_0_15px_rgba(34,197,94,0.5)]"
+                        )} />
+                        <div className="group p-6 rounded-3xl hover:bg-white/5 transition-colors">
+                          <span className="text-bieneq-green font-mono text-sm mb-2 block font-bold tracking-widest">{item.time}</span>
+                          <h4 className="text-2xl font-bold text-white mb-2 group-hover:translate-x-1 transition-transform">{item.title}</h4>
+                          <p className="text-white/40 text-sm leading-relaxed max-w-lg">{item.description}</p>
+                        </div>
+                      </motion.div>
+                    ))}
                   </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Categorized Gallery */}
+            <div className="space-y-12">
+              <div className="flex items-center gap-6 overflow-x-auto pb-4 scrollbar-hide">
+                {[
+                  { id: "theory", label: "Teoría 📚", icon: Info },
+                  { id: "practice", label: "Acción Práctica 🐴", icon: Play },
+                  { id: "installations", label: "Instalaciones 🏠", icon: Camera }
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveGalleryTab(tab.id as any)}
+                    className={cn(
+                      "flex items-center gap-3 px-8 py-4 rounded-3xl text-sm font-bold whitespace-nowrap transition-all border",
+                      activeGalleryTab === tab.id 
+                        ? "bg-white text-black border-white" 
+                        : "bg-white/5 text-white/40 border-white/10 hover:border-white/30"
+                    )}
+                  >
+                    <tab.icon className="w-4 h-4" />
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeGalleryTab}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                >
+                  {clinic.gallery[activeGalleryTab].map((img, i) => (
+                    <motion.div 
+                      key={i}
+                      whileHover={{ scale: 1.02 }}
+                      className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group"
+                    >
+                      <img src={img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Gallery" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Right Column: Interactive Booking Configurator */}
+          <div className="lg:col-span-12 xl:col-span-5">
+            <div className="sticky top-32 space-y-8">
+              <div className="p-12 rounded-[5rem] bg-white/5 border border-white/10 backdrop-blur-3xl relative overflow-hidden shadow-2xl">
+                <div className="absolute top-0 right-0 p-12 overflow-hidden pointer-events-none opacity-10">
+                  <Sparkles className="w-64 h-64 text-bieneq-green rotate-12" />
+                </div>
+
+                <div className="space-y-12">
+                  <div className="text-center">
+                    <div className="inline-block px-4 py-1.5 bg-bieneq-green/10 border border-bieneq-green/20 rounded-full text-bieneq-green text-[10px] font-bold uppercase tracking-[0.2em] mb-6">Pase de Inmersión</div>
+                    <h3 className="text-5xl font-heading font-bold text-white mb-2 leading-none">Reserva 🎟️</h3>
+                    <p className="text-white/40 text-sm font-light">Configura tu experiencia académica</p>
+                  </div>
+
+                  {/* Tier Selection */}
+                  <div className="space-y-4">
+                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Nivel de Participación</p>
+                    <div className="grid grid-cols-2 gap-4">
+                      {clinic.tiers.map((tier, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setSelectedTier(idx)}
+                          className={cn(
+                            "p-6 rounded-[2.5rem] border transition-all text-center relative overflow-hidden group",
+                            selectedTier === idx 
+                              ? "bg-white text-black border-white shadow-xl" 
+                              : "bg-white/5 text-white/40 border-white/10 hover:border-white/30"
+                          )}
+                        >
+                          <span className="relative z-10 text-base font-bold block mb-1">{tier.name}</span>
+                          <span className={cn("relative z-10 text-xs font-light block", selectedTier === idx ? "text-black/60" : "text-white/20")}>
+                            ${tier.price.toLocaleString()}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Addons Selection */}
+                  <div className="space-y-6">
+                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Servicios VIP Opcionales</p>
+                    <div className="grid gap-5">
+                      {clinic.addons.map((addon) => (
+                        <button
+                          key={addon.id}
+                          onClick={() => toggleAddon(addon.id)}
+                          className={cn(
+                            "flex items-center justify-between p-6 rounded-[2.5rem] border transition-all text-left group",
+                            selectedAddons.includes(addon.id)
+                              ? "bg-bieneq-green/10 border-bieneq-green/50"
+                              : "bg-white/5 border-white/10 hover:border-white/20"
+                          )}
+                        >
+                          <div className="flex items-center gap-5">
+                            <div className={cn(
+                              "w-14 h-14 rounded-[1.5rem] flex items-center justify-center transition-all",
+                              selectedAddons.includes(addon.id) ? "bg-bieneq-green text-black shadow-lg" : "bg-white/5 text-white/40"
+                            )}>
+                              {addon.icon === 'Plane' && <Plane className="w-6 h-6" />}
+                              {addon.icon === 'Bed' && <Bed className="w-6 h-6" />}
+                            </div>
+                            <div>
+                              <p className="font-bold text-white group-hover:text-bieneq-green transition-colors text-lg">{addon.name}</p>
+                              <p className="text-xs text-white/30 font-light">{addon.description}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                             <span className={cn(
+                                "font-bold text-sm block",
+                                selectedAddons.includes(addon.id) ? "text-bieneq-green" : "text-white/20"
+                              )}>
+                                +${addon.price.toLocaleString()}
+                              </span>
+                              <div className={cn(
+                                "w-4 h-4 rounded-full border-2 border-white/10 mt-2 mx-auto transition-colors",
+                                selectedAddons.includes(addon.id) && "bg-bieneq-green border-bieneq-green"
+                              )} />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Final Calculation */}
+                  <div className="pt-10 border-t border-white/10">
+                     <div className="flex justify-between items-end mb-10 px-4">
+                        <div className="space-y-1">
+                          <p className="text-xs text-white/30 uppercase tracking-[0.2em] font-bold">Total Final</p>
+                          <div className="flex items-center gap-2 text-bieneq-green">
+                            <Utensils className="w-3.5 h-3.5" />
+                            <p className="text-[10px] font-bold uppercase tracking-widest">Lunch Incluido 🍽️</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <AnimatePresence mode="wait">
+                            <motion.p 
+                              key={totalPrice}
+                              initial={{ y: 20, opacity: 0 }}
+                              animate={{ y: 0, opacity: 1 }}
+                              className="text-6xl font-heading font-bold text-white tracking-tighter leading-none mb-1"
+                            >
+                              ${totalPrice.toLocaleString()}
+                            </motion.p>
+                          </AnimatePresence>
+                          <p className="text-[10px] text-white/20 uppercase font-bold tracking-widest">Moneda: MXN</p>
+                        </div>
+                     </div>
+
+                     <div className="space-y-6">
+                        <Magnetic strength={0.2}>
+                          <button 
+                            onClick={handleRegistration}
+                            className="w-full py-7 bg-bieneq-green text-black font-extrabold uppercase tracking-widest rounded-[2rem] flex items-center justify-center gap-4 hover:bg-white shadow-[0_20px_60px_rgba(34,197,94,0.3)] transition-all group active:scale-95"
+                          >
+                            Agendar por WhatsApp <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                          </button>
+                        </Magnetic>
+                        <div className="flex items-center justify-center gap-3 text-white/20">
+                          <ShieldCheck className="w-4 h-4" />
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em]">Respaldo Bieneq & Certificado 🏆</p>
+                        </div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Certificate Badge Card */}
+              <div className="p-10 rounded-[4rem] bg-gradient-to-br from-bieneq-green/20 to-[#020202] border border-bieneq-green/30 overflow-hidden relative group">
+                <BorderBeam size={200} duration={8} colorFrom="#16a34a" colorTo="#84cc16" />
+                <div className="absolute -right-6 -bottom-6 opacity-10 group-hover:scale-110 transition-transform duration-700">
+                  <Trophy className="w-48 h-48 text-bieneq-green" />
+                </div>
+                <div className="relative z-10 flex items-start gap-6">
+                   <div className="w-14 h-14 rounded-2xl bg-bieneq-green/20 flex items-center justify-center border border-bieneq-green/30">
+                      <ShieldCheck className="w-7 h-7 text-bieneq-green" />
+                   </div>
+                   <div>
+                     <h4 className="text-2xl font-bold text-white mb-2">Certificación VIP</h4>
+                     <p className="text-white/40 text-sm leading-relaxed max-w-[200px]">Incluye certificado oficial académico con validez curricular.</p>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Global Bento Features */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-40">
+           {[
+             { title: "Metodología", desc: "Sistema Barefoot de 7 puntos.", icon: Star, color: "text-bieneq-yellow" },
+             { title: "Alimentación", desc: "Catering premium incluido.", icon: Utensils, color: "text-bieneq-green" },
+             { title: "Comunidad VIP", desc: "Grupo exclusivo de seguimiento.", icon: Sparkles, color: "text-blue-400" },
+             { title: "Especialización", desc: "16 horas de técnica pura.", icon: Clock, color: "text-red-400" }
+           ].map((item, i) => (
+             <motion.div 
+                key={i} 
+                whileHover={{ y: -10 }}
+                className="p-10 rounded-[3rem] bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-all relative overflow-hidden group"
+             >
+                <div className={cn("inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white/5 mb-8 transition-transform group-hover:scale-110 group-hover:rotate-6", item.color)}>
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <h5 className="text-xl font-bold text-white mb-3">{item.title}</h5>
+                <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+             </motion.div>
+           ))}
+        </div>
+
+        {/* Inclusions & Requirements Section */}
+        <ScrollReveal direction="up">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 p-16 bg-white/5 rounded-[5rem] border border-white/10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-bieneq-green/5 blur-[100px] pointer-events-none" />
+            
+            <div className="space-y-12">
+              <h4 className="text-3xl font-heading font-bold text-white flex items-center gap-4">
+                <CheckCircle2 className="w-8 h-8 text-bieneq-green" /> Garantía de Inmersión
+              </h4>
+              <div className="grid gap-8">
+                {clinic.inclusions.map((inc, i) => (
+                  <div key={i} className="flex items-start gap-4 group">
+                    <div className="w-2 h-2 rounded-full bg-bieneq-green mt-2 group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(34,197,94,1)]" />
+                    <p className="text-lg text-white/50 group-hover:text-white transition-colors">{inc}</p>
+                  </div>
                 ))}
               </div>
             </div>
 
-            {/* Price Card */}
-            <motion.div 
-              key={selectedTier}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="p-12 rounded-[4rem] bg-gradient-to-br from-white/10 to-transparent border border-white/20 backdrop-blur-3xl shadow-2xl relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 p-8">
-                <ShieldCheck className="w-12 h-12 text-bieneq-green/20" />
-              </div>
-              
-              <p className="text-bieneq-green font-bold uppercase tracking-[0.3em] text-xs mb-4">Inversión Recomendada</p>
-              <h4 className="text-7xl font-heading font-bold text-white mb-2">
-                ${clinic.tiers[selectedTier].price.toLocaleString()}
-                <span className="text-xl text-white/40 font-light italic ml-2">MXN</span>
+            <div className="space-y-12">
+              <h4 className="text-3xl font-heading font-bold text-white flex items-center gap-4">
+                <Info className="w-8 h-8 text-bieneq-yellow" /> ¿Qué necesitas?
               </h4>
-              <p className="text-white/40 mb-12">{clinic.tiers[selectedTier].description}</p>
-              
-              <div className="space-y-4">
-                <Magnetic strength={0.2}>
-                  <button 
-                    onClick={handleRegistration}
-                    className="w-full py-6 bg-white text-black font-bold uppercase tracking-widest rounded-3xl flex items-center justify-center gap-4 hover:bg-bieneq-green transition-all group"
-                  >
-                    Inscribirme Ahora <WhatsAppIcon className="w-5 h-5" />
-                  </button>
-                </Magnetic>
-                <p className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-bold">Reserva con el 50% vía WhatsApp</p>
+              <div className="grid gap-8">
+                {clinic.requirements.map((req, i) => (
+                  <div key={i} className="flex items-center gap-5 p-6 rounded-3xl bg-black/40 border border-white/5 hover:border-white/10 transition-colors">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xs font-bold text-white/20">0{i+1}</div>
+                    <p className="text-white/60 font-medium tracking-tight">{req}</p>
+                  </div>
+                ))}
               </div>
-            </motion.div>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
-        {/* Global Inclusions & Requirements */}
-        <div className="mt-32 grid grid-cols-1 md:grid-cols-2 gap-16 p-12 bg-white/5 rounded-[3rem] border border-white/10">
-          <div>
-            <h5 className="text-xl font-bold text-white mb-8 border-l-4 border-bieneq-green pl-6 italic">Garantía Bieneq</h5>
-            <div className="grid gap-6">
-              {clinic.inclusions.map((inc, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <Star className="w-4 h-4 text-bieneq-green mt-1 shrink-0" />
-                  <p className="text-sm text-white/60 leading-relaxed">{inc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="p-8 bg-black/40 rounded-3xl border border-white/5">
-             <h5 className="text-xl font-bold text-white mb-8 italic">Requisitos</h5>
-             <div className="grid gap-6">
-              {clinic.requirements.map((req, i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <div className="w-2 h-2 rounded-full bg-bieneq-green" />
-                  <p className="text-sm text-white/60">{req}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </main>
-  );
-}
-
-function WhatsAppIcon(props: any) {
-  return (
-    <svg 
-      viewBox="0 0 24 24" 
-      fill="currentColor" 
-      {...props}
-    >
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-    </svg>
   );
 }
