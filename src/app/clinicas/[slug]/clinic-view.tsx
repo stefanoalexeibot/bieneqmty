@@ -20,7 +20,9 @@ import {
   Utensils,
   Trophy,
   Info,
-  ChevronDown
+  ChevronDown,
+  X,
+  Maximize2
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
@@ -28,11 +30,20 @@ import { BorderBeam } from "@/components/ui/border-beam";
 import { Magnetic } from "@/components/ui/magnetic";
 import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
 
+// WhatsApp Logo Component for Premium UI
+const WhatsAppIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .004 5.412 0 12.049a11.82 11.82 0 001.611 5.96L0 24l6.117-1.605a11.845 11.845 0 005.933 1.586h.005c6.637 0 12.048-5.412 12.052-12.05a11.829 11.829 0 00-3.536-8.503z"/>
+  </svg>
+);
+
 export default function ClinicView({ clinic }: { clinic: Clinic }) {
-  const [selectedTier, setSelectedTier] = useState<number>(1); // Default to Practicante
+  const [selectedTier, setSelectedTier] = useState<number>(1);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [activeDay, setActiveDay] = useState<1 | 2>(1);
   const [activeGalleryTab, setActiveGalleryTab] = useState<"theory" | "practice" | "installations">("theory");
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const WHATSAPP_NUMBER = "5218134179632";
 
@@ -245,10 +256,16 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                     <motion.div 
                       key={i}
                       whileHover={{ scale: 1.02 }}
-                      className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group"
+                      onClick={() => {
+                        setSelectedImage(img);
+                        setIsLightboxOpen(true);
+                      }}
+                      className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group cursor-zoom-in"
                     >
                       <img src={img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Gallery" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                        <Maximize2 className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all" />
+                      </div>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -366,12 +383,18 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                      </div>
 
                      <div className="space-y-6">
-                        <Magnetic strength={0.2}>
+                        <Magnetic strength={0.3}>
                           <button 
                             onClick={handleRegistration}
-                            className="w-full py-7 bg-bieneq-green text-black font-extrabold uppercase tracking-widest rounded-[2rem] flex items-center justify-center gap-4 hover:bg-white shadow-[0_20px_60px_rgba(34,197,94,0.3)] transition-all group active:scale-95"
+                            className="w-full h-24 bg-bieneq-green text-black font-extrabold uppercase tracking-widest rounded-[2.5rem] flex items-center justify-between px-10 hover:bg-white shadow-[0_20px_60px_rgba(34,197,94,0.3)] transition-all group active:scale-[0.98] overflow-hidden"
                           >
-                            Agendar por WhatsApp <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                             <div className="flex items-center gap-4">
+                               <WhatsAppIcon className="w-8 h-8" />
+                               <span className="text-sm md:text-base">Agendar por WhatsApp</span>
+                             </div>
+                             <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center transition-transform group-hover:translate-x-1">
+                               <ArrowRight className="w-5 h-5" />
+                             </div>
                           </button>
                         </Magnetic>
                         <div className="flex items-center justify-center gap-3 text-white/20">
@@ -402,6 +425,41 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             </div>
           </div>
         </div>
+
+        {/* Testimonials Section (Recomendación Wow) */}
+        <section className="mb-40 space-y-16">
+           <ScrollReveal>
+             <div className="text-center space-y-4">
+                <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tighter">Voces de la <br /> <span className="text-bieneq-green italic font-light">Comunidad Bieneq.</span></h2>
+                <p className="text-white/40 text-sm max-w-lg mx-auto">Lo que dicen nuestros alumnos después de vivir la inmersión total en el sistema Barefoot.</p>
+             </div>
+           </ScrollReveal>
+
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {clinic.testimonials.map((t, i) => (
+                <motion.div 
+                  key={i}
+                  whileHover={{ y: -5 }}
+                  className="p-12 rounded-[4rem] bg-white/5 border border-white/10 relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover:scale-110 transition-transform duration-700">
+                    <Trophy className="w-48 h-48 text-white" />
+                  </div>
+                  <div className="flex gap-4 mb-8">
+                    {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 text-bieneq-yellow fill-current" />)}
+                  </div>
+                  <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-light italic mb-10 tracking-tight">"{t.content}"</p>
+                  <div className="flex items-center gap-4">
+                    <img src={t.image} className="w-16 h-16 rounded-2xl object-cover border-2 border-bieneq-green/30" alt={t.name} />
+                    <div>
+                      <p className="font-bold text-white">{t.name}</p>
+                      <p className="text-xs text-white/40 uppercase tracking-widest">{t.role}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+           </div>
+        </section>
 
         {/* Global Bento Features */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-40">
@@ -461,6 +519,38 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
         </ScrollReveal>
 
       </div>
+
+      {/* Premium Image Lightbox Modal */}
+      <AnimatePresence>
+        {isLightboxOpen && selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+            onClick={() => setIsLightboxOpen(false)}
+          >
+            <button 
+              className="absolute top-8 right-8 p-4 text-white/50 hover:text-white transition-colors"
+              onClick={() => setIsLightboxOpen(false)}
+            >
+              <X className="w-10 h-10" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              src={selectedImage}
+              className="max-w-full max-h-[85vh] object-contain rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10"
+              alt="Clinic View Expanded"
+            />
+            <div className="absolute bottom-12 px-8 py-4 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-white/40 text-[10px] font-bold uppercase tracking-widest">
+              Vista Inmersiva Bieneq
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
