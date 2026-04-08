@@ -11,7 +11,9 @@ import {
   RotateCcw, 
   CheckCircle2,
   ArrowRight,
-  Info
+  Info,
+  X,
+  Maximize2
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useRef } from "react";
@@ -24,6 +26,7 @@ import { useCart } from "@/hooks/use-cart";
 
 export default function ProductView({ product }: { product: Product }) {
   const [activeImage, setActiveImage] = useState(0);
+  const [isImageExpanded, setIsImageExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { addItem, toggleCart } = useCart();
 
@@ -104,7 +107,8 @@ export default function ProductView({ product }: { product: Product }) {
           <div className="space-y-6">
             <motion.div 
               layoutId={`img-${product.id}`}
-              className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/10 bg-white/5"
+              onClick={() => setIsImageExpanded(true)}
+              className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/10 bg-white/5 cursor-zoom-in group"
             >
               <BorderBeam size={400} duration={15} colorFrom="#16a34a" colorTo="#84cc16" />
               <AnimatePresence mode="wait">
@@ -116,9 +120,14 @@ export default function ProductView({ product }: { product: Product }) {
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   src={product.images[activeImage]}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </AnimatePresence>
+              
+              {/* Zoom Indicator */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                <Maximize2 className="w-8 h-8 opacity-0 group-hover:opacity-100 transition-all scale-90 group-hover:scale-100" />
+              </div>
               
               {/* Floating Badge */}
               <div className="absolute top-8 left-8">
@@ -320,6 +329,46 @@ export default function ProductView({ product }: { product: Product }) {
           </button>
         </div>
       </div>
+
+      {/* Image Lightbox Modal */}
+      <AnimatePresence>
+        {isImageExpanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 md:p-12"
+            onClick={() => setIsImageExpanded(false)}
+          >
+            <button 
+              className="absolute top-8 right-8 p-4 text-white/50 hover:text-white transition-colors"
+              onClick={() => setIsImageExpanded(false)}
+            >
+              <X className="w-10 h-10" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              src={product.images[activeImage]}
+              className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+              alt={product.name}
+            />
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4">
+              {product.images.map((_, i) => (
+                <div 
+                  key={i} 
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-all",
+                    activeImage === i ? "bg-bieneq-green w-8" : "bg-white/20"
+                  )} 
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
