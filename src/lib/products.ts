@@ -32,8 +32,10 @@ export const products: Product[] = [
     category: "Herramientas",
     tag: "Exclusivo",
     images: [
-      "https://images.unsplash.com/photo-1598974357801-cbca100e65d3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80"
+      "/images/hoofpick/hoofpick hd.png",
+      "/images/hoofpick/hoofpick2.png",
+      "/images/hoofpick/hoofpick3.jpg",
+      "/images/hoofpick/hoofpick5.png"
     ],
     accent: "bieneq-green",
     specs: [
@@ -57,34 +59,34 @@ export const products: Product[] = [
   {
     id: "escofina-elite",
     slug: "escofina-de-elite",
-    name: "Escofina Bieneq Élite",
-    shortDescription: "Nivelación milimétrica para un balance biomecánico perfecto.",
-    description: "La Escofina Bieneq Élite es el estándar de oro para el acabado de cascos. Su diseño de dientes de doble acción permite una remoción de material agresiva pero controlada, resultando en una superficie perfectamente nivelada en menos tiempo. Indispensable para transiciones barefoot exitosas.",
+    name: "Escofina Bieneq Élite Max Glide",
+    shortDescription: "Superficie de limado +10% superior con acabado de pulido extraordinario.",
+    description: "La Escofina Bieneq Élite Max Glide es una innovación en el mundo barefoot. Con una superficie de limado un 10% superior a modelos convencionales, ofrece una eficiencia de desbaste sin precedentes. Su diseño ligero la hace ideal para jornadas intensas y condiciones de alta humedad, mientras que la disposición única de sus dientes garantiza un acabado pulido que refleja la excelencia profesional.",
     price: 2400,
     currency: "MXN",
     category: "Herramientas",
-    tag: "Lo Más Vendido",
+    tag: "Alta Eficiencia",
     images: [
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80",
       "https://images.unsplash.com/photo-1506795660198-e95c77602129?w=1200&q=80"
     ],
     accent: "bieneq-green",
     specs: [
-      { label: "Material", value: "Acero Templado de Carbono" },
-      { label: "Dientes", value: "Corte Bidireccional de Precisión" },
-      { label: "Longitud", value: "14 Pulgadas" },
-      { label: "Uso", value: "Nivelación y Acabado" }
+      { label: "Superficie", value: "+10% Área de Limado" },
+      { label: "Dientes p/Línea", value: "9 en Zona Gruesa" },
+      { label: "Longitud", value: "14 Pulgadas (350mm)" },
+      { label: "Peso", value: "Ultra Ligera" }
     ],
     features: [
-      "Doble cara: Grueso para desbaste y Fino para acabado",
-      "Tratamiento térmico para mantener el filo 3x más tiempo",
-      "Geometría optimizada para evitar obstrucciones",
-      "Compatible con mangos estándar de nailon o madera"
+      "Diferentes densidades en cada cara para desbaste y pulido",
+      "Disposición de dientes optimizada para acabado espejo",
+      "Dientes más anchos para fácil afilado con disco",
+      "Canales de desalojo de viruta de alta altura"
     ],
     benefits: [
-      "Acabados más suaves y precisos",
-      "Menor esfuerzo físico por pasada",
-      "Durabilidad extendida bajo uso intensivo"
+      "Pulido extraordinario del casco en menos pasos",
+      "Reducción de fatiga gracias a su diseño ligero",
+      "Herramienta siempre limpia: no se atora con viruta"
     ]
   },
   {
