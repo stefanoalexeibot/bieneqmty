@@ -153,16 +153,28 @@ export const clinics: Clinic[] = [
     ],
     testimonials: [
       {
-        name: "Andrés García",
-        role: "Propietario y Podólogo",
-        content: "La clínica cambió totalmente mi perspectiva. La parte práctica es intensa pero increíblemente gratificante. ¡100% recomendada! ⭐⭐⭐⭐⭐",
-        image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400&q=80"
+        name: "Alonso Alvarez",
+        role: "Podólogo - Apaseo el Grande, GTO",
+        content: "Certificado en Clínica de Barefoot 01. La técnica cambió mi perspectiva del bienestar equino y el balance real. ⭐⭐⭐⭐⭐",
+        image: "/images/testimonials/alonso-alvarez.png"
       },
       {
-        name: "Sofía Martínez",
-        role: "Veterinaria",
-        content: "Excelente nivel técnico. El enfoque en biomecánica me ayudó a resolver casos que antes parecían imposibles. El ambiente es de primer nivel. ✨",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80"
+        name: "Antonio Rodriguez",
+        role: "Instructor - Parras, Coahuila",
+        content: "Una experiencia transformadora. El curso intensivo me brindó las herramientas para entender la salud desde la base. ✨",
+        image: "/images/testimonials/antonio-rodriguez.png"
+      },
+      {
+        name: "Dante Torres",
+        role: "Barefoot Pro - Toluca, EdoMex",
+        content: "El nivel técnico de BieneqMty es superior. Recomendado para todo profesional del caballo que busque excelencia.",
+        image: "/images/testimonials/dante-torres.png"
+      },
+      {
+        name: "MVZ Ivan Huerta",
+        role: "Médico Veterinario - Puebla, MX",
+        content: "Como médico veterinario, la evidencia clínica de estos certificados es indispensable para nuestra práctica diaria. 🏆",
+        image: "/images/testimonials/ivan-huerta.png"
       }
     ]
   }

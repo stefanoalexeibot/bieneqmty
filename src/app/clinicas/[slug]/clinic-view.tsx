@@ -426,38 +426,87 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
           </div>
         </div>
 
-        {/* Testimonials Section (Recomendación Wow) */}
-        <section className="mb-40 space-y-16">
+        {/* Testimonials Section (Infinite Marquee) */}
+        <section className="mb-40 space-y-16 overflow-hidden -mx-6 lg:-mx-12">
            <ScrollReveal>
-             <div className="text-center space-y-4">
+             <div className="text-center space-y-4 px-6 lg:px-12">
                 <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tighter">Voces de la <br /> <span className="text-bieneq-green italic font-light">Comunidad Bieneq.</span></h2>
                 <p className="text-white/40 text-sm max-w-lg mx-auto">Lo que dicen nuestros alumnos después de vivir la inmersión total en el sistema Barefoot.</p>
              </div>
            </ScrollReveal>
 
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {clinic.testimonials.map((t, i) => (
+           <div className="relative">
+              {/* Gradient masks for seamless fading */}
+              <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#020202] to-transparent z-10 pointer-events-none" />
+              <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#020202] to-transparent z-10 pointer-events-none" />
+
+              <div className="flex group">
                 <motion.div 
-                  key={i}
-                  whileHover={{ y: -5 }}
-                  className="p-12 rounded-[4rem] bg-white/5 border border-white/10 relative overflow-hidden group"
+                  animate={{ x: ["0%", "-100%"] }}
+                  transition={{ 
+                    duration: 50, 
+                    repeat: Infinity, 
+                    ease: "linear" 
+                  }}
+                  className="flex gap-8 px-4 flex-nowrap"
                 >
-                  <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover:scale-110 transition-transform duration-700">
-                    <Trophy className="w-48 h-48 text-white" />
-                  </div>
-                  <div className="flex gap-4 mb-8">
-                    {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 text-bieneq-yellow fill-current" />)}
-                  </div>
-                  <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-light italic mb-10 tracking-tight">"{t.content}"</p>
-                  <div className="flex items-center gap-4">
-                    <img src={t.image} className="w-16 h-16 rounded-2xl object-cover border-2 border-bieneq-green/30" alt={t.name} />
-                    <div>
-                      <p className="font-bold text-white">{t.name}</p>
-                      <p className="text-xs text-white/40 uppercase tracking-widest">{t.role}</p>
+                  {/* First set of testimonials */}
+                  {[...clinic.testimonials, ...clinic.testimonials].map((t, i) => (
+                    <div 
+                      key={i}
+                      className="w-[450px] shrink-0 p-12 rounded-[4rem] bg-white/5 border border-white/10 relative overflow-hidden group/card hover:bg-white/[0.08] transition-all"
+                    >
+                      <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover/card:scale-110 transition-transform duration-700">
+                        <Trophy className="w-48 h-48 text-white" />
+                      </div>
+                      <div className="flex gap-2 mb-8">
+                        {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 text-bieneq-yellow fill-current" />)}
+                      </div>
+                      <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-light italic mb-10 tracking-tight line-clamp-4">"{t.content}"</p>
+                      <div className="flex items-center gap-4 mt-auto">
+                        <img src={t.image} className="w-16 h-16 rounded-2xl object-cover border-2 border-bieneq-green/30" alt={t.name} />
+                        <div>
+                          <p className="font-bold text-white whitespace-nowrap">{t.name}</p>
+                          <p className="text-[10px] text-white/40 uppercase tracking-[0.2em]">{t.role}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </motion.div>
-              ))}
+                
+                {/* Second set for seamless loop - duplicate the first set fully */}
+                <motion.div 
+                  animate={{ x: ["0%", "-100%"] }}
+                  transition={{ 
+                    duration: 50, 
+                    repeat: Infinity, 
+                    ease: "linear" 
+                  }}
+                  className="flex gap-8 px-4 flex-nowrap"
+                >
+                  {[...clinic.testimonials, ...clinic.testimonials].map((t, i) => (
+                    <div 
+                      key={i + 100}
+                      className="w-[450px] shrink-0 p-12 rounded-[4rem] bg-white/5 border border-white/10 relative overflow-hidden group/card hover:bg-white/[0.08] transition-all"
+                    >
+                      <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover/card:scale-110 transition-transform duration-700">
+                        <Trophy className="w-48 h-48 text-white" />
+                      </div>
+                      <div className="flex gap-2 mb-8">
+                        {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 text-bieneq-yellow fill-current" />)}
+                      </div>
+                      <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-light italic mb-10 tracking-tight line-clamp-4">"{t.content}"</p>
+                      <div className="flex items-center gap-4 mt-auto">
+                        <img src={t.image} className="w-16 h-16 rounded-2xl object-cover border-2 border-bieneq-green/30" alt={t.name} />
+                        <div>
+                          <p className="font-bold text-white whitespace-nowrap">{t.name}</p>
+                          <p className="text-[10px] text-white/40 uppercase tracking-[0.2em]">{t.role}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
            </div>
         </section>
 
