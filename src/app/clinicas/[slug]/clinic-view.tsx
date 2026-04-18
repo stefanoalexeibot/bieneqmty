@@ -131,6 +131,18 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isLightboxOpen, selectedImageIndex]);
 
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (isLightboxOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isLightboxOpen]);
+
   const toggleAddon = (id: string) => {
     setSelectedAddons(prev => 
       prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
@@ -852,8 +864,8 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-12"
-            onClick={() => setIsLightboxOpen(false)}
+            className="fixed inset-0 z-[9999] bg-black/98 backdrop-blur-3xl flex items-center justify-center h-screen w-screen"
+            style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
           >
             {/* Close Overlay */}
             <div className="absolute inset-0 cursor-zoom-out" onClick={() => setIsLightboxOpen(false)} />
@@ -883,51 +895,50 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             </div>
 
             {/* Main Navigation Controls */}
-            <div className="absolute inset-y-0 left-0 w-32 flex items-center justify-center z-10">
+            <div className="absolute inset-y-0 left-0 w-24 md:w-32 flex items-center justify-center z-20">
                <button 
                 onClick={handlePrev}
-                className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-black/60 transition-all hover:scale-110 active:scale-90"
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-black/60 transition-all hover:scale-110 active:scale-90"
                >
-                 <ChevronRight className="w-8 h-8 rotate-180" />
+                 <ChevronRight className="w-6 h-6 md:w-8 md:h-8 rotate-180" />
                </button>
             </div>
 
-            <div className="absolute inset-y-0 right-0 w-32 flex items-center justify-center z-10">
+            <div className="absolute inset-y-0 right-0 w-24 md:w-32 flex items-center justify-center z-20">
                <button 
                 onClick={handleNext}
-                className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-black/60 transition-all hover:scale-110 active:scale-90"
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-black/60 transition-all hover:scale-110 active:scale-90"
                >
-                 <ChevronRight className="w-8 h-8" />
+                 <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
                </button>
             </div>
 
             <motion.div
               key={selectedImageIndex}
-              initial={{ scale: 0.9, opacity: 0, x: 20 }}
-              animate={{ scale: 1, opacity: 1, x: 0 }}
-              exit={{ scale: 0.9, opacity: 0, x: -20 }}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="relative z-10 max-w-7xl max-h-[75vh] flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()}
+              className="relative z-10 max-w-[90vw] md:max-w-7xl h-full flex items-center justify-center pointer-events-none"
             >
               <img
                 src={currentGallery[selectedImageIndex]}
-                className="max-w-full max-h-[75vh] object-contain rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10"
+                className="max-w-full max-h-[70vh] md:max-h-[80vh] object-contain rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10 pointer-events-auto"
                 alt="Clinic View Expanded"
               />
               
               {/* Image Caption from Filename Logic */}
-              <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-full text-center">
-                 <p className="text-white text-lg font-light tracking-tight mb-2">
+              <div className="absolute bottom-4 md:-bottom-20 left-1/2 -translate-x-1/2 w-full text-center">
+                 <p className="text-white text-base md:text-lg font-light tracking-tight mb-2 px-4 line-clamp-1">
                    {currentGallery[selectedImageIndex].split('/').pop()?.split('.')[0].replace(/[-_]/g, ' ')}
                  </p>
-                 <div className="flex justify-center gap-1">
+                 <div className="flex justify-center gap-1 px-4 overflow-hidden">
                    {currentGallery.map((_, idx) => (
                      <div 
                       key={idx} 
                       className={cn(
                         "h-1 rounded-full transition-all duration-500",
-                        selectedImageIndex === idx ? "w-8 bg-bieneq-green" : "w-2 bg-white/10"
+                        selectedImageIndex === idx ? "w-8 bg-bieneq-green" : "w-1.5 md:w-2 bg-white/10"
                       )} 
                      />
                    ))}
@@ -936,8 +947,8 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             </motion.div>
 
             {/* Mobile Navigation Indicator */}
-            <div className="absolute bottom-8 md:hidden text-white/20 text-[10px] font-bold uppercase tracking-[0.2em]">
-              Desliza para navegar
+            <div className="absolute bottom-12 md:hidden text-white/20 text-[8px] font-bold uppercase tracking-[0.2em]">
+              Usa las flechas para navegar
             </div>
           </motion.div>
         )}
