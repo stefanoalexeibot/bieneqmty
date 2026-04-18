@@ -240,6 +240,45 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               </div>
             </div>
 
+            {/* Instructor Profile */}
+            <ScrollReveal direction="up">
+              <div className="space-y-12">
+                <div className="flex items-center gap-4">
+                  <div className="h-[2px] w-12 bg-bieneq-green" />
+                  <h2 className="text-4xl font-heading font-bold text-white tracking-tighter uppercase italic">Tu Instructor 🎓</h2>
+                </div>
+                <div className="relative p-1 rounded-[4rem] bg-gradient-to-br from-white/10 to-transparent border border-white/10 overflow-hidden group">
+                  <div className="flex flex-col md:flex-row items-center gap-12 p-8 md:p-12">
+                    <div className="w-full md:w-5/12 aspect-square rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl relative">
+                      <img 
+                        src={clinic.instructor.image} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        alt={clinic.instructor.name} 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-6 left-6 right-6">
+                        <p className="text-white font-bold text-xl">{clinic.instructor.name}</p>
+                        <p className="text-bieneq-green text-xs font-bold uppercase tracking-widest">{clinic.instructor.role}</p>
+                      </div>
+                    </div>
+                    <div className="w-full md:w-7/12 space-y-8">
+                      <p className="text-white/60 text-xl leading-relaxed font-light italic">
+                        "{clinic.instructor.bio}"
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {clinic.instructor.credentials.map((cred, i) => (
+                          <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10">
+                            <ShieldCheck className="w-4 h-4 text-bieneq-green" />
+                            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">{cred}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
             {/* Categorized Gallery */}
             <div className="space-y-12">
               <div className="flex items-center gap-6 overflow-x-auto pb-4 scrollbar-hide">
@@ -272,22 +311,30 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                   exit={{ opacity: 0, y: -20 }}
                   className="grid grid-cols-1 md:grid-cols-2 gap-8"
                 >
-                  {clinic.gallery[activeGalleryTab].map((img, i) => (
-                    <motion.div 
-                      key={i}
-                      whileHover={{ scale: 1.02 }}
-                      onClick={() => {
-                        setSelectedImage(img);
-                        setIsLightboxOpen(true);
-                      }}
-                      className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group cursor-zoom-in"
-                    >
-                      <img src={img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Gallery" />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                        <Maximize2 className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all" />
-                      </div>
-                    </motion.div>
-                  ))}
+                  {clinic.gallery[activeGalleryTab].length > 0 ? (
+                    clinic.gallery[activeGalleryTab].map((img, i) => (
+                      <motion.div 
+                        key={i}
+                        whileHover={{ scale: 1.02 }}
+                        onClick={() => {
+                          setSelectedImage(img);
+                          setIsLightboxOpen(true);
+                        }}
+                        className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group cursor-zoom-in"
+                      >
+                        <img src={img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Gallery" />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                          <Maximize2 className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all" />
+                        </div>
+                      </motion.div>
+                    ))
+                  ) : (
+                    <div className="col-span-full py-32 flex flex-col items-center justify-center border border-dashed border-white/10 rounded-[4rem] bg-white/[0.02] backdrop-blur-sm">
+                       <Camera className="w-12 h-12 text-white/5 mb-6" />
+                       <p className="text-white/20 text-xl font-light italic tracking-tight">Registro visual en proceso...</p>
+                       <p className="text-white/[0.05] text-[10px] uppercase font-bold tracking-[0.3em] mt-4">Bieneq Media Team</p>
+                    </div>
+                  )}
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -303,6 +350,15 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
 
                 <div className="space-y-12">
                   <div className="text-center">
+                    {/* Scarcity Indicator */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-[10px] font-bold uppercase tracking-widest mb-6"
+                    >
+                      <Users className="w-3 h-3" /> Solo quedan {clinic.spots.left} lugares disponibles
+                    </motion.div>
+                    
                     <div className="inline-block px-4 py-1.5 bg-bieneq-green/10 border border-bieneq-green/20 rounded-full text-bieneq-green text-[10px] font-bold uppercase tracking-[0.2em] mb-6">Pase de Inmersión</div>
                     <h3 className="text-5xl font-heading font-bold text-white mb-2 leading-none">Reserva 🎟️</h3>
                     <p className="text-white/40 text-sm font-light">Configura tu experiencia académica</p>
