@@ -43,6 +43,10 @@ export interface Clinic {
   }[];
   inclusions: string[];
   requirements: string[];
+  faqs: {
+    question: string;
+    answer: string;
+  }[];
   spots: {
     total: number;
     left: number;
@@ -73,6 +77,24 @@ export const clinics: Clinic[] = [
     shortDescription: "Inmersión total en anatomía aplicada, balance biomecánico y recorte funcional avanzado. 🚀",
     longDescription: "Nuestra clínica insignia diseñada para transformar tu visión del caballo. Durante dos días intensivos, combinamos la teoría científica con la práctica real en pista, enfocándonos en el bienestar integral a través del sistema Barefoot.",
     featuredImage: "/images/home/wellness/tampico-02.jpg",
+    faqs: [
+      {
+        question: "¿Necesito llevar mis propias herramientas?",
+        answer: "No es necesario. Bieneq te proporciona un kit profesional completo durante la clínica. Sin embargo, si ya tienes las tuyas, puedes traerlas para recibir asesoría sobre su mantenimiento y uso correcto."
+      },
+      {
+        question: "¿Qué nivel de experiencia se requiere?",
+        answer: "Nuestra metodología está diseñada para ser absorbida desde cero. Tanto principiantes como podólogos experimentados encontrarán valor, ya que nos enfocamos en fundamentos biológicos que suelen omitirse en la formación tradicional."
+      },
+      {
+        question: "¿Incluye hospedaje y alimentación?",
+        answer: "La alimentación (Lunch Premium y Coffee Break) está incluida ambos días. Para el hospedaje, contamos con convenios en hoteles cercanos y opciones de estancia premium dentro de nuestras instalaciones."
+      },
+      {
+        question: "¿Se entrega algún comprobante oficial?",
+        answer: "Sí, al finalizar se entrega un certificado oficial de participación con validez curricular en la metodología BieneqMty, avalando las horas de práctica y teoría cursadas."
+      }
+    ],
     spots: {
       total: 12,
       left: 4

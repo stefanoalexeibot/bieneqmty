@@ -40,6 +40,49 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// FAQ Item Sub-component with Framer Motion Accordion
+function FAQItem({ question, answer }: { question: string, answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <div 
+      className={cn(
+        "rounded-[2.5rem] border transition-all duration-500 overflow-hidden",
+        isOpen ? "bg-white/10 border-white/20 shadow-2xl" : "bg-white/5 border-white/5 hover:border-white/10"
+      )}
+    >
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full px-10 py-8 flex items-center justify-between text-left group"
+      >
+        <span className={cn("text-lg md:text-xl font-bold transition-colors", isOpen ? "text-bieneq-green" : "text-white/60 group-hover:text-white")}>
+          {question}
+        </span>
+        <div className={cn(
+          "w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500",
+          isOpen ? "bg-bieneq-green border-bieneq-green text-black rotate-180" : "bg-white/5 border-white/10 text-white/20"
+        )}>
+          <ChevronDown className="w-5 h-5" />
+        </div>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+          >
+            <div className="px-10 pb-10 pt-2 text-white/40 text-lg font-light leading-relaxed max-w-3xl">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function ClinicView({ clinic }: { clinic: Clinic }) {
   const [selectedTier, setSelectedTier] = useState<number>(1);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
@@ -301,6 +344,32 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                         ))}
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Certificate Preview Highlight */}
+            <ScrollReveal direction="up">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-bieneq-green/20 blur-[120px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="relative p-12 rounded-[5rem] bg-gradient-to-br from-white/10 to-transparent border border-white/10 overflow-hidden flex flex-col md:flex-row items-center gap-16">
+                  <div className="w-full md:w-1/2 space-y-8">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-bieneq-yellow/10 border border-bieneq-yellow/20 rounded-full text-bieneq-yellow text-[10px] font-bold uppercase tracking-widest">Acreditación Académica</div>
+                    <h3 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tighter leading-tight">Tu esfuerzo, <br /><span className="text-bieneq-green italic">Certificado.</span></h3>
+                    <p className="text-white/50 text-xl font-light leading-relaxed">
+                      Al completar satisfactoriamente las horas de teoría y práctica, recibirás tu acreditación oficial de BieneqMty, avalando tu dominio en el sistema de bienestar equino integral.
+                    </p>
+                    <div className="flex items-center gap-4 text-xs font-bold text-white/20 uppercase tracking-[0.3em]">
+                       <Trophy className="w-5 h-5 text-bieneq-yellow" /> Validez Curricular Bieneq
+                    </div>
+                  </div>
+                  <div className="w-full md:w-1/2 relative">
+                    <TiltCard intensity={15} className="relative z-10 rotate-3 group-hover:rotate-0 transition-transform duration-700 shadow-2xl">
+                      <img src="/images/clinics/certificado-mockup.png" alt="Certificado Bieneq" className="w-full rounded-2xl border border-white/20" />
+                      <BorderBeam size={200} duration={8} colorFrom="#eab308" colorTo="#84cc16" />
+                    </TiltCard>
+                    <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-bieneq-green/20 blur-[80px] -z-10" />
                   </div>
                 </div>
               </div>
@@ -695,6 +764,24 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                   ))}
                 </motion.div>
               </div>
+           </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="mb-40 max-w-4xl mx-auto space-y-16">
+           <ScrollReveal>
+             <div className="text-center space-y-4">
+                <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tighter">Despeja tus <span className="text-bieneq-green italic">Dudas.</span></h2>
+                <p className="text-white/40 text-sm">Todo lo que necesitas saber antes de tu inmersión total.</p>
+             </div>
+           </ScrollReveal>
+
+           <div className="space-y-4">
+             {clinic.faqs.map((faq, i) => (
+               <ScrollReveal key={i} delay={i * 0.1}>
+                 <FAQItem question={faq.question} answer={faq.answer} />
+               </ScrollReveal>
+             ))}
            </div>
         </section>
 
