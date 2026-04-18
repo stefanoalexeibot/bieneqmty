@@ -31,6 +31,7 @@ import { useState, useMemo, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { Magnetic } from "@/components/ui/magnetic";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
 
 // WhatsApp Logo Component for Premium UI
