@@ -100,8 +100,6 @@ export const clinics: Clinic[] = [
         "/images/clinics/junio-2025/PRACTICO/PRACTICA5.jpg"
       ],
       installations: [
-        "/images/clinics/junio-2025/INSTALACIONES/ESTUDIOTEORIA1.jpeg",
-        "/images/clinics/junio-2025/INSTALACIONES/ESTUDIOTEORIA2.jpeg",
         "/images/clinics/junio-2025/INSTALACIONES/INSTALACIONES EXTERIOR.jpeg",
         "/images/clinics/junio-2025/INSTALACIONES/INSTEXT2.jpeg",
         "/images/clinics/junio-2025/INSTALACIONES/INSTALACIONES EXT 3.jpeg",
@@ -113,6 +111,8 @@ export const clinics: Clinic[] = [
         "/images/clinics/junio-2025/INSTALACIONES/INSTALACIONES EXT 9.jpeg",
         "/images/clinics/junio-2025/INSTALACIONES/INSTALACIONES EXT 10.jpeg",
         "/images/clinics/junio-2025/INSTALACIONES/INSTALACIONES EXT 11.jpeg",
+        "/images/clinics/junio-2025/INSTALACIONES/ESTUDIOTEORIA1.jpeg",
+        "/images/clinics/junio-2025/INSTALACIONES/ESTUDIOTEORIA2.jpeg",
         "/images/clinics/junio-2025/INSTALACIONES/RECAMARA1.jpg",
         "/images/clinics/junio-2025/INSTALACIONES/RECAMARA2.jpg",
         "/images/clinics/junio-2025/INSTALACIONES/RECONOCIMIENTOS1.jpeg",

@@ -46,7 +46,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
   const [activeDay, setActiveDay] = useState<number>(0);
   const [activeGalleryTab, setActiveGalleryTab] = useState<"theory" | "practice" | "installations">("theory");
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   // New states for Multi-step registration
   const [step, setStep] = useState<0 | 1>(0);
@@ -59,6 +59,33 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
   });
 
   const WHATSAPP_NUMBER = "5218134179632";
+
+  const currentGallery = useMemo(() => clinic.gallery[activeGalleryTab], [clinic.gallery, activeGalleryTab]);
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex + 1) % currentGallery.length);
+    }
+  };
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex - 1 + currentGallery.length) % currentGallery.length);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isLightboxOpen) return;
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "Escape") setIsLightboxOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isLightboxOpen, selectedImageIndex]);
 
   const toggleAddon = (id: string) => {
     setSelectedAddons(prev => 
@@ -317,7 +344,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                         key={i}
                         whileHover={{ scale: 1.02 }}
                         onClick={() => {
-                          setSelectedImage(img);
+                          setSelectedImageIndex(i);
                           setIsLightboxOpen(true);
                         }}
                         className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group cursor-zoom-in"
@@ -732,31 +759,97 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
 
       {/* Premium Image Lightbox Modal */}
       <AnimatePresence>
-        {isLightboxOpen && selectedImage && (
+        {isLightboxOpen && selectedImageIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-3xl flex items-center justify-center p-4 md:p-12"
             onClick={() => setIsLightboxOpen(false)}
           >
-            <button 
-              className="absolute top-8 right-8 p-4 text-white/50 hover:text-white transition-colors"
-              onClick={() => setIsLightboxOpen(false)}
-            >
-              <X className="w-10 h-10" />
-            </button>
-            <motion.img
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
+            {/* Close Overlay */}
+            <div className="absolute inset-0 cursor-zoom-out" onClick={() => setIsLightboxOpen(false)} />
+
+            {/* Top Navigation / Info */}
+            <div className="absolute top-0 inset-x-0 h-32 flex items-center justify-between px-8 md:px-12 z-20 pointer-events-none">
+              <div className="flex flex-col">
+                <p className="text-bieneq-green text-[10px] font-bold uppercase tracking-[0.3em] mb-1">Galería de Inmersión</p>
+                <p className="text-white/60 text-sm font-light tracking-tight">
+                  {activeGalleryTab === 'theory' ? 'Teoría & Anatomía' : activeGalleryTab === 'practice' ? 'Práctica & Técnica' : 'Instalaciones Premium'}
+                </p>
+              </div>
+              
+              <div className="flex items-center gap-8 pointer-events-auto">
+                 <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+                    <span className="text-white font-bold text-xs">{selectedImageIndex + 1}</span>
+                    <span className="text-white/20 text-xs">/</span>
+                    <span className="text-white/40 text-xs font-light">{currentGallery.length}</span>
+                 </div>
+                 <button 
+                  className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all hover:scale-110 active:scale-95 group shadow-2xl"
+                  onClick={() => setIsLightboxOpen(false)}
+                >
+                  <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-500" />
+                </button>
+              </div>
+            </div>
+
+            {/* Main Navigation Controls */}
+            <div className="absolute inset-y-0 left-0 w-32 flex items-center justify-center z-10">
+               <button 
+                onClick={handlePrev}
+                className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-black/60 transition-all hover:scale-110 active:scale-90"
+               >
+                 <ChevronRight className="w-8 h-8 rotate-180" />
+               </button>
+            </div>
+
+            <div className="absolute inset-y-0 right-0 w-32 flex items-center justify-center z-10">
+               <button 
+                onClick={handleNext}
+                className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-black/60 transition-all hover:scale-110 active:scale-90"
+               >
+                 <ChevronRight className="w-8 h-8" />
+               </button>
+            </div>
+
+            <motion.div
+              key={selectedImageIndex}
+              initial={{ scale: 0.9, opacity: 0, x: 20 }}
+              animate={{ scale: 1, opacity: 1, x: 0 }}
+              exit={{ scale: 0.9, opacity: 0, x: -20 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              src={selectedImage}
-              className="max-w-full max-h-[85vh] object-contain rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10"
-              alt="Clinic View Expanded"
-            />
-            <div className="absolute bottom-12 px-8 py-4 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-white/40 text-[10px] font-bold uppercase tracking-widest">
-              Vista Inmersiva Bieneq
+              className="relative z-10 max-w-7xl max-h-[75vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={currentGallery[selectedImageIndex]}
+                className="max-w-full max-h-[75vh] object-contain rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10"
+                alt="Clinic View Expanded"
+              />
+              
+              {/* Image Caption from Filename Logic */}
+              <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-full text-center">
+                 <p className="text-white text-lg font-light tracking-tight mb-2">
+                   {currentGallery[selectedImageIndex].split('/').pop()?.split('.')[0].replace(/[-_]/g, ' ')}
+                 </p>
+                 <div className="flex justify-center gap-1">
+                   {currentGallery.map((_, idx) => (
+                     <div 
+                      key={idx} 
+                      className={cn(
+                        "h-1 rounded-full transition-all duration-500",
+                        selectedImageIndex === idx ? "w-8 bg-bieneq-green" : "w-2 bg-white/10"
+                      )} 
+                     />
+                   ))}
+                 </div>
+              </div>
+            </motion.div>
+
+            {/* Mobile Navigation Indicator */}
+            <div className="absolute bottom-8 md:hidden text-white/20 text-[10px] font-bold uppercase tracking-[0.2em]">
+              Desliza para navegar
             </div>
           </motion.div>
         )}
