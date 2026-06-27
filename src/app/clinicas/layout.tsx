@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Clínicas y Casos | Resultados Reales",
-  description: "Documentación técnica de rehabilitaciones exitosas y procedimientos clínicos. Ciencia aplicada al bienestar equino.",
+  title: "Clínicas de Formación | BieneqMty",
+  description: "Detalles y fechas de nuestras próximas clínicas presenciales de podología, rehabilitación y barefoot integral.",
   openGraph: {
-    title: "Casos de Éxito y Clínicas Bieneq",
-    description: "Resultados reales en rehabilitación y podología equina avanzada.",
+    title: "Clínicas y Formación Bieneq",
+    description: "Fechas, temarios e inscripciones de nuestras próximas clínicas de barefoot en Monterrey.",
     images: [{ url: "https://bieneqmty.com/og-clinics.jpg" }],
   },
 };
