@@ -68,11 +68,11 @@ export interface Clinic {
 
 export const clinics: Clinic[] = [
   {
-    id: "clinic-june-2025",
-    slug: "clinica-barefoot-integral-junio",
+    id: "clinic-august-2026",
+    slug: "clinica-barefoot-integral-agosto",
     name: "Clínica Barefoot Integral",
-    date: "Junio 2025",
-    fullDate: "Fecha por confirmar - Junio 2025",
+    date: "15 y 16 de Agosto",
+    fullDate: "15 y 16 de Agosto, 2026",
     location: "Sede Monterrey, N.L.",
     shortDescription: "Inmersión total en anatomía aplicada, balance biomecánico y recorte funcional avanzado. 🚀",
     longDescription: "Nuestra clínica insignia diseñada para transformar tu visión del caballo. Durante dos días intensivos, combinamos la teoría científica con la práctica real en pista, enfocándonos en el bienestar integral a través del sistema Barefoot.",
@@ -97,7 +97,7 @@ export const clinics: Clinic[] = [
     ],
     spots: {
       total: 12,
-      left: 4
+      left: 5
     },
     instructor: {
       name: "José Manuel Alvarez",

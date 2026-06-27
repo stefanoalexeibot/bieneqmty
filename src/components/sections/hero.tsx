@@ -142,18 +142,20 @@ export function HeroSection() {
       </motion.div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
-        {/* Pill badge - Increased top margin on mobile to avoid navbar overlap */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-20 sm:mt-0 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6 sm:mb-10 overflow-hidden group hover:border-bieneq-green/30 transition-colors cursor-pointer gpu-optimize"
-        >
-          <span className="w-2 h-2 rounded-full bg-bieneq-green animate-pulse" />
-          <span className="text-[10px] font-bold text-white/60 tracking-[0.2em] uppercase font-mono">
-            Bienestar Equino de Clase Mundial
-          </span>
-        </motion.div>
+        {/* Pill badge - Promotional for Next Clinic */}
+        <Link href="/clinicas/clinica-barefoot-integral-agosto" className="pointer-events-auto mt-20 sm:mt-0 mb-6 sm:mb-10 block">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full border border-bieneq-yellow/30 bg-bieneq-yellow/10 backdrop-blur-md hover:border-bieneq-yellow/80 hover:bg-bieneq-yellow/20 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer gpu-optimize shadow-[0_0_30px_rgba(234,179,8,0.15)] group relative overflow-hidden"
+          >
+            <span className="w-2 h-2 rounded-full bg-bieneq-yellow animate-pulse shrink-0" />
+            <span className="text-[10px] font-black text-bieneq-yellow tracking-[0.15em] uppercase font-mono flex items-center gap-1.5">
+              🔥 PRÓXIMA CLÍNICA: 15 y 16 DE AGOSTO en MONTERREY <span className="text-white/60 hidden sm:inline">| ÚLTIMOS 5 LUGARES →</span>
+            </span>
+          </motion.div>
+        </Link>
 
         {/* Hero H1 — Video Masked Text with Cycling Real Images */}
         <motion.h1

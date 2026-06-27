@@ -35,16 +35,17 @@ const clinics = [
   },
   {
     id: 2,
-    title: "Próxima Clínica en Monterrey",
-    type: "Presencial — Próximamente",
-    date: "Junio 2026",
-    location: "Sede por confirmar",
-    spots: 0,
-    spotsLeft: 0,
+    title: "Clínica Barefoot Integral",
+    type: "Presencial — ¡Inscripciones Abiertas!",
+    date: "15 y 16 de Agosto",
+    location: "Sede Monterrey, N.L. (Instalaciones Bieneq)",
+    spots: 12,
+    spotsLeft: 5,
     hours: "16 hrs",
     img: "/images/home/wellness/IPPELP%20-%2004.jpg",
     accent: "#eab308",
-    comingSoon: true,
+    comingSoon: false,
+    soldOut: false,
   },
 ];
 
@@ -82,7 +83,11 @@ export function ClinicsFocus() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/5 cursor-pointer h-[400px] md:h-[500px]"
+              className={`group relative rounded-3xl overflow-hidden border border-white/10 bg-white/5 cursor-pointer transition-all duration-500 ${
+                clinic.id === 2 
+                  ? "md:col-span-2 h-[450px] md:h-[500px] border-bieneq-yellow/30 shadow-[0_0_50px_rgba(234,179,8,0.15)]" 
+                  : "h-[400px] md:h-[500px]"
+              }`}
             >
               {/* Background */}
               <div
@@ -156,8 +161,15 @@ export function ClinicsFocus() {
                 </div>
 
                 {!clinic.comingSoon && !clinic.soldOut && (
-                  <Link href="/citas" className="inline-flex items-center gap-2 font-semibold text-black px-6 py-3 rounded-full transition-all text-sm" style={{ backgroundColor: clinic.accent }}>
-                    Reservar mi lugar <ArrowRight className="w-4 h-4" />
+                  <Link 
+                    href={clinic.id === 2 ? "/clinicas/clinica-barefoot-integral-agosto" : "/citas"} 
+                    className={`inline-flex items-center gap-2 font-semibold text-black px-6 py-3 rounded-full transition-all text-sm relative overflow-hidden group/btn ${
+                      clinic.id === 2 ? "animate-pulse shadow-[0_0_20px_rgba(234,179,8,0.4)]" : ""
+                    }`} 
+                    style={{ backgroundColor: clinic.accent }}
+                  >
+                    <span className="relative z-10">{clinic.id === 2 ? "¡Ver Detalles e Inscribirse! ⚡" : "Reservar mi lugar"}</span>
+                    <ArrowRight className="w-4 h-4 relative z-10 transition-transform group-hover/btn:translate-x-1" />
                   </Link>
                 )}
                 {clinic.soldOut && (

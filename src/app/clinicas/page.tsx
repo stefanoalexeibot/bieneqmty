@@ -86,10 +86,11 @@ export default function ClinicasPage() {
                   </div>
                   
                   <div className="space-y-8">
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
                       <span className="px-4 py-1.5 bg-bieneq-green text-black text-[10px] font-bold uppercase tracking-widest rounded-full">Próximo Evento</span>
+                      <span className="px-4 py-1.5 bg-bieneq-yellow/20 border border-bieneq-yellow/30 text-bieneq-yellow text-[10px] font-black uppercase tracking-widest rounded-full animate-pulse">¡Últimos 5 lugares!</span>
                       <span className="text-white/40 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                        <Sparkles className="w-3 h-3" /> {clinics[0].date}
+                        <Sparkles className="w-3 h-3 text-bieneq-yellow" /> {clinics[0].date}
                       </span>
                     </div>
                     
