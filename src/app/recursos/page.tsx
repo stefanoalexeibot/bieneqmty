@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Download, PlayCircle, ArrowRight, CheckCircle2, Loader2, FileDown } from "lucide-react";
 import { ShimmerWord } from "@/components/ui/shimmer-word";
 import { BorderBeam } from "@/components/ui/border-beam";
+import Link from "next/link";
 
 export default function RecursosPage() {
   // Independent states for Resource 1 (Ebook)
@@ -82,61 +83,70 @@ export default function RecursosPage() {
             <p className="text-white/40 text-sm leading-relaxed">Descarga nuestro Ebook introductorio y descubre los secretos del balance y cuidado natural del casco.</p>
           </div>
           
-          <AnimatePresence mode="wait">
-            {status1 !== "success" ? (
-              <motion.form 
-                key="form1"
-                onSubmit={(e) => handleDownloadResource(1, e)} 
-                className="space-y-4 w-full mt-auto"
-                exit={{ opacity: 0, y: -10 }}
-              >
-                <input 
-                  type="email" 
-                  required
-                  value={email1}
-                  onChange={(e) => setEmail1(e.target.value)}
-                  disabled={status1 === "loading"}
-                  placeholder="Tu correo electrónico" 
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-bieneq-green transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                />
-                <button 
-                  type="submit"
-                  disabled={status1 === "loading"}
-                  className="w-full flex items-center justify-center gap-2 bg-bieneq-green text-black px-6 py-4 rounded-xl font-bold uppercase tracking-[0.1em] text-xs hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-[0_10px_30px_rgba(34,197,94,0.15)]"
-                >
-                  {status1 === "loading" ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" /> Generando enlace...
-                    </>
+              <div className="space-y-4 w-full mt-auto">
+                <AnimatePresence mode="wait">
+                  {status1 !== "success" ? (
+                    <motion.form 
+                      key="form1"
+                      onSubmit={(e) => handleDownloadResource(1, e)} 
+                      className="space-y-4 w-full"
+                      exit={{ opacity: 0, y: -10 }}
+                    >
+                      <input 
+                        type="email" 
+                        required
+                        value={email1}
+                        onChange={(e) => setEmail1(e.target.value)}
+                        disabled={status1 === "loading"}
+                        placeholder="Tu correo electrónico" 
+                        className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-bieneq-green transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      />
+                      <button 
+                        type="submit"
+                        disabled={status1 === "loading"}
+                        className="w-full flex items-center justify-center gap-2 bg-bieneq-green text-black px-6 py-4 rounded-xl font-bold uppercase tracking-[0.1em] text-xs hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-[0_10px_30px_rgba(34,197,94,0.15)]"
+                      >
+                        {status1 === "loading" ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" /> Generando enlace...
+                          </>
+                        ) : (
+                          <>
+                            Descargar Guía (PDF) <ArrowRight className="w-4 h-4" />
+                          </>
+                        )}
+                      </button>
+                    </motion.form>
                   ) : (
-                    <>
-                      Descargar Guía (PDF) <ArrowRight className="w-4 h-4" />
-                    </>
+                    <motion.div 
+                      key="success1"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-bieneq-green/10 border border-bieneq-green/20 rounded-2xl p-6 text-center space-y-4"
+                    >
+                      <div className="w-10 h-10 bg-bieneq-green text-black rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+                        <CheckCircle2 className="w-6 h-6" />
+                      </div>
+                      <h4 className="font-bold text-white text-sm">¡Descarga Iniciada!</h4>
+                      <p className="text-white/40 text-xs">Si la descarga no comenzó automáticamente, haz clic en el botón de abajo.</p>
+                      <a 
+                        href="/content/recursos/guia-pie-descalzo.pdf" 
+                        download="Guia_Rapida_Los_5_Pilares_del_Barefoot.pdf"
+                        className="inline-flex items-center gap-2 text-xs font-bold text-bieneq-green hover:underline pt-2"
+                      >
+                        Descarga Directa <Download className="w-3.5 h-3.5" />
+                      </a>
+                    </motion.div>
                   )}
-                </button>
-              </motion.form>
-            ) : (
-              <motion.div 
-                key="success1"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-bieneq-green/10 border border-bieneq-green/20 rounded-2xl p-6 text-center space-y-4 mt-auto"
-              >
-                <div className="w-10 h-10 bg-bieneq-green text-black rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(34,197,94,0.3)]">
-                  <CheckCircle2 className="w-6 h-6" />
-                </div>
-                <h4 className="font-bold text-white text-sm">¡Descarga Iniciada!</h4>
-                <p className="text-white/40 text-xs">Si la descarga no comenzó automáticamente, haz clic en el botón de abajo.</p>
-                <a 
-                  href="/content/recursos/guia-pie-descalzo.pdf" 
-                  download="Guia_Rapida_Los_5_Pilares_del_Barefoot.pdf"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-bieneq-green hover:underline pt-2"
+                </AnimatePresence>
+
+                <Link
+                  href="/recursos/pilares"
+                  className="w-full flex items-center justify-center gap-2 border border-white/10 hover:border-bieneq-green/30 hover:bg-bieneq-green/5 text-white hover:text-bieneq-green px-6 py-4 rounded-xl font-bold uppercase tracking-[0.1em] text-xs transition-all cursor-pointer"
                 >
-                  Descarga Directa <Download className="w-3.5 h-3.5" />
-                </a>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  Ver Presentación Online ↗
+                </Link>
+              </div>
         </motion.div>
 
         {/* Resource 2: Masterclass */}
@@ -156,61 +166,70 @@ export default function RecursosPage() {
             <p className="text-white/40 text-sm leading-relaxed">Aprende sobre el comportamiento natural, alimentación libre de azúcares y requerimientos biológicos del caballo descalzo.</p>
           </div>
           
-          <AnimatePresence mode="wait">
-            {status2 !== "success" ? (
-              <motion.form 
-                key="form2"
-                onSubmit={(e) => handleDownloadResource(2, e)} 
-                className="space-y-4 w-full mt-auto"
-                exit={{ opacity: 0, y: -10 }}
-              >
-                <input 
-                  type="email" 
-                  required
-                  value={email2}
-                  onChange={(e) => setEmail2(e.target.value)}
-                  disabled={status2 === "loading"}
-                  placeholder="Tu correo electrónico" 
-                  className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-bieneq-yellow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                />
-                <button 
-                  type="submit"
-                  disabled={status2 === "loading"}
-                  className="w-full flex items-center justify-center gap-2 bg-bieneq-yellow text-black px-6 py-4 rounded-xl font-bold uppercase tracking-[0.1em] text-xs hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-[0_10px_30px_rgba(234,179,8,0.15)]"
-                >
-                  {status2 === "loading" ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" /> Generando enlace...
-                    </>
+              <div className="space-y-4 w-full mt-auto">
+                <AnimatePresence mode="wait">
+                  {status2 !== "success" ? (
+                    <motion.form 
+                      key="form2"
+                      onSubmit={(e) => handleDownloadResource(2, e)} 
+                      className="space-y-4 w-full"
+                      exit={{ opacity: 0, y: -10 }}
+                    >
+                      <input 
+                        type="email" 
+                        required
+                        value={email2}
+                        onChange={(e) => setEmail2(e.target.value)}
+                        disabled={status2 === "loading"}
+                        placeholder="Tu correo electrónico" 
+                        className="w-full bg-black/50 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-bieneq-yellow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      />
+                      <button 
+                        type="submit"
+                        disabled={status2 === "loading"}
+                        className="w-full flex items-center justify-center gap-2 bg-bieneq-yellow text-black px-6 py-4 rounded-xl font-bold uppercase tracking-[0.1em] text-xs hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-[0_10px_30px_rgba(234,179,8,0.15)]"
+                      >
+                        {status2 === "loading" ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" /> Generando enlace...
+                          </>
+                        ) : (
+                          <>
+                            Descargar Guía (PDF) <ArrowRight className="w-4 h-4" />
+                          </>
+                        )}
+                      </button>
+                    </motion.form>
                   ) : (
-                    <>
-                      Descargar Guía (PDF) <ArrowRight className="w-4 h-4" />
-                    </>
+                    <motion.div 
+                      key="success2"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-bieneq-yellow/10 border border-bieneq-yellow/20 rounded-2xl p-6 text-center space-y-4"
+                    >
+                      <div className="w-10 h-10 bg-bieneq-yellow text-black rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(234,179,8,0.3)]">
+                        <CheckCircle2 className="w-6 h-6" />
+                      </div>
+                      <h4 className="font-bold text-white text-sm">¡Descarga Iniciada!</h4>
+                      <p className="text-white/40 text-xs">Si la descarga no comenzó automáticamente, haz clic en el botón de abajo.</p>
+                      <a 
+                        href="/content/recursos/etologia-y-necesidades-basicas.pdf" 
+                        download="Etologia_y_Necesidades_Basicas.pdf"
+                        className="inline-flex items-center gap-2 text-xs font-bold text-bieneq-yellow hover:underline pt-2"
+                      >
+                        Descarga Directa <Download className="w-3.5 h-3.5" />
+                      </a>
+                    </motion.div>
                   )}
-                </button>
-              </motion.form>
-            ) : (
-              <motion.div 
-                key="success2"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-bieneq-yellow/10 border border-bieneq-yellow/20 rounded-2xl p-6 text-center space-y-4 mt-auto"
-              >
-                <div className="w-10 h-10 bg-bieneq-yellow text-black rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(234,179,8,0.3)]">
-                  <CheckCircle2 className="w-6 h-6" />
-                </div>
-                <h4 className="font-bold text-white text-sm">¡Descarga Iniciada!</h4>
-                <p className="text-white/40 text-xs">Si la descarga no comenzó automáticamente, haz clic en el botón de abajo.</p>
-                <a 
-                  href="/content/recursos/etologia-y-necesidades-basicas.pdf" 
-                  download="Etologia_y_Necesidades_Basicas.pdf"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-bieneq-yellow hover:underline pt-2"
+                </AnimatePresence>
+
+                <Link
+                  href="/recursos/etologia"
+                  className="w-full flex items-center justify-center gap-2 border border-white/10 hover:border-bieneq-yellow/30 hover:bg-bieneq-yellow/5 text-white hover:text-bieneq-yellow px-6 py-4 rounded-xl font-bold uppercase tracking-[0.1em] text-xs transition-all cursor-pointer"
                 >
-                  Descarga Directa <Download className="w-3.5 h-3.5" />
-                </a>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  Ver Presentación Online ↗
+                </Link>
+              </div>
         </motion.div>
       </div>
     </main>
