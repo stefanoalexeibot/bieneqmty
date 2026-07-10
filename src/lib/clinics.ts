@@ -100,7 +100,7 @@ export const clinics: Clinic[] = [
       left: 5
     },
     instructor: {
-      name: "José Manuel Alvarez",
+      name: "José Manuel Luna",
       role: "Fundador & Especialista Barefoot",
       bio: "Con más de 10 años de experiencia en la rehabilitación podal equina, José Manuel ha desarrollado una metodología única que fusiona la ciencia anatómica con el respeto biológico del caballo.",
       image: "/images/founder/profile.jpg",

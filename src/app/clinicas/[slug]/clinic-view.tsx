@@ -422,20 +422,20 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                 >
                   {clinic.gallery[activeGalleryTab].length > 0 ? (
                     clinic.gallery[activeGalleryTab].map((img, i) => (
-                      <motion.div 
+                      <button
                         key={i}
-                        whileHover={{ scale: 1.02 }}
+                        type="button"
                         onClick={() => {
                           setSelectedImageIndex(i);
                           setIsLightboxOpen(true);
                         }}
-                        className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group cursor-zoom-in"
+                        className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group cursor-zoom-in w-full text-left"
                       >
-                        <img src={img} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Gallery" />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                          <Maximize2 className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all" />
+                        <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Gallery" />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 active:bg-black/50 transition-colors flex items-center justify-center">
+                          <Maximize2 className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-all" />
                         </div>
-                      </motion.div>
+                      </button>
                     ))
                   ) : (
                     <div className="col-span-full py-32 flex flex-col items-center justify-center border border-dashed border-white/10 rounded-[4rem] bg-white/[0.02] backdrop-blur-sm">
@@ -864,81 +864,84 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/98 backdrop-blur-3xl flex items-center justify-center h-screen w-screen"
+            className="fixed inset-0 z-[9999] bg-black/95 md:backdrop-blur-xl flex items-center justify-center"
             style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
           >
-            {/* Close Overlay */}
-            <div className="absolute inset-0 cursor-zoom-out" onClick={() => setIsLightboxOpen(false)} />
+            {/* Close Overlay (only background, not covering nav buttons) */}
+            <div 
+              className="absolute inset-0" 
+              onClick={() => setIsLightboxOpen(false)} 
+            />
 
             {/* Top Navigation / Info */}
-            <div className="absolute top-0 inset-x-0 h-32 flex items-center justify-between px-8 md:px-12 z-20 pointer-events-none">
+            <div className="absolute top-0 inset-x-0 h-24 md:h-32 flex items-center justify-between px-5 md:px-12 z-30">
               <div className="flex flex-col">
                 <p className="text-bieneq-green text-[10px] font-bold uppercase tracking-[0.3em] mb-1">Galería de Inmersión</p>
-                <p className="text-white/60 text-sm font-light tracking-tight">
+                <p className="text-white/60 text-xs md:text-sm font-light tracking-tight">
                   {activeGalleryTab === 'theory' ? 'Teoría & Anatomía' : activeGalleryTab === 'practice' ? 'Práctica & Técnica' : 'Instalaciones Premium'}
                 </p>
               </div>
               
-              <div className="flex items-center gap-8 pointer-events-auto">
-                 <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+              <div className="flex items-center gap-4 md:gap-8">
+                 <div className="flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-white/5 border border-white/10 rounded-full">
                     <span className="text-white font-bold text-xs">{selectedImageIndex + 1}</span>
                     <span className="text-white/20 text-xs">/</span>
                     <span className="text-white/40 text-xs font-light">{currentGallery.length}</span>
                  </div>
                  <button 
-                  className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all hover:scale-110 active:scale-95 group shadow-2xl"
-                  onClick={() => setIsLightboxOpen(false)}
+                  type="button"
+                  className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white/70 active:scale-90 transition-all shadow-2xl"
+                  onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
                 >
-                  <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-500" />
+                  <X className="w-5 h-5 md:w-6 md:h-6" />
                 </button>
               </div>
             </div>
 
             {/* Main Navigation Controls */}
-            <div className="absolute inset-y-0 left-0 w-24 md:w-32 flex items-center justify-center z-20">
+            <div className="absolute inset-y-0 left-0 w-16 md:w-32 flex items-center justify-center z-30">
                <button 
-                onClick={handlePrev}
-                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-black/60 transition-all hover:scale-110 active:scale-90"
+                type="button"
+                onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white/60 active:scale-90 transition-all"
                >
-                 <ChevronRight className="w-6 h-6 md:w-8 md:h-8 rotate-180" />
+                <ChevronRight className="w-5 h-5 md:w-8 md:h-8 rotate-180" />
                </button>
             </div>
 
-            <div className="absolute inset-y-0 right-0 w-24 md:w-32 flex items-center justify-center z-20">
+            <div className="absolute inset-y-0 right-0 w-16 md:w-32 flex items-center justify-center z-30">
                <button 
-                onClick={handleNext}
-                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:bg-black/60 transition-all hover:scale-110 active:scale-90"
+                type="button"
+                onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white/60 active:scale-90 transition-all"
                >
-                 <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+                <ChevronRight className="w-5 h-5 md:w-8 md:h-8" />
                </button>
             </div>
 
             <motion.div
               key={selectedImageIndex}
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              exit={{ scale: 0.92, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="relative z-10 max-w-[90vw] md:max-w-7xl h-full flex items-center justify-center pointer-events-none"
+              className="relative z-20 max-w-[80vw] md:max-w-7xl h-full flex items-center justify-center pointer-events-none"
             >
               <img
                 src={currentGallery[selectedImageIndex]}
-                className="max-w-full max-h-[70vh] md:max-h-[80vh] object-contain rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10 pointer-events-auto"
+                className="max-w-full max-h-[65vh] md:max-h-[80vh] object-contain rounded-2xl md:rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10 pointer-events-auto"
                 alt="Clinic View Expanded"
               />
               
-              {/* Image Caption from Filename Logic */}
-              <div className="absolute bottom-4 md:-bottom-20 left-1/2 -translate-x-1/2 w-full text-center">
-                 <p className="text-white text-base md:text-lg font-light tracking-tight mb-2 px-4 line-clamp-1">
-                   {currentGallery[selectedImageIndex].split('/').pop()?.split('.')[0].replace(/[-_]/g, ' ')}
-                 </p>
+              {/* Dot indicators */}
+              <div className="absolute -bottom-8 md:-bottom-20 left-1/2 -translate-x-1/2 w-full">
                  <div className="flex justify-center gap-1 px-4 overflow-hidden">
                    {currentGallery.map((_, idx) => (
                      <div 
                       key={idx} 
                       className={cn(
                         "h-1 rounded-full transition-all duration-500",
-                        selectedImageIndex === idx ? "w-8 bg-bieneq-green" : "w-1.5 md:w-2 bg-white/10"
+                        selectedImageIndex === idx ? "w-6 md:w-8 bg-bieneq-green" : "w-1.5 md:w-2 bg-white/20"
                       )} 
                      />
                    ))}
@@ -946,9 +949,9 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               </div>
             </motion.div>
 
-            {/* Mobile Navigation Indicator */}
-            <div className="absolute bottom-12 md:hidden text-white/20 text-[8px] font-bold uppercase tracking-[0.2em]">
-              Usa las flechas para navegar
+            {/* Mobile swipe hint */}
+            <div className="absolute bottom-8 md:hidden text-white/30 text-[9px] font-bold uppercase tracking-[0.2em] z-30">
+              Toca fuera para cerrar
             </div>
           </motion.div>
         )}
