@@ -864,10 +864,10 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/95 md:backdrop-blur-xl flex items-center justify-center"
+            className="fixed inset-0 z-[9999] bg-black/95 md:backdrop-blur-xl"
             style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
           >
-            {/* Close Overlay (only background, not covering nav buttons) */}
+            {/* Close Overlay */}
             <div 
               className="absolute inset-0" 
               onClick={() => setIsLightboxOpen(false)} 
@@ -898,7 +898,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               </div>
             </div>
 
-            {/* Main Navigation Controls */}
+            {/* Left nav button */}
             <div className="absolute inset-y-0 left-0 w-16 md:w-32 flex items-center justify-center z-30">
                <button 
                 type="button"
@@ -909,6 +909,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                </button>
             </div>
 
+            {/* Right nav button */}
             <div className="absolute inset-y-0 right-0 w-16 md:w-32 flex items-center justify-center z-30">
                <button 
                 type="button"
@@ -919,38 +920,40 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                </button>
             </div>
 
-            <motion.div
-              key={selectedImageIndex}
-              initial={{ scale: 0.92, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.92, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="relative z-20 max-w-[80vw] md:max-w-7xl h-full flex items-center justify-center pointer-events-none"
-            >
-              <img
-                src={currentGallery[selectedImageIndex]}
-                className="max-w-full max-h-[65vh] md:max-h-[80vh] object-contain rounded-2xl md:rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10 pointer-events-auto"
-                alt="Clinic View Expanded"
-              />
-              
-              {/* Dot indicators */}
-              <div className="absolute -bottom-8 md:-bottom-20 left-1/2 -translate-x-1/2 w-full">
-                 <div className="flex justify-center gap-1 px-4 overflow-hidden">
-                   {currentGallery.map((_, idx) => (
-                     <div 
-                      key={idx} 
-                      className={cn(
-                        "h-1 rounded-full transition-all duration-500",
-                        selectedImageIndex === idx ? "w-6 md:w-8 bg-bieneq-green" : "w-1.5 md:w-2 bg-white/20"
-                      )} 
-                     />
-                   ))}
-                 </div>
-              </div>
-            </motion.div>
+            {/* Image area — absolute fill with padding so it never overlaps topbar/nav buttons */}
+            <div className="absolute inset-0 flex items-center justify-center pt-24 pb-16 px-16 md:pt-32 md:pb-24 md:px-36 z-20 pointer-events-none">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedImageIndex}
+                  initial={{ scale: 0.92, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.92, opacity: 0 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                  className="flex flex-col items-center gap-4 pointer-events-auto max-w-full max-h-full"
+                >
+                  <img
+                    src={currentGallery[selectedImageIndex]}
+                    className="max-w-full max-h-[62vh] md:max-h-[72vh] w-auto object-contain rounded-2xl md:rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10"
+                    alt="Clinic View Expanded"
+                  />
+                  {/* Dot indicators */}
+                  <div className="flex justify-center gap-1 flex-wrap">
+                    {currentGallery.map((_, idx) => (
+                      <div 
+                       key={idx} 
+                       className={cn(
+                         "h-1 rounded-full transition-all duration-500",
+                         selectedImageIndex === idx ? "w-6 md:w-8 bg-bieneq-green" : "w-1.5 md:w-2 bg-white/20"
+                       )} 
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-            {/* Mobile swipe hint */}
-            <div className="absolute bottom-8 md:hidden text-white/30 text-[9px] font-bold uppercase tracking-[0.2em] z-30">
+            {/* Mobile hint */}
+            <div className="absolute bottom-4 md:hidden text-white/30 text-[9px] font-bold uppercase tracking-[0.2em] z-30 w-full text-center">
               Toca fuera para cerrar
             </div>
           </motion.div>
