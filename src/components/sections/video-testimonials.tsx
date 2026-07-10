@@ -277,8 +277,8 @@ export function VideoTestimonials() {
                         </button>
                         <iframe
                           src={`https://www.youtube.com/embed/${t.videoId}?autoplay=1&rel=0&playsinline=1&modestbranding=1&showinfo=0`}
-                          className="w-full h-full border-none"
-                          allow="autoplay; encrypted-media"
+                          className="absolute inset-0 w-full h-full border-none"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                           allowFullScreen
                         />
                       </div>
@@ -371,9 +371,9 @@ export function VideoTestimonials() {
                 <X className="w-6 h-6" />
               </button>
               <iframe
-                src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1&rel=0&playsinline=1&modestbranding=1&showinfo=0`}
-                className="w-full h-full bg-black"
-                allow="autoplay; encrypted-media"
+                src={`https://www.youtube.com/embed/${selectedVideoId}?autoplay=1&rel=0&playsinline=1&modestbranding=1&showinfo=0&enablejsapi=1`}
+                className="absolute inset-0 w-full h-full border-none bg-black"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 title="YouTube video player"
               />
