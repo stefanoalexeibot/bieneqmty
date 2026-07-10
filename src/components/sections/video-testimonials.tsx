@@ -114,19 +114,21 @@ export function VideoTestimonials() {
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
-  // Lock body scroll and hide navbar when modal is open
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
       document.body.style.touchAction = "none";
       document.body.classList.add("modal-open");
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
       document.body.style.touchAction = "auto";
       document.body.classList.remove("modal-open");
     }
     return () => { 
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
       document.body.style.touchAction = "auto";
       document.body.classList.remove("modal-open");
     };
@@ -349,24 +351,26 @@ export function VideoTestimonials() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[99999] flex items-center justify-center p-0 md:p-4"
+            className="fixed inset-0 z-[99999] flex items-center justify-center p-0 md:p-6"
+            style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
           >
             <div
-              className="absolute inset-0 bg-black/98"
+              className="absolute inset-0 bg-black/95 backdrop-blur-sm"
               onClick={() => setIsModalOpen(false)}
             />
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full h-[100dvh] md:h-auto md:max-w-sm md:aspect-[9/16] bg-black md:rounded-3xl overflow-hidden border-none md:border md:border-white/10 z-[100000] shadow-2xl"
+              className="relative w-full h-[100dvh] md:h-[88vh] md:w-auto md:rounded-3xl overflow-hidden border-none md:border md:border-white/10 z-[100000] shadow-2xl bg-black"
+              style={{ aspectRatio: '9/16' }}
             >
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsModalOpen(false);
                 }}
-                className="absolute top-8 right-6 z-[100001] w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all active:scale-90"
+                className="absolute top-6 right-6 z-[100001] w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all active:scale-90"
               >
                 <X className="w-6 h-6" />
               </button>
