@@ -160,7 +160,7 @@ export default function PilaresRecursoPage() {
               </li>
               <li className="flex items-start gap-3">
                 <CircleDot className="w-4 h-4 text-bieneq-yellow shrink-0 mt-1" />
-                <span>**Alimentación adecuada:** Eliminar granos excesivos y azúcares.</span>
+                <span>**Alimentación adecuada:** Solo pastura, un poco de alfalfa y minerales libres. Sin grano.</span>
               </li>
               <li className="flex items-start gap-3">
                 <CircleDot className="w-4 h-4 text-bieneq-yellow shrink-0 mt-1" />
@@ -247,16 +247,16 @@ export default function PilaresRecursoPage() {
       content: (
         <div className="flex flex-col md:flex-row gap-6 items-center py-4">
           <div className="flex-1 space-y-4">
-            <h4 className="font-bold text-white text-lg">Evitar Excesos de Granos</h4>
+            <h4 className="font-bold text-white text-lg">La Dieta Natural del Caballo</h4>
             <p className="text-white/50 text-sm leading-relaxed">
-              El sistema digestivo del caballo está diseñado para procesar fibra (pasto y heno) de forma continua. Las dietas altas en almidón o granos comerciales sobrecargan el intestino ciego, provocando acidez y endotoxinas que viajan directas a los cascos.
+              El sistema digestivo del caballo está diseñado para procesar fibra de forma continua durante 16-18 horas al día. Su dieta ideal se basa en <strong className="text-white">pastura libre, un poco de alfalfa y minerales</strong>. El grano no forma parte de su alimentación natural y sobrecarga el intestino ciego, provocando acidez, endotoxinas y laminitis que dañan directamente los cascos.
             </p>
             <div className="flex items-center gap-4 text-xs font-bold text-bieneq-yellow uppercase">
-              <span>🌾 Menos Granos</span>
+              <span>🌿 Pastura libre</span>
               <span>•</span>
-              <span>🌿 Más Fibra</span>
+              <span>🌾 Poca alfalfa</span>
               <span>•</span>
-              <span>⛰️ Minerales Libres</span>
+              <span>⛰️ Minerales libres</span>
             </div>
           </div>
           <div className="w-full md:w-72 p-6 rounded-3xl bg-white/5 border border-white/5 space-y-4">

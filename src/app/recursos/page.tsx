@@ -163,7 +163,7 @@ export default function RecursosPage() {
               <PlayCircle className="w-7 h-7" />
             </div>
             <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Guía Completa: Etología y Necesidades</h3>
-            <p className="text-white/40 text-sm leading-relaxed">Aprende sobre el comportamiento natural, alimentación libre de azúcares y requerimientos biológicos del caballo descalzo.</p>
+            <p className="text-white/40 text-sm leading-relaxed">Aprende sobre el comportamiento natural, alimentación a base de pastura, alfalfa y minerales, y los requerimientos biológicos del caballo descalzo.</p>
           </div>
           
               <div className="space-y-4 w-full mt-auto">

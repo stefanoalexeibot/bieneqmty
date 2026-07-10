@@ -323,7 +323,7 @@ export default function EtologiaRecursoPage() {
               <tr>
                 <td className="py-3 px-4 font-bold text-white">Alimentación</td>
                 <td className="py-3 px-4">18h comiendo, 55,000 movimientos de mandíbula.</td>
-                <td className="py-3 px-4">3h comiendo, 7,000 movimientos. Raciones altas en grano.</td>
+                <td className="py-3 px-4">3h comiendo, 7,000 movimientos. Raciones de pastura, alfalfa y minerales — sin grano.</td>
               </tr>
               <tr>
                 <td className="py-3 px-4 font-bold text-white">Movimiento</td>
