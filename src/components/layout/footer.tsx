@@ -90,13 +90,13 @@ export function Footer() {
                   </div>
                   <span className="font-light tracking-wide group-hover:translate-x-1 transition-transform duration-300">Instagram</span>
                 </Link>
-                <Link href="#" className="group flex items-center gap-4 text-white/50 hover:text-white transition-all">
+                <Link href="https://www.youtube.com/@BieneqMty" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 text-white/50 hover:text-white transition-all">
                   <div className="w-10 h-10 rounded-full bg-white/[0.02] flex items-center justify-center border border-white/5 group-hover:bg-[#FF0000]/10 group-hover:border-[#FF0000]/30 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
                   </div>
                   <span className="font-light tracking-wide group-hover:translate-x-1 transition-transform duration-300">YouTube</span>
                 </Link>
-                <Link href="#" className="group flex items-center gap-4 text-white/50 hover:text-white transition-all">
+                <Link href="https://www.facebook.com/bieneqmtyy" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 text-white/50 hover:text-white transition-all">
                   <div className="w-10 h-10 rounded-full bg-white/[0.02] flex items-center justify-center border border-white/5 group-hover:bg-[#1877F2]/10 group-hover:border-[#1877F2]/30 group-hover:text-[#1877F2] group-hover:scale-110 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                   </div>
