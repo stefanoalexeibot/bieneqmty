@@ -144,6 +144,17 @@ export const clinics: Clinic[] = [
     },
     tiers: [
       {
+        name: "Online",
+        price: 3500,
+        description: "Transmisión en vivo completa de la teoría y grabaciones. 💻",
+        includes: [
+          "Transmisión en vivo de clases teóricas",
+          "Acceso a grabaciones por 30 días",
+          "Manual digital Bieneq",
+          "Constancia de participación digital"
+        ]
+      },
+      {
         name: "Oyente",
         price: 4500,
         description: "Acceso total a la teoría y observación de prácticas. 👁️",

@@ -85,7 +85,7 @@ function FAQItem({ question, answer }: { question: string, answer: string }) {
 }
 
 export default function ClinicView({ clinic }: { clinic: Clinic }) {
-  const [selectedTier, setSelectedTier] = useState<number>(1);
+  const [selectedTier, setSelectedTier] = useState<number>(1); // Default to Oyente (index 1)
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [activeDay, setActiveDay] = useState<number>(0);
   const [activeGalleryTab, setActiveGalleryTab] = useState<"theory" | "practice" | "installations">("theory");
@@ -101,6 +101,43 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
     experience: "intermedio",
     message: ""
   });
+
+  // Countdown timer states
+  const [mounted, setMounted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    setMounted(true);
+    const targetDate = new Date("2026-08-15T10:00:00-06:00");
+    const updateCountdown = () => {
+      const difference = +targetDate - +new Date();
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const getSpotsMessage = () => {
+    const tierName = clinic.tiers[selectedTier]?.name;
+    if (tierName === "Online") {
+      return "Acceso inmediato e ilimitado";
+    } else if (tierName === "Oyente") {
+      return "¡Solo quedan 2 lugares para Oyente!";
+    } else if (tierName === "Practicante") {
+      return "¡Solo quedan 3 lugares para Practicante!";
+    }
+    return `Solo quedan ${clinic.spots.left} lugares disponibles`;
+  };
 
   const WHATSAPP_NUMBER = "5218134179632";
 
@@ -186,6 +223,46 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
 
   return (
     <main className="min-h-screen bg-[#020202] pb-32 overflow-hidden">
+      {/* Premium Countdown Banner */}
+      {mounted && (
+        <div className="w-full bg-black/75 backdrop-blur-xl border-b border-white/10 py-3.5 sticky top-0 z-[999] shadow-2xl transition-all duration-300">
+          <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+              </span>
+              <p className="text-white font-semibold text-xs md:text-sm tracking-wide text-center sm:text-left">
+                🚨 ¡ÚLTIMOS LUGARES DISPONIBLES! La clínica inicia en:
+              </p>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <div className="flex gap-2">
+                {[
+                  { value: timeLeft.days, label: "días" },
+                  { value: timeLeft.hours, label: "hrs" },
+                  { value: timeLeft.minutes, label: "min" },
+                  { value: timeLeft.seconds, label: "seg" }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center">
+                    <div className="flex flex-col items-center bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 min-w-[56px] shadow-inner">
+                      <span className="text-white font-mono text-base font-extrabold leading-none">
+                        {String(item.value).padStart(2, '0')}
+                      </span>
+                      <span className="text-[8px] text-white/40 uppercase font-black mt-1 tracking-wider">
+                        {item.label}
+                      </span>
+                    </div>
+                    {idx < 3 && <span className="text-white/20 font-bold px-1.5 animate-pulse">:</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Cinematic Hero */}
       <section className="relative h-[95vh] flex items-center justify-center overflow-hidden">
         <motion.div 
@@ -465,7 +542,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                       animate={{ opacity: 1, y: 0 }}
                       className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-[10px] font-bold uppercase tracking-widest mb-6"
                     >
-                      <Users className="w-3 h-3" /> Solo quedan {clinic.spots.left} lugares disponibles
+                      <Users className="w-3 h-3" /> {getSpotsMessage()}
                     </motion.div>
                     
                     <div className="inline-block px-4 py-1.5 bg-bieneq-green/10 border border-bieneq-green/20 rounded-full text-bieneq-green text-[10px] font-bold uppercase tracking-[0.2em] mb-6">Pase de Inmersión</div>
@@ -485,21 +562,28 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                         {/* Tier Selection */}
                         <div className="space-y-4">
                           <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Nivel de Participación</p>
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-3 gap-2">
                             {clinic.tiers.map((tier, idx) => (
                               <button
                                 key={idx}
                                 onClick={() => setSelectedTier(idx)}
                                 className={cn(
-                                  "p-6 rounded-[2.5rem] border transition-all text-center relative overflow-hidden group",
+                                  "p-4 rounded-[2rem] border transition-all text-center relative overflow-hidden group flex flex-col items-center justify-center min-h-[110px]",
                                   selectedTier === idx 
                                     ? "bg-white text-black border-white shadow-xl" 
                                     : "bg-white/5 text-white/40 border-white/10 hover:border-white/30"
                                 )}
                               >
-                                <span className="relative z-10 text-base font-bold block mb-1">{tier.name}</span>
-                                <span className={cn("relative z-10 text-xs font-light block", selectedTier === idx ? "text-black/60" : "text-white/20")}>
+                                <span className="relative z-10 text-sm font-bold block mb-0.5">{tier.name}</span>
+                                <span className={cn("relative z-10 text-xs font-semibold block mb-1", selectedTier === idx ? "text-black/70" : "text-white/30")}>
                                   ${tier.price.toLocaleString()}
+                                </span>
+                                <span className={cn("relative z-10 text-[9px] font-extrabold uppercase tracking-wider block",
+                                  tier.name === "Online" ? "text-blue-500" :
+                                  tier.name === "Oyente" ? "text-amber-500" : "text-red-500"
+                                )}>
+                                  {tier.name === "Online" ? "Cupo Libre" :
+                                   tier.name === "Oyente" ? "2 lugares" : "3 lugares"}
                                 </span>
                               </button>
                             ))}
