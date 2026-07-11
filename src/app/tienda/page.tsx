@@ -158,37 +158,19 @@ export default function TiendaPage() {
         </div>
       </div>
 
-      {/* Filters */}
+      {/* Single Product Notice */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
-        <div className="flex items-center gap-8 border-b border-white/5 pb-6">
-          <div className="hidden md:flex items-center gap-2 text-white/30">
-            <Filter className="w-4 h-4" />
-            <span className="text-xs font-bold uppercase tracking-widest">Filtrar:</span>
-          </div>
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide py-2">
-            {productCategories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setActiveTab(cat)}
-                className={cn(
-                  "px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all border",
-                  activeTab === cat 
-                    ? "bg-white text-black border-white" 
-                    : "bg-transparent border-white/10 text-white/40 hover:border-white/30"
-                )}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        <div className="flex items-center gap-3 border-b border-white/5 pb-6">
+          <span className="px-4 py-1.5 bg-bieneq-green/10 border border-bieneq-green/20 rounded-full text-bieneq-green text-[10px] font-bold uppercase tracking-[0.2em]">Disponible Ahora</span>
+          <span className="text-white/20 text-xs font-bold uppercase tracking-widest">· Más productos próximamente</span>
         </div>
       </div>
 
-      {/* Product Grid */}
+      {/* Product Grid — solo hoofpick */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12" staggerChildren={0.2}>
           {allProducts
-            .filter(p => activeTab === "Todos" || p.category === activeTab)
+            .filter(p => p.id === "hoofpick-pro")
             .map(product => (
               <ProductCard key={product.id} product={product} />
             ))}

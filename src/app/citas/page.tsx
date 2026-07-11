@@ -175,7 +175,10 @@ Quedo a la espera de las instrucciones para la preparación. ¡Muchas gracias!`;
                       </p>
                       <div className="flex items-end justify-between uppercase mt-auto">
                         <span className="text-[10px] font-bold tracking-widest text-white/30">Inversión</span>
-                        <span className="text-2xl font-bold text-white tracking-tighter">$2,500 <span className="text-xs text-white/40">MXN</span></span>
+                        <div className="text-right">
+                          <span className="text-xl font-bold text-bieneq-green tracking-tighter">Precio personalizado</span>
+                          <p className="text-[10px] text-white/30 mt-0.5 normal-case tracking-wide">Se cotiza según el caso</p>
+                        </div>
                       </div>
                       
                       {selectedMode === "presencial" && (
