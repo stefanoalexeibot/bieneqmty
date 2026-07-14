@@ -9,6 +9,7 @@ import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { Noise } from "@/components/ui/noise";
 import { Footer } from "@/components/layout/footer";
 import { CartDrawer } from "@/components/layout/cart-drawer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({subsets:['latin'], variable:'--font-sans'});
 const playfair = Playfair_Display({subsets:['latin'], variable:'--font-heading'});
@@ -53,6 +54,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </LenisProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
