@@ -108,7 +108,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
 
   useEffect(() => {
     setMounted(true);
-    const targetDate = new Date("2026-08-15T10:00:00-06:00");
+    const targetDate = new Date(clinic.eventDate);
     const updateCountdown = () => {
       const difference = +targetDate - +new Date();
       if (difference > 0) {
