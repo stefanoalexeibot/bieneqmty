@@ -213,48 +213,8 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
 
   return (
     <main className="min-h-screen bg-[#020202] pb-32 overflow-hidden">
-      {/* Premium Countdown Banner */}
-      {mounted && (
-        <div className="w-full bg-black/75 backdrop-blur-xl border-b border-white/10 py-3.5 sticky top-0 z-[999] shadow-2xl transition-all duration-300">
-          <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-              </span>
-              <p className="text-white font-semibold text-xs md:text-sm tracking-wide text-center sm:text-left">
-                Inscripciones abiertas · La clínica inicia en:
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              <div className="flex gap-2">
-                {[
-                  { value: timeLeft.days, label: "días" },
-                  { value: timeLeft.hours, label: "hrs" },
-                  { value: timeLeft.minutes, label: "min" },
-                  { value: timeLeft.seconds, label: "seg" }
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center">
-                    <div className="flex flex-col items-center bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 min-w-[56px] shadow-inner">
-                      <span className="text-white font-mono text-base font-extrabold leading-none">
-                        {String(item.value).padStart(2, '0')}
-                      </span>
-                      <span className="text-[8px] text-white/40 uppercase font-black mt-1 tracking-wider">
-                        {item.label}
-                      </span>
-                    </div>
-                    {idx < 3 && <span className="text-white/20 font-bold px-1.5 animate-pulse">:</span>}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Cinematic Hero */}
-      <section className="relative h-[95vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen pt-36 pb-20 flex items-center justify-center overflow-hidden">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.3 }}
@@ -272,14 +232,14 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               </div>
             </RevealItem>
             <RevealItem>
-              <h1 className="text-6xl md:text-[10rem] font-heading font-bold text-white mb-8 tracking-tighter leading-[0.85]">
+              <h1 className="text-5xl sm:text-7xl md:text-8xl font-heading font-bold text-white mb-8 tracking-tighter leading-[0.85]">
                 {clinic.name.split(' ').map((word, i) => (
                    <span key={i} className={cn("block", i === 1 && "text-bieneq-green")}>{word}</span>
                 ))}
               </h1>
             </RevealItem>
             <RevealItem>
-              <div className="flex flex-wrap justify-center gap-12 text-white/40 mb-12">
+              <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-white/70 mb-8">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
                     <Calendar className="w-4 h-4 text-bieneq-green" />
@@ -294,22 +254,55 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                 </div>
               </div>
             </RevealItem>
+            <RevealItem>
+              <p className="mx-auto mb-8 max-w-2xl text-lg sm:text-xl text-white/70 leading-relaxed">
+                Aprende a evaluar el casco y comprender el recorte funcional. Dos días de teoría, práctica y bienestar equino con José Manuel Luna.
+              </p>
+              <div className="mx-auto max-w-md rounded-3xl border border-bieneq-green/25 bg-black/50 p-5 sm:p-6 backdrop-blur-md">
+                <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-bieneq-green">
+                  {mounted && Object.values(timeLeft).every(value => value === 0) ? "La fecha de inicio ha llegado" : "Tu próxima experiencia comienza en"}
+                </p>
+                <div className="grid grid-cols-4 gap-2 sm:gap-3" role="timer" aria-label="Tiempo restante para la clínica" aria-live="off">
+                  {[
+                    { value: timeLeft.days, label: "Días" },
+                    { value: timeLeft.hours, label: "Horas" },
+                    { value: timeLeft.minutes, label: "Minutos" },
+                    { value: timeLeft.seconds, label: "Segundos" },
+                  ].map(item => (
+                    <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 py-4">
+                      <span className="block text-3xl sm:text-4xl font-bold tabular-nums text-bieneq-green">{mounted ? String(item.value).padStart(2, "0") : "—"}</span>
+                      <span className="mt-2 block text-[9px] sm:text-[10px] uppercase tracking-wider text-white/60">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-4 text-xs text-white/50">17 de octubre · 10:00 a. m. · Hora de Monterrey</p>
+              </div>
+              <div className="mt-7 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="#inscripcion" className="inline-flex items-center gap-3 rounded-full bg-bieneq-green px-8 py-4 text-black font-bold hover:bg-white transition-colors">Ver precios e inscribirme <ArrowRight className="h-4 w-4" /></a>
+                <a href="#programa" className="px-6 py-3 text-white/80 underline underline-offset-4 hover:text-white">Explorar el programa</a>
+              </div>
+              <p className="mt-4 text-sm text-white/50">Online desde $3,500 MXN · Oyente $4,500 · Practicante $8,500</p>
+            </RevealItem>
           </ScrollReveal>
         </div>
 
-        {/* Floating Indicator */}
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/20">Scroll para explorar</span>
-          <ChevronDown className="w-4 h-4 text-bieneq-green/40" />
-        </motion.div>
       </section>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-20">
         
+        <div className="grid gap-4 md:grid-cols-3 mb-20">
+          {[
+            { title: "Comprende el casco", text: "Anatomía y biomecánica aplicadas al bienestar del caballo." },
+            { title: "Elige cómo aprender", text: "Online, oyente o practicante: una modalidad para tu experiencia." },
+            { title: "Continúa acompañado", text: "Material didáctico y grupo de seguimiento después de la clínica." },
+          ].map(item => (
+            <div key={item.title} className="rounded-3xl border border-white/10 bg-white/5 p-7">
+              <CheckCircle2 className="mb-4 h-6 w-6 text-bieneq-green" />
+              <h2 className="mb-2 text-xl font-bold text-white">{item.title}</h2>
+              <p className="text-white/60 leading-relaxed">{item.text}</p>
+            </div>
+          ))}
+        </div>
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40">
           
@@ -333,7 +326,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             </ScrollReveal>
 
             {/* Schedule Timeline */}
-            <div className="space-y-12 bg-white/5 p-12 rounded-[4rem] border border-white/10">
+            <div id="programa" className="scroll-mt-32 space-y-12 bg-white/5 p-6 sm:p-12 rounded-[4rem] border border-white/10">
               <div className="flex items-center justify-between flex-wrap gap-6">
                 <div className="space-y-2">
                   <h3 className="text-3xl font-bold text-white uppercase tracking-tighter">Cronograma ⏰</h3>
@@ -517,9 +510,9 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
           </div>
 
           {/* Right Column: Interactive Booking Configurator */}
-          <div className="lg:col-span-12 xl:col-span-5">
+          <div id="inscripcion" className="scroll-mt-32 lg:col-span-12 xl:col-span-5">
             <div className="sticky top-32 space-y-8">
-              <div className="p-12 rounded-[5rem] bg-white/5 border border-white/10 backdrop-blur-3xl relative overflow-hidden shadow-2xl">
+              <div className="p-6 sm:p-12 rounded-[2rem] sm:rounded-[5rem] bg-white/5 border border-white/10 backdrop-blur-3xl relative overflow-hidden shadow-2xl">
                 <div className="absolute top-0 right-0 p-12 overflow-hidden pointer-events-none opacity-10">
                   <Sparkles className="w-64 h-64 text-bieneq-green rotate-12" />
                 </div>
@@ -537,7 +530,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                     
                     <div className="inline-block px-4 py-1.5 bg-bieneq-green/10 border border-bieneq-green/20 rounded-full text-bieneq-green text-[10px] font-bold uppercase tracking-[0.2em] mb-6">Pase de Inmersión</div>
                     <h3 className="text-5xl font-heading font-bold text-white mb-2 leading-none">Reserva 🎟️</h3>
-                    <p className="text-white/40 text-sm font-light">Configura tu experiencia académica</p>
+                    <p className="text-white/40 text-sm font-light">Elige tu modalidad y extras. Al finalizar se abrirá WhatsApp para consultar disponibilidad y confirmar tu inscripción.</p>
                   </div>
 
                   <AnimatePresence mode="wait">
