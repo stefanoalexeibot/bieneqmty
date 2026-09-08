@@ -1,1031 +1,797 @@
 "use client";
 
-import { Clinic, ClinicTier, ClinicAddon } from "@/lib/clinics";
-import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Calendar, 
-  MapPin, 
-  Users, 
-  CheckCircle2, 
-  ArrowRight, 
-  Play, 
-  Star, 
-  Clock, 
-  ShieldCheck,
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import {
+  ArrowRight,
+  CalendarDays,
+  Check,
+  ChevronLeft,
   ChevronRight,
-  Sparkles,
-  Camera,
-  Plane,
-  Bed,
-  Utensils,
-  Trophy,
-  Info,
-  ChevronDown,
+  Clock3,
+  MapPin,
+  MessageCircle,
+  Plus,
   X,
-  Maximize2,
-  User,
-  MessageSquare,
-  Gauge
 } from "lucide-react";
-import { useState, useMemo, useEffect } from "react";
-import { cn } from "@/lib/utils";
-import { BorderBeam } from "@/components/ui/border-beam";
-import { Magnetic } from "@/components/ui/magnetic";
-import { TiltCard } from "@/components/ui/tilt-card";
-import { ScrollReveal, RevealItem } from "@/components/animations/scroll-reveal";
+import type { Clinic } from "@/lib/clinics";
+import styles from "./clinic-view.module.css";
 
-// WhatsApp Logo Component for Premium UI
-const WhatsAppIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .004 5.412 0 12.049a11.82 11.82 0 001.611 5.96L0 24l6.117-1.605a11.845 11.845 0 005.933 1.586h.005c6.637 0 12.048-5.412 12.052-12.05a11.829 11.829 0 00-3.536-8.503z"/>
-  </svg>
-);
-
-// FAQ Item Sub-component with Framer Motion Accordion
-function FAQItem({ question, answer }: { question: string, answer: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-  
-  return (
-    <div 
-      className={cn(
-        "rounded-[2.5rem] border transition-all duration-500 overflow-hidden",
-        isOpen ? "bg-white/10 border-white/20 shadow-2xl" : "bg-white/5 border-white/5 hover:border-white/10"
-      )}
-    >
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-10 py-8 flex items-center justify-between text-left group"
-      >
-        <span className={cn("text-lg md:text-xl font-bold transition-colors", isOpen ? "text-bieneq-green" : "text-white/60 group-hover:text-white")}>
-          {question}
-        </span>
-        <div className={cn(
-          "w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-500",
-          isOpen ? "bg-bieneq-green border-bieneq-green text-black rotate-180" : "bg-white/5 border-white/10 text-white/20"
-        )}>
-          <ChevronDown className="w-5 h-5" />
-        </div>
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
-          >
-            <div className="px-10 pb-10 pt-2 text-white/40 text-lg font-light leading-relaxed max-w-3xl">
-              {answer}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
+const money = (value: number) =>
+  new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    maximumFractionDigits: 0,
+  }).format(value);
+const galleryLabels = {
+  theory: "Teoría",
+  practice: "Práctica",
+  installations: "Instalaciones",
+};
 
 export default function ClinicView({ clinic }: { clinic: Clinic }) {
-  const [selectedTier, setSelectedTier] = useState<number>(1); // Default to Oyente (index 1)
-  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
-  const [activeDay, setActiveDay] = useState<number>(0);
-  const [activeGalleryTab, setActiveGalleryTab] = useState<"theory" | "practice" | "installations">("theory");
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-
-  // New states for Multi-step registration
-  const [step, setStep] = useState<0 | 1>(0);
-  const [formData, setFormData] = useState({
+  const [remaining, setRemaining] = useState<number | null>(null);
+  const [tierIndex, setTierIndex] = useState(1);
+  const [extras, setExtras] = useState<string[]>([]);
+  const [gallery, setGallery] = useState<keyof Clinic["gallery"]>("practice");
+  const [photo, setPhoto] = useState(0);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [form, setForm] = useState({
     name: "",
     whatsapp: "",
     city: "",
-    experience: "intermedio",
-    message: ""
+    experience: "principiante",
+    message: "",
   });
-
-  // Countdown timer states
-  const [mounted, setMounted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const tier = clinic.tiers[tierIndex];
+  const chosenExtras = clinic.addons.filter((item) => extras.includes(item.id));
+  const total =
+    tier.price + chosenExtras.reduce((sum, item) => sum + item.price, 0);
+  const photos = clinic.gallery[gallery];
+  const starts = new Date(clinic.startsAt);
+  const startLabel = new Intl.DateTimeFormat("es-MX", {
+    day: "numeric",
+    month: "long",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/Monterrey",
+  }).format(starts);
 
   useEffect(() => {
-    setMounted(true);
-    const targetDate = new Date(clinic.startsAt);
-    const updateCountdown = () => {
-      const difference = +targetDate - +new Date();
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        });
-      } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      }
-    };
-    updateCountdown();
-    const timer = setInterval(updateCountdown, 1000);
+    const update = () =>
+      setRemaining(
+        Math.max(
+          0,
+          Math.floor((new Date(clinic.startsAt).getTime() - Date.now()) / 1000),
+        ),
+      );
+    update();
+    const timer = setInterval(update, 1000);
     return () => clearInterval(timer);
   }, [clinic.startsAt]);
 
-  const getSpotsMessage = () => "Consulta disponibilidad para esta modalidad";
-
-  const WHATSAPP_NUMBER = "5218134179632";
-
-  const currentGallery = useMemo(() => clinic.gallery[activeGalleryTab], [clinic.gallery, activeGalleryTab]);
-
-  const handleNext = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex + 1) % currentGallery.length);
-    }
+  const selectTier = (index: number) => {
+    setTierIndex(index);
+    if (clinic.tiers[index].name === "Online") setExtras([]);
   };
 
-  const handlePrev = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex - 1 + currentGallery.length) % currentGallery.length);
-    }
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isLightboxOpen) return;
-      if (e.key === "ArrowRight") handleNext();
-      if (e.key === "ArrowLeft") handlePrev();
-      if (e.key === "Escape") setIsLightboxOpen(false);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isLightboxOpen, selectedImageIndex]);
-
-  // Lock body scroll when lightbox is open
-  useEffect(() => {
-    if (isLightboxOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isLightboxOpen]);
-
-  const toggleAddon = (id: string) => {
-    setSelectedAddons(prev => 
-      prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const text = [
+      "Hola, quiero solicitar mi inscripción a la clínica Bieneq.",
+      `Evento: ${clinic.name}`,
+      `Fecha: ${clinic.fullDate}`,
+      `Nombre: ${form.name.trim()}`,
+      `WhatsApp: ${form.whatsapp.trim()}`,
+      `Ciudad: ${form.city.trim() || "No indicada"}`,
+      `Experiencia: ${form.experience}`,
+      `Modalidad: ${tier.name} (${money(tier.price)} MXN)`,
+      `Extras: ${chosenExtras.map((item) => `${item.name} (${money(item.price)} MXN)`).join(", ") || "Sin extras"}`,
+      `Total: ${money(total)} MXN`,
+      `Mensaje: ${form.message.trim() || "Quisiera confirmar disponibilidad y los siguientes pasos."}`,
+    ].join("\n");
+    window.open(
+      `https://wa.me/5218134179632?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer",
     );
-  };
-
-  const totalPrice = useMemo(() => {
-    const base = clinic.tiers[selectedTier].price;
-    const addonsTotal = clinic.addons
-      .filter(a => selectedAddons.includes(a.id))
-      .reduce((sum, a) => sum + a.price, 0);
-    return base + addonsTotal;
-  }, [selectedTier, selectedAddons, clinic]);
-
-  const handleRegistration = () => {
-    const tier = clinic.tiers[selectedTier];
-    const activatedAddons = clinic.addons.filter(a => selectedAddons.includes(a.id));
-    const addonsText = activatedAddons.length > 0 
-      ? `\n➕ *Extras:* ${activatedAddons.map(a => a.name).join(", ")}` 
-      : "";
-
-    const text = encodeURIComponent(
-      `👋 *Nueva Inscripción - Clínicas Bieneq*\n` +
-      `-------------------------------\n` +
-      `👤 *Alumno:* ${formData.name}\n` +
-      `📞 *WhatsApp:* ${formData.whatsapp}\n` +
-      `📍 *Ciudad:* ${formData.city}\n` +
-      `🎓 *Nivel de Exp:* ${formData.experience.toUpperCase()}\n` +
-      `-------------------------------\n` +
-      `📌 *Evento:* ${clinic.name}\n` +
-      `🗓️ *Fecha:* ${clinic.fullDate}\n` +
-      `💎 *Plan:* ${tier.name} ($${tier.price.toLocaleString()})${addonsText}\n` +
-      `-------------------------------\n` +
-      `💰 *Total:* $${totalPrice.toLocaleString()} MXN\n` +
-      `-------------------------------\n` +
-      `💬 *Mensaje:* ${formData.message || "Sin mensaje adicional"}\n\n` +
-      `_Enviado desde el sitio web bieneqmty.com_`
-    );
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
   };
 
   return (
-    <main className="min-h-screen bg-[#020202] pb-32 overflow-hidden">
-      {/* Cinematic Hero */}
-      <section className="relative min-h-screen pt-36 pb-20 flex items-center justify-center overflow-hidden">
-        <motion.div 
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.3 }}
-          transition={{ duration: 2, ease: "easeOut" }}
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${clinic.featuredImage})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#020202]/60 to-[#020202]" />
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
-          <ScrollReveal direction="up">
-            <RevealItem>
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-bieneq-green text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
-                <Sparkles className="w-3.5 h-3.5 animate-pulse" /> Certificación Oficial Bieneq
-              </div>
-            </RevealItem>
-            <RevealItem>
-              <h1 className="text-5xl sm:text-7xl md:text-8xl font-heading font-bold text-white mb-8 tracking-tighter leading-[0.85]">
-                {clinic.name.split(' ').map((word, i) => (
-                   <span key={i} className={cn("block", i === 1 && "text-bieneq-green")}>{word}</span>
-                ))}
-              </h1>
-            </RevealItem>
-            <RevealItem>
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-white/70 mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
-                    <Calendar className="w-4 h-4 text-bieneq-green" />
-                  </div>
-                  <span className="text-xl font-light tracking-tight">{clinic.fullDate}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
-                    <MapPin className="w-4 h-4 text-bieneq-green" />
-                  </div>
-                  <span className="text-xl font-light tracking-tight">{clinic.location}</span>
-                </div>
-              </div>
-            </RevealItem>
-            <RevealItem>
-              <p className="mx-auto mb-8 max-w-2xl text-lg sm:text-xl text-white/70 leading-relaxed">
-                Aprende a evaluar el casco y comprender el recorte funcional. Dos días de teoría, práctica y bienestar equino con José Manuel Luna.
-              </p>
-              <div className="mx-auto max-w-md rounded-3xl border border-bieneq-green/25 bg-black/50 p-5 sm:p-6 backdrop-blur-md">
-                <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-bieneq-green">
-                  {mounted && Object.values(timeLeft).every(value => value === 0) ? "La fecha de inicio ha llegado" : "Tu próxima experiencia comienza en"}
-                </p>
-                <div className="grid grid-cols-4 gap-2 sm:gap-3" role="timer" aria-label="Tiempo restante para la clínica" aria-live="off">
-                  {[
-                    { value: timeLeft.days, label: "Días" },
-                    { value: timeLeft.hours, label: "Horas" },
-                    { value: timeLeft.minutes, label: "Minutos" },
-                    { value: timeLeft.seconds, label: "Segundos" },
-                  ].map(item => (
-                    <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 py-4">
-                      <span className="block text-3xl sm:text-4xl font-bold tabular-nums text-bieneq-green">{mounted ? String(item.value).padStart(2, "0") : "—"}</span>
-                      <span className="mt-2 block text-[9px] sm:text-[10px] uppercase tracking-wider text-white/60">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-4 text-xs text-white/50">17 de octubre · 10:00 a. m. · Hora de Monterrey</p>
-              </div>
-              <div className="mt-7 flex flex-col sm:flex-row justify-center items-center gap-4">
-                <a href="#inscripcion" className="inline-flex items-center gap-3 rounded-full bg-bieneq-green px-8 py-4 text-black font-bold hover:bg-white transition-colors">Ver precios e inscribirme <ArrowRight className="h-4 w-4" /></a>
-                <a href="#programa" className="px-6 py-3 text-white/80 underline underline-offset-4 hover:text-white">Explorar el programa</a>
-              </div>
-              <p className="mt-4 text-sm text-white/50">Online desde $3,500 MXN · Oyente $4,500 · Practicante $8,500</p>
-            </RevealItem>
-          </ScrollReveal>
+    <main className={styles.page}>
+      <section className={`${styles.wrap} ${styles.hero}`}>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}>
+            <span /> MONTERREY · OCTUBRE 2026
+          </p>
+          <p className={styles.eventName}>{clinic.name}</p>
+          <h1>
+            El bienestar
+            <br />
+            empieza en
+            <br />
+            <em>el casco.</em>
+          </h1>
+          <p className={styles.lead}>
+            Entiende su anatomía. Aprende a evaluar su balance. Acércate al
+            recorte funcional con una experiencia de teoría y práctica equina.
+          </p>
+          <div className={styles.eventMeta}>
+            <span>
+              <CalendarDays />
+              {clinic.fullDate}
+            </span>
+            <span>
+              <MapPin />
+              {clinic.location}
+            </span>
+          </div>
+          <div className={styles.actions}>
+            <a className={styles.primary} href="#modalidades">
+              Encuentra tu modalidad <ArrowRight size={18} />
+            </a>
+            <a className={styles.textLink} href="#programa">
+              Ver programa ↗
+            </a>
+          </div>
+          <p className={styles.micro}>
+            Desde {money(Math.min(...clinic.tiers.map((item) => item.price)))}{" "}
+            MXN · No necesitas experiencia previa
+          </p>
         </div>
-
+        <div className={styles.heroVisual}>
+          <img
+            className={styles.heroImage}
+            src={clinic.gallery.practice[0]}
+            alt="Práctica de podología equina en una clínica anterior de Bieneq"
+            fetchPriority="high"
+          />
+          <div className={styles.imageCaption}>
+            <span>APRENDER CON EL CABALLO</span>
+            <p>
+              Conocimiento que
+              <br />
+              se lleva a la práctica.
+            </p>
+            <small>Imagen de una edición anterior</small>
+          </div>
+          <div className={styles.dateBadge}>
+            <strong>17—18</strong>
+            <span>OCT / 2026</span>
+          </div>
+          <div className={styles.countdown}>
+            <div className={styles.countdownTitle}>
+              <span>
+                {remaining === 0
+                  ? "La fecha de inicio ha llegado"
+                  : "Nos vemos en Monterrey"}
+              </span>
+              <Clock3 size={16} />
+            </div>
+            <div
+              className={styles.digits}
+              role="timer"
+              aria-label="Tiempo restante para la clínica"
+              aria-live="off"
+            >
+              {[
+                { label: "Días", divisor: 86400 },
+                { label: "Horas", divisor: 3600, mod: 24 },
+                { label: "Minutos", divisor: 60, mod: 60 },
+                { label: "Segundos", divisor: 1, mod: 60 },
+              ].map((item) => (
+                <div key={item.label}>
+                  <strong>
+                    {remaining === null
+                      ? "—"
+                      : String(
+                          item.mod
+                            ? Math.floor(remaining / item.divisor) % item.mod
+                            : Math.floor(remaining / item.divisor),
+                        ).padStart(2, "0")}
+                  </strong>
+                  <span>{item.label}</span>
+                </div>
+              ))}
+            </div>
+            <small>Inicio: {startLabel} · Hora de Monterrey</small>
+          </div>
+        </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-20">
-        
-        <div className="grid gap-4 md:grid-cols-3 mb-20">
+      <nav className={styles.sectionNav} aria-label="Explorar la clínica">
+        <div className={styles.wrap}>
           {[
-            { title: "Comprende el casco", text: "Anatomía y biomecánica aplicadas al bienestar del caballo." },
-            { title: "Elige cómo aprender", text: "Online, oyente o practicante: una modalidad para tu experiencia." },
-            { title: "Continúa acompañado", text: "Material didáctico y grupo de seguimiento después de la clínica." },
-          ].map(item => (
-            <div key={item.title} className="rounded-3xl border border-white/10 bg-white/5 p-7">
-              <CheckCircle2 className="mb-4 h-6 w-6 text-bieneq-green" />
-              <h2 className="mb-2 text-xl font-bold text-white">{item.title}</h2>
-              <p className="text-white/60 leading-relaxed">{item.text}</p>
-            </div>
+            ["La experiencia", "experiencia"],
+            ["Modalidades", "modalidades"],
+            ["Programa", "programa"],
+            ["Instructor", "instructor"],
+            ["Preguntas", "preguntas"],
+          ].map(([label, id]) => (
+            <a key={id} href={`#${id}`}>
+              {label}
+            </a>
           ))}
         </div>
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-40">
-          
-          {/* Left Column: Details & Schedule */}
-          <div className="lg:col-span-12 xl:col-span-7 space-y-32">
-            
-            {/* Experience Intro */}
-            <ScrollReveal direction="up">
-              <div className="space-y-12">
-                <div className="flex items-center gap-4">
-                  <div className="h-[2px] w-12 bg-bieneq-green" />
-                  <h2 className="text-4xl font-heading font-bold text-white tracking-tighter uppercase italic">Misión Académica ✨</h2>
-                </div>
-                <div className="p-12 rounded-[4rem] bg-white/5 border border-white/10 relative overflow-hidden group">
-                  <BorderBeam size={600} duration={20} colorFrom="#16a34a" colorTo="#84cc16" />
-                  <p className="text-white/60 text-2xl md:text-3xl leading-relaxed font-light italic tracking-tight">
-                    {clinic.longDescription}
+      </nav>
+
+      <section id="experiencia" className={`${styles.wrap} ${styles.section}`}>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className={styles.eyebrow}>01 / LA EXPERIENCIA</p>
+            <h2>
+              Más criterio.
+              <br />
+              <span>Mejor cuidado.</span>
+            </h2>
+          </div>
+          <p>
+            Para propietarios, estudiantes y profesionales que quieren
+            comprender al caballo desde su base. Elige cuánto quieres
+            involucrarte: aprender online, observar en sede o practicar bajo
+            supervisión.
+          </p>
+        </div>
+        <div className={styles.learningGrid}>
+          {[
+            [
+              "01",
+              "Mira más allá del casco",
+              "Estudia las estructuras anatómicas y su relación con el movimiento del caballo.",
+            ],
+            [
+              "02",
+              "Aprende a evaluar",
+              "Conoce protocolos de observación para comprender el balance y el estado del casco.",
+            ],
+            [
+              "03",
+              "Conecta teoría y técnica",
+              "Observa el trabajo real o participa en las prácticas con la modalidad Practicante.",
+            ],
+          ].map(([number, title, text]) => (
+            <article key={number}>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="modalidades" className={styles.lightSection}>
+        <div className={`${styles.wrap} ${styles.section}`}>
+          <div className={styles.sectionHead}>
+            <div>
+              <p className={styles.eyebrow}>02 / TU FORMA DE APRENDER</p>
+              <h2>
+                Tres modalidades.
+                <br />
+                <span>Un mismo propósito.</span>
+              </h2>
+            </div>
+            <p>
+              Compara qué incluye cada experiencia. Los precios están en pesos
+              mexicanos; los servicios de traslado y hospedaje son opcionales.
+            </p>
+          </div>
+          <div className={styles.tierGrid}>
+            {clinic.tiers.map((item, index) => (
+              <article
+                key={item.name}
+                className={`${styles.tierCard} ${index === 2 ? styles.featuredTier : ""}`}
+              >
+                <p className={styles.tierTag}>
+                  {
+                    [
+                      "DESDE DONDE ESTÉS",
+                      "APRENDE OBSERVANDO",
+                      "APRENDE HACIENDO",
+                    ][index]
+                  }
+                </p>
+                <h3>{item.name}</h3>
+                <p className={styles.tierDescription}>
+                  {item.description.replace(/[💻👁️🛠️]/gu, "")}
+                </p>
+                <p className={styles.price}>
+                  {money(item.price)} <small>MXN</small>
+                </p>
+                <ul>
+                  {item.includes.map((include) => (
+                    <li key={include}>
+                      <Check size={16} />
+                      {include}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#inscripcion"
+                  className={
+                    index === 2 ? styles.primary : styles.outlineButton
+                  }
+                  onClick={() => selectTier(index)}
+                >
+                  Elegir {item.name} <ArrowRight size={17} />
+                </a>
+              </article>
+            ))}
+          </div>
+          <p className={styles.note}>
+            La práctica con caballos corresponde a Practicante. Online incluye
+            la transmisión de teoría y acceso a grabaciones durante 30 días.
+          </p>
+        </div>
+      </section>
+
+      <section id="programa" className={`${styles.wrap} ${styles.section}`}>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className={styles.eyebrow}>03 / EL PROGRAMA</p>
+            <h2>
+              Dos días para
+              <br />
+              <span>cambiar tu mirada.</span>
+            </h2>
+          </div>
+          <p>
+            De los fundamentos a la evaluación de casos reales. Ambas jornadas
+            comienzan a las 10:00 a. m. y terminan a las 5:00 p. m.
+          </p>
+        </div>
+        <div className={styles.scheduleGrid}>
+          {clinic.schedule.map((day, index) => (
+            <article key={day.day} className={styles.scheduleDay}>
+              <header>
+                <span>0{index + 1}</span>
+                <div>
+                  <p>
+                    {index === 0
+                      ? "SÁBADO 17 DE OCTUBRE"
+                      : "DOMINGO 18 DE OCTUBRE"}
                   </p>
+                  <h3>{day.day.replace(/^Día \d: /, "")}</h3>
                 </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Schedule Timeline */}
-            <div id="programa" className="scroll-mt-32 space-y-12 bg-white/5 p-6 sm:p-12 rounded-[4rem] border border-white/10">
-              <div className="flex items-center justify-between flex-wrap gap-6">
-                <div className="space-y-2">
-                  <h3 className="text-3xl font-bold text-white uppercase tracking-tighter">Cronograma ⏰</h3>
-                  <p className="text-white/30 text-xs font-bold uppercase tracking-widest">Inmersión Técnica 10 AM - 5 PM</p>
-                </div>
-                <div className="flex bg-black/40 p-1 rounded-2xl border border-white/10">
-                  {clinic.schedule.map((_, i) => (
-                    <button 
-                      key={i}
-                      onClick={() => setActiveDay(i)}
-                      className={cn(
-                        "px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all",
-                        activeDay === i ? "bg-white text-black" : "text-white/40 hover:text-white"
-                      )}
-                    >
-                      Día 0{i + 1}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative pl-8 border-l border-white/10 space-y-12 py-4">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeDay}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="space-y-12"
-                  >
-                    <div className="space-y-12">
-                      {clinic.schedule[activeDay].items.map((item, idx) => (
-                        <motion.div 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: idx * 0.1 }}
-                          key={idx} 
-                          className="relative"
-                        >
-                          <div className={cn(
-                            "absolute -left-11 top-0 w-6 h-6 rounded-full border-4 border-[#020202] transition-colors z-10",
-                            item.activity?.includes("Lunch") || item.activity?.includes("Break") ? "bg-bieneq-yellow shadow-[0_0_15px_rgba(234,179,8,0.5)]" : "bg-bieneq-green shadow-[0_0_15px_rgba(34,197,94,0.5)]"
-                          )} />
-                          <div className="group p-6 rounded-3xl hover:bg-white/5 transition-colors">
-                            <span className="text-bieneq-green font-mono text-sm mb-2 block font-bold tracking-widest">{item.time}</span>
-                            <h4 className="text-2xl font-bold text-white mb-2 group-hover:translate-x-1 transition-transform">{item.activity}</h4>
-                            <p className="text-white/40 text-sm leading-relaxed max-w-lg">{item.description}</p>
-                          </div>
-                        </motion.div>
-                      ))}
+              </header>
+              <ol>
+                {day.items.map((item) => (
+                  <li key={item.time}>
+                    <time>{item.time}</time>
+                    <div>
+                      <h4>
+                        {item.activity === "Lunch Break"
+                          ? "Pausa para comer"
+                          : item.activity}
+                      </h4>
+                      <p>{item.description}</p>
                     </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-
-            {/* Instructor Profile */}
-            <ScrollReveal direction="up">
-              <div className="space-y-12">
-                <div className="flex items-center gap-4">
-                  <div className="h-[2px] w-12 bg-bieneq-green" />
-                  <h2 className="text-4xl font-heading font-bold text-white tracking-tighter uppercase italic">Tu Instructor 🎓</h2>
-                </div>
-                <div className="relative p-1 rounded-[4rem] bg-gradient-to-br from-white/10 to-transparent border border-white/10 overflow-hidden group">
-                  <div className="flex flex-col md:flex-row items-center gap-12 p-8 md:p-12">
-                    <div className="w-full md:w-5/12 aspect-square rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl relative">
-                      <img 
-                        src={clinic.instructor.image} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                        alt={clinic.instructor.name} 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <p className="text-white font-bold text-xl">{clinic.instructor.name}</p>
-                        <p className="text-bieneq-green text-xs font-bold uppercase tracking-widest">{clinic.instructor.role}</p>
-                      </div>
-                    </div>
-                    <div className="w-full md:w-7/12 space-y-8">
-                      <p className="text-white/60 text-xl leading-relaxed font-light italic">
-                        "{clinic.instructor.bio}"
-                      </p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {clinic.instructor.credentials.map((cred, i) => (
-                          <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10">
-                            <ShieldCheck className="w-4 h-4 text-bieneq-green" />
-                            <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">{cred}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Certificate Preview Highlight */}
-            <ScrollReveal direction="up">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-bieneq-green/20 blur-[120px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                <div className="relative p-12 rounded-[5rem] bg-gradient-to-br from-white/10 to-transparent border border-white/10 overflow-hidden flex flex-col md:flex-row items-center gap-16">
-                  <div className="w-full md:w-1/2 space-y-8">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-bieneq-yellow/10 border border-bieneq-yellow/20 rounded-full text-bieneq-yellow text-[10px] font-bold uppercase tracking-widest">Acreditación Académica</div>
-                    <h3 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tighter leading-tight">Tu esfuerzo, <br /><span className="text-bieneq-green italic">Certificado.</span></h3>
-                    <p className="text-white/50 text-xl font-light leading-relaxed">
-                      Al completar satisfactoriamente las horas de teoría y práctica, recibirás tu acreditación oficial de BieneqMty, avalando tu dominio en el sistema de bienestar equino integral.
-                    </p>
-                    <div className="flex items-center gap-4 text-xs font-bold text-white/20 uppercase tracking-[0.3em]">
-                       <Trophy className="w-5 h-5 text-bieneq-yellow" /> Validez Curricular Bieneq
-                    </div>
-                  </div>
-                  <div className="w-full md:w-1/2 relative">
-                    <TiltCard intensity={15} className="relative z-10 rotate-3 group-hover:rotate-0 transition-transform duration-700 shadow-2xl">
-                      <img src="/images/clinics/certificado-mockup.png" alt="Certificado Bieneq" className="w-full rounded-2xl border border-white/20" />
-                      <BorderBeam size={200} duration={8} colorFrom="#eab308" colorTo="#84cc16" />
-                    </TiltCard>
-                    <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-bieneq-green/20 blur-[80px] -z-10" />
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Categorized Gallery */}
-            <div className="space-y-12">
-              <div className="flex items-center gap-6 overflow-x-auto pb-4 scrollbar-hide">
-                {[
-                  { id: "theory", label: "Teoría 📚", icon: Info },
-                  { id: "practice", label: "Acción Práctica 🐴", icon: Play },
-                  { id: "installations", label: "Instalaciones 🏠", icon: Camera }
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveGalleryTab(tab.id as any)}
-                    className={cn(
-                      "flex items-center gap-3 px-8 py-4 rounded-3xl text-sm font-bold whitespace-nowrap transition-all border",
-                      activeGalleryTab === tab.id 
-                        ? "bg-white text-black border-white" 
-                        : "bg-white/5 text-white/40 border-white/10 hover:border-white/30"
-                    )}
-                  >
-                    <tab.icon className="w-4 h-4" />
-                    {tab.label}
-                  </button>
+                  </li>
                 ))}
-              </div>
+              </ol>
+            </article>
+          ))}
+        </div>
+      </section>
 
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeGalleryTab}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8"
-                >
-                  {clinic.gallery[activeGalleryTab].length > 0 ? (
-                    clinic.gallery[activeGalleryTab].map((img, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={() => {
-                          setSelectedImageIndex(i);
-                          setIsLightboxOpen(true);
-                        }}
-                        className="relative aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group cursor-zoom-in w-full text-left"
-                      >
-                        <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Gallery" />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 active:bg-black/50 transition-colors flex items-center justify-center">
-                          <Maximize2 className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-all" />
-                        </div>
-                      </button>
-                    ))
-                  ) : (
-                    <div className="col-span-full py-32 flex flex-col items-center justify-center border border-dashed border-white/10 rounded-[4rem] bg-white/[0.02] backdrop-blur-sm">
-                       <Camera className="w-12 h-12 text-white/5 mb-6" />
-                       <p className="text-white/20 text-xl font-light italic tracking-tight">Registro visual en proceso...</p>
-                       <p className="text-white/[0.05] text-[10px] uppercase font-bold tracking-[0.3em] mt-4">Bieneq Media Team</p>
-                    </div>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+      <section
+        id="instructor"
+        className={`${styles.wrap} ${styles.instructor}`}
+      >
+        <div className={styles.portrait}>
+          <img
+            src={clinic.instructor.image}
+            alt={clinic.instructor.name}
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <p className={styles.eyebrow}>APRENDE CON QUIEN LO PRACTICA</p>
+          <h2>{clinic.instructor.name}</h2>
+          <p className={styles.instructorRole}>{clinic.instructor.role}</p>
+          <p>{clinic.instructor.bio}</p>
+          <div className={styles.credentials}>
+            {clinic.instructor.credentials.map((item) => (
+              <span key={item}>
+                <Check size={14} />
+                {item}
+              </span>
+            ))}
           </div>
+          <a href="#inscripcion" className={styles.textLink}>
+            Quiero ser parte de esta edición <ArrowRight size={17} />
+          </a>
+        </div>
+      </section>
 
-          {/* Right Column: Interactive Booking Configurator */}
-          <div id="inscripcion" className="scroll-mt-32 lg:col-span-12 xl:col-span-5">
-            <div className="sticky top-32 space-y-8">
-              <div className="p-6 sm:p-12 rounded-[2rem] sm:rounded-[5rem] bg-white/5 border border-white/10 backdrop-blur-3xl relative overflow-hidden shadow-2xl">
-                <div className="absolute top-0 right-0 p-12 overflow-hidden pointer-events-none opacity-10">
-                  <Sparkles className="w-64 h-64 text-bieneq-green rotate-12" />
-                </div>
+      <section className={`${styles.wrap} ${styles.section}`}>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className={styles.eyebrow}>ASÍ SE VIVE BIENEQ</p>
+            <h2>
+              Del aula
+              <br />
+              <span>al trabajo real.</span>
+            </h2>
+          </div>
+          <p>
+            Explora fotografías de ediciones anteriores y de las instalaciones.
+            Una mirada a los espacios, la convivencia y el aprendizaje en campo.
+          </p>
+        </div>
+        <div
+          className={styles.galleryTabs}
+          aria-label="Categorías de fotografías"
+        >
+          {(
+            Object.keys(galleryLabels) as Array<keyof typeof galleryLabels>
+          ).map((key) => (
+            <button
+              key={key}
+              aria-pressed={gallery === key}
+              onClick={() => {
+                setGallery(key);
+                setPhoto(0);
+              }}
+            >
+              {galleryLabels[key]} <span>{clinic.gallery[key].length}</span>
+            </button>
+          ))}
+        </div>
+        <div className={styles.galleryGrid}>
+          {photos.slice(0, 4).map((src, index) => (
+            <button
+              key={src}
+              onClick={() => {
+                setPhoto(index);
+                dialog.current?.showModal();
+              }}
+              aria-label={`Ampliar fotografía ${index + 1} de ${galleryLabels[gallery]}`}
+            >
+              <img
+                src={src}
+                alt={`${galleryLabels[gallery]} en Bieneq, fotografía ${index + 1}`}
+                loading="lazy"
+              />
+              <span>
+                <Plus size={18} />
+              </span>
+            </button>
+          ))}
+        </div>
+        <button
+          className={styles.textLink}
+          onClick={() => {
+            setPhoto(0);
+            dialog.current?.showModal();
+          }}
+        >
+          Ver las {photos.length} fotografías de{" "}
+          {galleryLabels[gallery].toLowerCase()} <ArrowRight size={16} />
+        </button>
+      </section>
 
-                <div className="space-y-12">
-                  <div className="text-center">
-                    {/* Scarcity Indicator */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-[10px] font-bold uppercase tracking-widest mb-6"
-                    >
-                      <Users className="w-3 h-3" /> {getSpotsMessage()}
-                    </motion.div>
-                    
-                    <div className="inline-block px-4 py-1.5 bg-bieneq-green/10 border border-bieneq-green/20 rounded-full text-bieneq-green text-[10px] font-bold uppercase tracking-[0.2em] mb-6">Pase de Inmersión</div>
-                    <h3 className="text-5xl font-heading font-bold text-white mb-2 leading-none">Reserva 🎟️</h3>
-                    <p className="text-white/40 text-sm font-light">Elige tu modalidad y extras. Al finalizar se abrirá WhatsApp para consultar disponibilidad y confirmar tu inscripción.</p>
+      <section className={styles.testimonialSection}>
+        <div className={`${styles.wrap} ${styles.section}`}>
+          <p className={styles.eyebrow}>LA COMUNIDAD BIENEQ</p>
+          <h2>
+            Quienes ya
+            <br />
+            <span>vivieron la experiencia.</span>
+          </h2>
+          <div className={styles.testimonials}>
+            {clinic.testimonials.map((item) => (
+              <figure key={item.name}>
+                <blockquote>
+                  “{item.content.replace(/[⭐✨🏆]/gu, "").trim()}”
+                </blockquote>
+                <figcaption>
+                  <img src={item.image} alt="" loading="lazy" />
+                  <div>
+                    <strong>{item.name}</strong>
+                    <span>{item.role}</span>
                   </div>
-
-                  <AnimatePresence mode="wait">
-                    {step === 0 ? (
-                      <motion.div
-                        key="step0"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="space-y-12"
-                      >
-                        {/* Tier Selection */}
-                        <div className="space-y-4">
-                          <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Nivel de Participación</p>
-                          <div className="grid grid-cols-3 gap-2">
-                            {clinic.tiers.map((tier, idx) => (
-                              <button
-                                key={idx}
-                                onClick={() => setSelectedTier(idx)}
-                                className={cn(
-                                  "p-4 rounded-[2rem] border transition-all text-center relative overflow-hidden group flex flex-col items-center justify-center min-h-[110px]",
-                                  selectedTier === idx 
-                                    ? "bg-white text-black border-white shadow-xl" 
-                                    : "bg-white/5 text-white/40 border-white/10 hover:border-white/30"
-                                )}
-                              >
-                                <span className="relative z-10 text-sm font-bold block mb-0.5">{tier.name}</span>
-                                <span className={cn("relative z-10 text-xs font-semibold block mb-1", selectedTier === idx ? "text-black/70" : "text-white/30")}>
-                                  ${tier.price.toLocaleString()}
-                                </span>
-                                <span className={cn("relative z-10 text-[9px] font-extrabold uppercase tracking-wider block",
-                                  tier.name === "Online" ? "text-blue-500" :
-                                  tier.name === "Oyente" ? "text-amber-500" : "text-red-500"
-                                )}>
-                                  {tier.name === "Online" ? "Cupo Libre" :
-                                   "Consultar cupo"}
-                                </span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Addons Selection */}
-                        <div className="space-y-6">
-                          <p className="text-[10px] font-bold text-white/30 uppercase tracking-[0.3em] ml-4">Servicios VIP Opcionales</p>
-                          <div className="grid gap-5">
-                            {clinic.addons.map((addon) => (
-                              <button
-                                key={addon.id}
-                                onClick={() => toggleAddon(addon.id)}
-                                className={cn(
-                                  "flex items-center justify-between p-6 rounded-[2.5rem] border transition-all text-left group",
-                                  selectedAddons.includes(addon.id)
-                                    ? "bg-bieneq-green/10 border-bieneq-green/50"
-                                    : "bg-white/5 border-white/10 hover:border-white/20"
-                                )}
-                              >
-                                <div className="flex items-center gap-5">
-                                  <div className={cn(
-                                    "w-14 h-14 rounded-[1.5rem] flex items-center justify-center transition-all",
-                                    selectedAddons.includes(addon.id) ? "bg-bieneq-green text-black shadow-lg" : "bg-white/5 text-white/40"
-                                  )}>
-                                    {addon.icon === 'Plane' && <Plane className="w-6 h-6" />}
-                                    {addon.icon === 'Bed' && <Bed className="w-6 h-6" />}
-                                  </div>
-                                  <div>
-                                    <p className="font-bold text-white group-hover:text-bieneq-green transition-colors text-lg">{addon.name}</p>
-                                    <p className="text-xs text-white/30 font-light">{addon.description}</p>
-                                  </div>
-                                </div>
-                                <div className="text-right">
-                                   <span className={cn(
-                                      "font-bold text-sm block",
-                                      selectedAddons.includes(addon.id) ? "text-bieneq-green" : "text-white/20"
-                                    )}>
-                                      +${addon.price.toLocaleString()}
-                                    </span>
-                                    <div className={cn(
-                                      "w-4 h-4 rounded-full border-2 border-white/10 mt-2 mx-auto transition-colors",
-                                      selectedAddons.includes(addon.id) && "bg-bieneq-green border-bieneq-green"
-                                    )} />
-                                </div>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Summary Step 0 */}
-                        <div className="pt-10 border-t border-white/10">
-                           <div className="flex justify-between items-end mb-10 px-4">
-                              <div className="space-y-1">
-                                <p className="text-xs text-white/30 uppercase tracking-[0.2em] font-bold">Total Final</p>
-                                <div className="flex items-center gap-2 text-bieneq-green">
-                                  <Utensils className="w-3.5 h-3.5" />
-                                  <p className="text-[10px] font-bold uppercase tracking-widest">Lunch Incluido 🍽️</p>
-                                </div>
-                              </div>
-                              <div className="text-right">
-                                <AnimatePresence mode="wait">
-                                  <motion.p 
-                                    key={totalPrice}
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    className="text-6xl font-heading font-bold text-white tracking-tighter leading-none mb-1"
-                                  >
-                                    ${totalPrice.toLocaleString()}
-                                  </motion.p>
-                                </AnimatePresence>
-                                <p className="text-[10px] text-white/20 uppercase font-bold tracking-widest">Moneda: MXN</p>
-                              </div>
-                           </div>
-
-                           <Magnetic strength={0.3}>
-                             <button 
-                               onClick={() => setStep(1)}
-                               className="w-full h-24 bg-white text-black font-extrabold uppercase tracking-widest rounded-[2.5rem] flex items-center justify-between px-10 hover:bg-bieneq-green transition-all group active:scale-[0.98] overflow-hidden shadow-[0_20px_60px_rgba(255,255,255,0.1)]"
-                             >
-                                <span className="text-base">Continuar Registro</span>
-                                <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center transition-transform group-hover:translate-x-1">
-                                  <ArrowRight className="w-5 h-5" />
-                                </div>
-                             </button>
-                           </Magnetic>
-                        </div>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="step1"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 20 }}
-                        className="space-y-10"
-                      >
-                        <button 
-                          onClick={() => setStep(0)}
-                          className="flex items-center gap-2 text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] mb-4 hover:text-white transition-colors"
-                        >
-                          <ChevronDown className="w-3 h-3 rotate-90" /> Volver a selección
-                        </button>
-
-                        <div className="space-y-6">
-                           <div className="relative">
-                              <User className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
-                              <input 
-                                type="text" 
-                                placeholder="Nombre Completo"
-                                value={formData.name}
-                                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                className="w-full h-20 bg-white/5 border border-white/10 rounded-3xl pl-16 pr-6 text-sm focus:border-bieneq-green outline-none transition-colors"
-                              />
-                           </div>
-
-                           <div className="relative">
-                              <MessageSquare className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
-                              <input 
-                                type="tel" 
-                                placeholder="WhatsApp / Celular"
-                                value={formData.whatsapp}
-                                onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
-                                className="w-full h-20 bg-white/5 border border-white/10 rounded-3xl pl-16 pr-6 text-sm focus:border-bieneq-green outline-none transition-colors"
-                              />
-                           </div>
-
-                           <div className="relative">
-                              <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
-                              <input 
-                                type="text" 
-                                placeholder="Ciudad / Estado"
-                                value={formData.city}
-                                onChange={(e) => setFormData({...formData, city: e.target.value})}
-                                className="w-full h-20 bg-white/5 border border-white/10 rounded-3xl pl-16 pr-6 text-sm focus:border-bieneq-green outline-none transition-colors"
-                              />
-                           </div>
-
-                           <div className="relative group">
-                              <Gauge className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
-                              <select 
-                                value={formData.experience}
-                                onChange={(e) => setFormData({...formData, experience: e.target.value})}
-                                className="w-full h-20 bg-white/5 border border-white/10 rounded-3xl pl-16 pr-12 text-sm focus:border-bieneq-green outline-none transition-colors appearance-none cursor-pointer"
-                              >
-                                <option value="principiante" className="bg-[#0a0a0a]">Nivel: Principiante</option>
-                                <option value="intermedio" className="bg-[#0a0a0a]">Nivel: Intermedio</option>
-                                <option value="profesional" className="bg-[#0a0a0a]">Nivel: Profesional</option>
-                              </select>
-                              <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 pointer-events-none group-focus-within:rotate-180 transition-transform" />
-                           </div>
-                        </div>
-
-                        <div className="pt-6">
-                           <Magnetic strength={0.3}>
-                             <button 
-                               disabled={!formData.name || !formData.whatsapp}
-                               onClick={handleRegistration}
-                               className="w-full h-24 bg-bieneq-green text-black font-extrabold uppercase tracking-widest rounded-[2.5rem] flex items-center justify-between px-10 hover:bg-white shadow-[0_20px_60px_rgba(34,197,94,0.3)] transition-all group active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-                             >
-                                <div className="flex items-center gap-4">
-                                  <WhatsAppIcon className="w-8 h-8" />
-                                  <span className="text-base">Confirmar Registro</span>
-                                </div>
-                                <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center transition-transform group-hover:translate-x-1">
-                                  <ArrowRight className="w-5 h-5" />
-                                </div>
-                             </button>
-                           </Magnetic>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
-
-              {/* Certificate Badge Card */}
-              <div className="p-10 rounded-[4rem] bg-gradient-to-br from-bieneq-green/20 to-[#020202] border border-bieneq-green/30 overflow-hidden relative group">
-                <BorderBeam size={200} duration={8} colorFrom="#16a34a" colorTo="#84cc16" />
-                <div className="absolute -right-6 -bottom-6 opacity-10 group-hover:scale-110 transition-transform duration-700">
-                  <Trophy className="w-48 h-48 text-bieneq-green" />
-                </div>
-                <div className="relative z-10 flex items-start gap-6">
-                   <div className="w-14 h-14 rounded-2xl bg-bieneq-green/20 flex items-center justify-center border border-bieneq-green/30">
-                      <ShieldCheck className="w-7 h-7 text-bieneq-green" />
-                   </div>
-                   <div>
-                     <h4 className="text-2xl font-bold text-white mb-2">Certificación VIP</h4>
-                     <p className="text-white/40 text-sm leading-relaxed max-w-[200px]">Incluye certificado oficial académico con validez curricular.</p>
-                   </div>
-                </div>
-              </div>
-            </div>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Testimonials Section (Infinite Marquee) */}
-        <section className="mb-40 space-y-16 overflow-hidden -mx-6 lg:-mx-12">
-           <ScrollReveal>
-             <div className="text-center space-y-4 px-6 lg:px-12">
-                <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tighter">Voces de la <br /> <span className="text-bieneq-green italic font-light">Comunidad Bieneq.</span></h2>
-                <p className="text-white/40 text-sm max-w-lg mx-auto">Lo que dicen nuestros alumnos después de vivir la inmersión total en el sistema Barefoot.</p>
-             </div>
-           </ScrollReveal>
-
-           <div className="relative">
-              {/* Gradient masks for seamless fading */}
-              <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#020202] to-transparent z-10 pointer-events-none" />
-              <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#020202] to-transparent z-10 pointer-events-none" />
-
-              <div className="flex group">
-                <motion.div 
-                  animate={{ x: ["0%", "-100%"] }}
-                  transition={{ 
-                    duration: 50, 
-                    repeat: Infinity, 
-                    ease: "linear" 
-                  }}
-                  className="flex gap-8 px-4 flex-nowrap"
-                >
-                  {/* First set of testimonials */}
-                  {[...clinic.testimonials, ...clinic.testimonials].map((t, i) => (
-                    <div 
-                      key={i}
-                      className="w-[450px] shrink-0 p-12 rounded-[4rem] bg-white/5 border border-white/10 relative overflow-hidden group/card hover:bg-white/[0.08] transition-all"
-                    >
-                      <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover/card:scale-110 transition-transform duration-700">
-                        <Trophy className="w-48 h-48 text-white" />
-                      </div>
-                      <div className="flex gap-2 mb-8">
-                        {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 text-bieneq-yellow fill-current" />)}
-                      </div>
-                      <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-light italic mb-10 tracking-tight line-clamp-4">"{t.content}"</p>
-                      <div className="flex items-center gap-4 mt-auto">
-                        <img src={t.image} className="w-16 h-16 rounded-2xl object-cover border-2 border-bieneq-green/30" alt={t.name} />
-                        <div>
-                          <p className="font-bold text-white whitespace-nowrap">{t.name}</p>
-                          <p className="text-[10px] text-white/40 uppercase tracking-[0.2em]">{t.role}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </motion.div>
-                
-                {/* Second set for seamless loop - duplicate the first set fully */}
-                <motion.div 
-                  animate={{ x: ["0%", "-100%"] }}
-                  transition={{ 
-                    duration: 50, 
-                    repeat: Infinity, 
-                    ease: "linear" 
-                  }}
-                  className="flex gap-8 px-4 flex-nowrap"
-                >
-                  {[...clinic.testimonials, ...clinic.testimonials].map((t, i) => (
-                    <div 
-                      key={i + 100}
-                      className="w-[450px] shrink-0 p-12 rounded-[4rem] bg-white/5 border border-white/10 relative overflow-hidden group/card hover:bg-white/[0.08] transition-all"
-                    >
-                      <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover/card:scale-110 transition-transform duration-700">
-                        <Trophy className="w-48 h-48 text-white" />
-                      </div>
-                      <div className="flex gap-2 mb-8">
-                        {[1,2,3,4,5].map(star => <Star key={star} className="w-4 h-4 text-bieneq-yellow fill-current" />)}
-                      </div>
-                      <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-light italic mb-10 tracking-tight line-clamp-4">"{t.content}"</p>
-                      <div className="flex items-center gap-4 mt-auto">
-                        <img src={t.image} className="w-16 h-16 rounded-2xl object-cover border-2 border-bieneq-green/30" alt={t.name} />
-                        <div>
-                          <p className="font-bold text-white whitespace-nowrap">{t.name}</p>
-                          <p className="text-[10px] text-white/40 uppercase tracking-[0.2em]">{t.role}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </motion.div>
+      <section
+        id="registro"
+        className={`${styles.wrap} ${styles.section} ${styles.booking}`}
+      >
+        <div className={styles.bookingIntro}>
+          <p className={styles.eyebrow}>04 / TU SIGUIENTE PASO</p>
+          <h2>
+            Nos vemos
+            <br />
+            <span>en la clínica.</span>
+          </h2>
+          <p>
+            Elige tu experiencia y envíanos tu solicitud. Te acompañamos por
+            WhatsApp para confirmar disponibilidad y los detalles de tu
+            inscripción.
+          </p>
+          <ol className={styles.steps}>
+            <li>
+              <span>1</span>
+              <div>
+                <h3>Elige tu modalidad</h3>
+                <p>Online, Oyente o Practicante.</p>
               </div>
-           </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="mb-40 max-w-4xl mx-auto space-y-16">
-           <ScrollReveal>
-             <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-6xl font-heading font-bold text-white tracking-tighter">Despeja tus <span className="text-bieneq-green italic">Dudas.</span></h2>
-                <p className="text-white/40 text-sm">Todo lo que necesitas saber antes de tu inmersión total.</p>
-             </div>
-           </ScrollReveal>
-
-           <div className="space-y-4">
-             {clinic.faqs.map((faq, i) => (
-               <ScrollReveal key={i} delay={i * 0.1}>
-                 <FAQItem question={faq.question} answer={faq.answer} />
-               </ScrollReveal>
-             ))}
-           </div>
-        </section>
-
-        {/* Global Bento Features */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-40">
-           {[
-             { title: "Metodología", desc: "Sistema Barefoot de 7 puntos.", icon: Star, color: "text-bieneq-yellow" },
-             { title: "Alimentación", desc: "Catering premium incluido.", icon: Utensils, color: "text-bieneq-green" },
-             { title: "Comunidad VIP", desc: "Grupo exclusivo de seguimiento.", icon: Sparkles, color: "text-blue-400" },
-             { title: "Especialización", desc: "16 horas de técnica pura.", icon: Clock, color: "text-red-400" }
-           ].map((item, i) => (
-             <motion.div 
-                key={i} 
-                whileHover={{ y: -10 }}
-                className="p-10 rounded-[3rem] bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-all relative overflow-hidden group"
-             >
-                <div className={cn("inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white/5 mb-8 transition-transform group-hover:scale-110 group-hover:rotate-6", item.color)}>
-                  <item.icon className="w-6 h-6" />
-                </div>
-                <h5 className="text-xl font-bold text-white mb-3">{item.title}</h5>
-                <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
-             </motion.div>
-           ))}
-        </div>
-
-        {/* Inclusions & Requirements Section */}
-        <ScrollReveal direction="up">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 p-16 bg-white/5 rounded-[5rem] border border-white/10 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-bieneq-green/5 blur-[100px] pointer-events-none" />
-            
-            <div className="space-y-12">
-              <h4 className="text-3xl font-heading font-bold text-white flex items-center gap-4">
-                <CheckCircle2 className="w-8 h-8 text-bieneq-green" /> Garantía de Inmersión
-              </h4>
-              <div className="grid gap-8">
-                {clinic.inclusions.map((inc, i) => (
-                  <div key={i} className="flex items-start gap-4 group">
-                    <div className="w-2 h-2 rounded-full bg-bieneq-green mt-2 group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(34,197,94,1)]" />
-                    <p className="text-lg text-white/50 group-hover:text-white transition-colors">{inc}</p>
-                  </div>
-                ))}
+            </li>
+            <li>
+              <span>2</span>
+              <div>
+                <h3>Cuéntanos sobre ti</h3>
+                <p>Completa tus datos y las dudas que quieras resolver.</p>
               </div>
-            </div>
-
-            <div className="space-y-12">
-              <h4 className="text-3xl font-heading font-bold text-white flex items-center gap-4">
-                <Info className="w-8 h-8 text-bieneq-yellow" /> ¿Qué necesitas?
-              </h4>
-              <div className="grid gap-8">
-                {clinic.requirements.map((req, i) => (
-                  <div key={i} className="flex items-center gap-5 p-6 rounded-3xl bg-black/40 border border-white/5 hover:border-white/10 transition-colors">
-                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xs font-bold text-white/20">0{i+1}</div>
-                    <p className="text-white/60 font-medium tracking-tight">{req}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-
-      </div>
-
-      {/* Premium Image Lightbox Modal */}
-      <AnimatePresence>
-        {isLightboxOpen && selectedImageIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] bg-black/95 md:backdrop-blur-xl"
-            style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
-          >
-            {/* Close Overlay */}
-            <div 
-              className="absolute inset-0" 
-              onClick={() => setIsLightboxOpen(false)} 
-            />
-
-            {/* Top Navigation / Info */}
-            <div className="absolute top-0 inset-x-0 h-24 md:h-32 flex items-center justify-between px-5 md:px-12 z-30">
-              <div className="flex flex-col">
-                <p className="text-bieneq-green text-[10px] font-bold uppercase tracking-[0.3em] mb-1">Galería de Inmersión</p>
-                <p className="text-white/60 text-xs md:text-sm font-light tracking-tight">
-                  {activeGalleryTab === 'theory' ? 'Teoría & Anatomía' : activeGalleryTab === 'practice' ? 'Práctica & Técnica' : 'Instalaciones Premium'}
+            </li>
+            <li>
+              <span>3</span>
+              <div>
+                <h3>Confirma con nuestro equipo</h3>
+                <p>
+                  La solicitud se envía por WhatsApp. Tu lugar se confirma
+                  directamente con Bieneq.
                 </p>
               </div>
-              
-              <div className="flex items-center gap-4 md:gap-8">
-                 <div className="flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-white/5 border border-white/10 rounded-full">
-                    <span className="text-white font-bold text-xs">{selectedImageIndex + 1}</span>
-                    <span className="text-white/20 text-xs">/</span>
-                    <span className="text-white/40 text-xs font-light">{currentGallery.length}</span>
-                 </div>
-                 <button 
-                  type="button"
-                  className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white/70 active:scale-90 transition-all shadow-2xl"
-                  onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
-                >
-                  <X className="w-5 h-5 md:w-6 md:h-6" />
-                </button>
-              </div>
-            </div>
-
-            {/* Left nav button */}
-            <div className="absolute inset-y-0 left-0 w-16 md:w-32 flex items-center justify-center z-30">
-               <button 
-                type="button"
-                onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white/60 active:scale-90 transition-all"
-               >
-                <ChevronRight className="w-5 h-5 md:w-8 md:h-8 rotate-180" />
-               </button>
-            </div>
-
-            {/* Right nav button */}
-            <div className="absolute inset-y-0 right-0 w-16 md:w-32 flex items-center justify-center z-30">
-               <button 
-                type="button"
-                onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white/60 active:scale-90 transition-all"
-               >
-                <ChevronRight className="w-5 h-5 md:w-8 md:h-8" />
-               </button>
-            </div>
-
-            {/* Image area — absolute fill with padding so it never overlaps topbar/nav buttons */}
-            <div className="absolute inset-0 flex items-center justify-center pt-24 pb-16 px-16 md:pt-32 md:pb-24 md:px-36 z-20 pointer-events-none">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedImageIndex}
-                  initial={{ scale: 0.92, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.92, opacity: 0 }}
-                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                  className="flex flex-col items-center gap-4 pointer-events-auto max-w-full max-h-full"
-                >
-                  <img
-                    src={currentGallery[selectedImageIndex]}
-                    className="max-w-full max-h-[62vh] md:max-h-[72vh] w-auto object-contain rounded-2xl md:rounded-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] border border-white/10"
-                    alt="Clinic View Expanded"
+            </li>
+          </ol>
+          <div className={styles.requirements}>
+            <h3>Si vienes a la sede</h3>
+            <ul>
+              {clinic.requirements.map((item) => (
+                <li key={item}>
+                  <Check size={16} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <form id="inscripcion" className={styles.form} onSubmit={submit}>
+          <div className={styles.formHead}>
+            <span>SOLICITUD DE INSCRIPCIÓN</span>
+            <p>{clinic.fullDate}</p>
+          </div>
+          <fieldset>
+            <legend>Tu modalidad</legend>
+            <div className={styles.modeChoices}>
+              {clinic.tiers.map((item, index) => (
+                <label key={item.name}>
+                  <input
+                    type="radio"
+                    name="modalidad"
+                    value={item.name}
+                    checked={index === tierIndex}
+                    onChange={() => selectTier(index)}
                   />
-                  {/* Dot indicators */}
-                  <div className="flex justify-center gap-1 flex-wrap">
-                    {currentGallery.map((_, idx) => (
-                      <div 
-                       key={idx} 
-                       className={cn(
-                         "h-1 rounded-full transition-all duration-500",
-                         selectedImageIndex === idx ? "w-6 md:w-8 bg-bieneq-green" : "w-1.5 md:w-2 bg-white/20"
-                       )} 
-                      />
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+                  <span>
+                    {item.name}
+                    <strong>{money(item.price)}</strong>
+                  </span>
+                </label>
+              ))}
             </div>
+          </fieldset>
+          {tier.name !== "Online" && (
+            <fieldset>
+              <legend>
+                Complementa tu estancia <small>Opcional</small>
+              </legend>
+              {clinic.addons.map((item) => (
+                <label className={styles.extra} key={item.id}>
+                  <input
+                    type="checkbox"
+                    checked={extras.includes(item.id)}
+                    onChange={() =>
+                      setExtras((current) =>
+                        current.includes(item.id)
+                          ? current.filter((id) => id !== item.id)
+                          : [...current, item.id],
+                      )
+                    }
+                  />
+                  <span>
+                    {item.name}
+                    <small>{item.description}</small>
+                  </span>
+                  <strong>+{money(item.price)}</strong>
+                </label>
+              ))}
+            </fieldset>
+          )}
+          <div className={styles.formFields}>
+            <label>
+              Nombre completo *
+              <input
+                name="name"
+                autoComplete="name"
+                required
+                pattern=".*\S.*"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                placeholder="Tu nombre"
+              />
+            </label>
+            <label>
+              WhatsApp *
+              <input
+                name="whatsapp"
+                type="tel"
+                autoComplete="tel"
+                required
+                pattern="[+0-9\(\) .\-]{10,20}"
+                title="Escribe un teléfono de 10 a 20 caracteres, incluyendo código de país si corresponde."
+                value={form.whatsapp}
+                onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
+                placeholder="Ej. 81 1234 5678"
+              />
+            </label>
+            <label>
+              Ciudad / Estado
+              <input
+                autoComplete="address-level2"
+                value={form.city}
+                onChange={(e) => setForm({ ...form, city: e.target.value })}
+                placeholder="¿De dónde nos visitas?"
+              />
+            </label>
+            <label>
+              Tu experiencia
+              <select
+                value={form.experience}
+                onChange={(e) =>
+                  setForm({ ...form, experience: e.target.value })
+                }
+              >
+                <option value="principiante">Principiante</option>
+                <option value="intermedio">Intermedio</option>
+                <option value="profesional">Profesional</option>
+              </select>
+            </label>
+            <label className={styles.fullField}>
+              ¿Alguna duda o comentario?
+              <textarea
+                rows={2}
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                placeholder="Cuéntanos cómo podemos ayudarte"
+              />
+            </label>
+          </div>
+          <div className={styles.total} aria-live="polite">
+            <div>
+              <span>Total de tu selección</span>
+              <small>
+                {tier.name}
+                {chosenExtras.length > 0
+                  ? ` + ${chosenExtras.length} extra(s)`
+                  : " · Sin extras"}
+              </small>
+            </div>
+            <strong>
+              {money(total)}
+              <small>MXN</small>
+            </strong>
+          </div>
+          <button className={styles.primary} type="submit">
+            <MessageCircle size={19} /> Solicitar por WhatsApp{" "}
+            <ArrowRight size={17} />
+          </button>
+          <p className={styles.formNote}>
+            Se abrirá WhatsApp con tu selección y tus datos. Enviar la solicitud
+            no realiza un cobro ni confirma automáticamente tu lugar.
+          </p>
+        </form>
+      </section>
 
-            {/* Mobile hint */}
-            <div className="absolute bottom-4 md:hidden text-white/30 text-[9px] font-bold uppercase tracking-[0.2em] z-30 w-full text-center">
-              Toca fuera para cerrar
+      <section
+        id="preguntas"
+        className={`${styles.wrap} ${styles.section} ${styles.faq}`}
+      >
+        <div>
+          <p className={styles.eyebrow}>ANTES DE INSCRIBIRTE</p>
+          <h2>
+            Todo claro.
+            <br />
+            <span>Todo listo.</span>
+          </h2>
+        </div>
+        <div>
+          {[
+            ...clinic.faqs,
+            {
+              question: "¿Qué pasa después de enviar mi solicitud?",
+              answer:
+                "Se abrirá WhatsApp con tus datos, modalidad y extras. Envía el mensaje para que el equipo de Bieneq confirme disponibilidad y te indique los siguientes pasos para tu inscripción.",
+            },
+          ].map((item) => (
+            <details key={item.question}>
+              <summary>
+                {item.question}
+                <Plus size={19} />
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+      <section className={`${styles.wrap} ${styles.closing}`}>
+        <p className={styles.eyebrow}>{clinic.fullDate} · MONTERREY</p>
+        <h2>
+          Aprende a cuidar
+          <br />
+          <em>desde la base.</em>
+        </h2>
+        <a className={styles.primary} href="#inscripcion">
+          Quiero inscribirme <ArrowRight size={18} />
+        </a>
+      </section>
+      {remaining !== null &&
+        createPortal(
+          <div className={styles.mobileBar}>
+            <div>
+              <small>{tier.name} · Octubre 17–18</small>
+              <strong>
+                {money(total)} <span>MXN</span>
+              </strong>
             </div>
-          </motion.div>
+            <a href="#inscripcion">
+              Inscribirme <ArrowRight size={17} />
+            </a>
+          </div>,
+          document.body,
         )}
-      </AnimatePresence>
+      <dialog
+        ref={dialog}
+        className={styles.dialog}
+        aria-label="Galería de fotografías"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) dialog.current?.close();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowRight") setPhoto((photo + 1) % photos.length);
+          if (e.key === "ArrowLeft")
+            setPhoto((photo - 1 + photos.length) % photos.length);
+        }}
+      >
+        <div className={styles.dialogInner}>
+          <header>
+            <span>
+              {galleryLabels[gallery]} · {photo + 1} / {photos.length}
+            </span>
+            <button
+              aria-label="Cerrar galería"
+              onClick={() => dialog.current?.close()}
+            >
+              <X />
+            </button>
+          </header>
+          <img
+            src={photos[photo]}
+            alt={`${galleryLabels[gallery]}, fotografía ${photo + 1}`}
+          />
+          <footer>
+            <button
+              aria-label="Fotografía anterior"
+              onClick={() =>
+                setPhoto((photo - 1 + photos.length) % photos.length)
+              }
+            >
+              <ChevronLeft /> Anterior
+            </button>
+            <button
+              aria-label="Fotografía siguiente"
+              onClick={() => setPhoto((photo + 1) % photos.length)}
+            >
+              Siguiente <ChevronRight />
+            </button>
+          </footer>
+        </div>
+      </dialog>
     </main>
   );
 }

@@ -49,7 +49,7 @@ export function Navbar() {
         isModalActive ? "opacity-0 pointer-events-none translate-y-[-20px]" : "opacity-100"
       } ${
         scrolled 
-          ? "bg-white/[0.03] backdrop-blur-3xl backdrop-saturate-150 border-white/10 border-t-white/20 py-4 translate-y-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
+          ? `${pathname.startsWith("/clinicas/") ? "bg-[#10140f]/95" : "bg-white/[0.03]"} backdrop-blur-3xl backdrop-saturate-150 border-white/10 border-t-white/20 py-4 translate-y-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)]`
           : "bg-transparent translate-y-[-10px]"
       }`}
     >
