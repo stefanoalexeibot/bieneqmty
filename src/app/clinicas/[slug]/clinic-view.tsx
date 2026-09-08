@@ -108,7 +108,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
 
   useEffect(() => {
     setMounted(true);
-    const targetDate = new Date("2026-08-15T10:00:00-06:00");
+    const targetDate = new Date(clinic.startsAt);
     const updateCountdown = () => {
       const difference = +targetDate - +new Date();
       if (difference > 0) {
@@ -125,19 +125,9 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [clinic.startsAt]);
 
-  const getSpotsMessage = () => {
-    const tierName = clinic.tiers[selectedTier]?.name;
-    if (tierName === "Online") {
-      return "Acceso inmediato e ilimitado";
-    } else if (tierName === "Oyente") {
-      return "¡Solo quedan 2 lugares para Oyente!";
-    } else if (tierName === "Practicante") {
-      return "¡Solo quedan 3 lugares para Practicante!";
-    }
-    return `Solo quedan ${clinic.spots.left} lugares disponibles`;
-  };
+  const getSpotsMessage = () => "Consulta disponibilidad para esta modalidad";
 
   const WHATSAPP_NUMBER = "5218134179632";
 
@@ -210,7 +200,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
       `🎓 *Nivel de Exp:* ${formData.experience.toUpperCase()}\n` +
       `-------------------------------\n` +
       `📌 *Evento:* ${clinic.name}\n` +
-      `🗓️ *Fecha:* ${clinic.date}\n` +
+      `🗓️ *Fecha:* ${clinic.fullDate}\n` +
       `💎 *Plan:* ${tier.name} ($${tier.price.toLocaleString()})${addonsText}\n` +
       `-------------------------------\n` +
       `💰 *Total:* $${totalPrice.toLocaleString()} MXN\n` +
@@ -233,7 +223,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
               </span>
               <p className="text-white font-semibold text-xs md:text-sm tracking-wide text-center sm:text-left">
-                🚨 ¡ÚLTIMOS LUGARES DISPONIBLES! La clínica inicia en:
+                Inscripciones abiertas · La clínica inicia en:
               </p>
             </div>
             
@@ -583,7 +573,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                                   tier.name === "Oyente" ? "text-amber-500" : "text-red-500"
                                 )}>
                                   {tier.name === "Online" ? "Cupo Libre" :
-                                   tier.name === "Oyente" ? "2 lugares" : "3 lugares"}
+                                   "Consultar cupo"}
                                 </span>
                               </button>
                             ))}

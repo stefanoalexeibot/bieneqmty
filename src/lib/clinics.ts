@@ -25,6 +25,8 @@ export interface Clinic {
   name: string;
   date: string;
   fullDate: string;
+  startsAt: string;
+  completed?: boolean;
   location: string;
   shortDescription: string;
   longDescription: string;
@@ -66,13 +68,15 @@ export interface Clinic {
   }[];
 }
 
-export const clinics: Clinic[] = [
+const pastClinics: Clinic[] = [
   {
     id: "clinic-august-2026",
     slug: "clinica-barefoot-integral-agosto",
     name: "Clínica Barefoot Integral",
     date: "15 y 16 de Agosto",
     fullDate: "15 y 16 de Agosto, 2026",
+    startsAt: "2026-08-15T10:00:00-06:00",
+    completed: true,
     location: "Sede Monterrey, N.L.",
     shortDescription: "Inmersión total en anatomía aplicada, balance biomecánico y recorte funcional avanzado. 🚀",
     longDescription: "Nuestra clínica insignia diseñada para transformar tu visión del caballo. Durante dos días intensivos, combinamos la teoría científica con la práctica real en pista, enfocándonos en el bienestar integral a través del sistema Barefoot.",
@@ -262,6 +266,18 @@ export const clinics: Clinic[] = [
     ]
   }
 ];
+
+export const upcomingClinic: Clinic = {
+  ...pastClinics[0],
+  id: "clinic-october-2026",
+  slug: "clinica-barefoot-integral-octubre",
+  date: "17 y 18 de Octubre",
+  fullDate: "17 y 18 de Octubre, 2026",
+  startsAt: "2026-10-17T10:00:00-06:00",
+  completed: false,
+};
+
+export const clinics: Clinic[] = [upcomingClinic, ...pastClinics];
 
 export function getClinicBySlug(slug: string): Clinic | undefined {
   return clinics.find(c => c.slug === slug);

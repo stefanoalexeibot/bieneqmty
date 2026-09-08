@@ -37,7 +37,7 @@ const clinics = [
     id: 2,
     title: "Clínica Barefoot Integral",
     type: "Presencial — ¡Inscripciones Abiertas!",
-    date: "15 y 16 de Agosto",
+    date: "17 y 18 de Octubre, 2026",
     location: "Sede Monterrey, N.L. (Instalaciones Bieneq)",
     spots: 12,
     spotsLeft: 5,
@@ -146,7 +146,7 @@ export function ClinicsFocus() {
                     <span className="flex items-center gap-1.5">
                       <Users className="w-4 h-4" style={{ color: clinic.accent }} />
                       <span style={{ color: clinic.spotsLeft <= 3 ? "#ef4444" : "white" }}>
-                        {clinic.spotsLeft} lugares disponibles
+                        Consulta disponibilidad
                       </span>
                     </span>
                   )}
@@ -162,7 +162,7 @@ export function ClinicsFocus() {
 
                 {!clinic.comingSoon && !clinic.soldOut && (
                   <Link 
-                    href={clinic.id === 2 ? "/clinicas/clinica-barefoot-integral-agosto" : "/citas"} 
+                    href={clinic.id === 2 ? "/clinicas/clinica-barefoot-integral-octubre" : "/citas"}
                     className={`inline-flex items-center gap-2 font-semibold text-black px-6 py-3 rounded-full transition-all text-sm relative overflow-hidden group/btn ${
                       clinic.id === 2 ? "animate-pulse shadow-[0_0_20px_rgba(234,179,8,0.4)]" : ""
                     }`} 
