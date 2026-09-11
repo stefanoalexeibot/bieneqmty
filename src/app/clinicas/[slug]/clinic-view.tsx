@@ -16,6 +16,17 @@ import {
 } from "lucide-react";
 import type { Clinic } from "@/lib/clinics";
 import styles from "./clinic-view.module.css";
+import { useClinicPresentation } from "./use-clinic-presentation";
+
+function AnimatedValue({ children }: { children: string }) {
+  return (
+    <span className={styles.valueWindow}>
+      <span key={children} className={styles.valueFlip}>
+        {children}
+      </span>
+    </span>
+  );
+}
 
 const money = (value: number) =>
   new Intl.NumberFormat("es-MX", {
@@ -30,6 +41,7 @@ const galleryLabels = {
 };
 
 export default function ClinicView({ clinic }: { clinic: Clinic }) {
+  const { pageRef, activeSection } = useClinicPresentation();
   const [remaining, setRemaining] = useState<number | null>(null);
   const [tierIndex, setTierIndex] = useState(1);
   const [extras, setExtras] = useState<string[]>([]);
@@ -98,7 +110,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
   };
 
   return (
-    <main className={styles.page}>
+    <main ref={pageRef} className={styles.page}>
       <section className={`${styles.wrap} ${styles.hero}`}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>
@@ -106,11 +118,11 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
           </p>
           <p className={styles.eventName}>{clinic.name}</p>
           <h1>
-            El bienestar
-            <br />
-            empieza en
-            <br />
-            <em>el casco.</em>
+            <span className={styles.titleLine}>El bienestar</span>
+            <span className={styles.titleLine}>empieza en</span>
+            <span className={styles.titleLine}>
+              <em>el casco.</em>
+            </span>
           </h1>
           <p className={styles.lead}>
             Entiende su anatomía. Aprende a evaluar su balance. Acércate al
@@ -140,6 +152,10 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
           </p>
         </div>
         <div className={styles.heroVisual}>
+          <div className={styles.visualHalo} aria-hidden="true" />
+          <span className={styles.visualIndex} aria-hidden="true">
+            BIENEQ / FORMACIÓN EQUINA
+          </span>
           <img
             className={styles.heroImage}
             src={clinic.gallery.practice[0]}
@@ -154,6 +170,16 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               se lleva a la práctica.
             </p>
             <small>Imagen de una edición anterior</small>
+          </div>
+          <div className={styles.heroInset}>
+            <img
+              src={clinic.gallery.theory[0]}
+              alt="Sesión teórica de una edición anterior de la clínica"
+              loading="lazy"
+            />
+            <span>
+              TEORÍA + PRÁCTICA <ArrowRight size={12} />
+            </span>
           </div>
           <div className={styles.dateBadge}>
             <strong>17—18</strong>
@@ -182,13 +208,15 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               ].map((item) => (
                 <div key={item.label}>
                   <strong>
-                    {remaining === null
-                      ? "—"
-                      : String(
-                          item.mod
-                            ? Math.floor(remaining / item.divisor) % item.mod
-                            : Math.floor(remaining / item.divisor),
-                        ).padStart(2, "0")}
+                    <AnimatedValue>
+                      {remaining === null
+                        ? "—"
+                        : String(
+                            item.mod
+                              ? Math.floor(remaining / item.divisor) % item.mod
+                              : Math.floor(remaining / item.divisor),
+                          ).padStart(2, "0")}
+                    </AnimatedValue>
                   </strong>
                   <span>{item.label}</span>
                 </div>
@@ -206,17 +234,23 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             ["Modalidades", "modalidades"],
             ["Programa", "programa"],
             ["Instructor", "instructor"],
+            ["Inscripción", "inscripcion"],
             ["Preguntas", "preguntas"],
           ].map(([label, id]) => (
-            <a key={id} href={`#${id}`}>
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={activeSection === id ? "location" : undefined}
+            >
               {label}
             </a>
           ))}
         </div>
+        <span className={styles.readingProgress} aria-hidden="true" />
       </nav>
 
       <section id="experiencia" className={`${styles.wrap} ${styles.section}`}>
-        <div className={styles.sectionHead}>
+        <div data-reveal className={styles.sectionHead}>
           <div>
             <p className={styles.eyebrow}>01 / LA EXPERIENCIA</p>
             <h2>
@@ -250,7 +284,11 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               "Observa el trabajo real o participa en las prácticas con la modalidad Practicante.",
             ],
           ].map(([number, title, text]) => (
-            <article key={number}>
+            <article
+              key={number}
+              data-reveal
+              data-reveal-delay={Number(number) * 70}
+            >
               <span>{number}</span>
               <h3>{title}</h3>
               <p>{text}</p>
@@ -261,7 +299,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
 
       <section id="modalidades" className={styles.lightSection}>
         <div className={`${styles.wrap} ${styles.section}`}>
-          <div className={styles.sectionHead}>
+          <div data-reveal className={styles.sectionHead}>
             <div>
               <p className={styles.eyebrow}>02 / TU FORMA DE APRENDER</p>
               <h2>
@@ -279,6 +317,9 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             {clinic.tiers.map((item, index) => (
               <article
                 key={item.name}
+                data-reveal
+                data-reveal-delay={index * 80}
+                data-selected={tierIndex === index}
                 className={`${styles.tierCard} ${index === 2 ? styles.featuredTier : ""}`}
               >
                 <p className={styles.tierTag}>
@@ -312,7 +353,8 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
                   }
                   onClick={() => selectTier(index)}
                 >
-                  Elegir {item.name} <ArrowRight size={17} />
+                  {tierIndex === index ? "Continuar con " : "Elegir "}
+                  {item.name} <ArrowRight size={17} />
                 </a>
               </article>
             ))}
@@ -325,7 +367,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
       </section>
 
       <section id="programa" className={`${styles.wrap} ${styles.section}`}>
-        <div className={styles.sectionHead}>
+        <div data-reveal className={styles.sectionHead}>
           <div>
             <p className={styles.eyebrow}>03 / EL PROGRAMA</p>
             <h2>
@@ -341,7 +383,12 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
         </div>
         <div className={styles.scheduleGrid}>
           {clinic.schedule.map((day, index) => (
-            <article key={day.day} className={styles.scheduleDay}>
+            <article
+              data-reveal
+              data-reveal-delay={index * 100}
+              key={day.day}
+              className={styles.scheduleDay}
+            >
               <header>
                 <span>0{index + 1}</span>
                 <div>
@@ -374,6 +421,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
       </section>
 
       <section
+        data-reveal
         id="instructor"
         className={`${styles.wrap} ${styles.instructor}`}
       >
@@ -404,7 +452,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
       </section>
 
       <section className={`${styles.wrap} ${styles.section}`}>
-        <div className={styles.sectionHead}>
+        <div data-reveal className={styles.sectionHead}>
           <div>
             <p className={styles.eyebrow}>ASÍ SE VIVE BIENEQ</p>
             <h2>
@@ -437,7 +485,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             </button>
           ))}
         </div>
-        <div className={styles.galleryGrid}>
+        <div className={styles.galleryGrid} data-reveal>
           {photos.slice(0, 4).map((src, index) => (
             <button
               key={src}
@@ -480,7 +528,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
           </h2>
           <div className={styles.testimonials}>
             {clinic.testimonials.map((item) => (
-              <figure key={item.name}>
+              <figure data-reveal key={item.name}>
                 <blockquote>
                   “{item.content.replace(/[⭐✨🏆]/gu, "").trim()}”
                 </blockquote>
@@ -673,7 +721,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               </small>
             </div>
             <strong>
-              {money(total)}
+              <AnimatedValue>{money(total)}</AnimatedValue>
               <small>MXN</small>
             </strong>
           </div>
@@ -771,6 +819,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             </button>
           </header>
           <img
+            key={photos[photo]}
             src={photos[photo]}
             alt={`${galleryLabels[gallery]}, fotografía ${photo + 1}`}
           />
