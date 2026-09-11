@@ -43,7 +43,12 @@ const galleryLabels = {
 export default function ClinicView({ clinic }: { clinic: Clinic }) {
   const { pageRef, activeSection } = useClinicPresentation();
   const [remaining, setRemaining] = useState<number | null>(null);
-  const [tierIndex, setTierIndex] = useState(1);
+  const [tierIndex, setTierIndex] = useState(() =>
+    Math.max(
+      0,
+      clinic.tiers.findIndex((item) => item.name === "Oyente"),
+    ),
+  );
   const [extras, setExtras] = useState<string[]>([]);
   const [gallery, setGallery] = useState<keyof Clinic["gallery"]>("practice");
   const [photo, setPhoto] = useState(0);
@@ -56,7 +61,10 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
     message: "",
   });
   const tier = clinic.tiers[tierIndex];
-  const chosenExtras = clinic.addons.filter((item) => extras.includes(item.id));
+  const isOnline = tier.mode === "online" || tier.name === "Online";
+  const chosenExtras = isOnline
+    ? []
+    : clinic.addons.filter((item) => extras.includes(item.id));
   const total =
     tier.price + chosenExtras.reduce((sum, item) => sum + item.price, 0);
   const photos = clinic.gallery[gallery];
@@ -84,7 +92,11 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
 
   const selectTier = (index: number) => {
     setTierIndex(index);
-    if (clinic.tiers[index].name === "Online") setExtras([]);
+    if (
+      clinic.tiers[index].mode === "online" ||
+      clinic.tiers[index].name === "Online"
+    )
+      setExtras([]);
   };
 
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -303,7 +315,7 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
             <div>
               <p className={styles.eyebrow}>02 / TU FORMA DE APRENDER</p>
               <h2>
-                Tres modalidades.
+                En vivo, donde estés.
                 <br />
                 <span>Un mismo propósito.</span>
               </h2>
@@ -313,55 +325,95 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               mexicanos; los servicios de traslado y hospedaje son opcionales.
             </p>
           </div>
-          <div className={styles.tierGrid}>
-            {clinic.tiers.map((item, index) => (
-              <article
-                key={item.name}
-                data-reveal
-                data-reveal-delay={index * 80}
-                data-selected={tierIndex === index}
-                className={`${styles.tierCard} ${index === 2 ? styles.featuredTier : ""}`}
-              >
-                <p className={styles.tierTag}>
-                  {
-                    [
-                      "DESDE DONDE ESTÉS",
-                      "APRENDE OBSERVANDO",
-                      "APRENDE HACIENDO",
-                    ][index]
-                  }
-                </p>
-                <h3>{item.name}</h3>
-                <p className={styles.tierDescription}>
-                  {item.description.replace(/[💻👁️🛠️]/gu, "")}
-                </p>
-                <p className={styles.price}>
-                  {money(item.price)} <small>MXN</small>
-                </p>
-                <ul>
-                  {item.includes.map((include) => (
-                    <li key={include}>
-                      <Check size={16} />
-                      {include}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#inscripcion"
-                  className={
-                    index === 2 ? styles.primary : styles.outlineButton
-                  }
-                  onClick={() => selectTier(index)}
-                >
-                  {tierIndex === index ? "Continuar con " : "Elegir "}
-                  {item.name} <ArrowRight size={17} />
-                </a>
-              </article>
-            ))}
+          <div className={styles.liveSession}>
+            <p className={styles.eyebrow}>ONLINE EN VIVO POR ZOOM</p>
+            <h3>La misma clase. Una forma distinta de estar.</h3>
+            <p>
+              Conéctate a los bloques de teoría mientras se imparte la clínica
+              presencial. Cámara, micrófono y una persona dedicada a monitorear
+              la transmisión y organizar las preguntas.
+            </p>
+            <p>
+              Esencial participa como espectador el primer día. Participativo y
+              VIP pueden preguntar en los bloques designados de ambos días.
+              Todos reciben apoyo técnico de acceso.
+            </p>
           </div>
+          {(["online", "presencial"] as const).map((mode) => (
+            <div key={mode} className={styles.planGroup}>
+              <h3>
+                {mode === "online"
+                  ? "Elige tu experiencia online"
+                  : "¿Prefieres venir a Monterrey?"}
+              </h3>
+              <div className={styles.tierGrid} data-mode={mode}>
+                {clinic.tiers
+                  .map((item, index) => ({ item, index }))
+                  .filter(
+                    ({ item }) =>
+                      (item.mode ??
+                        (item.name === "Online" ? "online" : "presencial")) ===
+                      mode,
+                  )
+                  .map(({ item, index }) => (
+                    <article
+                      key={item.name}
+                      data-reveal
+                      data-reveal-delay={index * 80}
+                      data-selected={tierIndex === index}
+                      className={`${styles.tierCard} ${item.highlighted ? styles.featuredTier : ""}`}
+                    >
+                      <p className={styles.tierTag}>
+                        {item.tagline ?? "APRENDE CON BIENEQ"}
+                      </p>
+                      <h3>{item.name}</h3>
+                      <p className={styles.tierDescription}>
+                        {item.description.replace(/[💻👁️🛠️]/gu, "")}
+                      </p>
+                      <p className={styles.price}>
+                        {money(item.price)} <small>MXN</small>
+                      </p>
+                      <ul>
+                        {item.includes.map((include) => (
+                          <li key={include}>
+                            <Check size={16} />
+                            {include}
+                          </li>
+                        ))}
+                      </ul>
+                      {item.limitations && (
+                        <p className={styles.planLimits}>{item.limitations}</p>
+                      )}
+                      <a
+                        href="#inscripcion"
+                        className={
+                          item.highlighted
+                            ? styles.primary
+                            : styles.outlineButton
+                        }
+                        onClick={() => selectTier(index)}
+                      >
+                        {tierIndex === index ? "Continuar con " : "Elegir "}
+                        {item.name} <ArrowRight size={17} />
+                      </a>
+                    </article>
+                  ))}
+              </div>
+              {mode === "online" && (
+                <p className={styles.note}>
+                  Por $1,010 más que Participativo, VIP suma 30 días de
+                  grabaciones, constancia y seguimiento grupal con revisión
+                  educativa de un caso. La sesión posterior se coordina con los
+                  participantes VIP.
+                </p>
+              )}
+            </div>
+          ))}
           <p className={styles.note}>
-            La práctica con caballos corresponde a Practicante. Online incluye
-            la transmisión de teoría y acceso a grabaciones durante 30 días.
+            La práctica con caballos corresponde a Practicante presencial. Los
+            planes online cubren los bloques de teoría de los días incluidos.
+            Recibirás el enlace de Zoom y las instrucciones después de confirmar
+            tu inscripción.
           </p>
         </div>
       </section>
@@ -566,7 +618,10 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               <span>1</span>
               <div>
                 <h3>Elige tu modalidad</h3>
-                <p>Online, Oyente o Practicante.</p>
+                <p>
+                  Online Esencial, Participativo o VIP; o asiste como Oyente o
+                  Practicante.
+                </p>
               </div>
             </li>
             <li>
@@ -624,7 +679,13 @@ export default function ClinicView({ clinic }: { clinic: Clinic }) {
               ))}
             </div>
           </fieldset>
-          {tier.name !== "Online" && (
+          {isOnline && (
+            <p className={styles.selectedAccess}>
+              En vivo por Zoom · {tier.name}. {tier.limitations} El enlace se
+              comparte al confirmar la inscripción.
+            </p>
+          )}
+          {!isOnline && (
             <fieldset>
               <legend>
                 Complementa tu estancia <small>Opcional</small>
