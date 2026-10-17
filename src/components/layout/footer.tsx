@@ -33,7 +33,7 @@ export function Footer() {
               Empecemos a <ShimmerWord className="text-3xl">trabajar.</ShimmerWord>
             </h4>
             <p className="text-white/60 mb-8 font-light text-lg">
-              Agenda tu consultoría clínica presencial, o mejora drásticamente tus técnicas accediendo a nuestra academia hoy mismo.
+              Conoce el temario de nuestros cursos sobre anatomía del casco y Barefoot Integral. Para una consultoría clínica presencial, agenda una cita.
             </p>
             <Magnetic strength={0.3}>
               <Link href="/citas" className="group inline-flex items-center gap-3 px-8 py-4 bg-bieneq-green text-black font-black rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(34,197,94,0.15)] relative">
@@ -134,3 +134,4 @@ export function Footer() {
     </footer>
   );
 }
+
