@@ -9,10 +9,18 @@ import { CustomCursor } from "@/components/ui/custom-cursor";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { Noise } from "@/components/ui/noise";
 
-const focusedAcademyPrefixes = ["/academia"];
+const focusedAcademyPrefixes = [
+  "/academia/registro",
+  "/academia/ingresar",
+  "/academia/checkout",
+  "/academia/mi-aprendizaje",
+  "/academia/aula",
+  "/academia/proyector",
+];
 
 export function SiteFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isAcademy = pathname.startsWith("/academia");
   const focusedAcademy = focusedAcademyPrefixes.some((prefix) => pathname.startsWith(prefix));
 
   return (
@@ -21,8 +29,12 @@ export function SiteFrame({ children }: { children: React.ReactNode }) {
         <>
           <DynamicBackground />
           <Noise />
-          <CustomCursor />
-          <Navbar />
+          {!isAcademy ? (
+            <>
+              <CustomCursor />
+              <Navbar />
+            </>
+          ) : null}
           <CartDrawer />
         </>
       ) : null}
