@@ -9,14 +9,7 @@ import { CustomCursor } from "@/components/ui/custom-cursor";
 import { DynamicBackground } from "@/components/ui/dynamic-background";
 import { Noise } from "@/components/ui/noise";
 
-const focusedAcademyPrefixes = [
-  "/academia/registro",
-  "/academia/ingresar",
-  "/academia/checkout",
-  "/academia/mi-aprendizaje",
-  "/academia/aula",
-  "/academia/proyector",
-];
+const focusedAcademyPrefixes = ["/academia"];
 
 export function SiteFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
