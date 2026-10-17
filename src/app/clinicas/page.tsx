@@ -19,15 +19,6 @@ import { Sparkles } from "lucide-react";
 
 export default function ClinicasPage() {
   const [isPlaying, setIsPlaying] = useState(false);
-
-  // Dynamically pick the next upcoming clinic
-  const now = new Date();
-  const nextClinic =
-    clinics
-      .filter((c) => new Date(c.eventDate) >= now)
-      .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())[0]
-    ?? clinics[clinics.length - 1]; // fallback to last if all are past
-
   const videoId = "gcUj60vlPrE";
 
   const { x, y } = useMousePosition();
@@ -81,13 +72,13 @@ export default function ClinicasPage() {
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-bieneq-green to-bieneq-yellow rounded-[4rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
               <Link 
-                href={`/clinicas/${nextClinic.slug}`}
+                href={`/clinicas/${clinics[0].slug}`}
                 className="relative block p-12 md:p-16 rounded-[4rem] bg-black/40 border border-white/10 backdrop-blur-3xl overflow-hidden"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="relative aspect-[4/3] rounded-[3rem] overflow-hidden">
                     <img 
-                      src={nextClinic.featuredImage} 
+                      src={clinics[0].featuredImage} 
                       className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                       alt="Next Clinic"
                     />
@@ -97,24 +88,24 @@ export default function ClinicasPage() {
                   <div className="space-y-8">
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="px-4 py-1.5 bg-bieneq-green text-black text-[10px] font-bold uppercase tracking-widest rounded-full">Próximo Evento</span>
-                      <span className="px-4 py-1.5 bg-bieneq-yellow/20 border border-bieneq-yellow/30 text-bieneq-yellow text-[10px] font-black uppercase tracking-widest rounded-full animate-pulse">¡Últimos {nextClinic.spots.left} lugares!</span>
+                      <span className="px-4 py-1.5 bg-bieneq-yellow/20 border border-bieneq-yellow/30 text-bieneq-yellow text-[10px] font-black uppercase tracking-widest rounded-full animate-pulse">Inscripciones abiertas</span>
                       <span className="text-white/40 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                        <Sparkles className="w-3 h-3 text-bieneq-yellow" /> {nextClinic.date}
+                        <Sparkles className="w-3 h-3 text-bieneq-yellow" /> {clinics[0].fullDate}
                       </span>
                     </div>
                     
                     <h3 className="text-4xl md:text-6xl font-heading font-bold text-white leading-none">
-                      {nextClinic.name}
+                      {clinics[0].name}
                     </h3>
                     
                     <p className="text-white/60 text-lg md:text-xl font-light leading-relaxed">
-                      {nextClinic.shortDescription}
+                      {clinics[0].shortDescription}
                     </p>
                     
                     <div className="flex flex-wrap gap-6 pt-4">
                       <div className="flex items-center gap-3 text-white/40">
                         <MapPin className="w-5 h-5 text-bieneq-green" />
-                        <span className="text-sm font-bold uppercase tracking-widest">{nextClinic.location}</span>
+                        <span className="text-sm font-bold uppercase tracking-widest">{clinics[0].location}</span>
                       </div>
                       <div className="flex items-center gap-3 text-white/40">
                         <Users className="w-5 h-5 text-bieneq-green" />

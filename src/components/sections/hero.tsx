@@ -143,7 +143,7 @@ export function HeroSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
         {/* Pill badge - Promotional for Next Clinic */}
-        <Link href="/clinicas/clinica-barefoot-integral-agosto" className="pointer-events-auto mt-20 sm:mt-0 mb-6 sm:mb-10 block">
+        <Link href="/clinicas/clinica-barefoot-integral-octubre" className="pointer-events-auto mt-20 sm:mt-0 mb-6 sm:mb-10 block">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -152,7 +152,7 @@ export function HeroSection() {
           >
             <span className="w-2 h-2 rounded-full bg-bieneq-yellow animate-pulse shrink-0" />
             <span className="text-[10px] font-black text-bieneq-yellow tracking-[0.15em] uppercase font-mono flex items-center gap-1.5">
-              🔥 PRÓXIMA CLÍNICA: 15 y 16 DE AGOSTO en MONTERREY <span className="text-white/60 hidden sm:inline">| ÚLTIMOS 5 LUGARES →</span>
+              🔥 PRÓXIMA CLÍNICA: 17 y 18 DE OCTUBRE 2026 en MONTERREY <span className="text-white/60 hidden sm:inline">| INSCRIPCIONES ABIERTAS →</span>
             </span>
           </motion.div>
         </Link>
